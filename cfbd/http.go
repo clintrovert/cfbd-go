@@ -15,20 +15,26 @@ import (
    "google.golang.org/protobuf/proto"
 )
 
-func (c *Client) newRequest(
+type restClient struct {
+   client    *http.Client
+   baseURL   *url.URL
+   userAgent string
+   apiKey    string
+}
+
+func (c *restClient) execute(
    ctx context.Context,
-   method string,
    path string,
-   q url.Values,
-) (*http.Request, error) {
+   params url.Values,
+) ([]byte, error) {
    if !strings.HasPrefix(path, "/") {
       path = "/" + path
    }
    // ResolveReference preserves scheme/host.
    u := c.baseURL.ResolveReference(&url.URL{Path: path})
-   u.RawQuery = q.Encode()
+   u.RawQuery = params.Encode()
 
-   req, err := http.NewRequestWithContext(ctx, method, u.String(), nil)
+   req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
    if err != nil {
       return nil, err
    }
@@ -38,13 +44,10 @@ func (c *Client) newRequest(
       req.Header.Set("User-Agent", c.userAgent)
    }
 
-   if c.apiKey != "" {
-      req.Header.Set("Authorization", "Bearer "+c.apiKey)
-   }
-   return req, nil
-}
+   // Set Authorization header with Bearer token.
+   // The API key is validated in NewClient, so it should always be present.
+   req.Header.Set("Authorization", "Bearer "+c.apiKey)
 
-func (c *Client) do(req *http.Request) ([]byte, error) {
    resp, err := c.client.Do(req)
    if err != nil {
       return nil, err
@@ -63,32 +66,19 @@ func (c *Client) do(req *http.Request) ([]byte, error) {
    return body, nil
 }
 
-func (c *Client) doGetRequest(
-   ctx context.Context,
-   path string,
-   params url.Values,
-) ([]byte, error) {
-   req, err := c.newRequest(ctx, http.MethodGet, path, params)
-   if err != nil {
-      return nil, err
-   }
-
-   return c.do(req)
-}
-
 func isJSONNull(b []byte) bool {
    return bytes.Equal(bytes.TrimSpace(b), []byte("null"))
 }
 
-func (c *Client) unmarshalInto(b []byte, out proto.Message) error {
+func (c *Client) unmarshal(b []byte, out proto.Message) error {
    if out == nil {
       return fmt.Errorf("out cannot be nil")
    }
    if len(bytes.TrimSpace(b)) == 0 || isJSONNull(b) {
       return nil
    }
-   
-   if err := c.unmarshal.Unmarshal(b, out); err != nil {
+
+   if err := c.unmarshaller.Unmarshal(b, out); err != nil {
       return fmt.Errorf("")
    }
 
@@ -122,7 +112,7 @@ func (c *Client) unmarshalList(
       }
 
       msg := proto.Clone(prototype)
-      if err := c.unmarshal.Unmarshal(raw, msg); err != nil {
+      if err := c.unmarshaller.Unmarshal(raw, msg); err != nil {
          return err
       }
 
