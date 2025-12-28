@@ -66,7 +66,8 @@ func NewClient(apiKey string) (*Client, error) {
    }, nil
 }
 
-// GetGames todo:describe.
+// GetGames retrieves a list of games based on the provided request
+// parameters.
 func (c *Client) GetGames(
    ctx context.Context,
    request GetGamesRequest,
@@ -84,7 +85,8 @@ func (c *Client) GetGames(
    return games, nil
 }
 
-// GetGameTeamStats calls GET /games/teams (team box score stats).
+// GetGameTeamStats retrieves team box score statistics for games based on
+// the provided request parameters.
 func (c *Client) GetGameTeamStats(
    ctx context.Context,
    request GameTeamStatsRequest,
@@ -102,7 +104,8 @@ func (c *Client) GetGameTeamStats(
    return games, nil
 }
 
-// GetGamePlayerStats calls GET /games/players (player box score stats).
+// GetGamePlayerStats retrieves player box score statistics for games based
+// on the provided request parameters.
 func (c *Client) GetGamePlayerStats(
    ctx context.Context,
    request GamePlayerStatsRequest,
@@ -120,7 +123,8 @@ func (c *Client) GetGamePlayerStats(
    return games, nil
 }
 
-// GetGameMedia calls GET /games/media.
+// GetGameMedia retrieves media information for games based on the provided
+// request parameters.
 func (c *Client) GetGameMedia(
    ctx context.Context,
    request GameMediaRequest,
@@ -138,7 +142,8 @@ func (c *Client) GetGameMedia(
    return games, nil
 }
 
-// GetGameWeather calls GET /games/weather.
+// GetGameWeather retrieves weather information for games based on the
+// provided request parameters.
 func (c *Client) GetGameWeather(
    ctx context.Context,
    request GameWeatherRequest,
@@ -156,7 +161,8 @@ func (c *Client) GetGameWeather(
    return games, nil
 }
 
-// GetAdvancedBoxScore calls GET /game/box/advanced.
+// GetAdvancedBoxScore retrieves advanced box score statistics for the
+// specified game.
 func (c *Client) GetAdvancedBoxScore(
    ctx context.Context,
    gameID int32,
@@ -176,7 +182,7 @@ func (c *Client) GetAdvancedBoxScore(
    return &val, nil
 }
 
-// GetCalendar calls GET /calendar.
+// GetCalendar retrieves calendar weeks for the specified year.
 func (c *Client) GetCalendar(
    ctx context.Context,
    year int32,
@@ -196,7 +202,8 @@ func (c *Client) GetCalendar(
    return weeks, nil
 }
 
-// GetTeamRecords calls GET /records.
+// GetTeamRecords retrieves team records based on the provided request
+// parameters.
 func (c *Client) GetTeamRecords(
    ctx context.Context,
    request RecordsRequest,
@@ -214,7 +221,8 @@ func (c *Client) GetTeamRecords(
    return records, nil
 }
 
-// GetLiveScoreboard calls GET /scoreboard.
+// GetLiveScoreboard retrieves live scoreboard data based on the provided
+// request parameters.
 func (c *Client) GetLiveScoreboard(
    ctx context.Context,
    request LiveScoreboardRequest,
@@ -232,7 +240,8 @@ func (c *Client) GetLiveScoreboard(
    return games, nil
 }
 
-// GetDrives todo:describe.
+// GetDrives retrieves drive information for games based on the provided
+// request parameters.
 func (c *Client) GetDrives(
    ctx context.Context,
    request DrivesRequest,
@@ -250,7 +259,8 @@ func (c *Client) GetDrives(
    return drives, nil
 }
 
-// GetPlays todo:describe.
+// GetPlays retrieves play-by-play data for games based on the provided
+// request parameters.
 func (c *Client) GetPlays(
    ctx context.Context,
    request PlaysRequest,
@@ -268,7 +278,7 @@ func (c *Client) GetPlays(
    return plays, nil
 }
 
-// GetPlayTypes todo:describe.
+// GetPlayTypes retrieves all available play types.
 func (c *Client) GetPlayTypes(ctx context.Context) ([]*PlayType, error) {
    response, err := c.doGetRequest(ctx, "/plays/types", url.Values{})
    if err != nil {
@@ -283,7 +293,8 @@ func (c *Client) GetPlayTypes(ctx context.Context) ([]*PlayType, error) {
    return playTypes, nil
 }
 
-// GetPlayStats todo:describe.
+// GetPlayStats retrieves play statistics based on the provided request
+// parameters.
 func (c *Client) GetPlayStats(
    ctx context.Context,
    request PlayStatsRequest,
@@ -301,7 +312,7 @@ func (c *Client) GetPlayStats(
    return stats, nil
 }
 
-// GetPlayStatTypes todo:describe.
+// GetPlayStatTypes retrieves all available play statistic types.
 func (c *Client) GetPlayStatTypes(
    ctx context.Context,
 ) ([]*PlayStatType, error) {
@@ -318,7 +329,7 @@ func (c *Client) GetPlayStatTypes(
    return statTypes, nil
 }
 
-// GetLivePlays todo:describe.
+// GetLivePlays retrieves live play-by-play data for the specified game.
 func (c *Client) GetLivePlays(
    ctx context.Context,
    gameID int32,
@@ -339,7 +350,8 @@ func (c *Client) GetLivePlays(
    return &game, nil
 }
 
-// GetTeams todo:describe.
+// GetTeams retrieves team information based on the provided request
+// parameters.
 func (c *Client) GetTeams(
    ctx context.Context,
    request TeamsRequest,
@@ -357,7 +369,8 @@ func (c *Client) GetTeams(
    return teams, nil
 }
 
-// GetTeamsFBS todo:describe.
+// GetTeamsFBS retrieves FBS (Football Bowl Subdivision) team information
+// based on the provided request parameters.
 func (c *Client) GetTeamsFBS(
    ctx context.Context,
    request TeamsFbsRequest,
@@ -375,7 +388,8 @@ func (c *Client) GetTeamsFBS(
    return teams, nil
 }
 
-// GetTeamMatchup todo:describe.
+// GetTeamMatchup retrieves historical matchup data between two teams based
+// on the provided request parameters.
 func (c *Client) GetTeamMatchup(
    ctx context.Context,
    request TeamMatchupRequest,
@@ -393,7 +407,8 @@ func (c *Client) GetTeamMatchup(
    return &matchup, nil
 }
 
-// GetTeamATS todo:describe.
+// GetTeamATS retrieves team against-the-spread (ATS) records based on the
+// provided request parameters.
 func (c *Client) GetTeamATS(
    ctx context.Context,
    request TeamATSRequest,
@@ -411,7 +426,8 @@ func (c *Client) GetTeamATS(
    return teams, nil
 }
 
-// GetRoster todo:describe.
+// GetRoster retrieves roster information for a team based on the provided
+// request parameters.
 func (c *Client) GetRoster(
    ctx context.Context,
    request RosterRequest,
@@ -429,7 +445,8 @@ func (c *Client) GetRoster(
    return players, nil
 }
 
-// GetTeamTalent todo:describe.
+// GetTeamTalent retrieves team talent ratings based on the provided request
+// parameters.
 func (c *Client) GetTeamTalent(
    ctx context.Context,
    request TalentRequest,
@@ -447,7 +464,7 @@ func (c *Client) GetTeamTalent(
    return talents, nil
 }
 
-// GetConferences todo:describe.
+// GetConferences retrieves all available conferences.
 func (c *Client) GetConferences(ctx context.Context) ([]*Conference, error) {
    response, err := c.doGetRequest(ctx, "/conferences", url.Values{})
    if err != nil {
@@ -462,10 +479,7 @@ func (c *Client) GetConferences(ctx context.Context) ([]*Conference, error) {
    return conferences, nil
 }
 
-// -----------------------------
-// venues
-// -----------------------------
-
+// GetVenues retrieves all available venues.
 func (c *Client) GetVenues(ctx context.Context) ([]*Venue, error) {
    response, err := c.doGetRequest(ctx, "/venues", url.Values{})
    if err != nil {
@@ -480,10 +494,8 @@ func (c *Client) GetVenues(ctx context.Context) ([]*Venue, error) {
    return venues, nil
 }
 
-// -----------------------------
-// coaches
-// -----------------------------
-
+// GetCoaches retrieves coach information based on the provided request
+// parameters.
 func (c *Client) GetCoaches(
    ctx context.Context,
    request CoachesRequest,
@@ -501,10 +513,8 @@ func (c *Client) GetCoaches(
    return coaches, nil
 }
 
-// -----------------------------
-// players
-// -----------------------------
-
+// SearchPlayers searches for players based on the provided request
+// parameters.
 func (c *Client) SearchPlayers(
    ctx context.Context,
    request PlayerSearchRequest,
@@ -526,6 +536,8 @@ func (c *Client) SearchPlayers(
    return players, nil
 }
 
+// GetPlayerUsage retrieves player usage statistics based on the provided
+// request parameters.
 func (c *Client) GetPlayerUsage(
    ctx context.Context,
    request PlayerUsageRequest,
@@ -543,6 +555,8 @@ func (c *Client) GetPlayerUsage(
    return usage, nil
 }
 
+// GetReturningProduction retrieves returning production statistics for
+// players based on the provided request parameters.
 func (c *Client) GetReturningProduction(
    ctx context.Context,
    request ReturningProductionRequest,
@@ -564,6 +578,8 @@ func (c *Client) GetReturningProduction(
    return production, nil
 }
 
+// GetTransferPortal retrieves player transfer portal information based on
+// the provided request parameters.
 func (c *Client) GetTransferPortal(
    ctx context.Context,
    request PlayerPortalRequest,
@@ -583,10 +599,8 @@ func (c *Client) GetTransferPortal(
    return transfers, nil
 }
 
-// -----------------------------
-// rankings
-// -----------------------------
-
+// GetRankings retrieves college football rankings (polls) based on the
+// provided request parameters.
 func (c *Client) GetRankings(
    ctx context.Context,
    request RankingsRequest,
@@ -604,10 +618,8 @@ func (c *Client) GetRankings(
    return rankings, nil
 }
 
-// -----------------------------
-// betting lines
-// -----------------------------
-
+// GetLines retrieves betting lines for games based on the provided request
+// parameters.
 func (c *Client) GetLines(
    ctx context.Context,
    request LinesRequest,
@@ -625,10 +637,8 @@ func (c *Client) GetLines(
    return games, nil
 }
 
-// -----------------------------
-// recruiting
-// -----------------------------
-
+// GetRecruitingPlayers retrieves recruiting information for players based
+// on the provided request parameters.
 func (c *Client) GetRecruitingPlayers(
    ctx context.Context,
    request RecruitingPlayersRequest,
@@ -646,6 +656,8 @@ func (c *Client) GetRecruitingPlayers(
    return recruits, nil
 }
 
+// GetRecruitingTeams retrieves team recruiting rankings based on the
+// provided request parameters.
 func (c *Client) GetRecruitingTeams(
    ctx context.Context,
    request RecruitingTeamsRequest,
@@ -667,6 +679,8 @@ func (c *Client) GetRecruitingTeams(
    return rankings, nil
 }
 
+// GetRecruitingGroups retrieves aggregated team recruiting information
+// based on the provided request parameters.
 func (c *Client) GetRecruitingGroups(
    ctx context.Context,
    request RecruitingGroupsRequest,
@@ -692,6 +706,8 @@ func (c *Client) GetRecruitingGroups(
 // ratings
 // -----------------------------
 
+// GetRatingsSP retrieves SP+ (S&P+) ratings for teams based on the
+// provided request parameters.
 func (c *Client) GetRatingsSP(
    ctx context.Context,
    request RatingsSpRequest,
@@ -709,6 +725,8 @@ func (c *Client) GetRatingsSP(
    return ratings, nil
 }
 
+// GetRatingsSPConferences retrieves SP+ (S&P+) ratings for conferences
+// based on the provided request parameters.
 func (c *Client) GetRatingsSPConferences(
    ctx context.Context,
    request RatingsSpConferencesRequest,
@@ -734,6 +752,8 @@ func (c *Client) GetRatingsSPConferences(
    return conferences, nil
 }
 
+// GetRatingsSRS retrieves SRS (Simple Rating System) ratings for teams
+// based on the provided request parameters.
 func (c *Client) GetRatingsSRS(
    ctx context.Context,
    request RatingsSrsRequest,
@@ -751,6 +771,8 @@ func (c *Client) GetRatingsSRS(
    return ratings, nil
 }
 
+// GetRatingsElo retrieves Elo ratings for teams based on the provided
+// request parameters.
 func (c *Client) GetRatingsElo(
    ctx context.Context,
    request RatingsEloRequest,
@@ -768,6 +790,8 @@ func (c *Client) GetRatingsElo(
    return ratings, nil
 }
 
+// GetRatingsFPI retrieves FPI (Football Power Index) ratings for teams
+// based on the provided request parameters.
 func (c *Client) GetRatingsFPI(
    ctx context.Context,
    request RatingsFpiRequest,
@@ -789,6 +813,8 @@ func (c *Client) GetRatingsFPI(
 // metrics
 // -----------------------------
 
+// GetPredictedPoints retrieves predicted points values based on the
+// provided request parameters.
 func (c *Client) GetPredictedPoints(
    ctx context.Context,
    request PredictedPointsRequest,
@@ -810,6 +836,8 @@ func (c *Client) GetPredictedPoints(
    return values, nil
 }
 
+// GetPpaTeams retrieves team season PPA (Predicted Points Added) statistics
+// based on the provided request parameters.
 func (c *Client) GetPpaTeams(
    ctx context.Context,
    request PpaTeamsRequest,
@@ -829,6 +857,8 @@ func (c *Client) GetPpaTeams(
    return teams, nil
 }
 
+// GetPpaGames retrieves team game PPA (Predicted Points Added) statistics
+// based on the provided request parameters.
 func (c *Client) GetPpaGames(
    ctx context.Context,
    request PpaGamesRequest,
@@ -848,6 +878,8 @@ func (c *Client) GetPpaGames(
    return games, nil
 }
 
+// GetPlayerPpaGames retrieves player game PPA (Predicted Points Added)
+// statistics based on the provided request parameters.
 func (c *Client) GetPlayerPpaGames(
    ctx context.Context,
    request PlayerPpaGamesRequest,
@@ -867,6 +899,8 @@ func (c *Client) GetPlayerPpaGames(
    return games, nil
 }
 
+// GetPlayerPpaSeason retrieves player season PPA (Predicted Points Added)
+// statistics based on the provided request parameters.
 func (c *Client) GetPlayerPpaSeason(
    ctx context.Context,
    request PlayerPpaSeasonRequest,
@@ -886,7 +920,8 @@ func (c *Client) GetPlayerPpaSeason(
    return players, nil
 }
 
-// GetWinProbability todo: describe.
+// GetWinProbability retrieves win probability data for each play in the
+// specified game.
 func (c *Client) GetWinProbability(
    ctx context.Context,
    gameID int32,
@@ -909,7 +944,8 @@ func (c *Client) GetWinProbability(
    return probs, nil
 }
 
-// GetPregameWinProbability todo: describe.
+// GetPregameWinProbability retrieves pregame win probability data based on
+// the provided request parameters.
 func (c *Client) GetPregameWinProbability(
    ctx context.Context,
    request PregameWpRequest,
@@ -931,7 +967,7 @@ func (c *Client) GetPregameWinProbability(
    return probs, nil
 }
 
-// GetFieldGoalEP todo: describe.
+// GetFieldGoalEP retrieves field goal expected points values.
 func (c *Client) GetFieldGoalEP(ctx context.Context) ([]*FieldGoalEP, error) {
    response, err := c.doGetRequest(ctx, "/metrics/fg/ep", url.Values{})
    if err != nil {
@@ -946,7 +982,8 @@ func (c *Client) GetFieldGoalEP(ctx context.Context) ([]*FieldGoalEP, error) {
    return fgs, nil
 }
 
-// GetPlayerSeasonStats todo: describe.
+// GetPlayerSeasonStats retrieves player season statistics based on the
+// provided request parameters.
 func (c *Client) GetPlayerSeasonStats(
    ctx context.Context,
    request PlayerSeasonStatsRequest,
@@ -966,7 +1003,8 @@ func (c *Client) GetPlayerSeasonStats(
    return stats, nil
 }
 
-// GetTeamSeasonStats todo:describe.
+// GetTeamSeasonStats retrieves team season statistics based on the provided
+// request parameters.
 func (c *Client) GetTeamSeasonStats(
    ctx context.Context,
    request TeamSeasonStatsRequest,
@@ -984,7 +1022,7 @@ func (c *Client) GetTeamSeasonStats(
    return stats, nil
 }
 
-// GetStatsCategories todo:describe.
+// GetStatsCategories retrieves all available statistics categories.
 func (c *Client) GetStatsCategories(ctx context.Context) ([]string, error) {
    response, err := c.doGetRequest(ctx, "/stats/categories", url.Values{})
    if err != nil {
@@ -999,7 +1037,8 @@ func (c *Client) GetStatsCategories(ctx context.Context) ([]string, error) {
    return out, nil
 }
 
-// GetAdvancedSeasonStats todo:describe.
+// GetAdvancedSeasonStats retrieves advanced season statistics based on the
+// provided request parameters.
 func (c *Client) GetAdvancedSeasonStats(
    ctx context.Context,
    request AdvancedSeasonStatsRequest,
@@ -1025,7 +1064,8 @@ func (c *Client) GetAdvancedSeasonStats(
    return stats, nil
 }
 
-// GetAdvancedGameStats todo:describe.
+// GetAdvancedGameStats retrieves advanced game statistics based on the
+// provided request parameters.
 func (c *Client) GetAdvancedGameStats(
    ctx context.Context,
    req AdvancedGameStatsRequest,
@@ -1043,7 +1083,8 @@ func (c *Client) GetAdvancedGameStats(
    return stats, nil
 }
 
-// GetHavocGameStats todo:describe.
+// GetHavocGameStats retrieves havoc game statistics based on the provided
+// request parameters.
 func (c *Client) GetHavocGameStats(
    ctx context.Context,
    request HavocGameStatsRequest,
@@ -1061,7 +1102,7 @@ func (c *Client) GetHavocGameStats(
    return stats, nil
 }
 
-// GetDraftTeams todo:describe.
+// GetDraftTeams retrieves all NFL draft teams.
 func (c *Client) GetDraftTeams(ctx context.Context) ([]*DraftTeam, error) {
    response, err := c.doGetRequest(ctx, "/draft/teams", url.Values{})
    if err != nil {
@@ -1076,7 +1117,7 @@ func (c *Client) GetDraftTeams(ctx context.Context) ([]*DraftTeam, error) {
    return teams, nil
 }
 
-// GetDraftPositions todo:describe.
+// GetDraftPositions retrieves all NFL draft positions.
 func (c *Client) GetDraftPositions(
    ctx context.Context,
 ) ([]*DraftPosition, error) {
@@ -1095,7 +1136,8 @@ func (c *Client) GetDraftPositions(
    return positions, nil
 }
 
-// GetDraftPicks todo:describe.
+// GetDraftPicks retrieves NFL draft picks based on the provided request
+// parameters.
 func (c *Client) GetDraftPicks(
    ctx context.Context,
    request DraftPicksRequest,
@@ -1113,7 +1155,8 @@ func (c *Client) GetDraftPicks(
    return picks, nil
 }
 
-// GetWepaTeamSeason todo:describe.
+// GetWepaTeamSeason retrieves team season WEPA (Weighted Expected Points
+// Added) metrics based on the provided request parameters.
 func (c *Client) GetWepaTeamSeason(
    ctx context.Context,
    request WepaTeamSeasonRequest,
@@ -1133,7 +1176,8 @@ func (c *Client) GetWepaTeamSeason(
    return teams, nil
 }
 
-// GetWepaPlayersPassing todo:describe.
+// GetWepaPlayersPassing retrieves player passing WEPA (Weighted Expected
+// Points Added) metrics based on the provided request parameters.
 func (c *Client) GetWepaPlayersPassing(
    ctx context.Context,
    request WepaPlayersRequest,
@@ -1153,7 +1197,8 @@ func (c *Client) GetWepaPlayersPassing(
    return players, nil
 }
 
-// GetWepaPlayersRushing todo: describe.
+// GetWepaPlayersRushing retrieves player rushing WEPA (Weighted Expected
+// Points Added) metrics based on the provided request parameters.
 func (c *Client) GetWepaPlayersRushing(
    ctx context.Context,
    req WepaPlayersRequest,
@@ -1173,7 +1218,8 @@ func (c *Client) GetWepaPlayersRushing(
    return players, nil
 }
 
-// GetWepaPlayersKicking todo: describe.
+// GetWepaPlayersKicking retrieves kicker PAAR (Points Above Average
+// Replacement) metrics based on the provided request parameters.
 func (c *Client) GetWepaPlayersKicking(
    ctx context.Context,
    req WepaKickersRequest,
@@ -1191,7 +1237,8 @@ func (c *Client) GetWepaPlayersKicking(
    return kickers, nil
 }
 
-// GetInfo todo: describe.
+// GetInfo retrieves information about the authenticated user's API key.
+// Returns nil if the user is not authenticated.
 func (c *Client) GetInfo(ctx context.Context) (*UserInfo, error) {
    response, err := c.doGetRequest(ctx, "/info", url.Values{})
    if err != nil {
