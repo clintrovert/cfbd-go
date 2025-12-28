@@ -63,11 +63,16 @@ func (c *Client) do(req *http.Request) ([]byte, error) {
    return body, nil
 }
 
-func (c *Client) doGetRequest(ctx context.Context, path string, q url.Values) ([]byte, error) {
-   req, err := c.newRequest(ctx, http.MethodGet, path, q)
+func (c *Client) doGetRequest(
+   ctx context.Context,
+   path string,
+   params url.Values,
+) ([]byte, error) {
+   req, err := c.newRequest(ctx, http.MethodGet, path, params)
    if err != nil {
       return nil, err
    }
+
    return c.do(req)
 }
 
@@ -80,11 +85,9 @@ func (c *Client) unmarshalInto(b []byte, out proto.Message) error {
       return fmt.Errorf("out cannot be nil")
    }
    if len(bytes.TrimSpace(b)) == 0 || isJSONNull(b) {
-      // Leave 'out' untouched / zero-value.
       return nil
    }
-
-   // protojson.UnmarshalOptions
+   
    if err := c.unmarshal.Unmarshal(b, out); err != nil {
       return fmt.Errorf("")
    }
@@ -92,7 +95,9 @@ func (c *Client) unmarshalInto(b []byte, out proto.Message) error {
    return nil
 }
 
-func (c *Client) unmarshalList(b []byte, out any, prototype proto.Message) error {
+func (c *Client) unmarshalList(
+   b []byte, out any, prototype proto.Message,
+) error {
    if len(bytes.TrimSpace(b)) == 0 || isJSONNull(b) {
       return nil
    }
@@ -100,13 +105,11 @@ func (c *Client) unmarshalList(b []byte, out any, prototype proto.Message) error
       return fmt.Errorf("prototype cannot be nil (e.g. &pb.Drive{})")
    }
 
-   // out must be a pointer to a slice
    rv := reflect.ValueOf(out)
    if rv.Kind() != reflect.Pointer || rv.Elem().Kind() != reflect.Slice {
       return fmt.Errorf("out must be pointer to slice, got %T", out)
    }
 
-   // Parse top-level JSON array
    var raws []json.RawMessage
    if err := json.Unmarshal(b, &raws); err != nil {
       return err
@@ -118,7 +121,7 @@ func (c *Client) unmarshalList(b []byte, out any, prototype proto.Message) error
          continue
       }
 
-      msg := proto.Clone(prototype) // new empty message of same concrete type
+      msg := proto.Clone(prototype)
       if err := c.unmarshal.Unmarshal(raw, msg); err != nil {
          return err
       }
@@ -139,14 +142,11 @@ func (c *Client) unmarshalList(b []byte, out any, prototype proto.Message) error
    return nil
 }
 
-// -----------------------------
-// Query helpers
-// -----------------------------
-
 func setString(v url.Values, key string, val *string) {
    if val == nil {
       return
    }
+
    v.Set(key, *val)
 }
 
@@ -154,6 +154,7 @@ func setInt32(v url.Values, key string, val *int32) {
    if val == nil {
       return
    }
+
    v.Set(key, strconv.FormatInt(int64(*val), 10))
 }
 
@@ -161,6 +162,7 @@ func setInt(v url.Values, key string, val *int) {
    if val == nil {
       return
    }
+
    v.Set(key, strconv.Itoa(*val))
 }
 
@@ -168,6 +170,7 @@ func setFloat64(v url.Values, key string, val *float64) {
    if val == nil {
       return
    }
+
    v.Set(key, strconv.FormatFloat(*val, 'f', -1, 64))
 }
 
@@ -175,5 +178,6 @@ func setBool(v url.Values, key string, val *bool) {
    if val == nil {
       return
    }
+
    v.Set(key, strconv.FormatBool(*val))
 }

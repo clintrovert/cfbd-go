@@ -1,10 +1,8 @@
 # cfbd-go
-Go client for collegefootballdata.com APIs
+Minimal Golang client for the collegefootballdata.com APIs.
 
 ```golang
-ctx := context.Background()
-
-client, err := cfbd.NewClient("YOUR_API_KEY")
+client, err := cfbd.NewClient("CFBD_API_KEY")
 if err != nil {
   ...
 }
@@ -18,7 +16,7 @@ if err != nil {
   ...
 }
 
-for _, conf := range conferences {
+for _, conference := range conferences {
   fmt.Println(conference);
 }
 ```

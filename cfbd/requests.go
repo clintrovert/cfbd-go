@@ -5,10 +5,6 @@ import (
 	"strconv"
 )
 
-// -----------------------------
-// games
-// -----------------------------
-
 // GetGamesRequest matches the typical /games filters.
 type GetGamesRequest struct {
 	Year       int32
@@ -20,6 +16,10 @@ type GetGamesRequest struct {
 	Conference *string
 	Division   *string
 	GameID     *int32
+}
+
+func (p GetGamesRequest) validate() error {
+	return nil
 }
 
 func (p GetGamesRequest) values() url.Values {
@@ -36,10 +36,6 @@ func (p GetGamesRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// games (additional endpoints)
-// -----------------------------
-
 type GameTeamStatsRequest struct {
 	Year int32 // required
 
@@ -48,6 +44,10 @@ type GameTeamStatsRequest struct {
 	Team       *string
 	Conference *string
 	GameID     *int32
+}
+
+func (p GameTeamStatsRequest) validate() error {
+	return nil
 }
 
 func (p GameTeamStatsRequest) values() url.Values {
@@ -72,6 +72,10 @@ type GamePlayerStatsRequest struct {
 	Category   *string
 }
 
+func (p GamePlayerStatsRequest) validate() error {
+	return nil
+}
+
 func (p GamePlayerStatsRequest) values() url.Values {
 	v := url.Values{}
 	v.Set("year", strconv.FormatInt(int64(p.Year), 10))
@@ -92,6 +96,10 @@ type GameMediaRequest struct {
 	Team       *string
 	Conference *string
 	MediaType  *string // tv, radio, web, ppv, mobile
+}
+
+func (p GameMediaRequest) validate() error {
+	return nil
 }
 
 func (p GameMediaRequest) values() url.Values {
@@ -115,6 +123,10 @@ type GameWeatherRequest struct {
 	GameID     *int32
 }
 
+func (p GameWeatherRequest) validate() error {
+	return nil
+}
+
 func (p GameWeatherRequest) values() url.Values {
 	v := url.Values{}
 	v.Set("year", strconv.FormatInt(int64(p.Year), 10))
@@ -133,6 +145,10 @@ type RecordsRequest struct {
 	Conference *string
 }
 
+func (p RecordsRequest) validate() error {
+	return nil
+}
+
 func (p RecordsRequest) values() url.Values {
 	v := url.Values{}
 	v.Set("year", strconv.FormatInt(int64(p.Year), 10))
@@ -146,16 +162,16 @@ type LiveScoreboardRequest struct {
 	Conference *string
 }
 
+func (p LiveScoreboardRequest) validate() error {
+	return nil
+}
+
 func (p LiveScoreboardRequest) values() url.Values {
 	v := url.Values{}
 	setString(v, "division", p.Division)
 	setString(v, "conference", p.Conference)
 	return v
 }
-
-// -----------------------------
-// drives
-// -----------------------------
 
 type DrivesRequest struct {
 	Year int32 // required
@@ -169,6 +185,10 @@ type DrivesRequest struct {
 	OffenseConference *string
 	DefenseConference *string
 	Classification    *string // fbs,fcs,ii,iii
+}
+
+func (p DrivesRequest) validate() error {
+	return nil
 }
 
 func (p DrivesRequest) values() url.Values {
@@ -186,10 +206,6 @@ func (p DrivesRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// plays
-// -----------------------------
-
 type PlaysRequest struct {
 	Year int32 // required
 	Week int32 // required
@@ -203,6 +219,10 @@ type PlaysRequest struct {
 	PlayType          *string
 	SeasonType        *string
 	Classification    *string
+}
+
+func (p PlaysRequest) validate() error {
+	return nil
 }
 
 func (p PlaysRequest) values() url.Values {
@@ -232,6 +252,10 @@ type PlayStatsRequest struct {
 	Conference *string
 }
 
+func (p PlayStatsRequest) validate() error {
+	return nil
+}
+
 func (p PlayStatsRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -245,13 +269,13 @@ func (p PlayStatsRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// teams
-// -----------------------------
-
 type TeamsRequest struct {
 	Conference *string
 	Year       *int32
+}
+
+func (p TeamsRequest) validate() error {
+	return nil
 }
 
 func (p TeamsRequest) values() url.Values {
@@ -265,6 +289,10 @@ type TeamsFbsRequest struct {
 	Year *int32
 }
 
+func (p TeamsFbsRequest) validate() error {
+	return nil
+}
+
 func (p TeamsFbsRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -276,6 +304,10 @@ type TeamMatchupRequest struct {
 	Team2   string
 	MinYear *int32
 	MaxYear *int32
+}
+
+func (p TeamMatchupRequest) validate() error {
+	return nil
 }
 
 func (p TeamMatchupRequest) values() url.Values {
@@ -293,6 +325,10 @@ type TeamATSRequest struct {
 	Team       *string
 }
 
+func (p TeamATSRequest) validate() error {
+	return nil
+}
+
 func (p TeamATSRequest) values() url.Values {
 	v := url.Values{}
 	v.Set("year", strconv.FormatInt(int64(p.Year), 10))
@@ -301,14 +337,14 @@ func (p TeamATSRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// roster
-// -----------------------------
-
 type RosterRequest struct {
 	Team           *string
 	Year           *int32
 	Classification *string
+}
+
+func (p RosterRequest) validate() error {
+	return nil
 }
 
 func (p RosterRequest) values() url.Values {
@@ -319,12 +355,12 @@ func (p RosterRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// talent
-// -----------------------------
-
 type TalentRequest struct {
 	Year int32
+}
+
+func (p TalentRequest) validate() error {
+	return nil
 }
 
 func (p TalentRequest) values() url.Values {
@@ -333,10 +369,6 @@ func (p TalentRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// coaches
-// -----------------------------
-
 type CoachesRequest struct {
 	FirstName *string
 	LastName  *string
@@ -344,6 +376,10 @@ type CoachesRequest struct {
 	Year      *int32
 	MinYear   *int32
 	MaxYear   *int32
+}
+
+func (p CoachesRequest) validate() error {
+	return nil
 }
 
 func (p CoachesRequest) values() url.Values {
@@ -357,15 +393,15 @@ func (p CoachesRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// players
-// -----------------------------
-
 type PlayerSearchRequest struct {
 	SearchTerm string
 	Year       *int32
 	Team       *string
 	Position   *string
+}
+
+func (p PlayerSearchRequest) validate() error {
+	return nil
 }
 
 func (p PlayerSearchRequest) values() url.Values {
@@ -386,6 +422,10 @@ type PlayerUsageRequest struct {
 	ExcludeGarbageTime *bool
 }
 
+func (p PlayerUsageRequest) validate() error {
+	return nil
+}
+
 func (p PlayerUsageRequest) values() url.Values {
 	v := url.Values{}
 	v.Set("year", strconv.FormatInt(int64(p.Year), 10))
@@ -403,6 +443,10 @@ type ReturningProductionRequest struct {
 	Conference *string
 }
 
+func (p ReturningProductionRequest) validate() error {
+	return nil
+}
+
 func (p ReturningProductionRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -415,20 +459,24 @@ type PlayerPortalRequest struct {
 	Year int32
 }
 
+func (p PlayerPortalRequest) validate() error {
+	return nil
+}
+
 func (p PlayerPortalRequest) values() url.Values {
 	v := url.Values{}
 	v.Set("year", strconv.FormatInt(int64(p.Year), 10))
 	return v
 }
 
-// -----------------------------
-// rankings
-// -----------------------------
-
 type RankingsRequest struct {
 	Year       int32
 	SeasonType *string
 	Week       *float64
+}
+
+func (p RankingsRequest) validate() error {
+	return nil
 }
 
 func (p RankingsRequest) values() url.Values {
@@ -438,10 +486,6 @@ func (p RankingsRequest) values() url.Values {
 	setFloat64(v, "week", p.Week)
 	return v
 }
-
-// -----------------------------
-// betting lines
-// -----------------------------
 
 type LinesRequest struct {
 	GameID     *int32
@@ -453,6 +497,10 @@ type LinesRequest struct {
 	Away       *string
 	Conference *string
 	Provider   *string
+}
+
+func (p LinesRequest) validate() error {
+	return nil
 }
 
 func (p LinesRequest) values() url.Values {
@@ -469,16 +517,16 @@ func (p LinesRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// recruiting
-// -----------------------------
-
 type RecruitingPlayersRequest struct {
 	Year           *int32
 	Team           *string
 	Position       *string
 	State          *string
 	Classification *string
+}
+
+func (p RecruitingPlayersRequest) validate() error {
+	return nil
 }
 
 func (p RecruitingPlayersRequest) values() url.Values {
@@ -496,6 +544,10 @@ type RecruitingTeamsRequest struct {
 	Team *string
 }
 
+func (p RecruitingTeamsRequest) validate() error {
+	return nil
+}
+
 func (p RecruitingTeamsRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -511,6 +563,10 @@ type RecruitingGroupsRequest struct {
 	EndYear     *int32
 }
 
+func (p RecruitingGroupsRequest) validate() error {
+	return nil
+}
+
 func (p RecruitingGroupsRequest) values() url.Values {
 	v := url.Values{}
 	setString(v, "team", p.Team)
@@ -521,13 +577,13 @@ func (p RecruitingGroupsRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// ratings
-// -----------------------------
-
 type RatingsSpRequest struct {
 	Year *int32
 	Team *string
+}
+
+func (p RatingsSpRequest) validate() error {
+	return nil
 }
 
 func (p RatingsSpRequest) values() url.Values {
@@ -542,6 +598,10 @@ type RatingsSpConferencesRequest struct {
 	Conference *string
 }
 
+func (p RatingsSpConferencesRequest) validate() error {
+	return nil
+}
+
 func (p RatingsSpConferencesRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -553,6 +613,10 @@ type RatingsSrsRequest struct {
 	Year       *int32
 	Team       *string
 	Conference *string
+}
+
+func (p RatingsSrsRequest) validate() error {
+	return nil
 }
 
 func (p RatingsSrsRequest) values() url.Values {
@@ -571,6 +635,10 @@ type RatingsEloRequest struct {
 	Conference *string
 }
 
+func (p RatingsEloRequest) validate() error {
+	return nil
+}
+
 func (p RatingsEloRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -587,6 +655,10 @@ type RatingsFpiRequest struct {
 	Conference *string
 }
 
+func (p RatingsFpiRequest) validate() error {
+	return nil
+}
+
 func (p RatingsFpiRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -595,14 +667,14 @@ func (p RatingsFpiRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// metrics
-// -----------------------------
-
-// Predicted points values by down and distance.
+// PredictedPointsRequest points values by down and distance.
 type PredictedPointsRequest struct {
 	Down     int32
 	Distance int32
+}
+
+func (p PredictedPointsRequest) validate() error {
+	return nil
 }
 
 func (p PredictedPointsRequest) values() url.Values {
@@ -612,12 +684,16 @@ func (p PredictedPointsRequest) values() url.Values {
 	return v
 }
 
-// Team season PPA (predicted points added) metrics.
+// PpaTeamsRequest season PPA (predicted points added) metrics.
 type PpaTeamsRequest struct {
 	Year               *int32
 	Team               *string
 	Conference         *string
 	ExcludeGarbageTime *bool
+}
+
+func (p PpaTeamsRequest) validate() error {
+	return nil
 }
 
 func (p PpaTeamsRequest) values() url.Values {
@@ -629,7 +705,7 @@ func (p PpaTeamsRequest) values() url.Values {
 	return v
 }
 
-// Team PPA by game.
+// PpaGamesRequest PPA by game.
 type PpaGamesRequest struct {
 	Year               int32
 	Week               *int32
@@ -637,6 +713,10 @@ type PpaGamesRequest struct {
 	Team               *string
 	Conference         *string
 	ExcludeGarbageTime *bool
+}
+
+func (p PpaGamesRequest) validate() error {
+	return nil
 }
 
 func (p PpaGamesRequest) values() url.Values {
@@ -650,7 +730,7 @@ func (p PpaGamesRequest) values() url.Values {
 	return v
 }
 
-// Player PPA by game.
+// PlayerPpaGamesRequest todo:describe.
 type PlayerPpaGamesRequest struct {
 	Year               int32
 	Week               *int32
@@ -660,6 +740,10 @@ type PlayerPpaGamesRequest struct {
 	PlayerID           *string
 	Threshold          *float64
 	ExcludeGarbageTime *bool
+}
+
+func (p PlayerPpaGamesRequest) validate() error {
+	return nil
 }
 
 func (p PlayerPpaGamesRequest) values() url.Values {
@@ -675,7 +759,7 @@ func (p PlayerPpaGamesRequest) values() url.Values {
 	return v
 }
 
-// Player PPA by season.
+// PlayerPpaSeasonRequest todo:describe.
 type PlayerPpaSeasonRequest struct {
 	Year               *int32
 	Conference         *string
@@ -684,6 +768,10 @@ type PlayerPpaSeasonRequest struct {
 	PlayerID           *string
 	Threshold          *float64
 	ExcludeGarbageTime *bool
+}
+
+func (p PlayerPpaSeasonRequest) validate() error {
+	return nil
 }
 
 func (p PlayerPpaSeasonRequest) values() url.Values {
@@ -698,12 +786,16 @@ func (p PlayerPpaSeasonRequest) values() url.Values {
 	return v
 }
 
-// Pregame win probabilities.
+// PregameWpRequest todo:describe.
 type PregameWpRequest struct {
 	Year       *int32
 	Week       *int32
 	SeasonType *string
 	Team       *string
+}
+
+func (p PregameWpRequest) validate() error {
+	return nil
 }
 
 func (p PregameWpRequest) values() url.Values {
@@ -715,10 +807,6 @@ func (p PregameWpRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// stats
-// -----------------------------
-
 type PlayerSeasonStatsRequest struct {
 	Year       int32
 	Conference *string
@@ -727,6 +815,10 @@ type PlayerSeasonStatsRequest struct {
 	EndWeek    *int32
 	SeasonType *string
 	Category   *string
+}
+
+func (p PlayerSeasonStatsRequest) validate() error {
+	return nil
 }
 
 func (p PlayerSeasonStatsRequest) values() url.Values {
@@ -749,6 +841,10 @@ type TeamSeasonStatsRequest struct {
 	EndWeek    *int32
 }
 
+func (p TeamSeasonStatsRequest) validate() error {
+	return nil
+}
+
 func (p TeamSeasonStatsRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -765,6 +861,10 @@ type AdvancedSeasonStatsRequest struct {
 	ExcludeGarbageTime *bool
 	StartWeek          *int32
 	EndWeek            *int32
+}
+
+func (p AdvancedSeasonStatsRequest) validate() error {
+	return nil
 }
 
 func (p AdvancedSeasonStatsRequest) values() url.Values {
@@ -786,6 +886,10 @@ type AdvancedGameStatsRequest struct {
 	SeasonType         *string
 }
 
+func (p AdvancedGameStatsRequest) validate() error {
+	return nil
+}
+
 func (p AdvancedGameStatsRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -805,6 +909,10 @@ type HavocGameStatsRequest struct {
 	SeasonType *string
 }
 
+func (p HavocGameStatsRequest) validate() error {
+	return nil
+}
+
 func (p HavocGameStatsRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -815,16 +923,16 @@ func (p HavocGameStatsRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// draft
-// -----------------------------
-
 type DraftPicksRequest struct {
 	Year       *int32
 	Team       *string
 	School     *string
 	Conference *string
 	Position   *string
+}
+
+func (p DraftPicksRequest) validate() error {
+	return nil
 }
 
 func (p DraftPicksRequest) values() url.Values {
@@ -837,14 +945,14 @@ func (p DraftPicksRequest) values() url.Values {
 	return v
 }
 
-// -----------------------------
-// adjusted metrics (wepa)
-// -----------------------------
-
 type WepaTeamSeasonRequest struct {
 	Year       *int32
 	Team       *string
 	Conference *string
+}
+
+func (p WepaTeamSeasonRequest) validate() error {
+	return nil
 }
 
 func (p WepaTeamSeasonRequest) values() url.Values {
@@ -862,6 +970,10 @@ type WepaPlayersRequest struct {
 	Position   *string
 }
 
+func (p WepaPlayersRequest) validate() error {
+	return nil
+}
+
 func (p WepaPlayersRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -877,6 +989,10 @@ type WepaKickersRequest struct {
 	Conference *string
 }
 
+func (p WepaKickersRequest) validate() error {
+	return nil
+}
+
 func (p WepaKickersRequest) values() url.Values {
 	v := url.Values{}
 	setInt32(v, "year", p.Year)
@@ -884,4 +1000,3 @@ func (p WepaKickersRequest) values() url.Values {
 	setString(v, "conference", p.Conference)
 	return v
 }
-
