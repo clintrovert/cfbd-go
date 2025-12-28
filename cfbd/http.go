@@ -1,0 +1,179 @@
+package cfbd
+
+import (
+   "bytes"
+   "context"
+   "encoding/json"
+   "fmt"
+   "io"
+   "net/http"
+   "net/url"
+   "reflect"
+   "strconv"
+   "strings"
+
+   "google.golang.org/protobuf/proto"
+)
+
+func (c *Client) newRequest(
+   ctx context.Context,
+   method string,
+   path string,
+   q url.Values,
+) (*http.Request, error) {
+   if !strings.HasPrefix(path, "/") {
+      path = "/" + path
+   }
+   // ResolveReference preserves scheme/host.
+   u := c.baseURL.ResolveReference(&url.URL{Path: path})
+   u.RawQuery = q.Encode()
+
+   req, err := http.NewRequestWithContext(ctx, method, u.String(), nil)
+   if err != nil {
+      return nil, err
+   }
+
+   req.Header.Set("Accept", "application/json")
+   if c.userAgent != "" {
+      req.Header.Set("User-Agent", c.userAgent)
+   }
+
+   if c.apiKey != "" {
+      req.Header.Set("Authorization", "Bearer "+c.apiKey)
+   }
+   return req, nil
+}
+
+func (c *Client) do(req *http.Request) ([]byte, error) {
+   resp, err := c.client.Do(req)
+   if err != nil {
+      return nil, err
+   }
+   defer resp.Body.Close()
+
+   body, err := io.ReadAll(resp.Body)
+   if err != nil {
+      return nil, err
+   }
+
+   if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+      return nil, &APIError{StatusCode: resp.StatusCode, Body: body}
+   }
+
+   return body, nil
+}
+
+func (c *Client) doGetRequest(ctx context.Context, path string, q url.Values) ([]byte, error) {
+   req, err := c.newRequest(ctx, http.MethodGet, path, q)
+   if err != nil {
+      return nil, err
+   }
+   return c.do(req)
+}
+
+func isJSONNull(b []byte) bool {
+   return bytes.Equal(bytes.TrimSpace(b), []byte("null"))
+}
+
+func (c *Client) unmarshalInto(b []byte, out proto.Message) error {
+   if out == nil {
+      return fmt.Errorf("out cannot be nil")
+   }
+   if len(bytes.TrimSpace(b)) == 0 || isJSONNull(b) {
+      // Leave 'out' untouched / zero-value.
+      return nil
+   }
+
+   // protojson.UnmarshalOptions
+   if err := c.unmarshal.Unmarshal(b, out); err != nil {
+      return fmt.Errorf("")
+   }
+
+   return nil
+}
+
+func (c *Client) unmarshalList(b []byte, out any, prototype proto.Message) error {
+   if len(bytes.TrimSpace(b)) == 0 || isJSONNull(b) {
+      return nil
+   }
+   if prototype == nil {
+      return fmt.Errorf("prototype cannot be nil (e.g. &pb.Drive{})")
+   }
+
+   // out must be a pointer to a slice
+   rv := reflect.ValueOf(out)
+   if rv.Kind() != reflect.Pointer || rv.Elem().Kind() != reflect.Slice {
+      return fmt.Errorf("out must be pointer to slice, got %T", out)
+   }
+
+   // Parse top-level JSON array
+   var raws []json.RawMessage
+   if err := json.Unmarshal(b, &raws); err != nil {
+      return err
+   }
+
+   slice := rv.Elem()
+   for _, raw := range raws {
+      if isJSONNull(raw) {
+         continue
+      }
+
+      msg := proto.Clone(prototype) // new empty message of same concrete type
+      if err := c.unmarshal.Unmarshal(raw, msg); err != nil {
+         return err
+      }
+
+      // Ensure msg type matches slice element type
+      msgV := reflect.ValueOf(msg)
+      if !msgV.Type().AssignableTo(slice.Type().Elem()) {
+         return fmt.Errorf(
+            "prototype type %T not assignable to slice element type %s",
+            msg, slice.Type().Elem(),
+         )
+      }
+
+      slice = reflect.Append(slice, msgV)
+   }
+
+   rv.Elem().Set(slice)
+   return nil
+}
+
+// -----------------------------
+// Query helpers
+// -----------------------------
+
+func setString(v url.Values, key string, val *string) {
+   if val == nil {
+      return
+   }
+   v.Set(key, *val)
+}
+
+func setInt32(v url.Values, key string, val *int32) {
+   if val == nil {
+      return
+   }
+   v.Set(key, strconv.FormatInt(int64(*val), 10))
+}
+
+func setInt(v url.Values, key string, val *int) {
+   if val == nil {
+      return
+   }
+   v.Set(key, strconv.Itoa(*val))
+}
+
+func setFloat64(v url.Values, key string, val *float64) {
+   if val == nil {
+      return
+   }
+   v.Set(key, strconv.FormatFloat(*val, 'f', -1, 64))
+}
+
+func setBool(v url.Values, key string, val *bool) {
+   if val == nil {
+      return
+   }
+   v.Set(key, strconv.FormatBool(*val))
+}

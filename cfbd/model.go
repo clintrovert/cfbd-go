@@ -4,7 +4,7 @@
 // 	protoc        v3.21.12
 // source: cfbd.proto
 
-package cfbdpb
+package cfbd
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
