@@ -26,7 +26,7 @@ func newTestClient(t *testing.T) *testClient {
             AllowPartial:   true,
             DiscardUnknown: true,
          },
-         executor: exec,
+         httpGet: exec,
       },
       requestExecutor: exec,
    }
@@ -35,7 +35,7 @@ func newTestClient(t *testing.T) *testClient {
 // func TestGetGames_ValidRequest_ShouldSucceed(t *testing.T) {
 //    tester := newTestClient(t)
 //
-//    tester.requestExecutor.EXPECT().
+//    tester.httpGetExecutor.EXPECT().
 //       execute(gomock.Any(), gomock.Any(), gomock.Any()).
 //       Return("").
 //       Times(1)
@@ -45,9 +45,9 @@ func newTestClient(t *testing.T) *testClient {
 //    assert.NotNil(t, actual)
 // }
 
-// mock of request executor below
+// mock of request httpGet below
 
-// mockRequestExecutor is a mock of requestExecutor interface.
+// mockRequestExecutor is a mock of httpGetExecutor interface.
 type mockRequestExecutor struct {
    ctrl     *gomock.Controller
    recorder *mockRequestExecutorMockRecorder

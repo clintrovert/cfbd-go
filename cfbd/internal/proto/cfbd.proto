@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package cfbd.v2;
+package cfbd.v1;
 
 // This is a best-effort Protobuf mapping of the Swagger/OpenAPI schemas in the CFBD v2 API.
 // This file was made after the API to aid in generation of client libraries.
@@ -17,12 +17,11 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/wrappers.proto";
 
-option go_package = "github.com/CFBD/cfbd-api-v2/gen/go/cfb/api/v2;cfbdpb";
-option java_package = "com.cfbd.api.v2";
+option go_package = "github.com/clintrovert/cfbd-go/cfbd;cfbd";
+option java_package = "com.cfbd.api.v1";
 option java_multiple_files = true;
 option java_outer_classname = "CfbdApiProto";
-option csharp_namespace = "Cfbd.Api.V2";
-// option js_package = "cfbd.api.v2";  // Commented out - requires JS plugin
+option csharp_namespace = "Cfbd.Api.V1";
 
 // ------------------------------------------------------------
 // Shared / helper messages
@@ -1097,7 +1096,7 @@ message CalendarWeek {
   google.protobuf.Timestamp last_game_start = 7 [deprecated = true];
 }
 
-message ScoreboardGame {
+message Scoreboard {
   int32 id = 1;
   google.protobuf.Timestamp start_date = 2;
   bool start_time_TBD = 3;

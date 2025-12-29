@@ -1,24 +1,22 @@
 package cfbd
 
 import (
-   "bytes"
    "context"
    "fmt"
    "io"
    "net/http"
    "net/url"
-   "strconv"
    "strings"
 )
 
-type restClient struct {
+type httpGetClient struct {
    client    *http.Client
    baseURL   *url.URL
    userAgent string
    apiKey    string
 }
 
-func (c *restClient) execute(
+func (c *httpGetClient) execute(
    ctx context.Context,
    path string,
    params url.Values,
@@ -60,40 +58,4 @@ func (c *restClient) execute(
    }
 
    return body, nil
-}
-
-func isJSONNull(b []byte) bool {
-   return bytes.Equal(bytes.TrimSpace(b), []byte("null"))
-}
-
-func setString(v url.Values, key string, val string) {
-   if strings.TrimSpace(val) == "" {
-      return
-   }
-
-   v.Set(key, strings.TrimSpace(val))
-}
-
-func setInt32(v url.Values, key string, val int32) {
-   if val == 0 {
-      return
-   }
-
-   v.Set(key, strconv.FormatInt(int64(val), 10))
-}
-
-func setFloat64(v url.Values, key string, val float64) {
-   if val == float64(0) {
-      return
-   }
-
-   v.Set(key, strconv.FormatFloat(val, 'f', -1, 64))
-}
-
-func setBool(v url.Values, key string, val *bool) {
-   if val == nil {
-      return
-   }
-
-   v.Set(key, strconv.FormatBool(*val))
 }
