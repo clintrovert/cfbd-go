@@ -1,16 +1,19 @@
 package cfbd
 
 import (
+   "bytes"
    "context"
    "encoding/json"
    "errors"
    "fmt"
    "net/http"
    "net/url"
+   "reflect"
    "strconv"
    "time"
 
    "google.golang.org/protobuf/encoding/protojson"
+   "google.golang.org/protobuf/proto"
 )
 
 const (
@@ -22,9 +25,9 @@ const (
 // ErrMissingAPIKey is returned if the API key provided was empty.
 var ErrMissingAPIKey = errors.New("API key was not provided")
 
-// restExecutor wraps the http client via an interface for ease in mock
+// requestExecutor wraps the http client via an interface for ease in mock
 // testing.
-type restExecutor interface {
+type requestExecutor interface {
    execute(
       ctx context.Context,
       path string,
@@ -32,15 +35,12 @@ type restExecutor interface {
    ) ([]byte, error)
 }
 
-// Client is a minimal REST client that unmarshals responses into Protobuf
-// messages using protojson (so swagger JSON like camelCase works with
-// snake_case proto fields).
+// Client todo:describe.
 //
 // Authentication: CFBD uses an API key as a Bearer token in the Authorization
 // header.
 // Example:
-//
-//	Authorization: Bearer <your_api_key>
+//    Authorization: Bearer <your_api_key>
 //
 // Notes:
 // - All methods accept a cancellable context.Context.
@@ -55,7 +55,7 @@ type Client struct {
    apiKey       string
    userAgent    string
    unmarshaller protojson.UnmarshalOptions
-   requester    restExecutor
+   executor     requestExecutor
 }
 
 // NewClient creates a Client with sane defaults.
@@ -71,7 +71,7 @@ func NewClient(apiKey string) (*Client, error) {
 
    return &Client{
       apiKey: apiKey,
-      requester: &restClient{
+      executor: &restClient{
          apiKey:    apiKey,
          baseURL:   base,
          userAgent: userAgent,
@@ -96,7 +96,7 @@ func (c *Client) GetGames(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/games", request.values())
+   response, err := c.executor.execute(ctx, "/games", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /games; %w", err)
    }
@@ -119,7 +119,7 @@ func (c *Client) GetGameTeamStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/games/teams", request.values())
+   response, err := c.executor.execute(ctx, "/games/teams", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /games/teams; %w", err)
    }
@@ -142,7 +142,7 @@ func (c *Client) GetGamePlayerStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/games/players", request.values())
+   response, err := c.executor.execute(ctx, "/games/players", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /games/players; %w", err)
    }
@@ -165,7 +165,7 @@ func (c *Client) GetGameMedia(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/games/media", request.values())
+   response, err := c.executor.execute(ctx, "/games/media", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /games/media; %w", err)
    }
@@ -188,7 +188,7 @@ func (c *Client) GetGameWeather(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/games/weather", request.values())
+   response, err := c.executor.execute(ctx, "/games/weather", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /games/weather; %w", err)
    }
@@ -209,7 +209,7 @@ func (c *Client) GetAdvancedBoxScore(
 ) (*AdvancedBoxScore, error) {
    v := url.Values{}
    v.Set("gameId", strconv.FormatInt(int64(gameID), 10))
-   response, err := c.requester.execute(ctx, "/game/box/advanced", v)
+   response, err := c.executor.execute(ctx, "/game/box/advanced", v)
    if err != nil {
       return nil, fmt.Errorf("failed to request /game/box/advanced; %w", err)
    }
@@ -229,7 +229,7 @@ func (c *Client) GetCalendar(
 ) ([]*CalendarWeek, error) {
    v := url.Values{}
    v.Set("year", strconv.FormatInt(int64(year), 10))
-   response, err := c.requester.execute(ctx, "/calendar", v)
+   response, err := c.executor.execute(ctx, "/calendar", v)
    if err != nil {
       return nil, fmt.Errorf("failed to request /calendar; %w", err)
    }
@@ -252,7 +252,7 @@ func (c *Client) GetTeamRecords(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/records", request.values())
+   response, err := c.executor.execute(ctx, "/records", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /records; %w", err)
    }
@@ -275,7 +275,7 @@ func (c *Client) GetLiveScoreboard(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/scoreboard", request.values())
+   response, err := c.executor.execute(ctx, "/scoreboard", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /scoreboard; %w", err)
    }
@@ -298,7 +298,7 @@ func (c *Client) GetDrives(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/drives", request.values())
+   response, err := c.executor.execute(ctx, "/drives", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /drives; %w", err)
    }
@@ -321,7 +321,7 @@ func (c *Client) GetPlays(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/plays", request.values())
+   response, err := c.executor.execute(ctx, "/plays", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /plays; %w", err)
    }
@@ -336,7 +336,7 @@ func (c *Client) GetPlays(
 
 // GetPlayTypes retrieves all available play types.
 func (c *Client) GetPlayTypes(ctx context.Context) ([]*PlayType, error) {
-   response, err := c.requester.execute(ctx, "/plays/types", url.Values{})
+   response, err := c.executor.execute(ctx, "/plays/types", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /plays/types; %w", err)
    }
@@ -359,7 +359,7 @@ func (c *Client) GetPlayStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/plays/stats", request.values())
+   response, err := c.executor.execute(ctx, "/plays/stats", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /plays/stats; %w", err)
    }
@@ -376,7 +376,7 @@ func (c *Client) GetPlayStats(
 func (c *Client) GetPlayStatTypes(
    ctx context.Context,
 ) ([]*PlayStatType, error) {
-   response, err := c.requester.execute(ctx, "/plays/stats/types", url.Values{})
+   response, err := c.executor.execute(ctx, "/plays/stats/types", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /plays/stats/types; %w", err)
    }
@@ -397,7 +397,7 @@ func (c *Client) GetLivePlays(
    params := url.Values{}
    params.Set("gameId", strconv.FormatInt(int64(gameID), 10))
 
-   response, err := c.requester.execute(ctx, "/live/plays", params)
+   response, err := c.executor.execute(ctx, "/live/plays", params)
    if err != nil {
       return nil, fmt.Errorf("failed to request /live/plays; %w", err)
    }
@@ -420,7 +420,7 @@ func (c *Client) GetTeams(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/teams", request.values())
+   response, err := c.executor.execute(ctx, "/teams", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /teams; %w", err)
    }
@@ -443,7 +443,7 @@ func (c *Client) GetTeamsFBS(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/teams/fbs", request.values())
+   response, err := c.executor.execute(ctx, "/teams/fbs", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /teams/fbs; %w", err)
    }
@@ -466,7 +466,7 @@ func (c *Client) GetTeamMatchup(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/teams/matchup", request.values())
+   response, err := c.executor.execute(ctx, "/teams/matchup", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /teams/matchup; %w", err)
    }
@@ -489,7 +489,7 @@ func (c *Client) GetTeamATS(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/teams/ats", request.values())
+   response, err := c.executor.execute(ctx, "/teams/ats", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /teams/ats; %w", err)
    }
@@ -512,7 +512,7 @@ func (c *Client) GetRoster(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/roster", request.values())
+   response, err := c.executor.execute(ctx, "/roster", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /roster; %w", err)
    }
@@ -535,7 +535,7 @@ func (c *Client) GetTeamTalent(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/talent", request.values())
+   response, err := c.executor.execute(ctx, "/talent", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /talent; %w", err)
    }
@@ -550,7 +550,7 @@ func (c *Client) GetTeamTalent(
 
 // GetConferences retrieves all available conferences.
 func (c *Client) GetConferences(ctx context.Context) ([]*Conference, error) {
-   response, err := c.requester.execute(ctx, "/conferences", url.Values{})
+   response, err := c.executor.execute(ctx, "/conferences", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /conferences; %w", err)
    }
@@ -565,7 +565,7 @@ func (c *Client) GetConferences(ctx context.Context) ([]*Conference, error) {
 
 // GetVenues retrieves all available venues.
 func (c *Client) GetVenues(ctx context.Context) ([]*Venue, error) {
-   response, err := c.requester.execute(ctx, "/venues", url.Values{})
+   response, err := c.executor.execute(ctx, "/venues", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /venues; %w", err)
    }
@@ -588,7 +588,7 @@ func (c *Client) GetCoaches(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/coaches", request.values())
+   response, err := c.executor.execute(ctx, "/coaches", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /coaches; %w", err)
    }
@@ -611,7 +611,7 @@ func (c *Client) SearchPlayers(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/player/search", request.values())
+   response, err := c.executor.execute(ctx, "/player/search", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /player/search; %w", err)
    }
@@ -638,7 +638,7 @@ func (c *Client) GetPlayerUsage(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/player/usage", request.values())
+   response, err := c.executor.execute(ctx, "/player/usage", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /player/usage; %w", err)
    }
@@ -661,7 +661,9 @@ func (c *Client) GetReturningProduction(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/player/returning", request.values())
+   response, err := c.executor.execute(
+      ctx, "/player/returning", request.values(),
+   )
    if err != nil {
       return nil, fmt.Errorf("failed to request /player/returning; %w", err)
    }
@@ -688,7 +690,7 @@ func (c *Client) GetTransferPortal(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/player/portal", request.values())
+   response, err := c.executor.execute(ctx, "/player/portal", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /player/portal; %w", err)
    }
@@ -713,7 +715,7 @@ func (c *Client) GetRankings(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/rankings", request.values())
+   response, err := c.executor.execute(ctx, "/rankings", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /rankings; %w", err)
    }
@@ -736,7 +738,7 @@ func (c *Client) GetLines(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/lines", request.values())
+   response, err := c.executor.execute(ctx, "/lines", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /lines; %w", err)
    }
@@ -759,7 +761,9 @@ func (c *Client) GetRecruitingPlayers(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/recruiting/players", request.values())
+   response, err := c.executor.execute(
+      ctx, "/recruiting/players", request.values(),
+   )
    if err != nil {
       return nil, fmt.Errorf("failed to request /recruiting/players; %w", err)
    }
@@ -782,7 +786,7 @@ func (c *Client) GetRecruitingTeams(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(
+   response, err := c.executor.execute(
       ctx, "/recruiting/teams", request.values(),
    )
    if err != nil {
@@ -811,7 +815,7 @@ func (c *Client) GetRecruitingGroups(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(
+   response, err := c.executor.execute(
       ctx, "/recruiting/groups", request.values(),
    )
    if err != nil {
@@ -840,7 +844,7 @@ func (c *Client) GetRatingsSP(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/ratings/sp", request.values())
+   response, err := c.executor.execute(ctx, "/ratings/sp", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ratings/sp; %w", err)
    }
@@ -863,7 +867,7 @@ func (c *Client) GetRatingsSPConferences(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(
+   response, err := c.executor.execute(
       ctx, "/ratings/sp/conferences", request.values(),
    )
    if err != nil {
@@ -894,7 +898,7 @@ func (c *Client) GetRatingsSRS(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/ratings/srs", request.values())
+   response, err := c.executor.execute(ctx, "/ratings/srs", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ratings/srs; %w", err)
    }
@@ -917,7 +921,7 @@ func (c *Client) GetRatingsElo(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/ratings/elo", request.values())
+   response, err := c.executor.execute(ctx, "/ratings/elo", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ratings/elo; %w", err)
    }
@@ -940,7 +944,7 @@ func (c *Client) GetRatingsFPI(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/ratings/fpi", request.values())
+   response, err := c.executor.execute(ctx, "/ratings/fpi", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ratings/fpi; %w", err)
    }
@@ -963,7 +967,7 @@ func (c *Client) GetPredictedPoints(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/ppa/predicted", request.values())
+   response, err := c.executor.execute(ctx, "/ppa/predicted", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ppa/predicted; %w", err)
    }
@@ -990,7 +994,7 @@ func (c *Client) GetPpaTeams(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/ppa/teams", request.values())
+   response, err := c.executor.execute(ctx, "/ppa/teams", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ppa/teams; %w", err)
    }
@@ -1015,7 +1019,7 @@ func (c *Client) GetPpaGames(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/ppa/games", request.values())
+   response, err := c.executor.execute(ctx, "/ppa/games", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ppa/games; %w", err)
    }
@@ -1040,7 +1044,9 @@ func (c *Client) GetPlayerPpaGames(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/ppa/players/games", request.values())
+   response, err := c.executor.execute(
+      ctx, "/ppa/players/games", request.values(),
+   )
    if err != nil {
       return nil, fmt.Errorf("failed to request /ppa/players/games; %w", err)
    }
@@ -1065,7 +1071,9 @@ func (c *Client) GetPlayerPpaSeason(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/ppa/players/season", request.values())
+   response, err := c.executor.execute(
+      ctx, "/ppa/players/season", request.values(),
+   )
    if err != nil {
       return nil, fmt.Errorf("failed to request /ppa/players/season; %w", err)
    }
@@ -1089,7 +1097,7 @@ func (c *Client) GetWinProbability(
    params := url.Values{}
    params.Set("gameId", strconv.FormatInt(int64(gameID), 10))
 
-   response, err := c.requester.execute(ctx, "/metrics/wp", params)
+   response, err := c.executor.execute(ctx, "/metrics/wp", params)
    if err != nil {
       return nil, fmt.Errorf("failed to request /metrics/wp; %w", err)
    }
@@ -1114,7 +1122,9 @@ func (c *Client) GetPregameWinProbability(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/metrics/wp/pregame", request.values())
+   response, err := c.executor.execute(
+      ctx, "/metrics/wp/pregame", request.values(),
+   )
    if err != nil {
       return nil, fmt.Errorf("failed to request /metrics/wp/pregame; %w", err)
    }
@@ -1133,7 +1143,7 @@ func (c *Client) GetPregameWinProbability(
 
 // GetFieldGoalEP retrieves field goal expected points values.
 func (c *Client) GetFieldGoalEP(ctx context.Context) ([]*FieldGoalEP, error) {
-   response, err := c.requester.execute(ctx, "/metrics/fg/ep", url.Values{})
+   response, err := c.executor.execute(ctx, "/metrics/fg/ep", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /metrics/fg/ep; %w", err)
    }
@@ -1156,7 +1166,7 @@ func (c *Client) GetPlayerSeasonStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(
+   response, err := c.executor.execute(
       ctx, "/stats/player/season", request.values(),
    )
    if err != nil {
@@ -1181,7 +1191,7 @@ func (c *Client) GetTeamSeasonStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/stats/season", request.values())
+   response, err := c.executor.execute(ctx, "/stats/season", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /stats/season; %w", err)
    }
@@ -1196,7 +1206,7 @@ func (c *Client) GetTeamSeasonStats(
 
 // GetStatsCategories retrieves all available statistics categories.
 func (c *Client) GetStatsCategories(ctx context.Context) ([]string, error) {
-   response, err := c.requester.execute(ctx, "/stats/categories", url.Values{})
+   response, err := c.executor.execute(ctx, "/stats/categories", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /stats/categories; %w", err)
    }
@@ -1219,7 +1229,7 @@ func (c *Client) GetAdvancedSeasonStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(
+   response, err := c.executor.execute(
       ctx, "/stats/season/advanced", request.values(),
    )
    if err != nil {
@@ -1250,7 +1260,7 @@ func (c *Client) GetAdvancedGameStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   resp, err := c.requester.execute(ctx, "/stats/game/advanced", req.values())
+   resp, err := c.executor.execute(ctx, "/stats/game/advanced", req.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /stats/game/advanced; %w", err)
    }
@@ -1273,7 +1283,9 @@ func (c *Client) GetHavocGameStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/stats/game/havoc", request.values())
+   response, err := c.executor.execute(
+      ctx, "/stats/game/havoc", request.values(),
+   )
    if err != nil {
       return nil, fmt.Errorf("failed to request /stats/game/havoc; %w", err)
    }
@@ -1288,7 +1300,7 @@ func (c *Client) GetHavocGameStats(
 
 // GetDraftTeams retrieves all NFL draft teams.
 func (c *Client) GetDraftTeams(ctx context.Context) ([]*DraftTeam, error) {
-   response, err := c.requester.execute(ctx, "/draft/teams", url.Values{})
+   response, err := c.executor.execute(ctx, "/draft/teams", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /draft/teams; %w", err)
    }
@@ -1305,7 +1317,7 @@ func (c *Client) GetDraftTeams(ctx context.Context) ([]*DraftTeam, error) {
 func (c *Client) GetDraftPositions(
    ctx context.Context,
 ) ([]*DraftPosition, error) {
-   response, err := c.requester.execute(ctx, "/draft/positions", url.Values{})
+   response, err := c.executor.execute(ctx, "/draft/positions", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /draft/positions; %w", err)
    }
@@ -1330,7 +1342,7 @@ func (c *Client) GetDraftPicks(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/draft/picks", request.values())
+   response, err := c.executor.execute(ctx, "/draft/picks", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /draft/picks; %w", err)
    }
@@ -1353,7 +1365,7 @@ func (c *Client) GetWepaTeamSeason(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   resp, err := c.requester.execute(ctx, "/wepa/team/season", request.values())
+   resp, err := c.executor.execute(ctx, "/wepa/team/season", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /wepa/team/season; %w", err)
    }
@@ -1378,7 +1390,9 @@ func (c *Client) GetWepaPlayersPassing(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   resp, err := c.requester.execute(ctx, "/wepa/players/passing", request.values())
+   resp, err := c.executor.execute(
+      ctx, "/wepa/players/passing", request.values(),
+   )
    if err != nil {
       return nil, fmt.Errorf("failed to request /wepa/players/passing; %w", err)
    }
@@ -1403,7 +1417,7 @@ func (c *Client) GetWepaPlayersRushing(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   resp, err := c.requester.execute(ctx, "/wepa/players/rushing", req.values())
+   resp, err := c.executor.execute(ctx, "/wepa/players/rushing", req.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /wepa/players/rushing; %w", err)
    }
@@ -1428,7 +1442,9 @@ func (c *Client) GetWepaPlayersKicking(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.requester.execute(ctx, "/wepa/players/kicking", req.values())
+   response, err := c.executor.execute(
+      ctx, "/wepa/players/kicking", req.values(),
+   )
    if err != nil {
       return nil, fmt.Errorf("failed to request /wepa/players/kicking; %w", err)
    }
@@ -1444,7 +1460,7 @@ func (c *Client) GetWepaPlayersKicking(
 // GetInfo retrieves information about the authenticated user's API key.
 // Returns nil if the user is not authenticated.
 func (c *Client) GetInfo(ctx context.Context) (*UserInfo, error) {
-   response, err := c.requester.execute(ctx, "/info", url.Values{})
+   response, err := c.executor.execute(ctx, "/info", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /info endpoint; %w", err)
    }
@@ -1460,4 +1476,66 @@ func (c *Client) GetInfo(ctx context.Context) (*UserInfo, error) {
    }
 
    return &userInfo, nil
+}
+
+func (c *Client) unmarshal(b []byte, out proto.Message) error {
+   if out == nil {
+      return fmt.Errorf("out cannot be nil")
+   }
+   if len(bytes.TrimSpace(b)) == 0 || isJSONNull(b) {
+      return nil
+   }
+
+   if err := c.unmarshaller.Unmarshal(b, out); err != nil {
+      return fmt.Errorf("")
+   }
+
+   return nil
+}
+
+func (c *Client) unmarshalList(
+   b []byte, out any, prototype proto.Message,
+) error {
+   if len(bytes.TrimSpace(b)) == 0 || isJSONNull(b) {
+      return nil
+   }
+   if prototype == nil {
+      return fmt.Errorf("prototype cannot be nil (e.g. &pb.Drive{})")
+   }
+
+   rv := reflect.ValueOf(out)
+   if rv.Kind() != reflect.Pointer || rv.Elem().Kind() != reflect.Slice {
+      return fmt.Errorf("out must be pointer to slice, got %T", out)
+   }
+
+   var raws []json.RawMessage
+   if err := json.Unmarshal(b, &raws); err != nil {
+      return err
+   }
+
+   slice := rv.Elem()
+   for _, raw := range raws {
+      if isJSONNull(raw) {
+         continue
+      }
+
+      msg := proto.Clone(prototype)
+      if err := c.unmarshaller.Unmarshal(raw, msg); err != nil {
+         return err
+      }
+
+      // Ensure msg type matches slice element type
+      msgV := reflect.ValueOf(msg)
+      if !msgV.Type().AssignableTo(slice.Type().Elem()) {
+         return fmt.Errorf(
+            "prototype type %T not assignable to slice element type %s",
+            msg, slice.Type().Elem(),
+         )
+      }
+
+      slice = reflect.Append(slice, msgV)
+   }
+
+   rv.Elem().Set(slice)
+   return nil
 }
