@@ -1940,7 +1940,7 @@ func (c *Client) unmarshalList(
 		return nil
 	}
 	if prototype == nil {
-		return fmt.Errorf("prototype cannot be nil (e.g. &pb.Drive{})")
+		return fmt.Errorf("prototype cannot be nil (e.g. &Drive{})")
 	}
 
 	rv := reflect.ValueOf(out)

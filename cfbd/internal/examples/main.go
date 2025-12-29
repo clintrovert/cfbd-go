@@ -13,20 +13,19 @@ func main() {
    fmt.Println("Key: " + key)
 
    client, _ := cfbd.NewClient(key)
-   gameId := int32(56)
-   games, err := client.GetGames(
-      context.Background(),
-      cfbd.GetGamesRequest{GameID: &gameId},
-   )
+   // gameId := int32(2025)
+   games, err := client.GetTeams(context.Background(), cfbd.TeamsRequest{})
    if err != nil {
       fmt.Println(err.Error())
    }
 
    for _, game := range games {
-      fmt.Println(game.Id)
-      fmt.Println(game.SeasonType)
-      fmt.Println(game.Week)
-      fmt.Println(game.HomeTeam)
-      fmt.Println(game.AwayTeam)
+      if game.School == "Texas" {
+         fmt.Println(game.String())
+      }
+
+      if game.Classification != nil {
+         fmt.Println(game.Classification.GetValue())
+      }
    }
 }
