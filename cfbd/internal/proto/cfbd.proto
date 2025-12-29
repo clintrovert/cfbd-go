@@ -1308,7 +1308,6 @@ message PlayerPPA {
   string player = 1;
   string team = 2;
   string position = 3;
-
   PlayerStatsByQuarter average = 4;
   PlayerStatsByQuarter cumulative = 5;
 }
@@ -1316,11 +1315,9 @@ message PlayerPPA {
 message AdvancedBoxScoreGameInfo {
   double excitement = 1;
   bool home_winner = 2;
-
   double away_win_prob = 3;
   int32 away_points = 4;
   string away_team = 5;
-
   double home_win_prob = 6;
   int32 home_points = 7;
   string home_team = 8;

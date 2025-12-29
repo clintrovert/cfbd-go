@@ -3,6 +3,7 @@ package cfbd
 import (
    "bytes"
    "context"
+   "fmt"
    "io"
    "net/http"
    "net/url"
@@ -25,13 +26,13 @@ func (c *restClient) execute(
    if !strings.HasPrefix(path, "/") {
       path = "/" + path
    }
-   // ResolveReference preserves scheme/host.
+
    u := c.baseURL.ResolveReference(&url.URL{Path: path})
    u.RawQuery = params.Encode()
 
    req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
    if err != nil {
-      return nil, err
+      return nil, fmt.Errorf("could not create request with context; %w", err)
    }
 
    req.Header.Set("Accept", "application/json")
@@ -45,13 +46,13 @@ func (c *restClient) execute(
 
    resp, err := c.client.Do(req)
    if err != nil {
-      return nil, err
+      return nil, fmt.Errorf("failed to execute request; %w", err)
    }
    defer resp.Body.Close()
 
    body, err := io.ReadAll(resp.Body)
    if err != nil {
-      return nil, err
+      return nil, fmt.Errorf("failed to read body; %w", err)
    }
 
    if resp.StatusCode < 200 || resp.StatusCode >= 300 {
@@ -65,36 +66,28 @@ func isJSONNull(b []byte) bool {
    return bytes.Equal(bytes.TrimSpace(b), []byte("null"))
 }
 
-func setString(v url.Values, key string, val *string) {
-   if val == nil {
+func setString(v url.Values, key string, val string) {
+   if strings.TrimSpace(val) == "" {
       return
    }
 
-   v.Set(key, *val)
+   v.Set(key, strings.TrimSpace(val))
 }
 
-func setInt32(v url.Values, key string, val *int32) {
-   if val == nil {
+func setInt32(v url.Values, key string, val int32) {
+   if val == 0 {
       return
    }
 
-   v.Set(key, strconv.FormatInt(int64(*val), 10))
+   v.Set(key, strconv.FormatInt(int64(val), 10))
 }
 
-func setInt(v url.Values, key string, val *int) {
-   if val == nil {
+func setFloat64(v url.Values, key string, val float64) {
+   if val == float64(0) {
       return
    }
 
-   v.Set(key, strconv.Itoa(*val))
-}
-
-func setFloat64(v url.Values, key string, val *float64) {
-   if val == nil {
-      return
-   }
-
-   v.Set(key, strconv.FormatFloat(*val, 'f', -1, 64))
+   v.Set(key, strconv.FormatFloat(val, 'f', -1, 64))
 }
 
 func setBool(v url.Values, key string, val *bool) {

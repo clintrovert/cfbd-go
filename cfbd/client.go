@@ -53,7 +53,6 @@ type requestExecutor interface {
 // https://blog.collegefootballdata.com/using-api-keys-with-the-cfbd-api/
 type Client struct {
    apiKey       string
-   userAgent    string
    unmarshaller protojson.UnmarshalOptions
    executor     requestExecutor
 }
@@ -109,11 +108,11 @@ func (c *Client) GetGames(
    return games, nil
 }
 
-// GetGameTeamStats retrieves team box score statistics for games based on
+// GetGameTeams retrieves team box score statistics for games based on
 // the provided request parameters.
-func (c *Client) GetGameTeamStats(
+func (c *Client) GetGameTeams(
    ctx context.Context,
-   request GameTeamStatsRequest,
+   request GameTeamsRequest,
 ) ([]*GameTeamStats, error) {
    if err := request.validate(); err != nil {
       return nil, fmt.Errorf("request could not be validated; %w", err)
@@ -132,11 +131,11 @@ func (c *Client) GetGameTeamStats(
    return games, nil
 }
 
-// GetGamePlayerStats retrieves player box score statistics for games based
+// GetGamePlayers retrieves player box score statistics for games based
 // on the provided request parameters.
-func (c *Client) GetGamePlayerStats(
+func (c *Client) GetGamePlayers(
    ctx context.Context,
-   request GamePlayerStatsRequest,
+   request GamePlayersRequest,
 ) ([]*GamePlayerStats, error) {
    if err := request.validate(); err != nil {
       return nil, fmt.Errorf("request could not be validated; %w", err)
@@ -227,6 +226,10 @@ func (c *Client) GetCalendar(
    ctx context.Context,
    year int32,
 ) ([]*CalendarWeek, error) {
+   if year < 1 {
+      return nil, fmt.Errorf("year is required; %w", ErrMissingRequiredParams)
+   }
+
    v := url.Values{}
    v.Set("year", strconv.FormatInt(int64(year), 10))
    response, err := c.executor.execute(ctx, "/calendar", v)
