@@ -1,5 +1,5 @@
-github.com/clintrovert/cfbd-go v0.0.0-20251230005017-aaa4040f8074 h1:6y32nIwxTSWyou84iq2+JcUtUvRDYgUSpc44M5vwT0U=
-github.com/clintrovert/cfbd-go v0.0.0-20251230005017-aaa4040f8074/go.mod h1:vXNCWi0O/8wH7M8Ri+d+BsSdR+CfExQcBV6WGgaxx+g=
+github.com/clintrovert/cfbd-go v0.0.1 h1:6KdAFoNx1vCHSQ4YrGR7OIgPIAzSMHHp7is4RVdvrFY=
+github.com/clintrovert/cfbd-go v0.0.1/go.mod h1:LPQh+iSmDuapAg2VFyzxjqUo5DigEnuhRgOzb0Yalmk=
 github.com/golang/mock v1.6.0 h1:ErTB+efbowRARo13NNdxyJji2egdxLGQhRaY+DUumQc=
 github.com/golang/mock v1.6.0/go.mod h1:p6yTPP+5HYm5mzsMV8JkE6ZKdX+/wYM6Hr+LicevLPs=
 github.com/google/go-cmp v0.7.0 h1:wk8382ETsv4JYUZwIsn6YpYiWiBsYLSJiTsyBybVuN8=
