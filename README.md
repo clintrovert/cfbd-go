@@ -2,21 +2,44 @@
 Minimal Golang client for the collegefootballdata.com APIs.
 
 ```golang
-client, err := cfbd.NewClient("CFBD_API_KEY")
+api, err := cfbd.New("CFBD_API_KEY")
 if err != nil {
   ...
-}
-
-request := &cfbd.GetTeamsRequest{
-  ...
-}
-
-conferences, err := client.GetTeams(ctx, request)
-if err != nil {
-  ...
-}
-
-for _, conference := range conferences {
-  fmt.Println(conference);
 }
 ```
+
+#### [GetGames]() (`/games`)
+```golang
+req := cfbd.GetGamesRequest{
+   Year: 2025,
+}
+
+games, err := api.GetGames(ctx, req)
+if err != nil {
+   panic("handle this more gracefully")
+}
+
+fmt.Println("=========== Games ===========\n")
+for i, game := range games {
+   fmt.Printf("Game %s -----------\n", i)
+   
+}
+```
+
+
+#### [GetGameTeams]() (`/games/teams`)
+```golang
+req := cfbd.GetGameTeamsRequest{
+   Year: 2025,
+}
+
+games, err := api.GetGameTeams(ctx, req)
+if err != nil {
+   panic("handle this")
+}
+
+fmt.Println("=========== Games ===========\n")
+for _, game := range games {
+   fmt.Printf("--- Game %s ---", game.Id)
+   
+}
