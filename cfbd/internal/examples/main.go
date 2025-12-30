@@ -12,6 +12,9 @@ func main() {
    ctx := context.Background()
    client, _ := cfbd.New(os.Getenv("CFBD_API_KEY"))
 
+   // set to true if patreon sub, some endpoints require it.
+   isPatreonSubscriber := true
+
    // GAMES
    printGames(ctx, client)
    printGameTeams(ctx, client)
@@ -72,6 +75,33 @@ func main() {
    printSRSRatings(ctx, client)
    printEloRatings(ctx, client)
    printFPIRatings(ctx, client)
+
+   // METRICS
+   printPPAByDownAndDistance(ctx, client)
+   printPPAByTeam(ctx, client) // FAILED
+
+   // STATS
+   printPlayerSeasonStats(ctx, client)
+   printTeamSeasonStats(ctx, client)
+   printTeamStatCategories(ctx, client)
+   printAdvancedSeasonStats(ctx, client)
+   printAdvancedGameStats(ctx, client)
+   printHavocGameStats(ctx, client)
+
+   // DRAFT
+   printDraftTeams(ctx, client)
+   printDraftPositions(ctx, client)
+   printDraftPicks(ctx, client)
+
+   // ADJUSTED METRICS
+   if isPatreonSubscriber {
+      printTeamSeasonWEPA(ctx, client)
+      printPlayerPassingWEPA(ctx, client)
+      printPlayerRushingWEPA(ctx, client)
+   }
+
+   // INFO
+   printInfo(ctx, client)
 }
 
 func printGames(ctx context.Context, client *cfbd.Client) {
@@ -562,4 +592,258 @@ func printEloRatings(ctx context.Context, client *cfbd.Client) {
    for _, rating := range ratings {
       fmt.Println(rating.String())
    }
+}
+
+func printPPAByDownAndDistance(ctx context.Context, client *cfbd.Client) {
+   ppa, err := client.GetPredictedPoints(
+      ctx, cfbd.GetPredictedPointsRequest{Distance: 10, Down: 2},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting ppa by down and distance: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= PPA BY DOWN AND DISTANCE =================")
+   for _, p := range ppa {
+      fmt.Println(p.String())
+   }
+}
+
+// FAILED
+func printPPAByTeam(ctx context.Context, client *cfbd.Client) {
+   ppaByTeam, err := client.GetTeamsPPA(
+      ctx, cfbd.GetTeamsPPARequest{Team: "Texas"},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting ppa by team: %s",
+         err.Error(),
+      )
+   }
+
+   ppaByYear, err := client.GetTeamsPPA(
+      ctx, cfbd.GetTeamsPPARequest{Year: 2025},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting ppa by year: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= PPA BY TEAM =================")
+   for _, p := range ppaByTeam {
+      fmt.Println(p.String())
+   }
+
+   fmt.Println("\n\n================= PPA BY YEAR =================")
+   for _, p := range ppaByYear {
+      fmt.Println(p.String())
+   }
+}
+
+func printPlayerSeasonStats(ctx context.Context, client *cfbd.Client) {
+   stats, err := client.GetPlayerSeasonStats(
+      ctx, cfbd.GetPlayerSeasonStatsRequest{Year: 2025},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting player season stats: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= PLAYER SEASON STATS =================")
+   for _, stat := range stats {
+      fmt.Println(stat.String())
+   }
+}
+
+func printTeamSeasonStats(ctx context.Context, client *cfbd.Client) {
+   stats, err := client.GetTeamSeasonStats(
+      ctx, cfbd.GetTeamSeasonStatsRequest{Year: 2024},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting team season stats: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= TEAM SEASON STATS =================")
+   for _, stat := range stats {
+      fmt.Println(stat.String())
+   }
+}
+
+func printTeamStatCategories(ctx context.Context, client *cfbd.Client) {
+   stats, err := client.GetStatCategories(ctx)
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting team stat categories: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= TEAM STAT CATEGORIES =================")
+   for _, stat := range stats {
+      fmt.Println(stat)
+   }
+}
+
+func printAdvancedSeasonStats(ctx context.Context, client *cfbd.Client) {
+   stats, err := client.GetAdvancedSeasonStats(
+      ctx, cfbd.GetAdvancedSeasonStatsRequest{Year: 2025},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting advanced season stats: %s",
+         err.Error(),
+      )
+   }
+   fmt.Println("================= ADVANCED SEASON STATS =================")
+   for _, stat := range stats {
+      fmt.Println(stat.String())
+   }
+}
+
+func printAdvancedGameStats(ctx context.Context, client *cfbd.Client) {
+   stats, err := client.GetAdvancedGameStats(
+      ctx, cfbd.GetAdvancedGameStatsRequest{Year: 2025},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting advanced game stats: %s",
+         err.Error(),
+      )
+   }
+   fmt.Println("================= ADVANCED GAME STATS =================")
+   for _, stat := range stats {
+      fmt.Println(stat.String())
+   }
+}
+
+func printHavocGameStats(ctx context.Context, client *cfbd.Client) {
+   stats, err := client.GetHavocGameStats(
+      ctx, cfbd.GetHavocGameStatsRequest{Year: 2025},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting havoc game stats: %s",
+         err.Error(),
+      )
+   }
+   fmt.Println("================= HAVOC GAME STATS =================")
+   for _, stat := range stats {
+      fmt.Println(stat.String())
+   }
+}
+
+func printDraftTeams(ctx context.Context, client *cfbd.Client) {
+   teams, err := client.GetDraftTeams(ctx)
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting draft teams: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= DRAFT TEAMS =================")
+   for _, t := range teams {
+      fmt.Println(t.String())
+   }
+}
+
+func printDraftPositions(ctx context.Context, client *cfbd.Client) {
+   positions, err := client.GetDraftPositions(ctx)
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting draft positions: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= DRAFT POSITIONS =================")
+   for _, p := range positions {
+      fmt.Println(p.String())
+   }
+}
+
+func printDraftPicks(ctx context.Context, client *cfbd.Client) {
+   picks, err := client.GetDraftPicks(ctx, cfbd.GetDraftPicksRequest{})
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting draft picks: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= DRAFT PICKS =================")
+   for _, p := range picks {
+      fmt.Println(p.String())
+   }
+}
+
+func printTeamSeasonWEPA(ctx context.Context, client *cfbd.Client) {
+   wepa, err := client.GetTeamSeasonWEPA(ctx, cfbd.GetTeamSeasonWEPARequest{})
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting team season WEPA: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= TEAM SEASON WEPA =================")
+   for _, w := range wepa {
+      fmt.Println(w.String())
+   }
+}
+
+func printPlayerPassingWEPA(ctx context.Context, client *cfbd.Client) {
+   wepa, err := client.GetPlayerPassingWEPA(
+      ctx, cfbd.GetPlayerWEPARequest{},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting player passing WEPA: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= PLAYER PASSING WEPA =================")
+   for _, w := range wepa {
+      fmt.Println(w.String())
+   }
+}
+
+func printPlayerRushingWEPA(ctx context.Context, client *cfbd.Client) {
+   wepa, err := client.GetPlayerRushingWEPA(
+      ctx, cfbd.GetPlayerWEPARequest{},
+   )
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting player rushing WEPA: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= PLAYER RUSHING WEPA =================")
+   for _, w := range wepa {
+      fmt.Println(w.String())
+   }
+}
+
+func printInfo(ctx context.Context, client *cfbd.Client) {
+   info, err := client.GetInfo(ctx)
+   if err != nil {
+      fmt.Printf(
+         "error occurred requesting info: %s",
+         err.Error(),
+      )
+   }
+
+   fmt.Println("================= INFO =================")
+   fmt.Println(info.String())
 }
