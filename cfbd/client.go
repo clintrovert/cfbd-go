@@ -6,7 +6,6 @@ import (
    "encoding/json"
    "errors"
    "fmt"
-   "io"
    "net/http"
    "net/url"
    "reflect"
@@ -14,6 +13,7 @@ import (
    "strings"
    "time"
 
+   "github.com/clintrovert/cfbd-go/cfbd/internal/httpget"
    "google.golang.org/protobuf/encoding/protojson"
    "google.golang.org/protobuf/proto"
 )
@@ -23,14 +23,13 @@ const (
    defaultTimeoutSec = 30
    userAgent         = "cfbd-go/1.0.0"
 
-   // Common query parameter keys, consolidating here so they aren't misspelled.
+   // Common query param keys, consolidating here so they aren't misspelled.
    idKey                 = "id"
    yearKey               = "year"
    weekKey               = "week"
    teamKey               = "team"
    homeKey               = "home"
    awayKey               = "away"
-   stateKey              = "state"
    gameIDKey             = "gameId"
    minYearKey            = "minYear"
    maxYearKey            = "maxYear"
@@ -39,14 +38,12 @@ const (
    endWeekKey            = "endWeek"
    endYearKey            = "endYear"
    lastNameKey           = "lastName"
-   divisionKey           = "division"
    categoryKey           = "category"
    opponentKey           = "opponent"
    positionKey           = "position"
    playerIDKey           = "playerId"
    thresholdKey          = "threshold"
    startYearKey          = "startYear"
-   mediaTypeKey          = "mediaType"
    firstNameKey          = "firstName"
    startWeekKey          = "startWeek"
    conferenceKey         = "conference"
@@ -68,7 +65,7 @@ var (
 // httpGetExecutor wraps the http client with an interface for ease in mock
 // testing.
 type httpGetExecutor interface {
-   execute(
+   Execute(
       ctx context.Context,
       path string,
       params url.Values,
@@ -81,18 +78,15 @@ type httpGetExecutor interface {
 //
 // Authentication: CFBD uses an API key as a Bearer token in the Authorization
 // header. Example:
-//
-//	Authorization: Bearer <your_api_key>
-//
-// Notes:
-// - All methods accept a cancellable context.Context.
-// - For endpoints that return JSON arrays, the client unmarshals each element
-// into a message.
-// - Unknown JSON fields are discarded by default to tolerate future API
-// releases.
+//	   Authorization: Bearer <your_api_key>
 //
 // Reference for authentication header examples:
 // https://blog.collegefootballdata.com/using-api-keys-with-the-cfbd-api/
+//
+// Notes:
+// - All methods accept a cancellable context.Context.
+// - Unknown JSON fields are discarded by default to tolerate future API
+// releases.
 type Client struct {
    apiKey       string
    unmarshaller protojson.UnmarshalOptions
@@ -112,11 +106,11 @@ func New(apiKey string) (*Client, error) {
 
    return &Client{
       apiKey: apiKey,
-      httpGet: &httpGetClient{
-         apiKey:    apiKey,
-         baseURL:   base,
-         userAgent: userAgent,
-         client: &http.Client{
+      httpGet: &httpget.Client{
+         APIKey:    apiKey,
+         BaseURL:   base,
+         UserAgent: userAgent,
+         HttpClient: &http.Client{
             Timeout: defaultTimeoutSec * time.Second,
          },
       },
@@ -132,8 +126,7 @@ func New(apiKey string) (*Client, error) {
 // GetGamesRequest is the request configuration for the resource
 // located at GET /games.
 //
-//	Year is required if GameID is not set.
-//	GameID is required if Year is not set.
+//	Year or Game ID is required.
 type GetGamesRequest struct {
    // Year is required if GameID is not set.
    Year int32
@@ -185,7 +178,7 @@ func (c *Client) GetGames(
    setString(values, conferenceKey, request.Conference)
    setString(values, classificationKey, request.Classification)
 
-   response, err := c.httpGet.execute(ctx, "/games", values)
+   response, err := c.httpGet.Execute(ctx, "/games", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /games; %w", err)
    }
@@ -250,7 +243,7 @@ func (c *Client) GetGameTeams(
    setString(values, classificationKey, request.Classification)
    setInt32(values, gameIDKey, request.GameID)
 
-   response, err := c.httpGet.execute(ctx, "/games/teams", values)
+   response, err := c.httpGet.Execute(ctx, "/games/teams", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /games/teams; %w", err)
    }
@@ -315,7 +308,7 @@ func (c *Client) GetGamePlayers(
    setInt32(values, gameIDKey, request.GameID)
    setString(values, categoryKey, request.Category)
 
-   response, err := c.httpGet.execute(ctx, "/games/players", values)
+   response, err := c.httpGet.Execute(ctx, "/games/players", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /games/players; %w", err)
    }
@@ -372,9 +365,9 @@ func (c *Client) GetGameMedia(
    setString(values, seasonTypeKey, request.SeasonType)
    setString(values, teamKey, request.Team)
    setString(values, conferenceKey, request.Conference)
-   setString(values, mediaTypeKey, request.MediaType)
+   setString(values, "mediaType", request.MediaType)
 
-   response, err := c.httpGet.execute(ctx, "/games/media", values)
+   response, err := c.httpGet.Execute(ctx, "/games/media", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /games/media; %w", err)
    }
@@ -436,7 +429,7 @@ func (c *Client) GetGameWeather(
    setString(values, conferenceKey, request.Conference)
    setInt32(values, gameIDKey, request.GameID)
 
-   response, err := c.httpGet.execute(ctx, "/games/weather", values)
+   response, err := c.httpGet.Execute(ctx, "/games/weather", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /games/weather; %w", err)
    }
@@ -469,8 +462,8 @@ func (c *Client) GetAdvancedBoxScore(
    }
 
    v := url.Values{}
-   setInt32(v, gameIDKey, gameID)
-   response, err := c.httpGet.execute(ctx, "/game/box/advanced", v)
+   setInt32(v, idKey, gameID)
+   response, err := c.httpGet.Execute(ctx, "/game/box/advanced", v)
    if err != nil {
       return nil, fmt.Errorf("failed to request /game/box/advanced; %w", err)
    }
@@ -501,7 +494,7 @@ func (c *Client) GetCalendar(
 
    v := url.Values{}
    setInt32(v, yearKey, year)
-   response, err := c.httpGet.execute(ctx, "/calendar", v)
+   response, err := c.httpGet.Execute(ctx, "/calendar", v)
    if err != nil {
       return nil, fmt.Errorf("failed to request /calendar; %w", err)
    }
@@ -554,7 +547,7 @@ func (c *Client) GetTeamRecords(
    setString(values, teamKey, request.Team)
    setString(values, conferenceKey, request.Conference)
 
-   response, err := c.httpGet.execute(ctx, "/records", values)
+   response, err := c.httpGet.Execute(ctx, "/records", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /records; %w", err)
    }
@@ -572,8 +565,8 @@ func (c *Client) GetTeamRecords(
 // GetScoreboardRequest is the request configuration for the resource
 // located at GET /scoreboard.
 type GetScoreboardRequest struct {
-   // Division is optional.
-   Division string
+   // Classification is optional.
+   Classification string
    // Conference is optional.
    Conference string
 }
@@ -592,10 +585,10 @@ func (c *Client) GetScoreboard(
    request GetScoreboardRequest,
 ) ([]*Scoreboard, error) {
    values := url.Values{}
-   setString(values, divisionKey, request.Division)
+   setString(values, "classification", request.Classification)
    setString(values, conferenceKey, request.Conference)
 
-   response, err := c.httpGet.execute(ctx, "/scoreboard", values)
+   response, err := c.httpGet.Execute(ctx, "/scoreboard", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /scoreboard; %w", err)
    }
@@ -666,7 +659,7 @@ func (c *Client) GetDrives(
    setString(values, defenseConferenceKey, request.DefenseConference)
    setString(values, classificationKey, request.Classification)
 
-   response, err := c.httpGet.execute(ctx, "/drives", values)
+   response, err := c.httpGet.Execute(ctx, "/drives", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /drives; %w", err)
    }
@@ -745,7 +738,7 @@ func (c *Client) GetPlays(
    setString(values, seasonTypeKey, request.SeasonType)
    setString(values, classificationKey, request.Classification)
 
-   response, err := c.httpGet.execute(ctx, "/plays", values)
+   response, err := c.httpGet.Execute(ctx, "/plays", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /plays; %w", err)
    }
@@ -766,7 +759,7 @@ func (c *Client) GetPlays(
 //
 //	ctx  controls request cancellation
 func (c *Client) GetPlayTypes(ctx context.Context) ([]*PlayType, error) {
-   response, err := c.httpGet.execute(ctx, "/plays/types", url.Values{})
+   response, err := c.httpGet.Execute(ctx, "/plays/types", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /plays/types; %w", err)
    }
@@ -802,8 +795,7 @@ type GetPlayStatsRequest struct {
    Conference string
 }
 
-// GetPlayStats retrieves play statistics based on the provided request
-// parameters.
+// GetPlayStats retrieves play statistics.
 //
 // Calls GET /plays/stats.
 //
@@ -815,6 +807,7 @@ func (c *Client) GetPlayStats(
    ctx context.Context,
    request GetPlayStatsRequest,
 ) ([]*PlayStat, error) {
+   // All fields are optional, no validation needed.
    values := url.Values{}
    setInt32(values, yearKey, request.Year)
    setInt32(values, weekKey, request.Week)
@@ -825,7 +818,7 @@ func (c *Client) GetPlayStats(
    setString(values, seasonTypeKey, request.SeasonType)
    setString(values, conferenceKey, request.Conference)
 
-   response, err := c.httpGet.execute(ctx, "/plays/stats", values)
+   response, err := c.httpGet.Execute(ctx, "/plays/stats", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /plays/stats; %w", err)
    }
@@ -848,7 +841,7 @@ func (c *Client) GetPlayStats(
 func (c *Client) GetPlayStatTypes(
    ctx context.Context,
 ) ([]*PlayStatType, error) {
-   response, err := c.httpGet.execute(ctx, "/plays/stats/types", url.Values{})
+   response, err := c.httpGet.Execute(ctx, "/plays/stats/types", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /plays/stats/types; %w", err)
    }
@@ -882,7 +875,7 @@ func (c *Client) GetLivePlays(
    params := url.Values{}
    setInt32(params, gameIDKey, gameID)
 
-   response, err := c.httpGet.execute(ctx, "/live/plays", params)
+   response, err := c.httpGet.Execute(ctx, "/live/plays", params)
    if err != nil {
       return nil, fmt.Errorf("failed to request /live/plays; %w", err)
    }
@@ -923,7 +916,7 @@ func (c *Client) GetTeams(
    setString(values, conferenceKey, request.Conference)
    setInt32(values, yearKey, request.Year)
 
-   response, err := c.httpGet.execute(ctx, "/teams", values)
+   response, err := c.httpGet.Execute(ctx, "/teams", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /teams; %w", err)
    }
@@ -938,14 +931,14 @@ func (c *Client) GetTeams(
 
 // ============================== GET /teams/fbs ===============================
 
-// GetTeamsFbsRequest is the request configuration for the resource
+// GetFBSTeamsRequest is the request configuration for the resource
 // located at GET /teams/fbs.
-type GetTeamsFbsRequest struct {
+type GetFBSTeamsRequest struct {
    // Year is optional.
    Year int32
 }
 
-// GetTeamsFBS retrieves FBS (Football Bowl Subdivision) team information
+// GetFBSTeams retrieves FBS (Football Bowl Subdivision) team information
 // based on the provided request parameters.
 //
 // Calls GET /teams/fbs.
@@ -954,14 +947,14 @@ type GetTeamsFbsRequest struct {
 //
 //	ctx      controls request cancellation
 //	request  contains filtering options for FBS teams
-func (c *Client) GetTeamsFBS(
+func (c *Client) GetFBSTeams(
    ctx context.Context,
-   request GetTeamsFbsRequest,
+   request GetFBSTeamsRequest,
 ) ([]*Team, error) {
    values := url.Values{}
    setInt32(values, yearKey, request.Year)
 
-   response, err := c.httpGet.execute(ctx, "/teams/fbs", values)
+   response, err := c.httpGet.Execute(ctx, "/teams/fbs", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /teams/fbs; %w", err)
    }
@@ -1002,13 +995,20 @@ func (c *Client) GetTeamMatchup(
    ctx context.Context,
    request GetTeamMatchupRequest,
 ) (*Matchup, error) {
+   if strings.TrimSpace(request.Team1) == "" ||
+      strings.TrimSpace(request.Team2) == "" {
+      return nil, fmt.Errorf(
+         "team1 and team2 are requried; %w", ErrMissingRequiredParams,
+      )
+   }
+
    values := url.Values{}
    setString(values, "team1", request.Team1)
    setString(values, "team2", request.Team2)
    setInt32(values, minYearKey, request.MinYear)
    setInt32(values, maxYearKey, request.MaxYear)
 
-   response, err := c.httpGet.execute(ctx, "/teams/matchup", values)
+   response, err := c.httpGet.Execute(ctx, "/teams/matchup", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /teams/matchup; %w", err)
    }
@@ -1026,7 +1026,7 @@ func (c *Client) GetTeamMatchup(
 // GetTeamATSRequest is the request configuration for the resource
 // located at GET /teams/ats.
 type GetTeamATSRequest struct {
-   // Year is optional.
+   // Year is required.
    Year int32
    // Conference is optional.
    Conference string
@@ -1047,12 +1047,15 @@ func (c *Client) GetTeamATS(
    ctx context.Context,
    request GetTeamATSRequest,
 ) ([]*TeamATS, error) {
+   if request.Year < 0 {
+      return nil, fmt.Errorf("year is requried; %w", ErrMissingRequiredParams)
+   }
    values := url.Values{}
    setInt32(values, yearKey, request.Year)
    setString(values, conferenceKey, request.Conference)
    setString(values, teamKey, request.Team)
 
-   response, err := c.httpGet.execute(ctx, "/teams/ats", values)
+   response, err := c.httpGet.Execute(ctx, "/teams/ats", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /teams/ats; %w", err)
    }
@@ -1096,7 +1099,7 @@ func (c *Client) GetRoster(
    setInt32(values, yearKey, request.Year)
    setString(values, classificationKey, request.Classification)
 
-   response, err := c.httpGet.execute(ctx, "/roster", values)
+   response, err := c.httpGet.Execute(ctx, "/roster", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /roster; %w", err)
    }
@@ -1111,15 +1114,14 @@ func (c *Client) GetRoster(
 
 // ================================ GET /talent ================================
 
-// GetTalentRequest is the request configuration for the resource
+// GetTalentCompositeRequest is the request configuration for the resource
 // located at GET /talent.
-type GetTalentRequest struct {
-   // Year is optional.
+type GetTalentCompositeRequest struct {
+   // Year is required.
    Year int32
 }
 
-// GetTeamTalent retrieves team talent ratings based on the provided request
-// parameters.
+// GetTeamTalentComposite retrieves 247 team talent composite ratings
 //
 // Calls GET /talent.
 //
@@ -1127,14 +1129,18 @@ type GetTalentRequest struct {
 //
 //	ctx      controls request cancellation
 //	request  contains filtering options for team talent ratings
-func (c *Client) GetTeamTalent(
+func (c *Client) GetTeamTalentComposite(
    ctx context.Context,
-   request GetTalentRequest,
+   request GetTalentCompositeRequest,
 ) ([]*TeamTalent, error) {
+   if request.Year < 1 {
+      return nil, fmt.Errorf("year is requried; %w", ErrMissingRequiredParams)
+   }
+
    values := url.Values{}
    setInt32(values, yearKey, request.Year)
 
-   response, err := c.httpGet.execute(ctx, "/talent", values)
+   response, err := c.httpGet.Execute(ctx, "/talent", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /talent; %w", err)
    }
@@ -1155,7 +1161,7 @@ func (c *Client) GetTeamTalent(
 //
 //	ctx  controls request cancellation
 func (c *Client) GetConferences(ctx context.Context) ([]*Conference, error) {
-   response, err := c.httpGet.execute(ctx, "/conferences", url.Values{})
+   response, err := c.httpGet.Execute(ctx, "/conferences", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /conferences; %w", err)
    }
@@ -1176,7 +1182,7 @@ func (c *Client) GetConferences(ctx context.Context) ([]*Conference, error) {
 //
 //	ctx  controls request cancellation
 func (c *Client) GetVenues(ctx context.Context) ([]*Venue, error) {
-   response, err := c.httpGet.execute(ctx, "/venues", url.Values{})
+   response, err := c.httpGet.Execute(ctx, "/venues", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /venues; %w", err)
    }
@@ -1229,7 +1235,7 @@ func (c *Client) GetCoaches(
    setInt32(values, minYearKey, request.MinYear)
    setInt32(values, maxYearKey, request.MaxYear)
 
-   response, err := c.httpGet.execute(ctx, "/coaches", values)
+   response, err := c.httpGet.Execute(ctx, "/coaches", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /coaches; %w", err)
    }
@@ -1244,9 +1250,9 @@ func (c *Client) GetCoaches(
 
 // ============================ GET /player/search ============================
 
-// GetPlayerSearchRequest is the request configuration for the resource
+// SearchPlayersRequest is the request configuration for the resource
 // located at GET /player/search.
-type GetPlayerSearchRequest struct {
+type SearchPlayersRequest struct {
    // SearchTerm is optional.
    SearchTerm string
    // Year is optional.
@@ -1268,15 +1274,21 @@ type GetPlayerSearchRequest struct {
 //	request  contains the parameters for the player search
 func (c *Client) SearchPlayers(
    ctx context.Context,
-   request GetPlayerSearchRequest,
+   request SearchPlayersRequest,
 ) ([]*PlayerSearchResult, error) {
+   if request.SearchTerm == "" {
+      return nil, fmt.Errorf(
+         "search term is requried; %w", ErrMissingRequiredParams,
+      )
+   }
+
    values := url.Values{}
    setString(values, "searchTerm", request.SearchTerm)
    setInt32(values, yearKey, request.Year)
    setString(values, teamKey, request.Team)
    setString(values, positionKey, request.Position)
 
-   response, err := c.httpGet.execute(ctx, "/player/search", values)
+   response, err := c.httpGet.Execute(ctx, "/player/search", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /player/search; %w", err)
    }
@@ -1325,6 +1337,10 @@ func (c *Client) GetPlayerUsage(
    ctx context.Context,
    request GetPlayerUsageRequest,
 ) ([]*PlayerUsage, error) {
+   if request.Year < 1 {
+      return nil, fmt.Errorf("year must be set; %w", ErrMissingRequiredParams)
+   }
+
    values := url.Values{}
    setInt32(values, yearKey, request.Year)
    setString(values, conferenceKey, request.Conference)
@@ -1333,7 +1349,7 @@ func (c *Client) GetPlayerUsage(
    setInt32(values, playerIDKey, request.PlayerID)
    setBool(values, excludeGarbageTimeKey, request.ExcludeGarbageTime)
 
-   response, err := c.httpGet.execute(ctx, "/player/usage", values)
+   response, err := c.httpGet.Execute(ctx, "/player/usage", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /player/usage; %w", err)
    }
@@ -1351,9 +1367,9 @@ func (c *Client) GetPlayerUsage(
 // GetReturningProductionRequest is the request configuration for the resource
 // located at GET /player/returning.
 type GetReturningProductionRequest struct {
-   // Year is optional.
+   // Year is required of Team is not set.
    Year int32
-   // Team is optional.
+   // Team is required if Year is not set.
    Team string
    // Conference is optional.
    Conference string
@@ -1372,12 +1388,18 @@ func (c *Client) GetReturningProduction(
    ctx context.Context,
    request GetReturningProductionRequest,
 ) ([]*ReturningProduction, error) {
+   if request.Year < 1 && strings.TrimSpace(request.Team) == "" {
+      return nil, fmt.Errorf(
+         "year or team must be set; %w", ErrMissingRequiredParams,
+      )
+   }
+
    values := url.Values{}
    setInt32(values, yearKey, request.Year)
    setString(values, teamKey, request.Team)
    setString(values, conferenceKey, request.Conference)
 
-   response, err := c.httpGet.execute(ctx, "/player/returning", values)
+   response, err := c.httpGet.Execute(ctx, "/player/returning", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /player/returning; %w", err)
    }
@@ -1396,14 +1418,14 @@ func (c *Client) GetReturningProduction(
 
 // ============================ GET /player/portal ============================
 
-// GetPlayerPortalRequest is the request configuration for the resource
+// GetTransferPortalPlayersRequest is the request configuration for the resource
 // located at GET /player/portal.
-type GetPlayerPortalRequest struct {
-   // Year is optional.
+type GetTransferPortalPlayersRequest struct {
+   // Year is required.
    Year int32
 }
 
-// GetTransferPortal retrieves player transfer portal information based on
+// GetTransferPortalPlayers retrieves player transfer portal information based on
 // the provided request parameters.
 //
 // Calls GET /player/portal.
@@ -1412,14 +1434,18 @@ type GetPlayerPortalRequest struct {
 //
 //	ctx      controls request cancellation
 //	request  contains filtering options for transfer portal data
-func (c *Client) GetTransferPortal(
+func (c *Client) GetTransferPortalPlayers(
    ctx context.Context,
-   request GetPlayerPortalRequest,
+   request GetTransferPortalPlayersRequest,
 ) ([]*PlayerTransfer, error) {
+   if request.Year < 1 {
+      return nil, fmt.Errorf("year must be set; %w", ErrMissingRequiredParams)
+   }
+
    values := url.Values{}
    setInt32(values, yearKey, request.Year)
 
-   response, err := c.httpGet.execute(ctx, "/player/portal", values)
+   response, err := c.httpGet.Execute(ctx, "/player/portal", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /player/portal; %w", err)
    }
@@ -1439,7 +1465,7 @@ func (c *Client) GetTransferPortal(
 // GetRankingsRequest is the request configuration for the resource
 // located at GET /rankings.
 type GetRankingsRequest struct {
-   // Year is optional.
+   // Year is required.
    Year int32
    // SeasonType is optional.
    SeasonType string
@@ -1460,12 +1486,16 @@ func (c *Client) GetRankings(
    ctx context.Context,
    request GetRankingsRequest,
 ) ([]*PollWeek, error) {
+   if request.Year < 1 {
+      return nil, fmt.Errorf("year must be set; %w", ErrMissingRequiredParams)
+   }
+
    values := url.Values{}
    setInt32(values, yearKey, request.Year)
    setString(values, seasonTypeKey, request.SeasonType)
    setFloat64(values, weekKey, request.Week)
 
-   response, err := c.httpGet.execute(ctx, "/rankings", values)
+   response, err := c.httpGet.Execute(ctx, "/rankings", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /rankings; %w", err)
    }
@@ -1516,6 +1546,12 @@ func (c *Client) GetBettingLines(
    ctx context.Context,
    request GetBettingLinesRequest,
 ) ([]*BettingGame, error) {
+   if request.Year < 1 && request.GameID < 1 {
+      return nil, fmt.Errorf(
+         "year or game ID must be set; %w", ErrMissingRequiredParams,
+      )
+   }
+
    values := url.Values{}
    setInt32(values, gameIDKey, request.GameID)
    setInt32(values, yearKey, request.Year)
@@ -1527,7 +1563,7 @@ func (c *Client) GetBettingLines(
    setString(values, conferenceKey, request.Conference)
    setString(values, "provider", request.Provider)
 
-   response, err := c.httpGet.execute(ctx, "/lines", values)
+   response, err := c.httpGet.Execute(ctx, "/lines", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /lines; %w", err)
    }
@@ -1542,9 +1578,9 @@ func (c *Client) GetBettingLines(
 
 // =========================== GET /recruiting/players =========================
 
-// GetRecruitingPlayersRequest is the request configuration for the resource
+// GetPlayersRecruitingRankingsRequest is the request configuration for the resource
 // located at GET /recruiting/players.
-type GetRecruitingPlayersRequest struct {
+type GetPlayersRecruitingRankingsRequest struct {
    // Year is optional.
    Year int32
    // Team is optional.
@@ -1557,7 +1593,7 @@ type GetRecruitingPlayersRequest struct {
    Classification string
 }
 
-// GetRecruitingPlayers retrieves recruiting information for players based
+// GetPlayerRecruitingRankings retrieves recruiting information for players based
 // on the provided request parameters.
 //
 // Calls GET /recruiting/players.
@@ -1566,18 +1602,18 @@ type GetRecruitingPlayersRequest struct {
 //
 //	ctx      controls request cancellation
 //	request  contains filtering options for recruiting players
-func (c *Client) GetRecruitingPlayers(
+func (c *Client) GetPlayerRecruitingRankings(
    ctx context.Context,
-   request GetRecruitingPlayersRequest,
+   request GetPlayersRecruitingRankingsRequest,
 ) ([]*Recruit, error) {
    values := url.Values{}
    setInt32(values, yearKey, request.Year)
    setString(values, teamKey, request.Team)
    setString(values, positionKey, request.Position)
-   setString(values, stateKey, request.State)
+   setString(values, "state", request.State)
    setString(values, classificationKey, request.Classification)
 
-   response, err := c.httpGet.execute(ctx, "/recruiting/players", values)
+   response, err := c.httpGet.Execute(ctx, "/recruiting/players", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /recruiting/players; %w", err)
    }
@@ -1618,7 +1654,7 @@ func (c *Client) GetTeamRecruitingRankings(
    setInt32(values, yearKey, request.Year)
    setString(values, teamKey, request.Team)
 
-   response, err := c.httpGet.execute(ctx, "/recruiting/teams", values)
+   response, err := c.httpGet.Execute(ctx, "/recruiting/teams", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /recruiting/teams; %w", err)
    }
@@ -1637,9 +1673,9 @@ func (c *Client) GetTeamRecruitingRankings(
 
 // =========================== GET /recruiting/groups ==========================
 
-// GetRecruitingGroupsRequest is the request configuration for the resource
+// GetTeamPositionGroupRecruitingRankingsRequest is the request configuration for the resource
 // located at GET /recruiting/groups.
-type GetRecruitingGroupsRequest struct {
+type GetTeamPositionGroupRecruitingRankingsRequest struct {
    // Team is optional.
    Team string
    // Conference is optional.
@@ -1652,7 +1688,7 @@ type GetRecruitingGroupsRequest struct {
    EndYear int32
 }
 
-// GetRecruitingGroups retrieves aggregated team recruiting information
+// GetTeamPositionGroupRecruitingRankings retrieves aggregated team recruiting information
 // based on the provided request parameters.
 //
 // Calls GET /recruiting/groups.
@@ -1661,9 +1697,9 @@ type GetRecruitingGroupsRequest struct {
 //
 //	ctx      controls request cancellation
 //	request  contains filtering options for recruiting groups
-func (c *Client) GetRecruitingGroups(
+func (c *Client) GetTeamPositionGroupRecruitingRankings(
    ctx context.Context,
-   request GetRecruitingGroupsRequest,
+   request GetTeamPositionGroupRecruitingRankingsRequest,
 ) ([]*AggregatedTeamRecruiting, error) {
    values := url.Values{}
    setString(values, teamKey, request.Team)
@@ -1672,7 +1708,7 @@ func (c *Client) GetRecruitingGroups(
    setInt32(values, startYearKey, request.StartYear)
    setInt32(values, endYearKey, request.EndYear)
 
-   response, err := c.httpGet.execute(ctx, "/recruiting/groups", values)
+   response, err := c.httpGet.Execute(ctx, "/recruiting/groups", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /recruiting/groups; %w", err)
    }
@@ -1728,7 +1764,7 @@ func (c *Client) GetTeamSPPlusRatings(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(ctx, "/ratings/sp", request.values())
+   response, err := c.httpGet.Execute(ctx, "/ratings/sp", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ratings/sp; %w", err)
    }
@@ -1743,8 +1779,8 @@ func (c *Client) GetTeamSPPlusRatings(
 
 // ======================= GET /ratings/sp/conferences ========================
 
-// GetConferenceSPPlusRatingsRequest is the request configuration for the resource
-// located at GET /ratings/sp/conferences.
+// GetConferenceSPPlusRatingsRequest is the request configuration for the
+// resource located at GET /ratings/sp/conferences.
 type GetConferenceSPPlusRatingsRequest struct {
    // Year is optional.
    Year int32
@@ -1780,7 +1816,7 @@ func (c *Client) GetConferenceSPPlusRatings(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(
+   response, err := c.httpGet.Execute(
       ctx, "/ratings/sp/conferences", request.values(),
    )
    if err != nil {
@@ -1806,24 +1842,12 @@ func (c *Client) GetConferenceSPPlusRatings(
 // GetSRSRatingsRequest is the request configuration for the resource
 // located at GET /ratings/srs.
 type GetSRSRatingsRequest struct {
-   // Year is optional.
+   // Year is required if Team is not specified.
    Year int32
-   // Team is optional.
+   // Team is required if Year is not specified.
    Team string
    // Conference is optional.
    Conference string
-}
-
-func (p GetSRSRatingsRequest) validate() error {
-   return nil
-}
-
-func (p GetSRSRatingsRequest) values() url.Values {
-   v := url.Values{}
-   setInt32(v, yearKey, p.Year)
-   setString(v, teamKey, p.Team)
-   setString(v, conferenceKey, p.Conference)
-   return v
 }
 
 // GetSRSRatings retrieves SRS (Simple Rating System) ratings for teams
@@ -1839,11 +1863,18 @@ func (c *Client) GetSRSRatings(
    ctx context.Context,
    request GetSRSRatingsRequest,
 ) ([]*TeamSRS, error) {
-   if err := request.validate(); err != nil {
-      return nil, fmt.Errorf("request could not be validated; %w", err)
+   if request.Year < 1 && strings.TrimSpace(request.Team) == "" {
+      return nil, fmt.Errorf(
+         "year or team required; %w", ErrMissingRequiredParams,
+      )
    }
 
-   response, err := c.httpGet.execute(ctx, "/ratings/srs", request.values())
+   values := url.Values{}
+   setInt32(values, yearKey, request.Year)
+   setString(values, teamKey, request.Team)
+   setString(values, conferenceKey, request.Conference)
+
+   response, err := c.httpGet.Execute(ctx, "/ratings/srs", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /ratings/srs; %w", err)
    }
@@ -1873,20 +1904,6 @@ type GetEloRatingsRequest struct {
    Conference string
 }
 
-func (p GetEloRatingsRequest) validate() error {
-   return nil
-}
-
-func (p GetEloRatingsRequest) values() url.Values {
-   v := url.Values{}
-   setInt32(v, yearKey, p.Year)
-   setInt32(v, weekKey, p.Week)
-   setString(v, seasonTypeKey, p.SeasonType)
-   setString(v, teamKey, p.Team)
-   setString(v, conferenceKey, p.Conference)
-   return v
-}
-
 // GetEloRatings retrieves Elo ratings for teams based on the provided
 // request parameters.
 //
@@ -1900,11 +1917,14 @@ func (c *Client) GetEloRatings(
    ctx context.Context,
    request GetEloRatingsRequest,
 ) ([]*TeamElo, error) {
-   if err := request.validate(); err != nil {
-      return nil, fmt.Errorf("request could not be validated; %w", err)
-   }
+   values := url.Values{}
+   setInt32(values, yearKey, request.Year)
+   setInt32(values, weekKey, request.Week)
+   setString(values, seasonTypeKey, request.SeasonType)
+   setString(values, teamKey, request.Team)
+   setString(values, conferenceKey, request.Conference)
 
-   response, err := c.httpGet.execute(ctx, "/ratings/elo", request.values())
+   response, err := c.httpGet.Execute(ctx, "/ratings/elo", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /ratings/elo; %w", err)
    }
@@ -1922,24 +1942,12 @@ func (c *Client) GetEloRatings(
 // GetFPIRatingsRequest is the request configuration for the resource
 // located at GET /ratings/fpi.
 type GetFPIRatingsRequest struct {
-   // Year is optional.
+   // Year is required if Team is not specified.
    Year int32
-   // Team is optional.
+   // Team is required if Year is not specified.
    Team string
    // Conference is optional.
    Conference string
-}
-
-func (p GetFPIRatingsRequest) validate() error {
-   return nil
-}
-
-func (p GetFPIRatingsRequest) values() url.Values {
-   v := url.Values{}
-   setInt32(v, yearKey, p.Year)
-   setString(v, teamKey, p.Team)
-   setString(v, conferenceKey, p.Conference)
-   return v
 }
 
 // GetFPIRatings retrieves FPI (Football Power Index) ratings for teams
@@ -1955,11 +1963,18 @@ func (c *Client) GetFPIRatings(
    ctx context.Context,
    request GetFPIRatingsRequest,
 ) ([]*TeamFPI, error) {
-   if err := request.validate(); err != nil {
-      return nil, fmt.Errorf("request could not be validated; %w", err)
+   if request.Year < 1 && strings.TrimSpace(request.Team) == "" {
+      return nil, fmt.Errorf(
+         "year or team required; %w", ErrMissingRequiredParams,
+      )
    }
 
-   response, err := c.httpGet.execute(ctx, "/ratings/fpi", request.values())
+   values := url.Values{}
+   setInt32(values, yearKey, request.Year)
+   setString(values, teamKey, request.Team)
+   setString(values, conferenceKey, request.Conference)
+
+   response, err := c.httpGet.Execute(ctx, "/ratings/fpi", values)
    if err != nil {
       return nil, fmt.Errorf("failed to request /ratings/fpi; %w", err)
    }
@@ -2011,7 +2026,7 @@ func (c *Client) GetPredictedPoints(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(ctx, "/ppa/predicted", request.values())
+   response, err := c.httpGet.Execute(ctx, "/ppa/predicted", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ppa/predicted; %w", err)
    }
@@ -2073,7 +2088,7 @@ func (c *Client) GetTeamsPPA(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(ctx, "/ppa/teams", request.values())
+   response, err := c.httpGet.Execute(ctx, "/ppa/teams", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ppa/teams; %w", err)
    }
@@ -2139,7 +2154,7 @@ func (c *Client) GetGamesPPA(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(ctx, "/ppa/games", request.values())
+   response, err := c.httpGet.Execute(ctx, "/ppa/games", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /ppa/games; %w", err)
    }
@@ -2211,7 +2226,7 @@ func (c *Client) GetPlayersPPA(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(
+   response, err := c.httpGet.Execute(
       ctx, "/ppa/players/games", request.values(),
    )
    if err != nil {
@@ -2282,7 +2297,7 @@ func (c *Client) GetPlayerSeasonPPA(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(
+   response, err := c.httpGet.Execute(
       ctx, "/ppa/players/season", request.values(),
    )
    if err != nil {
@@ -2321,7 +2336,7 @@ func (c *Client) GetWinProbability(
    params := url.Values{}
    setInt32(params, gameIDKey, gameID)
 
-   response, err := c.httpGet.execute(ctx, "/metrics/wp", params)
+   response, err := c.httpGet.Execute(ctx, "/metrics/wp", params)
    if err != nil {
       return nil, fmt.Errorf("failed to request /metrics/wp; %w", err)
    }
@@ -2381,7 +2396,7 @@ func (c *Client) GetPregameWinProbability(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(
+   response, err := c.httpGet.Execute(
       ctx, "/metrics/wp/pregame", request.values(),
    )
    if err != nil {
@@ -2410,7 +2425,7 @@ func (c *Client) GetPregameWinProbability(
 func (c *Client) GetFieldGoalExpectedPoints(
    ctx context.Context,
 ) ([]*FieldGoalEP, error) {
-   response, err := c.httpGet.execute(ctx, "/metrics/fg/ep", url.Values{})
+   response, err := c.httpGet.Execute(ctx, "/metrics/fg/ep", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /metrics/fg/ep; %w", err)
    }
@@ -2477,7 +2492,7 @@ func (c *Client) GetPlayerSeasonStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(
+   response, err := c.httpGet.Execute(
       ctx, "/stats/player/season", request.values(),
    )
    if err != nil {
@@ -2540,7 +2555,7 @@ func (c *Client) GetTeamSeasonStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(ctx, "/stats/season", request.values())
+   response, err := c.httpGet.Execute(ctx, "/stats/season", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /stats/season; %w", err)
    }
@@ -2561,7 +2576,7 @@ func (c *Client) GetTeamSeasonStats(
 //
 //	ctx  controls request cancellation
 func (c *Client) GetStatCategories(ctx context.Context) ([]string, error) {
-   response, err := c.httpGet.execute(ctx, "/stats/categories", url.Values{})
+   response, err := c.httpGet.Execute(ctx, "/stats/categories", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /stats/categories; %w", err)
    }
@@ -2622,7 +2637,7 @@ func (c *Client) GetAdvancedSeasonStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(
+   response, err := c.httpGet.Execute(
       ctx, "/stats/season/advanced", request.values(),
    )
    if err != nil {
@@ -2694,7 +2709,7 @@ func (c *Client) GetAdvancedGameStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   resp, err := c.httpGet.execute(ctx, "/stats/game/advanced", req.values())
+   resp, err := c.httpGet.Execute(ctx, "/stats/game/advanced", req.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /stats/game/advanced; %w", err)
    }
@@ -2755,7 +2770,7 @@ func (c *Client) GetGameHavocStats(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(
+   response, err := c.httpGet.Execute(
       ctx, "/stats/game/havoc", request.values(),
    )
    if err != nil {
@@ -2778,7 +2793,7 @@ func (c *Client) GetGameHavocStats(
 //
 //	ctx  controls request cancellation
 func (c *Client) GetDraftTeams(ctx context.Context) ([]*DraftTeam, error) {
-   response, err := c.httpGet.execute(ctx, "/draft/teams", url.Values{})
+   response, err := c.httpGet.Execute(ctx, "/draft/teams", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /draft/teams; %w", err)
    }
@@ -2801,7 +2816,7 @@ func (c *Client) GetDraftTeams(ctx context.Context) ([]*DraftTeam, error) {
 func (c *Client) GetDraftPositions(
    ctx context.Context,
 ) ([]*DraftPosition, error) {
-   response, err := c.httpGet.execute(ctx, "/draft/positions", url.Values{})
+   response, err := c.httpGet.Execute(ctx, "/draft/positions", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /draft/positions; %w", err)
    }
@@ -2864,7 +2879,7 @@ func (c *Client) GetDraftPicks(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(ctx, "/draft/picks", request.values())
+   response, err := c.httpGet.Execute(ctx, "/draft/picks", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /draft/picks; %w", err)
    }
@@ -2919,7 +2934,7 @@ func (c *Client) GetTeamSeasonWEPA(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   resp, err := c.httpGet.execute(ctx, "/wepa/team/season", request.values())
+   resp, err := c.httpGet.Execute(ctx, "/wepa/team/season", request.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /wepa/team/season; %w", err)
    }
@@ -2979,7 +2994,7 @@ func (c *Client) GetPlayerPassingWEPA(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   resp, err := c.httpGet.execute(
+   resp, err := c.httpGet.Execute(
       ctx, "/wepa/players/passing", request.values(),
    )
    if err != nil {
@@ -3013,7 +3028,7 @@ func (c *Client) GetPlayerRushingWEPA(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   resp, err := c.httpGet.execute(ctx, "/wepa/players/rushing", req.values())
+   resp, err := c.httpGet.Execute(ctx, "/wepa/players/rushing", req.values())
    if err != nil {
       return nil, fmt.Errorf("failed to request /wepa/players/rushing; %w", err)
    }
@@ -3070,7 +3085,7 @@ func (c *Client) GetPlayerKickingWEPA(
       return nil, fmt.Errorf("request could not be validated; %w", err)
    }
 
-   response, err := c.httpGet.execute(
+   response, err := c.httpGet.Execute(
       ctx, "/wepa/players/kicking", req.values(),
    )
    if err != nil {
@@ -3094,7 +3109,7 @@ func (c *Client) GetPlayerKickingWEPA(
 //
 //	ctx  controls request cancellation
 func (c *Client) GetInfo(ctx context.Context) (*UserInfo, error) {
-   response, err := c.httpGet.execute(ctx, "/info", url.Values{})
+   response, err := c.httpGet.Execute(ctx, "/info", url.Values{})
    if err != nil {
       return nil, fmt.Errorf("failed to request /info endpoint; %w", err)
    }
@@ -3208,83 +3223,4 @@ func setBool(v url.Values, key string, val *bool) {
    }
 
    v.Set(key, strconv.FormatBool(*val))
-}
-
-// apiError represents a non-2xx response.
-type apiError struct {
-   StatusCode int
-   Body       []byte
-   Endpoint   string
-}
-
-// Error returns a human readable error message detailing the API error.
-func (e *apiError) Error() string {
-   b := strings.TrimSpace(string(e.Body))
-   msgCharLimit := 400
-   if len(b) > msgCharLimit {
-      b = b[:msgCharLimit] + "…"
-   }
-
-   if b == "" {
-      return fmt.Sprintf(
-         "cfbd api error for %s: status=%d", e.Endpoint, e.StatusCode,
-      )
-   }
-
-   return fmt.Sprintf(
-      "cfbd api error for %s: status=%d body=%s", e.Endpoint, e.StatusCode, b,
-   )
-}
-
-// httpGetClient is a wrapper around http.Client which enables dependency
-// injection/mocking without relying on an external resource.
-type httpGetClient struct {
-   client    *http.Client
-   baseURL   *url.URL
-   userAgent string
-   apiKey    string
-}
-
-func (c *httpGetClient) execute(
-   ctx context.Context,
-   path string,
-   params url.Values,
-) ([]byte, error) {
-   if !strings.HasPrefix(path, "/") {
-      path = "/" + path
-   }
-
-   u := c.baseURL.ResolveReference(&url.URL{Path: path})
-   u.RawQuery = params.Encode()
-
-   req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
-   if err != nil {
-      return nil, fmt.Errorf("could not create request with context; %w", err)
-   }
-
-   req.Header.Set("Accept", "application/json")
-   if c.userAgent != "" {
-      req.Header.Set("User-Agent", c.userAgent)
-   }
-
-   // Set Authorization header with Bearer token.
-   // The API key is validated in NewClient, so it should always be present.
-   req.Header.Set("Authorization", "Bearer "+c.apiKey)
-
-   resp, err := c.client.Do(req)
-   if err != nil {
-      return nil, fmt.Errorf("failed to execute request; %w", err)
-   }
-   defer resp.Body.Close()
-
-   body, err := io.ReadAll(resp.Body)
-   if err != nil {
-      return nil, fmt.Errorf("failed to read body; %w", err)
-   }
-
-   if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-      return nil, &apiError{StatusCode: resp.StatusCode, Body: body}
-   }
-
-   return body, nil
 }

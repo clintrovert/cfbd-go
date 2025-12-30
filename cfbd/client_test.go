@@ -36,7 +36,7 @@ func newTestClient(t *testing.T) *testClient {
 //    tester := newTestClient(t)
 //
 //    tester.httpGetExecutor.EXPECT().
-//       execute(gomock.Any(), gomock.Any(), gomock.Any()).
+//       Execute(gomock.Any(), gomock.Any(), gomock.Any()).
 //       Return("").
 //       Times(1)
 //
@@ -71,13 +71,13 @@ func (m *mockRequestExecutor) EXPECT() *mockRequestExecutorMockRecorder {
 }
 
 // execute mocks base method.
-func (m *mockRequestExecutor) execute(
+func (m *mockRequestExecutor) Execute(
    ctx context.Context,
    path string,
    params url.Values,
 ) ([]byte, error) {
    m.ctrl.T.Helper()
-   ret := m.ctrl.Call(m, "execute", ctx, path, params)
+   ret := m.ctrl.Call(m, "Execute", ctx, path, params)
    ret0, _ := ret[0].([]byte)
    ret1, _ := ret[1].(error)
    return ret0, ret1
@@ -90,8 +90,8 @@ func (mr *mockRequestExecutorMockRecorder) execute(
    mr.mock.ctrl.T.Helper()
    return mr.mock.ctrl.RecordCallWithMethodType(
       mr.mock,
-      "execute",
-      reflect.TypeOf((*mockRequestExecutor)(nil).execute),
+      "Execute",
+      reflect.TypeOf((*mockRequestExecutor)(nil).Execute),
       ctx,
       path,
       params,
