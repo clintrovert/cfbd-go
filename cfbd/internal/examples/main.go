@@ -20,6 +20,9 @@ func main() {
    printGameTeams(ctx, client)
    printGamePlayers(ctx, client)
    printMedia(ctx, client)
+   // if isPatreonSubscriber {
+   //    printWeather(ctx, client)
+   // }
    printRecords(ctx, client)
    printCalendar(ctx, client)
    printScoreboard(ctx, client)

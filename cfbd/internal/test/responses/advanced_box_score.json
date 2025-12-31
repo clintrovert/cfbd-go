@@ -1,0 +1,820 @@
+{
+  "gameInfo": {
+    "homeTeam": "Ohio State",
+    "homePoints": 14,
+    "homeWinProb": 0.750937283039093,
+    "awayTeam": "Texas",
+    "awayPoints": 7,
+    "awayWinProb": 0.24906271696090698,
+    "homeWinner": true,
+    "excitement": 3.8398377534422923
+  },
+  "teams": {
+    "ppa": [
+      {
+        "team": "Ohio State",
+        "plays": 54,
+        "overall": {
+          "total": 0.0357,
+          "quarter1": -0.096,
+          "quarter2": 0.108,
+          "quarter3": 0.121,
+          "quarter4": 0.009
+        },
+        "passing": {
+          "total": 0.319,
+          "quarter1": 0.132,
+          "quarter2": -0.08,
+          "quarter3": 0.539,
+          "quarter4": 0.825
+        },
+        "rushing": {
+          "total": -0.131,
+          "quarter1": -0.291,
+          "quarter2": 0.187,
+          "quarter3": -0.297,
+          "quarter4": -0.317
+        }
+      },
+      {
+        "team": "Texas",
+        "plays": 67,
+        "overall": {
+          "total": -0.12,
+          "quarter1": -0.135,
+          "quarter2": -0.209,
+          "quarter3": -0.114,
+          "quarter4": -0.074
+        },
+        "passing": {
+          "total": -0.251,
+          "quarter1": -0.288,
+          "quarter2": -0.55,
+          "quarter3": -0.38,
+          "quarter4": -0.076
+        },
+        "rushing": {
+          "total": 0.097,
+          "quarter1": -0.059,
+          "quarter2": 0.2,
+          "quarter3": -0.004,
+          "quarter4": 0.378
+        }
+      }
+    ],
+    "cumulativePpa": [
+      {
+        "team": "Ohio State",
+        "plays": 54,
+        "overall": {
+          "total": 1.9,
+          "quarter1": -1.2,
+          "quarter2": 1.8,
+          "quarter3": 1.2,
+          "quarter4": 0.1
+        },
+        "passing": {
+          "total": 6.4,
+          "quarter1": 0.8,
+          "quarter2": -0.4,
+          "quarter3": 2.7,
+          "quarter4": 3.3
+        },
+        "rushing": {
+          "total": -4.5,
+          "quarter1": -2,
+          "quarter2": 2.2,
+          "quarter3": -1.5,
+          "quarter4": -3.2
+        }
+      },
+      {
+        "team": "Texas",
+        "plays": 67,
+        "overall": {
+          "total": -8,
+          "quarter1": -2,
+          "quarter2": -2.3,
+          "quarter3": -1.9,
+          "quarter4": -1.8
+        },
+        "passing": {
+          "total": -7.8,
+          "quarter1": -1.4,
+          "quarter2": -3.3,
+          "quarter3": -1.9,
+          "quarter4": -1.1
+        },
+        "rushing": {
+          "total": 3.4,
+          "quarter1": -0.6,
+          "quarter2": 1,
+          "quarter3": 0,
+          "quarter4": 3
+        }
+      }
+    ],
+    "successRates": [
+      {
+        "team": "Ohio State",
+        "overall": {
+          "total": 0.333,
+          "quarter1": 0.308,
+          "quarter2": 0.353,
+          "quarter3": 0.3,
+          "quarter4": 0.357
+        },
+        "standardDowns": {
+          "total": 0.425,
+          "quarter1": 0.333,
+          "quarter2": 0.4,
+          "quarter3": 0.375,
+          "quarter4": 0.625
+        },
+        "passingDowns": {
+          "total": 0.071,
+          "quarter1": 0.25,
+          "quarter2": 0,
+          "quarter3": 0,
+          "quarter4": 0
+        }
+      },
+      {
+        "team": "Texas",
+        "overall": {
+          "total": 0.418,
+          "quarter1": 0.133,
+          "quarter2": 0.364,
+          "quarter3": 0.529,
+          "quarter4": 0.542
+        },
+        "standardDowns": {
+          "total": 0.469,
+          "quarter1": 0.222,
+          "quarter2": 0.5,
+          "quarter3": 0.533,
+          "quarter4": 0.526
+        },
+        "passingDowns": {
+          "total": 0.278,
+          "quarter1": 0,
+          "quarter2": 0.2,
+          "quarter3": 0.5,
+          "quarter4": 0.6
+        }
+      }
+    ],
+    "explosiveness": [
+      {
+        "team": "Ohio State",
+        "overall": {
+          "total": 0.93,
+          "quarter1": 0.88,
+          "quarter2": 0.86,
+          "quarter3": 1.17,
+          "quarter4": 0.9
+        }
+      },
+      {
+        "team": "Texas",
+        "overall": {
+          "total": 0.91,
+          "quarter1": 1.44,
+          "quarter2": 0.76,
+          "quarter3": 0.59,
+          "quarter4": 1.09
+        }
+      }
+    ],
+    "rushing": [
+      {
+        "team": "Ohio State",
+        "powerSuccess": 0.5,
+        "stuffRate": 0.265,
+        "lineYards": 64,
+        "lineYardsAverage": 1.9,
+        "secondLevelYards": 10,
+        "secondLevelYardsAverage": 0.3,
+        "openFieldYards": 0,
+        "openFieldYardsAverage": 0
+      },
+      {
+        "team": "Texas",
+        "powerSuccess": 0.75,
+        "stuffRate": 0.057,
+        "lineYards": 126,
+        "lineYardsAverage": 3.6,
+        "secondLevelYards": 33,
+        "secondLevelYardsAverage": 0.9,
+        "openFieldYards": 12,
+        "openFieldYardsAverage": 0.3
+      }
+    ],
+    "havoc": [
+      {
+        "team": "Texas",
+        "total": 0.056,
+        "frontSeven": 0.019,
+        "db": 0.037
+      },
+      {
+        "team": "Ohio State",
+        "total": 0.045,
+        "frontSeven": 0.015,
+        "db": 0.03
+      }
+    ],
+    "scoringOpportunities": [
+      {
+        "team": "Ohio State",
+        "opportunities": 2,
+        "points": 14,
+        "pointsPerOpportunity": 7
+      },
+      {
+        "team": "Texas",
+        "opportunities": 3,
+        "points": 7,
+        "pointsPerOpportunity": 2.33
+      }
+    ],
+    "fieldPosition": [
+      {
+        "team": "Ohio State",
+        "averageStart": 80.5,
+        "averageStartingPredictedPoints": 0.88
+      },
+      {
+        "team": "Texas",
+        "averageStart": 68,
+        "averageStartingPredictedPoints": 1.61
+      }
+    ]
+  },
+  "players": {
+    "usage": [
+      {
+        "player": "Bennett Christian",
+        "team": "Ohio State",
+        "position": "TE",
+        "total": 0.037,
+        "quarter1": 0,
+        "quarter2": 0.059,
+        "quarter3": 0,
+        "quarter4": 0.071,
+        "rushing": 0,
+        "passing": 0.1
+      },
+      {
+        "player": "Max Klare",
+        "team": "Ohio State",
+        "position": "TE",
+        "total": 0.056,
+        "quarter1": 0.154,
+        "quarter2": 0.059,
+        "quarter3": 0,
+        "quarter4": 0,
+        "rushing": 0,
+        "passing": 0.15
+      },
+      {
+        "player": "CJ Baxter Jr.",
+        "team": "Texas",
+        "position": "RB",
+        "total": 0.224,
+        "quarter1": 0.467,
+        "quarter2": 0.273,
+        "quarter3": 0.235,
+        "quarter4": 0.042,
+        "rushing": 0.286,
+        "passing": 0.161
+      },
+      {
+        "player": "Brandon Inniss",
+        "team": "Ohio State",
+        "position": "WR",
+        "total": 0.037,
+        "quarter1": 0,
+        "quarter2": 0,
+        "quarter3": 0.1,
+        "quarter4": 0.071,
+        "rushing": 0,
+        "passing": 0.1
+      },
+      {
+        "player": "DeAndre Moore Jr.",
+        "team": "Texas",
+        "position": "WR",
+        "total": 0.06,
+        "quarter1": 0.067,
+        "quarter2": 0.091,
+        "quarter3": 0.118,
+        "quarter4": 0,
+        "rushing": 0,
+        "passing": 0.129
+      },
+      {
+        "player": "Arch Manning",
+        "team": "Texas",
+        "position": "QB",
+        "total": 0.597,
+        "quarter1": 0.467,
+        "quarter2": 0.727,
+        "quarter3": 0.529,
+        "quarter4": 0.667,
+        "rushing": 0.257,
+        "passing": 1
+      },
+      {
+        "player": "Carnell Tate",
+        "team": "Ohio State",
+        "position": "WR",
+        "total": 0.037,
+        "quarter1": 0,
+        "quarter2": 0.059,
+        "quarter3": 0,
+        "quarter4": 0.071,
+        "rushing": 0,
+        "passing": 0.1
+      },
+      {
+        "player": "Tre Wisner",
+        "team": "Texas",
+        "position": "RB",
+        "total": 0.254,
+        "quarter1": 0.2,
+        "quarter2": 0.091,
+        "quarter3": 0.294,
+        "quarter4": 0.333,
+        "rushing": 0.429,
+        "passing": 0.065
+      },
+      {
+        "player": "Parker Livingstone",
+        "team": "Texas",
+        "position": "WR",
+        "total": 0.075,
+        "quarter1": 0,
+        "quarter2": 0.091,
+        "quarter3": 0,
+        "quarter4": 0.167,
+        "rushing": 0,
+        "passing": 0.161
+      },
+      {
+        "player": "Julian Sayin",
+        "team": "Ohio State",
+        "position": "QB",
+        "total": 0.407,
+        "quarter1": 0.462,
+        "quarter2": 0.353,
+        "quarter3": 0.6,
+        "quarter4": 0.286,
+        "rushing": 0.059,
+        "passing": 1
+      },
+      {
+        "player": "Jeremiah Smith",
+        "team": "Ohio State",
+        "position": "WR",
+        "total": 0.185,
+        "quarter1": 0.308,
+        "quarter2": 0.118,
+        "quarter3": 0.3,
+        "quarter4": 0.071,
+        "rushing": 0,
+        "passing": 0.5
+      },
+      {
+        "player": "CJ Donaldson",
+        "team": "Ohio State",
+        "position": "RB",
+        "total": 0.019,
+        "quarter1": 0,
+        "quarter2": 0.059,
+        "quarter3": 0,
+        "quarter4": 0,
+        "rushing": 0.029,
+        "passing": 0
+      },
+      {
+        "player": "Jack Endries",
+        "team": "Texas",
+        "position": "TE",
+        "total": 0.09,
+        "quarter1": 0.133,
+        "quarter2": 0,
+        "quarter3": 0,
+        "quarter4": 0.167,
+        "rushing": 0,
+        "passing": 0.194
+      },
+      {
+        "player": "James Peoples",
+        "team": "Ohio State",
+        "position": "RB",
+        "total": 0.185,
+        "quarter1": 0.231,
+        "quarter2": 0.294,
+        "quarter3": 0.1,
+        "quarter4": 0.071,
+        "rushing": 0.294,
+        "passing": 0
+      },
+      {
+        "player": "Daylan Mccutcheon",
+        "team": "Texas",
+        "position": "WR",
+        "total": 0.015,
+        "quarter1": 0,
+        "quarter2": 0,
+        "quarter3": 0.059,
+        "quarter4": 0,
+        "rushing": 0,
+        "passing": 0.032
+      },
+      {
+        "player": "Ryan Wingo",
+        "team": "Texas",
+        "position": "WR",
+        "total": 0.104,
+        "quarter1": 0,
+        "quarter2": 0.182,
+        "quarter3": 0,
+        "quarter4": 0.208,
+        "rushing": 0.029,
+        "passing": 0.194
+      }
+    ],
+    "ppa": [
+      {
+        "player": "Bennett Christian",
+        "team": "Ohio State",
+        "position": "TE",
+        "average": {
+          "total": -0.001,
+          "quarter1": null,
+          "quarter2": 0.345,
+          "quarter3": null,
+          "quarter4": -0.347,
+          "rushing": 0,
+          "passing": -0.001
+        },
+        "cumulative": {
+          "total": 0,
+          "quarter1": 0,
+          "quarter2": 0.3,
+          "quarter3": 0,
+          "quarter4": -0.3,
+          "rushing": 0,
+          "passing": 0
+        }
+      },
+      {
+        "player": "Max Klare",
+        "team": "Ohio State",
+        "position": "TE",
+        "average": {
+          "total": -0.146,
+          "quarter1": -0.102,
+          "quarter2": -0.233,
+          "quarter3": null,
+          "quarter4": null,
+          "rushing": 0,
+          "passing": -0.146
+        },
+        "cumulative": {
+          "total": -0.4,
+          "quarter1": -0.2,
+          "quarter2": -0.2,
+          "quarter3": 0,
+          "quarter4": 0,
+          "rushing": 0,
+          "passing": -0.4
+        }
+      },
+      {
+        "player": "CJ Baxter Jr.",
+        "team": "Texas",
+        "position": "RB",
+        "average": {
+          "total": -0.124,
+          "quarter1": -0.131,
+          "quarter2": -0.427,
+          "quarter3": 0.058,
+          "quarter4": 0.11,
+          "rushing": -0.232,
+          "passing": 0.092
+        },
+        "cumulative": {
+          "total": -1.9,
+          "quarter1": -0.9,
+          "quarter2": -1.3,
+          "quarter3": 0.2,
+          "quarter4": 0.1,
+          "rushing": -2.3,
+          "passing": 0.5
+        }
+      },
+      {
+        "player": "Brandon Inniss",
+        "team": "Ohio State",
+        "position": "WR",
+        "average": {
+          "total": -0.18,
+          "quarter1": null,
+          "quarter2": null,
+          "quarter3": -0.378,
+          "quarter4": 0.019,
+          "rushing": 0,
+          "passing": -0.18
+        },
+        "cumulative": {
+          "total": -0.4,
+          "quarter1": 0,
+          "quarter2": 0,
+          "quarter3": -0.4,
+          "quarter4": 0,
+          "rushing": 0,
+          "passing": -0.4
+        }
+      },
+      {
+        "player": "DeAndre Moore Jr.",
+        "team": "Texas",
+        "position": "WR",
+        "average": {
+          "total": -0.394,
+          "quarter1": -0.703,
+          "quarter2": -1.066,
+          "quarter3": 0.096,
+          "quarter4": null,
+          "rushing": 0,
+          "passing": -0.394
+        },
+        "cumulative": {
+          "total": -1.6,
+          "quarter1": -0.7,
+          "quarter2": -1.1,
+          "quarter3": 0.2,
+          "quarter4": 0,
+          "rushing": 0,
+          "passing": -1.6
+        }
+      },
+      {
+        "player": "Arch Manning",
+        "team": "Texas",
+        "position": "QB",
+        "average": {
+          "total": -0.133,
+          "quarter1": -0.01,
+          "quarter2": -0.065,
+          "quarter3": -0.398,
+          "quarter4": -0.073,
+          "rushing": 0.272,
+          "passing": -0.251
+        },
+        "cumulative": {
+          "total": -5.3,
+          "quarter1": -0.1,
+          "quarter2": -0.5,
+          "quarter3": -3.6,
+          "quarter4": -1.2,
+          "rushing": 2.4,
+          "passing": -7.8
+        }
+      },
+      {
+        "player": "Carnell Tate",
+        "team": "Ohio State",
+        "position": "WR",
+        "average": {
+          "total": 2.134,
+          "quarter1": null,
+          "quarter2": 0.609,
+          "quarter3": null,
+          "quarter4": 3.658,
+          "rushing": 0,
+          "passing": 2.134
+        },
+        "cumulative": {
+          "total": 4.3,
+          "quarter1": 0,
+          "quarter2": 0.6,
+          "quarter3": 0,
+          "quarter4": 3.7,
+          "rushing": 0,
+          "passing": 4.3
+        }
+      },
+      {
+        "player": "Tre Wisner",
+        "team": "Texas",
+        "position": "RB",
+        "average": {
+          "total": 0.117,
+          "quarter1": -0.296,
+          "quarter2": -0.225,
+          "quarter3": 0.265,
+          "quarter4": 0.222,
+          "rushing": 0.169,
+          "passing": -0.276
+        },
+        "cumulative": {
+          "total": 2,
+          "quarter1": -0.9,
+          "quarter2": -0.2,
+          "quarter3": 1.3,
+          "quarter4": 1.8,
+          "rushing": 2.5,
+          "passing": -0.6
+        }
+      },
+      {
+        "player": "Parker Livingstone",
+        "team": "Texas",
+        "position": "WR",
+        "average": {
+          "total": -0.627,
+          "quarter1": null,
+          "quarter2": -1.153,
+          "quarter3": null,
+          "quarter4": -0.495,
+          "rushing": 0,
+          "passing": -0.627
+        },
+        "cumulative": {
+          "total": -3.1,
+          "quarter1": 0,
+          "quarter2": -1.2,
+          "quarter3": 0,
+          "quarter4": -2,
+          "rushing": 0,
+          "passing": -3.1
+        }
+      },
+      {
+        "player": "Julian Sayin",
+        "team": "Ohio State",
+        "position": "QB",
+        "average": {
+          "total": 0.271,
+          "quarter1": 0.132,
+          "quarter2": -0.103,
+          "quarter3": 0.415,
+          "quarter4": 0.825,
+          "rushing": -0.21,
+          "passing": 0.319
+        },
+        "cumulative": {
+          "total": 6,
+          "quarter1": 0.8,
+          "quarter2": -0.6,
+          "quarter3": 2.5,
+          "quarter4": 3.3,
+          "rushing": -0.4,
+          "passing": 6.4
+        }
+      },
+      {
+        "player": "Jeremiah Smith",
+        "team": "Ohio State",
+        "position": "WR",
+        "average": {
+          "total": 0.168,
+          "quarter1": 0.249,
+          "quarter2": -0.562,
+          "quarter3": 0.613,
+          "quarter4": -0.028,
+          "rushing": 0,
+          "passing": 0.168
+        },
+        "cumulative": {
+          "total": 1.7,
+          "quarter1": 1,
+          "quarter2": -1.1,
+          "quarter3": 1.8,
+          "quarter4": 0,
+          "rushing": 0,
+          "passing": 1.7
+        }
+      },
+      {
+        "player": "CJ Donaldson",
+        "team": "Ohio State",
+        "position": "RB",
+        "average": {
+          "total": 2.786,
+          "quarter1": null,
+          "quarter2": 2.786,
+          "quarter3": null,
+          "quarter4": null,
+          "rushing": 2.786,
+          "passing": 0
+        },
+        "cumulative": {
+          "total": 2.8,
+          "quarter1": 0,
+          "quarter2": 2.8,
+          "quarter3": 0,
+          "quarter4": 0,
+          "rushing": 2.8,
+          "passing": 0
+        }
+      },
+      {
+        "player": "Jack Endries",
+        "team": "Texas",
+        "position": "TE",
+        "average": {
+          "total": 0.041,
+          "quarter1": -0.446,
+          "quarter2": null,
+          "quarter3": null,
+          "quarter4": 0.285,
+          "rushing": 0,
+          "passing": 0.041
+        },
+        "cumulative": {
+          "total": 0.2,
+          "quarter1": -0.9,
+          "quarter2": 0,
+          "quarter3": 0,
+          "quarter4": 1.1,
+          "rushing": 0,
+          "passing": 0.2
+        }
+      },
+      {
+        "player": "James Peoples",
+        "team": "Ohio State",
+        "position": "RB",
+        "average": {
+          "total": -0.187,
+          "quarter1": -0.307,
+          "quarter2": -0.002,
+          "quarter3": -0.868,
+          "quarter4": -0.067,
+          "rushing": -0.187,
+          "passing": 0
+        },
+        "cumulative": {
+          "total": -1.9,
+          "quarter1": -0.9,
+          "quarter2": 0,
+          "quarter3": -0.9,
+          "quarter4": -0.1,
+          "rushing": -1.9,
+          "passing": 0
+        }
+      },
+      {
+        "player": "Daylan Mccutcheon",
+        "team": "Texas",
+        "position": "WR",
+        "average": {
+          "total": -0.431,
+          "quarter1": null,
+          "quarter2": null,
+          "quarter3": -0.431,
+          "quarter4": null,
+          "rushing": 0,
+          "passing": -0.431
+        },
+        "cumulative": {
+          "total": -0.4,
+          "quarter1": 0,
+          "quarter2": 0,
+          "quarter3": -0.4,
+          "quarter4": 0,
+          "rushing": 0,
+          "passing": -0.4
+        }
+      },
+      {
+        "player": "Ryan Wingo",
+        "team": "Texas",
+        "position": "WR",
+        "average": {
+          "total": 0.029,
+          "quarter1": null,
+          "quarter2": -0.33,
+          "quarter3": null,
+          "quarter4": 0.172,
+          "rushing": 0.719,
+          "passing": -0.086
+        },
+        "cumulative": {
+          "total": 0.2,
+          "quarter1": 0,
+          "quarter2": -0.7,
+          "quarter3": 0,
+          "quarter4": 0.9,
+          "rushing": 0.7,
+          "passing": -0.5
+        }
+      }
+    ]
+  }
+}

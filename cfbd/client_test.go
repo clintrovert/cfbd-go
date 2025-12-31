@@ -166,6 +166,229 @@ func TestGetGamesPlayers_ValidRequest_ShouldSucceed(t *testing.T) {
    assert.Equal(t, qb.Stat, "81.6")
 }
 
+func TestGetGamesMedia_ValidRequest_ShouldSucceed(t *testing.T) {
+   tester := newTestClient(t)
+   filename := "./internal/test/responses/games_media.json"
+   bytes, _ := os.ReadFile(filename)
+
+   tester.requestExecutor.EXPECT().
+      Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+      Return(bytes, nil).
+      Times(1)
+
+   response, err := tester.client.GetGameMedia(
+      context.Background(), GetGameMediaRequest{
+         Team: "Texas", Week: 2, Year: 2025,
+      },
+   )
+
+   media := response[0]
+
+   assert.NoError(t, err)
+   assert.Equal(t, media.Id, int32(401752693))
+   assert.Equal(t, media.Season, int32(2025))
+   assert.Equal(t, media.Week, int32(2))
+   assert.Equal(t, media.IsStartTime_TBD, false)
+   assert.Equal(t, media.HomeTeam, "Texas")
+   assert.Equal(t, media.HomeConference.Value, "SEC")
+   assert.Equal(t, media.AwayTeam, "San José State")
+   assert.Equal(t, media.AwayConference.Value, "Mountain West")
+   assert.Equal(t, media.MediaType, "tv")
+   assert.Equal(t, media.Outlet, "ABC")
+   assert.Equal(t,
+      media.StartTime.AsTime().Format(defaultTimeFormat),
+      "2025-09-06T16:00:00.000Z",
+   )
+}
+
+func TestGetGamesWeather_ValidRequest_ShouldSucceed(t *testing.T) {
+   tester := newTestClient(t)
+   filename := "./internal/test/responses/games_weather.json"
+   bytes, _ := os.ReadFile(filename)
+
+   tester.requestExecutor.EXPECT().
+      Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+      Return(bytes, nil).
+      Times(1)
+
+   response, err := tester.client.GetGameWeather(
+      context.Background(), GetGameWeatherRequest{
+         GameID: 401767476,
+      },
+   )
+
+   media := response[0]
+
+   assert.NoError(t, err)
+   assert.Equal(t, media.Id, int32(401767476))
+   assert.Equal(t, media.Season, int32(2025))
+   assert.Equal(t, media.Week, int32(1))
+   assert.Equal(t, media.GameIndoors, false)
+   assert.Equal(t, media.HomeTeam, "Nicholls")
+   assert.Equal(t, media.HomeConference.Value, "Southland")
+   assert.Equal(t, media.AwayTeam, "Incarnate Word")
+   assert.Equal(t, media.AwayConference.Value, "Southland")
+   assert.Equal(t, media.VenueId.Value, int32(3779))
+   assert.Equal(t, media.Temperature.Value, 89.6)
+   assert.Equal(t, media.DewPoint.Value, 73.4)
+   assert.Equal(t, media.Humidity.Value, float64(59))
+   assert.Equal(t, media.Precipitation.Value, float64(0.004))
+   assert.Equal(t, media.Snowfall.Value, float64(0))
+   assert.Equal(t, media.WindDirection.Value, float64(340))
+   assert.Equal(t, media.WindSpeed.Value, float64(8.1))
+   assert.Equal(t, media.Pressure.Value, float64(1014))
+   assert.Equal(t, media.WeatherConditionCode.Value, float64(7))
+   assert.Equal(t, media.WeatherCondition.Value, "Light Rain")
+   assert.Equal(t, media.Venue.Value, "Manning Field at John L. Guidry Stadium")
+   assert.Equal(t,
+      media.StartTime.AsTime().Format(defaultTimeFormat),
+      "2025-08-23T17:00:00.000Z",
+   )
+}
+
+func TestGetRecords_ValidRequest_ShouldSucceed(t *testing.T) {
+   tester := newTestClient(t)
+   filename := "./internal/test/responses/records.json"
+   bytes, _ := os.ReadFile(filename)
+
+   tester.requestExecutor.EXPECT().
+      Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+      Return(bytes, nil).
+      Times(1)
+
+   response, err := tester.client.GetTeamRecords(
+      context.Background(), GetTeamRecordsRequest{
+         Team: "Texas", Year: 2025,
+      },
+   )
+
+   team := response[0]
+
+   assert.NoError(t, err)
+   assert.Equal(t, team.Year, int32(2025))
+   assert.Equal(t, team.TeamId.Value, int32(251))
+   assert.Equal(t, team.Team, "Texas")
+   assert.Equal(t, team.Classification.Value, "fbs")
+   assert.Equal(t, team.Conference, "SEC")
+   assert.Equal(t, team.Division, "")
+   assert.Equal(t, team.ExpectedWins.Value, float64(7.891881301999092))
+   assert.Equal(t, team.Total.Games, int32(12))
+   assert.Equal(t, team.Total.Wins, int32(9))
+   assert.Equal(t, team.Total.Losses, int32(3))
+   assert.Equal(t, team.Total.Ties, int32(0))
+
+   assert.Equal(t, team.ConferenceGames.Games, int32(8))
+   assert.Equal(t, team.ConferenceGames.Wins, int32(6))
+   assert.Equal(t, team.ConferenceGames.Losses, int32(2))
+   assert.Equal(t, team.ConferenceGames.Ties, int32(0))
+
+   assert.Equal(t, team.HomeGames.Games, int32(6))
+   assert.Equal(t, team.HomeGames.Wins, int32(6))
+   assert.Equal(t, team.HomeGames.Losses, int32(0))
+   assert.Equal(t, team.HomeGames.Ties, int32(0))
+
+   assert.Equal(t, team.AwayGames.Games, int32(5))
+   assert.Equal(t, team.AwayGames.Wins, int32(2))
+   assert.Equal(t, team.AwayGames.Losses, int32(3))
+   assert.Equal(t, team.AwayGames.Ties, int32(0))
+
+   assert.Equal(t, team.NeutralSiteGames.Games, int32(1))
+   assert.Equal(t, team.NeutralSiteGames.Wins, int32(1))
+   assert.Equal(t, team.NeutralSiteGames.Losses, int32(0))
+   assert.Equal(t, team.NeutralSiteGames.Ties, int32(0))
+
+   assert.Equal(t, team.RegularSeason.Games, int32(12))
+   assert.Equal(t, team.RegularSeason.Wins, int32(9))
+   assert.Equal(t, team.RegularSeason.Losses, int32(3))
+   assert.Equal(t, team.RegularSeason.Ties, int32(0))
+
+   assert.Equal(t, team.Postseason.Games, int32(0))
+   assert.Equal(t, team.Postseason.Wins, int32(0))
+   assert.Equal(t, team.Postseason.Losses, int32(0))
+   assert.Equal(t, team.Postseason.Ties, int32(0))
+}
+
+func TestGetCalendar_ValidRequest_ShouldSucceed(t *testing.T) {
+   tester := newTestClient(t)
+   filename := "./internal/test/responses/calendar.json"
+   bytes, _ := os.ReadFile(filename)
+
+   tester.requestExecutor.EXPECT().
+      Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+      Return(bytes, nil).
+      Times(1)
+
+   response, err := tester.client.GetCalendar(
+      context.Background(), 2025,
+   )
+
+   // week := response[0]
+   assert.NoError(t, err)
+   assert.Equal(t, len(response), 17)
+
+   week := response[0]
+   assert.Equal(t, week.Season, int32(2025))
+   assert.Equal(t, week.Week, int32(1))
+   assert.Equal(t, week.SeasonType, "regular")
+   assert.Equal(t,
+      week.StartDate.AsTime().Format(defaultTimeFormat),
+      "2025-08-23T07:00:00.000Z",
+   )
+   assert.Equal(t,
+      week.EndDate.AsTime().Format(defaultTimeFormat),
+      "2025-09-02T06:59:00.000Z",
+   )
+   assert.Equal(t,
+      week.FirstGameStart.AsTime().Format(defaultTimeFormat),
+      "2025-08-23T07:00:00.000Z",
+   )
+   assert.Equal(t,
+      week.LastGameStart.AsTime().Format(defaultTimeFormat),
+      "2025-09-02T06:59:00.000Z",
+   )
+}
+
+func TestGetScoreboard_ValidRequest_ShouldSucceed(t *testing.T) {
+   tester := newTestClient(t)
+   filename := "./internal/test/responses/scoreboard.json"
+   bytes, _ := os.ReadFile(filename)
+
+   tester.requestExecutor.EXPECT().
+      Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+      Return(bytes, nil).
+      Times(1)
+
+   response, err := tester.client.GetScoreboard(
+      context.Background(), GetScoreboardRequest{},
+   )
+
+   // week := response[0]
+   assert.NoError(t, err)
+
+   score := response[0]
+   assert.Equal(t, score.Id, int32(401762521))
+   assert.Equal(t,
+      score.StartDate.AsTime().Format(defaultTimeFormat),
+      "2025-12-13T20:00:00.000Z",
+   )
+   assert.Equal(t, score.StartTime_TBD, false)
+   assert.Equal(t, score.Tv.Value, "CBS")
+   assert.Equal(t, score.NeutralSite, true)
+   assert.Equal(t, score.ConferenceGame, true)
+   assert.Equal(t, score.Status, "completed")
+   assert.Nil(t, score.Period)
+   assert.Nil(t, score.Clock)
+   assert.Equal(t, score.Situation.Value, "3rd & 13 at ARMY 42")
+   assert.Equal(t, score.Possession.Value, "home")
+   assert.Equal(t,
+      score.LastPlay.Value,
+      "(00:45) Kneel down by Navy at Army42 for loss of 2 yards",
+   )
+}
+
+func TestGetAdvancedBoxScore_ValidRequest_ShouldSucceed(t *testing.T) {
+}
+
 func convertToInt32Slice(values []*structpb.Value) []int32 {
    results := make([]int32, len(values))
    for i, v := range values {

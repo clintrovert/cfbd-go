@@ -509,12 +509,12 @@ func (c *Client) GetCalendar(
 
 // ================================ GET /records ===============================
 
-// GetRecordsRequest is the request configuration for the resource
+// GetTeamRecordsRequest is the request configuration for the resource
 // located at GET /records.
 //
 //	Year is required if Team is not set.
 //	Team is required if Year is not set.
-type GetRecordsRequest struct {
+type GetTeamRecordsRequest struct {
    // Year is required if Team is not set.
    Year int32
    // Team is required if Year is not set.
@@ -534,7 +534,7 @@ type GetRecordsRequest struct {
 //	request  contains filtering options for team records
 func (c *Client) GetTeamRecords(
    ctx context.Context,
-   request GetRecordsRequest,
+   request GetTeamRecordsRequest,
 ) ([]*TeamRecords, error) {
    if request.Year < 1 && strings.TrimSpace(request.Team) == "" {
       return nil, fmt.Errorf(

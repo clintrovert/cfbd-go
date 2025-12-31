@@ -1,0 +1,16 @@
+[
+  {
+    "id": 401752693,
+    "season": 2025,
+    "week": 2,
+    "seasonType": "regular",
+    "startTime": "2025-09-06T16:00:00.000Z",
+    "isStartTimeTBD": false,
+    "homeTeam": "Texas",
+    "homeConference": "SEC",
+    "awayTeam": "San José State",
+    "awayConference": "Mountain West",
+    "mediaType": "tv",
+    "outlet": "ABC"
+  }
+]

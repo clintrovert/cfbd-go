@@ -1,0 +1,26 @@
+[
+  {
+    "id": 401767476,
+    "season": 2025,
+    "week": 1,
+    "seasonType": "regular",
+    "startTime": "2025-08-23T17:00:00.000Z",
+    "gameIndoors": false,
+    "homeTeam": "Nicholls",
+    "homeConference": "Southland",
+    "awayTeam": "Incarnate Word",
+    "awayConference": "Southland",
+    "venueId": 3779,
+    "venue": "Manning Field at John L. Guidry Stadium",
+    "temperature": 89.6,
+    "dewPoint": 73.4,
+    "humidity": 59,
+    "precipitation": 0.004,
+    "snowfall": 0,
+    "windDirection": 340,
+    "windSpeed": 8.1,
+    "pressure": 1014,
+    "weatherConditionCode": 7,
+    "weatherCondition": "Light Rain"
+  }
+]
