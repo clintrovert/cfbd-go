@@ -12,7 +12,7 @@ func main() {
    ctx := context.Background()
    client, _ := cfbd.New(os.Getenv("CFBD_API_KEY"))
 
-   // set to true if patreon sub, some endpoints require it.
+   // set to true if you are a patreon sub, some endpoints require it.
    isPatreonSubscriber := true
 
    // GAMES
@@ -33,7 +33,7 @@ func main() {
    printPlayTypes(ctx, client)
    printPlayStats(ctx, client)
    printPlayStatTypes(ctx, client)
-   // printLivePlays(ctx, client)
+   // printLivePlays(ctx, client) // must use a live game ID
 
    // TEAMS
    printTeams(ctx, client)
@@ -259,19 +259,15 @@ func printPlayStatTypes(ctx context.Context, client *cfbd.Client) {
    }
 }
 
-// TODO: Do during game.
-// func printLivePlays(ctx context.Context, client *cfbd.Client) {
-//    game, err := client.GetLivePlays(ctx, 1)
-//    if err != nil {
-//       fmt.Printf("error occurred retrieving All Teams: %s", err.Error())
-//    }
-//
-//    fmt.Println("================= ALL TEAMS =================")
-//    game.
-//    for _, team := range game {
-//       fmt.Println(team.String())
-//    }
-// }
+func printLivePlays(ctx context.Context, client *cfbd.Client) {
+   plays, err := client.GetLivePlays(ctx, 401778326)
+   if err != nil {
+      fmt.Printf("error occurred retrieving All Teams: %s", err.Error())
+   }
+
+   fmt.Println("================= LIVE PLAYS SCOREBOARD =================")
+   fmt.Println(plays.String())
+}
 
 func printTeams(ctx context.Context, client *cfbd.Client) {
    teams, err := client.GetTeams(ctx, cfbd.GetTeamsRequest{})
