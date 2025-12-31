@@ -1,0 +1,38 @@
+[
+  {
+    "id": "4017526931",
+    "gameId": 401752693,
+    "offense": "Texas",
+    "offenseConference": "SEC",
+    "defense": "San José State",
+    "defenseConference": "Mountain West",
+    "driveNumber": 1,
+    "scoring": false,
+    "startPeriod": 1,
+    "startYardline": 25,
+    "startYardsToGoal": 75,
+    "startTime": {
+      "minutes": 15,
+      "seconds": 0
+    },
+    "endPeriod": 1,
+    "endYardline": 21,
+    "endYardsToGoal": 79,
+    "endTime": {
+      "minutes": 13,
+      "seconds": 54
+    },
+    "elapsed": {
+      "minutes": 1,
+      "seconds": 6
+    },
+    "plays": 4,
+    "yards": -4,
+    "driveResult": "PUNT",
+    "isHomeOffense": true,
+    "startOffenseScore": 0,
+    "startDefenseScore": 0,
+    "endOffenseScore": 0,
+    "endDefenseScore": 0
+  }
+]

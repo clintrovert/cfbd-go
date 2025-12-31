@@ -1,0 +1,50 @@
+[
+    {
+        "gameId": 401752693,
+        "season": 2025,
+        "week": 2,
+        "team": "Texas",
+        "conference": "SEC",
+        "opponent": "San José State",
+        "teamScore": 0,
+        "opponentScore": 0,
+        "driveId": "4017526931",
+        "playId": "401752693101854901",
+        "period": 1,
+        "clock": {
+            "minutes": 14,
+            "seconds": 50
+        },
+        "yardsToGoal": 75,
+        "down": 1,
+        "distance": 10,
+        "athleteId": "4870906",
+        "athleteName": "Arch Manning",
+        "statType": "Completion",
+        "stat": 6
+    },
+    {
+        "gameId": 401752693,
+        "season": 2025,
+        "week": 2,
+        "team": "Texas",
+        "conference": "SEC",
+        "opponent": "San José State",
+        "teamScore": 0,
+        "opponentScore": 0,
+        "driveId": "4017526931",
+        "playId": "401752693101859201",
+        "period": 1,
+        "clock": {
+            "minutes": 14,
+            "seconds": 7
+        },
+        "yardsToGoal": 79,
+        "down": 2,
+        "distance": 14,
+        "athleteId": "4870906",
+        "athleteName": "Arch Manning",
+        "statType": "Incompletion",
+        "stat": 1
+    }
+]

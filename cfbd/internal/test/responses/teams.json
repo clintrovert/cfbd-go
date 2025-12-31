@@ -1,0 +1,579 @@
+[
+  {
+    "id": 333,
+    "school": "Alabama",
+    "mascot": "Crimson Tide",
+    "abbreviation": "ALA",
+    "alternateNames": [
+      "ALA",
+      "Alabama"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#9e1632",
+    "alternateColor": "#ffffff",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/333.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/333.png"
+    ],
+    "twitter": "@AlabamaFTBL",
+    "location": {
+      "id": 3657,
+      "name": "Bryant-Denny Stadium",
+      "city": "Tuscaloosa",
+      "state": "AL",
+      "zip": "35487",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 33.2082752,
+      "longitude": -87.5503836,
+      "elevation": "70.05136108",
+      "capacity": 101821,
+      "constructionYear": 1929,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 8,
+    "school": "Arkansas",
+    "mascot": "Razorbacks",
+    "abbreviation": "ARK",
+    "alternateNames": [
+      "ARK",
+      "Arkansas"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#a41f35",
+    "alternateColor": "#ffffff",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/8.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/8.png"
+    ],
+    "twitter": "@RazorbackFB",
+    "location": {
+      "id": 3887,
+      "name": "Razorback Stadium",
+      "city": "Fayetteville",
+      "state": "AR",
+      "zip": "72702",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 36.0680662,
+      "longitude": -94.1789534,
+      "elevation": "403.7972412",
+      "capacity": 80000,
+      "constructionYear": 1938,
+      "grass": false,
+      "dome": false
+    }
+  },
+  {
+    "id": 2,
+    "school": "Auburn",
+    "mascot": "Tigers",
+    "abbreviation": "AUB",
+    "alternateNames": [
+      "AUB",
+      "Auburn"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#002b5c",
+    "alternateColor": "#f26522",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/2.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/2.png"
+    ],
+    "twitter": "@AuburnFootball",
+    "location": {
+      "id": 3785,
+      "name": "Jordan-Hare Stadium",
+      "city": "Auburn",
+      "state": "AL",
+      "zip": "36849",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 32.6025532,
+      "longitude": -85.4897479,
+      "elevation": "201.1737976",
+      "capacity": 87451,
+      "constructionYear": 1939,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 57,
+    "school": "Florida",
+    "mascot": "Gators",
+    "abbreviation": "FLA",
+    "alternateNames": [
+      "FLA",
+      "Florida"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#0021a5",
+    "alternateColor": "#fa4616",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/57.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/57.png"
+    ],
+    "twitter": "@GatorsFB",
+    "location": {
+      "id": 3634,
+      "name": "Ben Hill Griffin Stadium",
+      "city": "Gainesville",
+      "state": "FL",
+      "zip": "32653",
+      "countryCode": "US",
+      "timezone": "America/New_York",
+      "latitude": 29.6499357,
+      "longitude": -82.3485788,
+      "elevation": "44.97250748",
+      "capacity": 88548,
+      "constructionYear": 1930,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 61,
+    "school": "Georgia",
+    "mascot": "Bulldogs",
+    "abbreviation": "UGA",
+    "alternateNames": [
+      "UGA",
+      "Georgia"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#ba0c2f",
+    "alternateColor": "#000000",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/61.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/61.png"
+    ],
+    "twitter": "@GeorgiaFootball",
+    "location": {
+      "id": 3917,
+      "name": "Sanford Stadium",
+      "city": "Athens",
+      "state": "GA",
+      "zip": "30602",
+      "countryCode": "US",
+      "timezone": "America/New_York",
+      "latitude": 33.9498197,
+      "longitude": -83.3733813,
+      "elevation": "186.1120758",
+      "capacity": 92746,
+      "constructionYear": 1929,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 96,
+    "school": "Kentucky",
+    "mascot": "Wildcats",
+    "abbreviation": "UK",
+    "alternateNames": [
+      "UK",
+      "Kentucky"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#0033a0",
+    "alternateColor": "#ffffff",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/96.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/96.png"
+    ],
+    "twitter": "@UKFootball",
+    "location": {
+      "id": 3683,
+      "name": "Kroger Field",
+      "city": "Lexington",
+      "state": "KY",
+      "zip": "40506",
+      "countryCode": "US",
+      "timezone": "America/New_York",
+      "latitude": 38.0220905,
+      "longitude": -84.5053408,
+      "elevation": "307.4248962",
+      "capacity": 61000,
+      "constructionYear": 1973,
+      "grass": false,
+      "dome": false
+    }
+  },
+  {
+    "id": 99,
+    "school": "LSU",
+    "mascot": "Tigers",
+    "abbreviation": "LSU",
+    "alternateNames": [
+      "Louisiana State",
+      "LSU",
+      "LSU"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#461d7c",
+    "alternateColor": "#fdd023",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/99.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/99.png"
+    ],
+    "twitter": "@LSUFootball",
+    "location": {
+      "id": 3958,
+      "name": "Tiger Stadium (LA)",
+      "city": "Baton Rouge",
+      "state": "LA",
+      "zip": "70803",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 30.412035,
+      "longitude": -91.1838163,
+      "elevation": "7.640734673",
+      "capacity": 102321,
+      "constructionYear": 1924,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 344,
+    "school": "Mississippi State",
+    "mascot": "Bulldogs",
+    "abbreviation": "MSST",
+    "alternateNames": [
+      "MSST",
+      "Mississippi St"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#5d1725",
+    "alternateColor": "#c1c6c8",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/344.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/344.png"
+    ],
+    "twitter": "@HailStateFB",
+    "location": {
+      "id": 3693,
+      "name": "Davis Wade Stadium",
+      "city": "Starkville",
+      "state": "MS",
+      "zip": "39762",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 33.4563403,
+      "longitude": -88.7933652,
+      "elevation": "110.2742081",
+      "capacity": 61337,
+      "constructionYear": 1914,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 142,
+    "school": "Missouri",
+    "mascot": "Tigers",
+    "abbreviation": "MIZ",
+    "alternateNames": [
+      "MIZ",
+      "Missouri"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#f1b82d",
+    "alternateColor": "#000000",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/142.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/142.png"
+    ],
+    "twitter": "@MizzouFootball",
+    "location": {
+      "id": 3838,
+      "name": "Memorial Stadium",
+      "city": "Columbia",
+      "state": "MO",
+      "zip": "65211",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 38.9358491,
+      "longitude": -92.3332009,
+      "elevation": "212.6865692",
+      "capacity": 71168,
+      "constructionYear": 1927,
+      "grass": false,
+      "dome": false
+    }
+  },
+  {
+    "id": 201,
+    "school": "Oklahoma",
+    "mascot": "Sooners",
+    "abbreviation": "OU",
+    "alternateNames": [
+      "OU",
+      "Oklahoma"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#a32036",
+    "alternateColor": "#ffffff",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/201.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/201.png"
+    ],
+    "twitter": "@OU_Football",
+    "location": {
+      "id": 3835,
+      "name": "Memorial Stadium (Norman, OK)",
+      "city": "Norman",
+      "state": "OK",
+      "zip": "73019",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 35.2058537,
+      "longitude": -97.4423145,
+      "elevation": "355.0962524",
+      "capacity": 86112,
+      "constructionYear": 1925,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 145,
+    "school": "Ole Miss",
+    "mascot": "Rebels",
+    "abbreviation": "MISS",
+    "alternateNames": [
+      "MISS",
+      "Ole Miss"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#13294b",
+    "alternateColor": "#c8102e",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/145.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/145.png"
+    ],
+    "twitter": "@OleMissFB",
+    "location": {
+      "id": 3974,
+      "name": "Vaught-Hemingway Stadium",
+      "city": "Oxford",
+      "state": "MS",
+      "zip": "38677",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 34.3619837,
+      "longitude": -89.5342076,
+      "elevation": "146.8517151",
+      "capacity": 64038,
+      "constructionYear": 1915,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 2579,
+    "school": "South Carolina",
+    "mascot": "Gamecocks",
+    "abbreviation": "SC",
+    "alternateNames": [
+      "SC",
+      "South Carolina"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#73000a",
+    "alternateColor": "#ffffff",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/2579.png"
+    ],
+    "twitter": "@GamecockFB",
+    "location": {
+      "id": 3994,
+      "name": "Williams-Brice Stadium",
+      "city": "Columbia",
+      "state": "SC",
+      "zip": "29208",
+      "countryCode": "US",
+      "timezone": "America/New_York",
+      "latitude": 33.9730239,
+      "longitude": -81.0191726,
+      "elevation": "60.54548645",
+      "capacity": 80250,
+      "constructionYear": 1934,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 2633,
+    "school": "Tennessee",
+    "mascot": "Volunteers",
+    "abbreviation": "TENN",
+    "alternateNames": [
+      "TENN",
+      "Tennessee"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#ff8200",
+    "alternateColor": "#58595b",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/2633.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/2633.png"
+    ],
+    "twitter": "@Vol_Football",
+    "location": {
+      "id": 3853,
+      "name": "Neyland Stadium",
+      "city": "Knoxville",
+      "state": "TN",
+      "zip": "37996",
+      "countryCode": "US",
+      "timezone": "America/New_York",
+      "latitude": 35.9550131,
+      "longitude": -83.9250128,
+      "elevation": "271.9517212",
+      "capacity": 102455,
+      "constructionYear": 1921,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 251,
+    "school": "Texas",
+    "mascot": "Longhorns",
+    "abbreviation": "TEX",
+    "alternateNames": [
+      "TEX",
+      "Texas"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#c15d26",
+    "alternateColor": "#ffffff",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/251.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/251.png"
+    ],
+    "twitter": "@TexasFootball",
+    "location": {
+      "id": 3910,
+      "name": "DKR-Texas Memorial Stadium",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78712",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 30.2836813,
+      "longitude": -97.7325345,
+      "elevation": "160.3089447",
+      "capacity": 100119,
+      "constructionYear": 1924,
+      "grass": false,
+      "dome": false
+    }
+  },
+  {
+    "id": 245,
+    "school": "Texas A&M",
+    "mascot": "Aggies",
+    "abbreviation": "TA&M",
+    "alternateNames": [
+      "TA&M",
+      "Texas A&M"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#500000",
+    "alternateColor": "#ffffff",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/245.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/245.png"
+    ],
+    "twitter": "@AggieFootball",
+    "location": {
+      "id": 3795,
+      "name": "Kyle Field",
+      "city": "College Station",
+      "state": "TX",
+      "zip": "77843",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 30.6098891,
+      "longitude": -96.3403828,
+      "elevation": "108.824585",
+      "capacity": 102733,
+      "constructionYear": 1927,
+      "grass": true,
+      "dome": false
+    }
+  },
+  {
+    "id": 238,
+    "school": "Vanderbilt",
+    "mascot": "Commodores",
+    "abbreviation": "VAN",
+    "alternateNames": [
+      "VAN",
+      "Vanderbilt"
+    ],
+    "conference": "SEC",
+    "division": null,
+    "classification": "fbs",
+    "color": "#866d4b",
+    "alternateColor": "#000000",
+    "logos": [
+      "http://a.espncdn.com/i/teamlogos/ncaa/500/238.png",
+      "http://a.espncdn.com/i/teamlogos/ncaa/500-dark/238.png"
+    ],
+    "twitter": "@VandyFootball",
+    "location": {
+      "id": 3973,
+      "name": "FirstBank Stadium",
+      "city": "Nashville",
+      "state": "TN",
+      "zip": "37212",
+      "countryCode": "US",
+      "timezone": "America/Chicago",
+      "latitude": 36.1440455,
+      "longitude": -86.8088942,
+      "elevation": "159.9194641",
+      "capacity": 40351,
+      "constructionYear": 1922,
+      "grass": false,
+      "dome": false
+    }
+  }
+]
