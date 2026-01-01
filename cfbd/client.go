@@ -1,3 +1,4 @@
+// Package cfbd provides a minimal, type-safe Golang client for the College Football Data API.
 package cfbd
 
 import (
@@ -111,7 +112,7 @@ func New(apiKey string) (*Client, error) {
 			APIKey:    apiKey,
 			BaseURL:   base,
 			UserAgent: userAgent,
-			HttpClient: &http.Client{
+			HTTPClient: &http.Client{
 				Timeout: defaultTimeoutSec * time.Second,
 			},
 		},
@@ -999,7 +1000,7 @@ func (c *Client) GetTeamMatchup(
 	if strings.TrimSpace(request.Team1) == "" ||
 		strings.TrimSpace(request.Team2) == "" {
 		return nil, fmt.Errorf(
-			"team1 and team2 are requried; %w", ErrMissingRequiredParams,
+			"team1 and team2 are required; %w", ErrMissingRequiredParams,
 		)
 	}
 
@@ -1049,7 +1050,7 @@ func (c *Client) GetTeamATS(
 	request GetTeamATSRequest,
 ) ([]*TeamATS, error) {
 	if request.Year < 0 {
-		return nil, fmt.Errorf("year is requried; %w", ErrMissingRequiredParams)
+		return nil, fmt.Errorf("year is required; %w", ErrMissingRequiredParams)
 	}
 	values := url.Values{}
 	setInt32(values, yearKey, request.Year)
@@ -1135,7 +1136,7 @@ func (c *Client) GetTeamTalentComposite(
 	request GetTalentCompositeRequest,
 ) ([]*TeamTalent, error) {
 	if request.Year < 1 {
-		return nil, fmt.Errorf("year is requried; %w", ErrMissingRequiredParams)
+		return nil, fmt.Errorf("year is required; %w", ErrMissingRequiredParams)
 	}
 
 	values := url.Values{}
@@ -1280,7 +1281,7 @@ func (c *Client) SearchPlayers(
 	// TODO: URL encode search term
 	if request.SearchTerm == "" {
 		return nil, fmt.Errorf(
-			"search term is requried; %w", ErrMissingRequiredParams,
+			"search term is required; %w", ErrMissingRequiredParams,
 		)
 	}
 
@@ -3073,6 +3074,10 @@ func setFloat64(v url.Values, key string, val float64) {
 	v.Set(key, strconv.FormatFloat(val, 'f', -1, 64))
 }
 
+// setBool sets a boolean value in url.Values if it's not nil.
+// The key parameter is kept for consistency with other set functions.
+//
+//nolint:unparam // key is kept for API consistency even though currently only one key is used
 func setBool(v url.Values, key string, val *bool) {
 	if val == nil {
 		return
