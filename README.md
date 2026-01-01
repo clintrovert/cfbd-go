@@ -852,3 +852,34 @@ See LICENSE file for details.
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
+
+### Branch Naming and Versioning
+
+This project uses semantic versioning (semver) with automated version calculation based on branch names. When creating a pull request, **prefix your branch name** with one of the following to indicate the type of change:
+
+- **`major/`** - For breaking changes that require a major version bump
+  - Example: `major/breaking-api-changes`
+  - Result: `v2.0.0` (if previous was `v1.x.x`)
+
+- **`minor/`** - For new features that are backward compatible
+  - Example: `minor/add-new-endpoint`
+  - Result: `v1.2.0` (if previous was `v1.1.x`)
+
+- **`patch/`** - For bug fixes and other backward-compatible changes
+  - Example: `patch/fix-bug`
+  - Result: `v1.1.1` (if previous was `v1.1.0`)
+
+**Note**: If no prefix is provided, the default is a patch version bump.
+
+### Workflow
+
+1. Create a branch with the appropriate prefix (`major/`, `minor/`, or `patch/`)
+2. Make your changes
+3. Ensure tests pass (`go test ./...`)
+4. Submit a pull request
+5. The CI workflow will:
+   - Run all tests
+   - Calculate and comment the suggested next release version on your PR
+6. When your PR is merged, a new release will be automatically created with the calculated version
+
+For more details, see the [GitHub workflows](.github/workflows/) for test and release automation.

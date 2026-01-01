@@ -1,0 +1,61 @@
+version: 2
+
+run:
+  skip-files:
+    - '.*_test\.go$'
+    - '.*test.*\.go$'
+  skip-dirs:
+    - vendor
+    - .git
+    - internal/test
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - misspell
+    - unconvert
+    - unparam
+    - gocritic
+    - gosec
+    - revive
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+
+linters-settings:
+  gofmt:
+    simplify: true
+  goimports:
+    local-prefixes: github.com/clintrovert/cfbd-go
+  revive:
+    rules:
+      - name: exported
+        severity: warning
+      - name: unexported-return
+        severity: warning
+
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  exclude-rules:
+    - path: .*_test\.go
+      linters:
+        - gosec
+        - revive
+        - errcheck
+        - govet
+        - staticcheck
+        - unused
+        - misspell
+        - unconvert
+        - unparam
+        - gocritic
+        - ineffassign
+
