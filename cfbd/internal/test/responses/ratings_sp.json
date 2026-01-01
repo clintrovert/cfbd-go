@@ -1,0 +1,79 @@
+[
+    {
+        "year": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "rating": 14.7,
+        "ranking": 1,
+        "secondOrderWins": null,
+        "sos": null,
+        "offense": {
+            "ranking": 1,
+            "rating": 32.2,
+            "success": null,
+            "explosiveness": null,
+            "rushing": null,
+            "passing": null,
+            "standardDowns": null,
+            "passingDowns": null,
+            "runRate": null,
+            "pace": null
+        },
+        "defense": {
+            "ranking": 1,
+            "rating": 17.9,
+            "success": null,
+            "explosiveness": null,
+            "rushing": null,
+            "passing": null,
+            "standardDowns": null,
+            "passingDowns": null,
+            "havoc": {
+                "total": null,
+                "frontSeven": null,
+                "db": null
+            }
+        },
+        "specialTeams": {
+            "rating": 0.4
+        }
+    },
+    {
+        "year": 2025,
+        "team": "nationalAverages",
+        "rating": 0.8338235294117647,
+        "ranking": null,
+        "secondOrderWins": null,
+        "sos": null,
+        "offense": {
+            "ranking": null,
+            "rating": 27.558088235294118,
+            "success": null,
+            "explosiveness": null,
+            "rushing": null,
+            "passing": null,
+            "standardDowns": null,
+            "passingDowns": null,
+            "runRate": null,
+            "pace": null
+        },
+        "defense": {
+            "ranking": null,
+            "rating": 26.73014705882353,
+            "success": null,
+            "explosiveness": null,
+            "rushing": null,
+            "passing": null,
+            "standardDowns": null,
+            "passingDowns": null,
+            "havoc": {
+                "total": null,
+                "frontSeven": null,
+                "db": null
+            }
+        },
+        "specialTeams": {
+            "rating": 0.0014705882352941176
+        }
+    }
+]

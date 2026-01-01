@@ -223,31 +223,48 @@ func TestGetGamesWeather_ValidRequest_ShouldSucceed(t *testing.T) {
 		},
 	)
 
-	media := response[0]
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
 
-	assert.NoError(t, err)
-	assert.Equal(t, media.Id, int32(401767476))
-	assert.Equal(t, media.Season, int32(2025))
-	assert.Equal(t, media.Week, int32(1))
-	assert.Equal(t, media.GameIndoors, false)
-	assert.Equal(t, media.HomeTeam, "Nicholls")
-	assert.Equal(t, media.HomeConference.Value, "Southland")
-	assert.Equal(t, media.AwayTeam, "Incarnate Word")
-	assert.Equal(t, media.AwayConference.Value, "Southland")
-	assert.Equal(t, media.VenueId.Value, int32(3779))
-	assert.Equal(t, media.Temperature.Value, 89.6)
-	assert.Equal(t, media.DewPoint.Value, 73.4)
-	assert.Equal(t, media.Humidity.Value, float64(59))
-	assert.Equal(t, media.Precipitation.Value, float64(0.004))
-	assert.Equal(t, media.Snowfall.Value, float64(0))
-	assert.Equal(t, media.WindDirection.Value, float64(340))
-	assert.Equal(t, media.WindSpeed.Value, float64(8.1))
-	assert.Equal(t, media.Pressure.Value, float64(1014))
-	assert.Equal(t, media.WeatherConditionCode.Value, float64(7))
-	assert.Equal(t, media.WeatherCondition.Value, "Light Rain")
-	assert.Equal(t, media.Venue.Value, "Manning Field at John L. Guidry Stadium")
+	weather := response[0]
+	assert.Equal(t, weather.Id, int32(401767476))
+	assert.Equal(t, weather.Season, int32(2025))
+	assert.Equal(t, weather.Week, int32(1))
+	assert.Equal(t, weather.SeasonType, "regular")
+	assert.Equal(t, weather.GameIndoors, false)
+	assert.Equal(t, weather.HomeTeam, "Nicholls")
+	require.NotNil(t, weather.HomeConference)
+	assert.Equal(t, weather.HomeConference.Value, "Southland")
+	assert.Equal(t, weather.AwayTeam, "Incarnate Word")
+	require.NotNil(t, weather.AwayConference)
+	assert.Equal(t, weather.AwayConference.Value, "Southland")
+	require.NotNil(t, weather.VenueId)
+	assert.Equal(t, weather.VenueId.Value, int32(3779))
+	require.NotNil(t, weather.Venue)
+	assert.Equal(t, weather.Venue.Value, "Manning Field at John L. Guidry Stadium")
+	require.NotNil(t, weather.Temperature)
+	assert.Equal(t, weather.Temperature.Value, 89.6)
+	require.NotNil(t, weather.DewPoint)
+	assert.Equal(t, weather.DewPoint.Value, 73.4)
+	require.NotNil(t, weather.Humidity)
+	assert.Equal(t, weather.Humidity.Value, float64(59))
+	require.NotNil(t, weather.Precipitation)
+	assert.Equal(t, weather.Precipitation.Value, float64(0.004))
+	require.NotNil(t, weather.Snowfall)
+	assert.Equal(t, weather.Snowfall.Value, float64(0))
+	require.NotNil(t, weather.WindDirection)
+	assert.Equal(t, weather.WindDirection.Value, float64(340))
+	require.NotNil(t, weather.WindSpeed)
+	assert.Equal(t, weather.WindSpeed.Value, float64(8.1))
+	require.NotNil(t, weather.Pressure)
+	assert.Equal(t, weather.Pressure.Value, float64(1014))
+	require.NotNil(t, weather.WeatherConditionCode)
+	assert.Equal(t, weather.WeatherConditionCode.Value, float64(7))
+	require.NotNil(t, weather.WeatherCondition)
+	assert.Equal(t, weather.WeatherCondition.Value, "Light Rain")
 	assert.Equal(t,
-		media.StartTime.AsTime().Format(defaultTimeFormat),
+		weather.StartTime.AsTime().Format(defaultTimeFormat),
 		"2025-08-23T17:00:00.000Z",
 	)
 }
@@ -1951,6 +1968,243 @@ func TestGetTeamPositionGroupRecruitingRankings_ValidRequest_ShouldSucceed(t *te
 	assert.Equal(t, offensiveLine.TotalRating, 5.1877003)
 	assert.Equal(t, offensiveLine.Commits, int32(6))
 	assert.Equal(t, offensiveLine.AverageStars, 3.0)
+}
+
+func TestGetTeamSPPlusRatings_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ratings_sp.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetTeamSPPlusRatings(
+		context.Background(), GetSPPlusRatingsRequest{
+			Year: testYear,
+			Team: testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 2)
+
+	// Helper function to find rating by team name
+	findRating := func(team string) *TeamSP {
+		for _, rating := range response {
+			if rating.Team == team {
+				return rating
+			}
+		}
+		return nil
+	}
+
+	// Test Texas rating (first item - has complete data)
+	texas := findRating("Texas")
+	require.NotNil(t, texas)
+	assert.Equal(t, texas.Year, int32(2025))
+	assert.Equal(t, texas.Team, "Texas")
+	require.NotNil(t, texas.Conference)
+	assert.Equal(t, texas.Conference.Value, "SEC")
+	require.NotNil(t, texas.Rating)
+	assert.Equal(t, texas.Rating.Value, 14.7)
+	require.NotNil(t, texas.Ranking)
+	assert.Equal(t, texas.Ranking.Value, int32(1))
+	assert.Nil(t, texas.SecondOrderWins) // null in JSON
+	assert.Nil(t, texas.Sos)             // null in JSON
+
+	// Test offense
+	require.NotNil(t, texas.Offense)
+	require.NotNil(t, texas.Offense.Ranking)
+	assert.Equal(t, texas.Offense.Ranking.Value, int32(1))
+	require.NotNil(t, texas.Offense.Rating)
+	assert.Equal(t, texas.Offense.Rating.Value, 32.2)
+	assert.Nil(t, texas.Offense.Success)       // null in JSON
+	assert.Nil(t, texas.Offense.Explosiveness) // null in JSON
+	assert.Nil(t, texas.Offense.Rushing)       // null in JSON
+	assert.Nil(t, texas.Offense.Passing)       // null in JSON
+	assert.Nil(t, texas.Offense.StandardDowns) // null in JSON
+	assert.Nil(t, texas.Offense.PassingDowns)  // null in JSON
+	assert.Nil(t, texas.Offense.RunRate)       // null in JSON
+	assert.Nil(t, texas.Offense.Pace)          // null in JSON
+
+	// Test defense
+	require.NotNil(t, texas.Defense)
+	require.NotNil(t, texas.Defense.Ranking)
+	assert.Equal(t, texas.Defense.Ranking.Value, int32(1))
+	require.NotNil(t, texas.Defense.Rating)
+	assert.Equal(t, texas.Defense.Rating.Value, 17.9)
+	assert.Nil(t, texas.Defense.Success)       // null in JSON
+	assert.Nil(t, texas.Defense.Explosiveness) // null in JSON
+	assert.Nil(t, texas.Defense.Rushing)       // null in JSON
+	assert.Nil(t, texas.Defense.Passing)       // null in JSON
+	assert.Nil(t, texas.Defense.StandardDowns) // null in JSON
+	assert.Nil(t, texas.Defense.PassingDowns)  // null in JSON
+
+	// Test defense havoc
+	require.NotNil(t, texas.Defense.Havoc)
+	assert.Nil(t, texas.Defense.Havoc.Total)      // null in JSON
+	assert.Nil(t, texas.Defense.Havoc.FrontSeven) // null in JSON
+	assert.Nil(t, texas.Defense.Havoc.Db)         // null in JSON
+
+	// Test special teams
+	require.NotNil(t, texas.SpecialTeams)
+	require.NotNil(t, texas.SpecialTeams.Rating)
+	assert.Equal(t, texas.SpecialTeams.Rating.Value, 0.4)
+
+	// Test national averages (second item - has some null fields)
+	nationalAverages := findRating("nationalAverages")
+	require.NotNil(t, nationalAverages)
+	assert.Equal(t, nationalAverages.Year, int32(2025))
+	assert.Equal(t, nationalAverages.Team, "nationalAverages")
+	assert.Nil(t, nationalAverages.Conference) // null in JSON
+	require.NotNil(t, nationalAverages.Rating)
+	assert.Equal(t, nationalAverages.Rating.Value, 0.8338235294117647)
+	assert.Nil(t, nationalAverages.Ranking) // null in JSON
+}
+
+func TestGetConferenceSPPlusRatings_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ratings_sp_conferneces.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetConferenceSPPlusRatings(
+		context.Background(), GetConferenceSPPlusRatingsRequest{
+			Year:       testYear,
+			Conference: "Big Ten",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 137)
+
+	// Helper function to find rating by conference
+	findRating := func(conference string) *ConferenceSP {
+		for _, rating := range response {
+			if rating.Conference == conference {
+				return rating
+			}
+		}
+		return nil
+	}
+
+	// Test Big Ten rating (first item - Ohio State)
+	bigTen := findRating("Big Ten")
+	require.NotNil(t, bigTen)
+	assert.Equal(t, bigTen.Year, int32(2025))
+	assert.Equal(t, bigTen.Conference, "Big Ten")
+	assert.Equal(t, bigTen.Rating, 31.6)
+	assert.Equal(t, bigTen.SecondOrderWins, 0.0) // null in JSON becomes 0.0
+	assert.Nil(t, bigTen.Sos)                    // null in JSON
+
+	// Test offense
+	require.NotNil(t, bigTen.Offense)
+	require.NotNil(t, bigTen.Offense.Rating)
+	assert.Equal(t, bigTen.Offense.Rating.Value, 39.1)
+	assert.Nil(t, bigTen.Offense.Success)       // null in JSON
+	assert.Nil(t, bigTen.Offense.Explosiveness) // null in JSON
+	assert.Nil(t, bigTen.Offense.Rushing)       // null in JSON
+	assert.Nil(t, bigTen.Offense.Passing)       // null in JSON
+	assert.Nil(t, bigTen.Offense.StandardDowns) // null in JSON
+	assert.Nil(t, bigTen.Offense.PassingDowns)  // null in JSON
+	assert.Nil(t, bigTen.Offense.RunRate)       // null in JSON
+	assert.Nil(t, bigTen.Offense.Pace)          // null in JSON
+
+	// Test defense
+	require.NotNil(t, bigTen.Defense)
+	require.NotNil(t, bigTen.Defense.Rating)
+	assert.Equal(t, bigTen.Defense.Rating.Value, 7.6)
+	assert.Nil(t, bigTen.Defense.Success)       // null in JSON
+	assert.Nil(t, bigTen.Defense.Explosiveness) // null in JSON
+	assert.Nil(t, bigTen.Defense.Rushing)       // null in JSON
+	assert.Nil(t, bigTen.Defense.Passing)       // null in JSON
+	assert.Nil(t, bigTen.Defense.StandardDowns) // null in JSON
+	assert.Nil(t, bigTen.Defense.PassingDowns)  // null in JSON
+
+	// Test defense havoc
+	require.NotNil(t, bigTen.Defense.Havoc)
+	assert.Nil(t, bigTen.Defense.Havoc.Total)      // null in JSON
+	assert.Nil(t, bigTen.Defense.Havoc.FrontSeven) // null in JSON
+	assert.Nil(t, bigTen.Defense.Havoc.Db)         // null in JSON
+
+	// Test special teams
+	require.NotNil(t, bigTen.SpecialTeams)
+	require.NotNil(t, bigTen.SpecialTeams.Rating)
+	assert.Equal(t, bigTen.SpecialTeams.Rating.Value, 0.1)
+
+	// Test SEC rating (has different values)
+	sec := findRating("SEC")
+	require.NotNil(t, sec)
+	assert.Equal(t, sec.Year, int32(2025))
+	assert.Equal(t, sec.Conference, "SEC")
+	assert.Greater(t, sec.Rating, 0.0) // Just verify it's set
+}
+
+func TestGetSRSRatings_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ratings_srs.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetSRSRatings(
+		context.Background(), GetSRSRatingsRequest{
+			Year:       testYear,
+			Team:       testTeam,
+			Conference: "SEC",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single SRS rating
+	rating := response[0]
+	assert.Equal(t, rating.Year, int32(2025))
+	assert.Equal(t, rating.Team, "Texas")
+	require.NotNil(t, rating.Conference)
+	assert.Equal(t, rating.Conference.Value, "SEC")
+	assert.Nil(t, rating.Division) // null in JSON
+	assert.Equal(t, rating.Rating, 12.0)
+	require.NotNil(t, rating.Ranking)
+	assert.Equal(t, rating.Ranking.Value, int32(1))
+}
+
+func TestGetEloRatings_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ratings_elo.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetEloRatings(
+		context.Background(), GetEloRatingsRequest{
+			Year:       testYear,
+			Week:       testWeek,
+			SeasonType: "regular",
+			Team:       testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single Elo rating
+	rating := response[0]
+	assert.Equal(t, rating.Year, int32(2025))
+	assert.Equal(t, rating.Team, "Texas")
+	require.NotNil(t, rating.Conference)
+	assert.Equal(t, rating.Conference.Value, "SEC")
+	require.NotNil(t, rating.Elo)
+	assert.Equal(t, rating.Elo.Value, int32(1925))
 }
 
 func convertToInt32Slice(values []*structpb.Value) []int32 {
