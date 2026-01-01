@@ -67,6 +67,8 @@ The API key is passed as a Bearer token in the Authorization header. Some endpoi
 ### Games
 
 #### GetGames
+[`GET /games`](https://apinext.collegefootballdata.com/#/games/GetGames)
+
 Retrieve game information with filtering options.
 
 ```go
@@ -80,6 +82,8 @@ games, err := client.GetGames(ctx, cfbd.GetGamesRequest{
 ```
 
 #### GetGameTeams
+[`GET /games/teams`](https://apinext.collegefootballdata.com/#/games/GetGameTeams)
+
 Get team box score statistics for games.
 
 ```go
@@ -90,6 +94,8 @@ teamStats, err := client.GetGameTeams(ctx, cfbd.GetGameTeamsRequest{
 ```
 
 #### GetGamePlayers
+[`GET /games/players`](https://apinext.collegefootballdata.com/#/games/GetGamePlayers)
+
 Retrieve player box score statistics for games.
 
 ```go
@@ -101,6 +107,8 @@ playerStats, err := client.GetGamePlayers(ctx, cfbd.GetGamePlayersRequest{
 ```
 
 #### GetGameMedia
+[`GET /games/media`](https://apinext.collegefootballdata.com/#/games/GetGameMedia)
+
 Get media information for games.
 
 ```go
@@ -111,6 +119,8 @@ media, err := client.GetGameMedia(ctx, cfbd.GetGameMediaRequest{
 ```
 
 #### GetGameWeather
+[`GET /games/weather`](https://apinext.collegefootballdata.com/#/games/GetGameWeather)
+
 Get weather information for games (Patreon required).
 
 ```go
@@ -121,6 +131,8 @@ weather, err := client.GetGameWeather(ctx, cfbd.GetGameWeatherRequest{
 ```
 
 #### GetAdvancedBoxScore
+[`GET /game/box/advanced`](https://apinext.collegefootballdata.com/#/game/GetAdvancedBoxScore)
+
 Get advanced box score statistics for a specific game.
 
 ```go
@@ -128,6 +140,8 @@ boxScore, err := client.GetAdvancedBoxScore(ctx, gameID)
 ```
 
 #### GetCalendar
+[`GET /calendar`](https://apinext.collegefootballdata.com/#/calendar/GetCalendar)
+
 Retrieve calendar weeks for a year.
 
 ```go
@@ -135,6 +149,8 @@ weeks, err := client.GetCalendar(ctx, 2024)
 ```
 
 #### GetScoreboard
+[`GET /scoreboard`](https://apinext.collegefootballdata.com/#/scoreboard/GetScoreboard)
+
 Get live scoreboard data.
 
 ```go
@@ -146,6 +162,8 @@ scoreboard, err := client.GetScoreboard(ctx, cfbd.GetScoreboardRequest{
 ### Teams
 
 #### GetTeams
+[`GET /teams`](https://apinext.collegefootballdata.com/#/teams/GetTeams)
+
 Retrieve team information.
 
 ```go
@@ -156,6 +174,8 @@ teams, err := client.GetTeams(ctx, cfbd.GetTeamsRequest{
 ```
 
 #### GetFBSTeams
+[`GET /teams/fbs`](https://apinext.collegefootballdata.com/#/teams/GetFBSTeams)
+
 Get FBS (Football Bowl Subdivision) teams.
 
 ```go
@@ -165,6 +185,8 @@ fbsTeams, err := client.GetFBSTeams(ctx, cfbd.GetFBSTeamsRequest{
 ```
 
 #### GetTeamRecords
+[`GET /records`](https://apinext.collegefootballdata.com/#/records/GetTeamRecords)
+
 Get team records.
 
 ```go
@@ -175,6 +197,8 @@ records, err := client.GetTeamRecords(ctx, cfbd.GetTeamRecordsRequest{
 ```
 
 #### GetTeamMatchup
+[`GET /teams/matchup`](https://apinext.collegefootballdata.com/#/teams/GetTeamMatchup)
+
 Get historical matchup data between two teams.
 
 ```go
@@ -187,6 +211,8 @@ matchup, err := client.GetTeamMatchup(ctx, cfbd.GetTeamMatchupRequest{
 ```
 
 #### GetTeamATS
+[`GET /teams/ats`](https://apinext.collegefootballdata.com/#/teams/GetTeamATS)
+
 Get team against-the-spread records.
 
 ```go
@@ -197,6 +223,8 @@ ats, err := client.GetTeamATS(ctx, cfbd.GetTeamATSRequest{
 ```
 
 #### GetRoster
+[`GET /roster`](https://apinext.collegefootballdata.com/#/roster/GetRoster)
+
 Get team roster information.
 
 ```go
@@ -207,6 +235,8 @@ roster, err := client.GetRoster(ctx, cfbd.GetRosterRequest{
 ```
 
 #### GetTeamTalentComposite
+[`GET /talent`](https://apinext.collegefootballdata.com/#/talent/GetTeamTalentComposite)
+
 Get 247 team talent composite ratings.
 
 ```go
@@ -218,6 +248,8 @@ talent, err := client.GetTeamTalentComposite(ctx, cfbd.GetTalentCompositeRequest
 ### Players
 
 #### SearchPlayers
+[`GET /player/search`](https://apinext.collegefootballdata.com/#/player/SearchPlayers)
+
 Search for players by name or other criteria.
 
 ```go
@@ -229,6 +261,8 @@ players, err := client.SearchPlayers(ctx, cfbd.SearchPlayersRequest{
 ```
 
 #### GetPlayerUsage
+[`GET /player/usage`](https://apinext.collegefootballdata.com/#/player/GetPlayerUsage)
+
 Get player usage statistics.
 
 ```go
@@ -240,6 +274,8 @@ usage, err := client.GetPlayerUsage(ctx, cfbd.GetPlayerUsageRequest{
 ```
 
 #### GetReturningProduction
+[`GET /player/returning`](https://apinext.collegefootballdata.com/#/player/GetReturningProduction)
+
 Get returning production statistics for players.
 
 ```go
@@ -250,6 +286,8 @@ production, err := client.GetReturningProduction(ctx, cfbd.GetReturningProductio
 ```
 
 #### GetTransferPortalPlayers
+[`GET /player/portal`](https://apinext.collegefootballdata.com/#/player/GetTransferPortalPlayers)
+
 Get transfer portal player information.
 
 ```go
@@ -261,6 +299,8 @@ transfers, err := client.GetTransferPortalPlayers(ctx, cfbd.GetTransferPortalPla
 ### Plays and Drives
 
 #### GetPlays
+[`GET /plays`](https://apinext.collegefootballdata.com/#/plays/GetPlays)
+
 Get play-by-play data for games.
 
 ```go
@@ -272,6 +312,8 @@ plays, err := client.GetPlays(ctx, cfbd.GetPlaysRequest{
 ```
 
 #### GetPlayTypes
+[`GET /plays/types`](https://apinext.collegefootballdata.com/#/plays/GetPlayTypes)
+
 Get all available play types.
 
 ```go
@@ -279,6 +321,8 @@ playTypes, err := client.GetPlayTypes(ctx)
 ```
 
 #### GetPlayStats
+[`GET /plays/stats`](https://apinext.collegefootballdata.com/#/plays/GetPlayStats)
+
 Get play statistics.
 
 ```go
@@ -290,6 +334,8 @@ stats, err := client.GetPlayStats(ctx, cfbd.GetPlayStatsRequest{
 ```
 
 #### GetPlayStatTypes
+[`GET /plays/stats/types`](https://apinext.collegefootballdata.com/#/plays/GetPlayStatTypes)
+
 Get all available play statistic types.
 
 ```go
@@ -297,6 +343,8 @@ statTypes, err := client.GetPlayStatTypes(ctx)
 ```
 
 #### GetLivePlays
+[`GET /live/plays`](https://apinext.collegefootballdata.com/#/live/GetLivePlays)
+
 Get live play-by-play data for a game (requires live game ID).
 
 ```go
@@ -304,6 +352,8 @@ liveGame, err := client.GetLivePlays(ctx, gameID)
 ```
 
 #### GetDrives
+[`GET /drives`](https://apinext.collegefootballdata.com/#/drives/GetDrives)
+
 Get drive information for games.
 
 ```go
@@ -317,6 +367,8 @@ drives, err := client.GetDrives(ctx, cfbd.GetDrivesRequest{
 ### Statistics
 
 #### GetPlayerSeasonStats
+[`GET /stats/player/season`](https://apinext.collegefootballdata.com/#/stats/GetPlayerSeasonStats)
+
 Get player season statistics.
 
 ```go
@@ -328,6 +380,8 @@ stats, err := client.GetPlayerSeasonStats(ctx, cfbd.GetPlayerSeasonStatsRequest{
 ```
 
 #### GetTeamSeasonStats
+[`GET /stats/season`](https://apinext.collegefootballdata.com/#/stats/GetTeamSeasonStats)
+
 Get team season statistics.
 
 ```go
@@ -338,6 +392,8 @@ stats, err := client.GetTeamSeasonStats(ctx, cfbd.GetTeamSeasonStatsRequest{
 ```
 
 #### GetAdvancedSeasonStats
+[`GET /stats/season/advanced`](https://apinext.collegefootballdata.com/#/stats/GetAdvancedSeasonStats)
+
 Get advanced season statistics.
 
 ```go
@@ -349,6 +405,8 @@ stats, err := client.GetAdvancedSeasonStats(ctx, cfbd.GetAdvancedSeasonStatsRequ
 ```
 
 #### GetAdvancedGameStats
+[`GET /stats/game/advanced`](https://apinext.collegefootballdata.com/#/stats/GetAdvancedGameStats)
+
 Get advanced game statistics.
 
 ```go
@@ -360,6 +418,8 @@ stats, err := client.GetAdvancedGameStats(ctx, cfbd.GetAdvancedGameStatsRequest{
 ```
 
 #### GetHavocGameStats
+[`GET /stats/game/havoc`](https://apinext.collegefootballdata.com/#/stats/GetHavocGameStats)
+
 Get havoc game statistics.
 
 ```go
@@ -371,6 +431,8 @@ stats, err := client.GetHavocGameStats(ctx, cfbd.GetHavocGameStatsRequest{
 ```
 
 #### GetStatCategories
+[`GET /stats/categories`](https://apinext.collegefootballdata.com/#/stats/GetStatCategories)
+
 Get all available statistics categories.
 
 ```go
@@ -380,6 +442,8 @@ categories, err := client.GetStatCategories(ctx)
 ### Ratings
 
 #### GetTeamSPPlusRatings
+[`GET /ratings/sp`](https://apinext.collegefootballdata.com/#/ratings/GetTeamSPPlusRatings)
+
 Get SP+ (S&P+) ratings for teams.
 
 ```go
@@ -390,6 +454,8 @@ ratings, err := client.GetTeamSPPlusRatings(ctx, cfbd.GetSPPlusRatingsRequest{
 ```
 
 #### GetConferenceSPPlusRatings
+[`GET /ratings/sp/conferences`](https://apinext.collegefootballdata.com/#/ratings/GetConferenceSPPlusRatings)
+
 Get SP+ ratings for conferences.
 
 ```go
@@ -400,6 +466,8 @@ ratings, err := client.GetConferenceSPPlusRatings(ctx, cfbd.GetConferenceSPPlusR
 ```
 
 #### GetSRSRatings
+[`GET /ratings/srs`](https://apinext.collegefootballdata.com/#/ratings/GetSRSRatings)
+
 Get SRS (Simple Rating System) ratings.
 
 ```go
@@ -410,6 +478,8 @@ ratings, err := client.GetSRSRatings(ctx, cfbd.GetSRSRatingsRequest{
 ```
 
 #### GetEloRatings
+[`GET /ratings/elo`](https://apinext.collegefootballdata.com/#/ratings/GetEloRatings)
+
 Get Elo ratings for teams.
 
 ```go
@@ -421,6 +491,8 @@ ratings, err := client.GetEloRatings(ctx, cfbd.GetEloRatingsRequest{
 ```
 
 #### GetFPIRatings
+[`GET /ratings/fpi`](https://apinext.collegefootballdata.com/#/ratings/GetFPIRatings)
+
 Get FPI (Football Power Index) ratings.
 
 ```go
@@ -433,6 +505,8 @@ ratings, err := client.GetFPIRatings(ctx, cfbd.GetFPIRatingsRequest{
 ### Rankings
 
 #### GetRankings
+[`GET /rankings`](https://apinext.collegefootballdata.com/#/rankings/GetRankings)
+
 Get college football rankings (polls).
 
 ```go
@@ -446,6 +520,8 @@ rankings, err := client.GetRankings(ctx, cfbd.GetRankingsRequest{
 ### Betting
 
 #### GetBettingLines
+[`GET /lines`](https://apinext.collegefootballdata.com/#/lines/GetBettingLines)
+
 Get betting lines for games.
 
 ```go
@@ -459,6 +535,8 @@ lines, err := client.GetBettingLines(ctx, cfbd.GetBettingLinesRequest{
 ### Recruiting
 
 #### GetPlayerRecruitingRankings
+[`GET /recruiting/players`](https://apinext.collegefootballdata.com/#/recruiting/GetPlayerRecruitingRankings)
+
 Get player recruiting rankings.
 
 ```go
@@ -470,6 +548,8 @@ recruits, err := client.GetPlayerRecruitingRankings(ctx, cfbd.GetPlayersRecruiti
 ```
 
 #### GetTeamRecruitingRankings
+[`GET /recruiting/teams`](https://apinext.collegefootballdata.com/#/recruiting/GetTeamRecruitingRankings)
+
 Get team recruiting rankings.
 
 ```go
@@ -480,6 +560,8 @@ rankings, err := client.GetTeamRecruitingRankings(ctx, cfbd.GetTeamRecruitingRan
 ```
 
 #### GetTeamPositionGroupRecruitingRankings
+[`GET /recruiting/groups`](https://apinext.collegefootballdata.com/#/recruiting/GetTeamPositionGroupRecruitingRankings)
+
 Get aggregated team recruiting information by position group.
 
 ```go
@@ -493,6 +575,8 @@ groups, err := client.GetTeamPositionGroupRecruitingRankings(ctx, cfbd.GetTeamPo
 ### Metrics
 
 #### GetPredictedPoints
+[`GET /ppa/predicted`](https://apinext.collegefootballdata.com/#/ppa/GetPredictedPoints)
+
 Get predicted points values by down and distance.
 
 ```go
@@ -503,6 +587,8 @@ points, err := client.GetPredictedPoints(ctx, cfbd.GetPredictedPointsRequest{
 ```
 
 #### GetTeamsPPA
+[`GET /ppa/teams`](https://apinext.collegefootballdata.com/#/ppa/GetTeamsPPA)
+
 Get team season PPA (Predicted Points Added) statistics.
 
 ```go
@@ -513,6 +599,8 @@ ppa, err := client.GetTeamsPPA(ctx, cfbd.GetTeamsPPARequest{
 ```
 
 #### GetGamesPPA
+[`GET /ppa/games`](https://apinext.collegefootballdata.com/#/ppa/GetGamesPPA)
+
 Get team game PPA statistics.
 
 ```go
@@ -524,6 +612,8 @@ ppa, err := client.GetGamesPPA(ctx, cfbd.GetPpaGamesRequest{
 ```
 
 #### GetPlayersPPA
+[`GET /ppa/players/games`](https://apinext.collegefootballdata.com/#/ppa/GetPlayersPPA)
+
 Get player game PPA statistics.
 
 ```go
@@ -536,6 +626,8 @@ ppa, err := client.GetPlayersPPA(ctx, cfbd.GetPlayerPpaGamesRequest{
 ```
 
 #### GetPlayerSeasonPPA
+[`GET /ppa/players/season`](https://apinext.collegefootballdata.com/#/ppa/GetPlayerSeasonPPA)
+
 Get player season PPA statistics.
 
 ```go
@@ -547,6 +639,8 @@ ppa, err := client.GetPlayerSeasonPPA(ctx, cfbd.GetPlayerSeasonPPARequest{
 ```
 
 #### GetWinProbability
+[`GET /metrics/wp`](https://apinext.collegefootballdata.com/#/metrics/GetWinProbability)
+
 Get win probability data for each play in a game.
 
 ```go
@@ -554,6 +648,8 @@ probabilities, err := client.GetWinProbability(ctx, gameID)
 ```
 
 #### GetPregameWinProbability
+[`GET /metrics/wp/pregame`](https://apinext.collegefootballdata.com/#/metrics/GetPregameWinProbability)
+
 Get pregame win probability data.
 
 ```go
@@ -565,6 +661,8 @@ probabilities, err := client.GetPregameWinProbability(ctx, cfbd.GetPregameWpRequ
 ```
 
 #### GetFieldGoalExpectedPoints
+[`GET /metrics/fg/ep`](https://apinext.collegefootballdata.com/#/metrics/GetFieldGoalExpectedPoints)
+
 Get field goal expected points values.
 
 ```go
@@ -574,6 +672,8 @@ ep, err := client.GetFieldGoalExpectedPoints(ctx)
 ### Adjusted Metrics (Patreon Required)
 
 #### GetTeamSeasonWEPA
+[`GET /wepa/team/season`](https://apinext.collegefootballdata.com/#/wepa/GetTeamSeasonWEPA)
+
 Get team season WEPA (Weighted Expected Points Added) metrics.
 
 ```go
@@ -584,6 +684,8 @@ wepa, err := client.GetTeamSeasonWEPA(ctx, cfbd.GetTeamSeasonWEPARequest{
 ```
 
 #### GetPlayerPassingWEPA
+[`GET /wepa/players/passing`](https://apinext.collegefootballdata.com/#/wepa/GetPlayerPassingWEPA)
+
 Get player passing WEPA metrics.
 
 ```go
@@ -595,6 +697,8 @@ wepa, err := client.GetPlayerPassingWEPA(ctx, cfbd.GetPlayerWEPARequest{
 ```
 
 #### GetPlayerRushingWEPA
+[`GET /wepa/players/rushing`](https://apinext.collegefootballdata.com/#/wepa/GetPlayerRushingWEPA)
+
 Get player rushing WEPA metrics.
 
 ```go
@@ -606,6 +710,8 @@ wepa, err := client.GetPlayerRushingWEPA(ctx, cfbd.GetPlayerWEPARequest{
 ```
 
 #### GetPlayerKickingWEPA
+[`GET /wepa/players/kicking`](https://apinext.collegefootballdata.com/#/wepa/GetPlayerKickingWEPA)
+
 Get kicker PAAR (Points Above Average Replacement) metrics.
 
 ```go
@@ -618,6 +724,8 @@ paar, err := client.GetPlayerKickingWEPA(ctx, cfbd.GetWepaPlayersKickingRequest{
 ### Draft
 
 #### GetDraftTeams
+[`GET /draft/teams`](https://apinext.collegefootballdata.com/#/draft/GetDraftTeams)
+
 Get all NFL draft teams.
 
 ```go
@@ -625,6 +733,8 @@ teams, err := client.GetDraftTeams(ctx)
 ```
 
 #### GetDraftPositions
+[`GET /draft/positions`](https://apinext.collegefootballdata.com/#/draft/GetDraftPositions)
+
 Get all NFL draft positions.
 
 ```go
@@ -632,6 +742,8 @@ positions, err := client.GetDraftPositions(ctx)
 ```
 
 #### GetDraftPicks
+[`GET /draft/picks`](https://apinext.collegefootballdata.com/#/draft/GetDraftPicks)
+
 Get NFL draft picks.
 
 ```go
@@ -645,6 +757,8 @@ picks, err := client.GetDraftPicks(ctx, cfbd.GetDraftPicksRequest{
 ### Reference Data
 
 #### GetConferences
+[`GET /conferences`](https://apinext.collegefootballdata.com/#/conferences/GetConferences)
+
 Get all available conferences.
 
 ```go
@@ -652,6 +766,8 @@ conferences, err := client.GetConferences(ctx)
 ```
 
 #### GetVenues
+[`GET /venues`](https://apinext.collegefootballdata.com/#/venues/GetVenues)
+
 Get all available venues.
 
 ```go
@@ -659,6 +775,8 @@ venues, err := client.GetVenues(ctx)
 ```
 
 #### GetCoaches
+[`GET /coaches`](https://apinext.collegefootballdata.com/#/coaches/GetCoaches)
+
 Get coach information.
 
 ```go
@@ -671,6 +789,8 @@ coaches, err := client.GetCoaches(ctx, cfbd.GetCoachesRequest{
 ### User Information
 
 #### GetInfo
+[`GET /info`](https://apinext.collegefootballdata.com/#/info/GetInfo)
+
 Get information about the authenticated user's API key.
 
 ```go
