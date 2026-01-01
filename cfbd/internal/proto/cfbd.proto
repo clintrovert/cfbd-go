@@ -756,14 +756,14 @@ message PlayerGamePredictedPointsAdded {
 }
 
 message PlayerSeasonPpaSplits {
-  google.protobuf.ListValue passing_downs = 1;
-  google.protobuf.ListValue standard_downs = 2;
-  google.protobuf.ListValue third_down = 3;
-  google.protobuf.ListValue second_down = 4;
-  google.protobuf.ListValue first_down = 5;
-  google.protobuf.ListValue rush = 6;
-  google.protobuf.ListValue pass = 7;
-  google.protobuf.ListValue all = 8;
+  google.protobuf.DoubleValue passing_downs = 1;
+  google.protobuf.DoubleValue standard_downs = 2;
+  google.protobuf.DoubleValue third_down = 3;
+  google.protobuf.DoubleValue second_down = 4;
+  google.protobuf.DoubleValue first_down = 5;
+  google.protobuf.DoubleValue rush = 6;
+  google.protobuf.DoubleValue pass = 7;
+  google.protobuf.DoubleValue all = 8;
 }
 
 message PlayerSeasonPredictedPointsAdded {

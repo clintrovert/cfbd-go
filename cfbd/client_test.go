@@ -2422,6 +2422,220 @@ func TestGetGamesPPA_ValidRequest_ShouldSucceed(t *testing.T) {
 	assert.Equal(t, gamePPA.Defense.ThirdDown, 0.12)
 }
 
+func TestGetPlayersPPA_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ppa_players_games.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetPlayersPPA(
+		context.Background(), GetPlayerPpaGamesRequest{
+			Year:       testYear,
+			Week:       testWeek,
+			SeasonType: "regular",
+			Team:       testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 8)
+
+	// Test first player (CJ Baxter Jr. - RB with all PPA values)
+	player1 := response[0]
+	assert.Equal(t, player1.Season, int32(2025))
+	assert.Equal(t, player1.Week, int32(1))
+	assert.Equal(t, player1.SeasonType, "regular")
+	assert.Equal(t, player1.Id, "4870609")
+	assert.Equal(t, player1.Name, "CJ Baxter Jr.")
+	assert.Equal(t, player1.Position, "RB")
+	assert.Equal(t, player1.Team, "Texas")
+	assert.Equal(t, player1.Opponent, "Ohio State")
+	require.NotNil(t, player1.Average_PPA)
+	assert.Equal(t, player1.Average_PPA.All, -0.124)
+	assert.Equal(t, player1.Average_PPA.Pass, 0.092)
+	assert.Equal(t, player1.Average_PPA.Rush, -0.232)
+
+	// Test second player (DeAndre Moore Jr. - WR with null rush)
+	player2 := response[1]
+	assert.Equal(t, player2.Id, "4870860")
+	assert.Equal(t, player2.Name, "DeAndre Moore Jr.")
+	assert.Equal(t, player2.Position, "WR")
+	require.NotNil(t, player2.Average_PPA)
+	assert.Equal(t, player2.Average_PPA.All, -0.394)
+	assert.Equal(t, player2.Average_PPA.Pass, -0.394)
+	assert.Equal(t, player2.Average_PPA.Rush, 0.0) // null in JSON becomes 0.0
+
+	// Test third player (Arch Manning - QB)
+	player3 := response[2]
+	assert.Equal(t, player3.Id, "4870906")
+	assert.Equal(t, player3.Name, "Arch Manning")
+	assert.Equal(t, player3.Position, "QB")
+	require.NotNil(t, player3.Average_PPA)
+	assert.Equal(t, player3.Average_PPA.All, -0.133)
+	assert.Equal(t, player3.Average_PPA.Pass, -0.251)
+	assert.Equal(t, player3.Average_PPA.Rush, 0.272)
+}
+
+func TestGetPlayerSeasonPPA_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ppa_players_season.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetPlayerSeasonPPA(
+		context.Background(), GetPlayerSeasonPPARequest{
+			Year:     testYear,
+			Team:     testTeam,
+			Position: "WR",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single player season PPA
+	player := response[0]
+	assert.Equal(t, player.Season, int32(2025))
+	assert.Equal(t, player.Id, "5218633")
+	assert.Equal(t, player.Name, "Ryan Wingo")
+	assert.Equal(t, player.Position, "WR")
+	assert.Equal(t, player.Team, "Texas")
+	assert.Equal(t, player.Conference, "SEC")
+
+	// Test average PPA
+	require.NotNil(t, player.Average_PPA)
+	require.NotNil(t, player.Average_PPA.All)
+	assert.Equal(t, player.Average_PPA.All.Value, 0.234)
+	require.NotNil(t, player.Average_PPA.Pass)
+	assert.Equal(t, player.Average_PPA.Pass.Value, 0.252)
+	require.NotNil(t, player.Average_PPA.Rush)
+	assert.Equal(t, player.Average_PPA.Rush.Value, 0.026)
+	require.NotNil(t, player.Average_PPA.FirstDown)
+	assert.Equal(t, player.Average_PPA.FirstDown.Value, 0.023)
+	require.NotNil(t, player.Average_PPA.SecondDown)
+	assert.Equal(t, player.Average_PPA.SecondDown.Value, 0.342)
+	require.NotNil(t, player.Average_PPA.ThirdDown)
+	assert.Equal(t, player.Average_PPA.ThirdDown.Value, 0.511)
+	require.NotNil(t, player.Average_PPA.StandardDowns)
+	assert.Equal(t, player.Average_PPA.StandardDowns.Value, 0.038)
+	require.NotNil(t, player.Average_PPA.PassingDowns)
+	assert.Equal(t, player.Average_PPA.PassingDowns.Value, 0.492)
+
+	// Test total PPA
+	require.NotNil(t, player.Total_PPA)
+	require.NotNil(t, player.Total_PPA.All)
+	assert.Equal(t, player.Total_PPA.All.Value, 20.598)
+	require.NotNil(t, player.Total_PPA.Pass)
+	assert.Equal(t, player.Total_PPA.Pass.Value, 20.415)
+	require.NotNil(t, player.Total_PPA.Rush)
+	assert.Equal(t, player.Total_PPA.Rush.Value, 0.182)
+	require.NotNil(t, player.Total_PPA.FirstDown)
+	assert.Equal(t, player.Total_PPA.FirstDown.Value, 0.878)
+	require.NotNil(t, player.Total_PPA.SecondDown)
+	assert.Equal(t, player.Total_PPA.SecondDown.Value, 8.219)
+	require.NotNil(t, player.Total_PPA.ThirdDown)
+	assert.Equal(t, player.Total_PPA.ThirdDown.Value, 12.771)
+	require.NotNil(t, player.Total_PPA.StandardDowns)
+	assert.Equal(t, player.Total_PPA.StandardDowns.Value, 1.894)
+	require.NotNil(t, player.Total_PPA.PassingDowns)
+	assert.Equal(t, player.Total_PPA.PassingDowns.Value, 18.704)
+}
+
+func TestGetWinProbability_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "merics_wp.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetWinProbability(
+		context.Background(), 401778330,
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 176)
+
+	// Test first play
+	play := response[0]
+	assert.Equal(t, play.GameId, int32(401778330))
+	assert.Equal(t, play.HomeId, int32(251))
+	assert.Equal(t, play.Home, "Texas")
+	assert.Equal(t, play.AwayId, int32(130))
+	assert.Equal(t, play.Away, "Michigan")
+	assert.Equal(t, play.PlayId, "40177833012")
+	assert.Contains(t, play.PlayText, "No Huddle-Shotgun #16 A.Manning pass complete")
+	assert.Equal(t, play.HomeScore, int32(0))
+	assert.Equal(t, play.AwayScore, int32(0))
+	assert.Equal(t, play.Down, int32(1))
+	assert.Equal(t, play.Distance, int32(10))
+	assert.Equal(t, play.HomeWinProbability, 0.5859566926956177)
+	assert.Equal(t, play.Spread, 0.0)
+	assert.Equal(t, play.YardLine, int32(75))
+	assert.Equal(t, play.HomeBall, true)
+	assert.Equal(t, play.PlayNumber, int32(0))
+}
+
+func TestGetPregameWinProbability_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "metrics_wp_pregame.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetPregameWinProbability(
+		context.Background(), GetPregameWpRequest{
+			Year:       testYear,
+			Week:       1,
+			SeasonType: "postseason",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single pregame win probability
+	prob := response[0]
+	assert.Equal(t, prob.Season, int32(2025))
+	assert.Equal(t, prob.Week, int32(1))
+	assert.Equal(t, prob.SeasonType, "postseason")
+	assert.Equal(t, prob.GameId, int32(401769072))
+	assert.Equal(t, prob.HomeTeam, "Indiana")
+	assert.Equal(t, prob.AwayTeam, "Alabama")
+	assert.Equal(t, prob.Spread, -7.5)
+	assert.Equal(t, prob.HomeWinProbability, 0.698)
+}
+
+func TestGetFieldGoalExpectedPoints_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "metrics_fg_ep.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetFieldGoalExpectedPoints(context.Background())
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 100)
+
+	// Test first item
+	ep := response[0]
+	assert.Equal(t, ep.YardsToGoal, int32(0))
+	assert.Equal(t, ep.Distance, int32(17))
+	assert.Equal(t, ep.ExpectedPoints, 2.85)
+}
+
 func convertToInt32Slice(values []*structpb.Value) []int32 {
 	results := make([]int32, len(values))
 	for i, v := range values {

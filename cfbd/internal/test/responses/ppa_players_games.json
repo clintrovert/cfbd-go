@@ -1,0 +1,122 @@
+[
+    {
+        "season": 2025,
+        "week": 1,
+        "seasonType": "regular",
+        "id": "4870609",
+        "name": "CJ Baxter Jr.",
+        "position": "RB",
+        "team": "Texas",
+        "opponent": "Ohio State",
+        "averagePPA": {
+            "all": -0.124,
+            "pass": 0.092,
+            "rush": -0.232
+        }
+    },
+    {
+        "season": 2025,
+        "week": 1,
+        "seasonType": "regular",
+        "id": "4870860",
+        "name": "DeAndre Moore Jr.",
+        "position": "WR",
+        "team": "Texas",
+        "opponent": "Ohio State",
+        "averagePPA": {
+            "all": -0.394,
+            "pass": -0.394,
+            "rush": null
+        }
+    },
+    {
+        "season": 2025,
+        "week": 1,
+        "seasonType": "regular",
+        "id": "4870906",
+        "name": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "opponent": "Ohio State",
+        "averagePPA": {
+            "all": -0.133,
+            "pass": -0.251,
+            "rush": 0.272
+        }
+    },
+    {
+        "season": 2025,
+        "week": 1,
+        "seasonType": "regular",
+        "id": "4871076",
+        "name": "Tre Wisner",
+        "position": "RB",
+        "team": "Texas",
+        "opponent": "Ohio State",
+        "averagePPA": {
+            "all": 0.117,
+            "pass": -0.276,
+            "rush": 0.169
+        }
+    },
+    {
+        "season": 2025,
+        "week": 1,
+        "seasonType": "regular",
+        "id": "5079556",
+        "name": "Parker Livingstone",
+        "position": "WR",
+        "team": "Texas",
+        "opponent": "Ohio State",
+        "averagePPA": {
+            "all": -0.627,
+            "pass": -0.627,
+            "rush": null
+        }
+    },
+    {
+        "season": 2025,
+        "week": 1,
+        "seasonType": "regular",
+        "id": "5085189",
+        "name": "Jack Endries",
+        "position": "TE",
+        "team": "Texas",
+        "opponent": "Ohio State",
+        "averagePPA": {
+            "all": 0.041,
+            "pass": 0.041,
+            "rush": null
+        }
+    },
+    {
+        "season": 2025,
+        "week": 1,
+        "seasonType": "regular",
+        "id": "5141575",
+        "name": "Daylan Mccutcheon",
+        "position": "WR",
+        "team": "Texas",
+        "opponent": "Ohio State",
+        "averagePPA": {
+            "all": -0.431,
+            "pass": -0.431,
+            "rush": null
+        }
+    },
+    {
+        "season": 2025,
+        "week": 1,
+        "seasonType": "regular",
+        "id": "5218633",
+        "name": "Ryan Wingo",
+        "position": "WR",
+        "team": "Texas",
+        "opponent": "Ohio State",
+        "averagePPA": {
+            "all": 0.029,
+            "pass": -0.086,
+            "rush": 0.719
+        }
+    }
+]

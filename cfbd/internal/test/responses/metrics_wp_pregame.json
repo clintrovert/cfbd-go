@@ -1,0 +1,12 @@
+[
+    {
+        "season": 2025,
+        "week": 1,
+        "seasonType": "postseason",
+        "gameId": 401769072,
+        "homeTeam": "Indiana",
+        "awayTeam": "Alabama",
+        "spread": -7.5,
+        "homeWinProbability": 0.698
+    }
+]

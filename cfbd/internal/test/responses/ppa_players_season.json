@@ -1,0 +1,30 @@
+[
+    {
+        "season": 2025,
+        "id": "5218633",
+        "name": "Ryan Wingo",
+        "position": "WR",
+        "team": "Texas",
+        "conference": "SEC",
+        "averagePPA": {
+            "all": 0.234,
+            "pass": 0.252,
+            "rush": 0.026,
+            "firstDown": 0.023,
+            "secondDown": 0.342,
+            "thirdDown": 0.511,
+            "standardDowns": 0.038,
+            "passingDowns": 0.492
+        },
+        "totalPPA": {
+            "all": 20.598,
+            "pass": 20.415,
+            "rush": 0.182,
+            "firstDown": 0.878,
+            "secondDown": 8.219,
+            "thirdDown": 12.771,
+            "standardDowns": 1.894,
+            "passingDowns": 18.704
+        }
+    }
+]

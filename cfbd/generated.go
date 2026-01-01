@@ -6426,15 +6426,15 @@ func (x *PlayerGamePredictedPointsAdded) GetAverage_PPA() *AveragePpa {
 }
 
 type PlayerSeasonPpaSplits struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PassingDowns  *structpb.ListValue    `protobuf:"bytes,1,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
-	StandardDowns *structpb.ListValue    `protobuf:"bytes,2,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
-	ThirdDown     *structpb.ListValue    `protobuf:"bytes,3,opt,name=third_down,json=thirdDown,proto3" json:"third_down,omitempty"`
-	SecondDown    *structpb.ListValue    `protobuf:"bytes,4,opt,name=second_down,json=secondDown,proto3" json:"second_down,omitempty"`
-	FirstDown     *structpb.ListValue    `protobuf:"bytes,5,opt,name=first_down,json=firstDown,proto3" json:"first_down,omitempty"`
-	Rush          *structpb.ListValue    `protobuf:"bytes,6,opt,name=rush,proto3" json:"rush,omitempty"`
-	Pass          *structpb.ListValue    `protobuf:"bytes,7,opt,name=pass,proto3" json:"pass,omitempty"`
-	All           *structpb.ListValue    `protobuf:"bytes,8,opt,name=all,proto3" json:"all,omitempty"`
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	PassingDowns  *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
+	StandardDowns *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
+	ThirdDown     *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=third_down,json=thirdDown,proto3" json:"third_down,omitempty"`
+	SecondDown    *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=second_down,json=secondDown,proto3" json:"second_down,omitempty"`
+	FirstDown     *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=first_down,json=firstDown,proto3" json:"first_down,omitempty"`
+	Rush          *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=rush,proto3" json:"rush,omitempty"`
+	Pass          *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=pass,proto3" json:"pass,omitempty"`
+	All           *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=all,proto3" json:"all,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -6469,56 +6469,56 @@ func (*PlayerSeasonPpaSplits) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{67}
 }
 
-func (x *PlayerSeasonPpaSplits) GetPassingDowns() *structpb.ListValue {
+func (x *PlayerSeasonPpaSplits) GetPassingDowns() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.PassingDowns
 	}
 	return nil
 }
 
-func (x *PlayerSeasonPpaSplits) GetStandardDowns() *structpb.ListValue {
+func (x *PlayerSeasonPpaSplits) GetStandardDowns() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.StandardDowns
 	}
 	return nil
 }
 
-func (x *PlayerSeasonPpaSplits) GetThirdDown() *structpb.ListValue {
+func (x *PlayerSeasonPpaSplits) GetThirdDown() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.ThirdDown
 	}
 	return nil
 }
 
-func (x *PlayerSeasonPpaSplits) GetSecondDown() *structpb.ListValue {
+func (x *PlayerSeasonPpaSplits) GetSecondDown() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.SecondDown
 	}
 	return nil
 }
 
-func (x *PlayerSeasonPpaSplits) GetFirstDown() *structpb.ListValue {
+func (x *PlayerSeasonPpaSplits) GetFirstDown() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.FirstDown
 	}
 	return nil
 }
 
-func (x *PlayerSeasonPpaSplits) GetRush() *structpb.ListValue {
+func (x *PlayerSeasonPpaSplits) GetRush() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.Rush
 	}
 	return nil
 }
 
-func (x *PlayerSeasonPpaSplits) GetPass() *structpb.ListValue {
+func (x *PlayerSeasonPpaSplits) GetPass() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.Pass
 	}
 	return nil
 }
 
-func (x *PlayerSeasonPpaSplits) GetAll() *structpb.ListValue {
+func (x *PlayerSeasonPpaSplits) GetAll() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.All
 	}
@@ -12303,19 +12303,19 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x04team\x18\a \x01(\tR\x04team\x12\x1a\n" +
 	"\bopponent\x18\b \x01(\tR\bopponent\x124\n" +
 	"\vaverage_PPA\x18\t \x01(\v2\x13.cfbd.v1.AveragePpaR\n" +
-	"averagePPA\"\xdc\x03\n" +
-	"\x15PlayerSeasonPpaSplits\x12?\n" +
-	"\rpassing_downs\x18\x01 \x01(\v2\x1a.google.protobuf.ListValueR\fpassingDowns\x12A\n" +
-	"\x0estandard_downs\x18\x02 \x01(\v2\x1a.google.protobuf.ListValueR\rstandardDowns\x129\n" +
+	"averagePPA\"\xec\x03\n" +
+	"\x15PlayerSeasonPpaSplits\x12A\n" +
+	"\rpassing_downs\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\fpassingDowns\x12C\n" +
+	"\x0estandard_downs\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\rstandardDowns\x12;\n" +
 	"\n" +
-	"third_down\x18\x03 \x01(\v2\x1a.google.protobuf.ListValueR\tthirdDown\x12;\n" +
-	"\vsecond_down\x18\x04 \x01(\v2\x1a.google.protobuf.ListValueR\n" +
-	"secondDown\x129\n" +
+	"third_down\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\tthirdDown\x12=\n" +
+	"\vsecond_down\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\n" +
+	"secondDown\x12;\n" +
 	"\n" +
-	"first_down\x18\x05 \x01(\v2\x1a.google.protobuf.ListValueR\tfirstDown\x12.\n" +
-	"\x04rush\x18\x06 \x01(\v2\x1a.google.protobuf.ListValueR\x04rush\x12.\n" +
-	"\x04pass\x18\a \x01(\v2\x1a.google.protobuf.ListValueR\x04pass\x12,\n" +
-	"\x03all\x18\b \x01(\v2\x1a.google.protobuf.ListValueR\x03all\"\xac\x02\n" +
+	"first_down\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\tfirstDown\x120\n" +
+	"\x04rush\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\x04rush\x120\n" +
+	"\x04pass\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\x04pass\x12.\n" +
+	"\x03all\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\x03all\"\xac\x02\n" +
 	" PlayerSeasonPredictedPointsAdded\x12\x16\n" +
 	"\x06season\x18\x01 \x01(\x05R\x06season\x12\x0e\n" +
 	"\x02id\x18\x02 \x01(\tR\x02id\x12\x12\n" +
@@ -13284,14 +13284,14 @@ var file_cfbd_internal_proto_cfbd_proto_depIdxs = []int32{
 	61,  // 256: cfbd.v1.TeamGamePredictedPointsAdded.offense:type_name -> cfbd.v1.PredictedPointsAddedTotalsForGames
 	61,  // 257: cfbd.v1.TeamGamePredictedPointsAdded.defense:type_name -> cfbd.v1.PredictedPointsAddedTotalsForGames
 	65,  // 258: cfbd.v1.PlayerGamePredictedPointsAdded.average_PPA:type_name -> cfbd.v1.AveragePpa
-	121, // 259: cfbd.v1.PlayerSeasonPpaSplits.passing_downs:type_name -> google.protobuf.ListValue
-	121, // 260: cfbd.v1.PlayerSeasonPpaSplits.standard_downs:type_name -> google.protobuf.ListValue
-	121, // 261: cfbd.v1.PlayerSeasonPpaSplits.third_down:type_name -> google.protobuf.ListValue
-	121, // 262: cfbd.v1.PlayerSeasonPpaSplits.second_down:type_name -> google.protobuf.ListValue
-	121, // 263: cfbd.v1.PlayerSeasonPpaSplits.first_down:type_name -> google.protobuf.ListValue
-	121, // 264: cfbd.v1.PlayerSeasonPpaSplits.rush:type_name -> google.protobuf.ListValue
-	121, // 265: cfbd.v1.PlayerSeasonPpaSplits.pass:type_name -> google.protobuf.ListValue
-	121, // 266: cfbd.v1.PlayerSeasonPpaSplits.all:type_name -> google.protobuf.ListValue
+	117, // 259: cfbd.v1.PlayerSeasonPpaSplits.passing_downs:type_name -> google.protobuf.DoubleValue
+	117, // 260: cfbd.v1.PlayerSeasonPpaSplits.standard_downs:type_name -> google.protobuf.DoubleValue
+	117, // 261: cfbd.v1.PlayerSeasonPpaSplits.third_down:type_name -> google.protobuf.DoubleValue
+	117, // 262: cfbd.v1.PlayerSeasonPpaSplits.second_down:type_name -> google.protobuf.DoubleValue
+	117, // 263: cfbd.v1.PlayerSeasonPpaSplits.first_down:type_name -> google.protobuf.DoubleValue
+	117, // 264: cfbd.v1.PlayerSeasonPpaSplits.rush:type_name -> google.protobuf.DoubleValue
+	117, // 265: cfbd.v1.PlayerSeasonPpaSplits.pass:type_name -> google.protobuf.DoubleValue
+	117, // 266: cfbd.v1.PlayerSeasonPpaSplits.all:type_name -> google.protobuf.DoubleValue
 	67,  // 267: cfbd.v1.PlayerSeasonPredictedPointsAdded.average_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
 	67,  // 268: cfbd.v1.PlayerSeasonPredictedPointsAdded.total_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
 	117, // 269: cfbd.v1.LiveGameTeam.average_start_yard_line:type_name -> google.protobuf.DoubleValue
