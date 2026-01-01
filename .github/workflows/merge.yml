@@ -31,6 +31,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Fetch all tags
+        run: git fetch --tags
+
       - name: Calculate next version
         id: version
         run: |
@@ -87,8 +90,8 @@ jobs:
           
           NEXT_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
           
-          # Check if tag already exists
-          if git rev-parse "$NEXT_VERSION" >/dev/null 2>&1; then
+          # Check if tag already exists locally or on remote
+          if git rev-parse "$NEXT_VERSION" >/dev/null 2>&1 || git ls-remote --tags origin "$NEXT_VERSION" | grep -q "$NEXT_VERSION"; then
             echo "Tag $NEXT_VERSION already exists, skipping release"
             echo "skip_release=true" >> $GITHUB_OUTPUT
           else
@@ -104,6 +107,11 @@ jobs:
       - name: Create Git Tag
         if: steps.version.outputs.skip_release != 'true'
         run: |
+          # Double-check tag doesn't exist before creating
+          if git ls-remote --tags origin "${{ steps.version.outputs.next_version }}" | grep -q "${{ steps.version.outputs.next_version }}"; then
+            echo "Tag ${{ steps.version.outputs.next_version }} already exists on remote, skipping tag creation"
+            exit 0
+          fi
           git tag -a "${{ steps.version.outputs.next_version }}" -m "Release ${{ steps.version.outputs.next_version }}"
           git push origin "${{ steps.version.outputs.next_version }}"
 
@@ -141,15 +149,36 @@ jobs:
             const releaseName = `Release ${tagName}`;
             const body = `${{ steps.release_notes.outputs.notes }}`;
             
-            await github.rest.repos.createRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag_name: tagName,
-              name: releaseName,
-              body: body,
-              draft: false,
-              prerelease: false
-            });
+            try {
+              // Check if release already exists
+              const releases = await github.rest.repos.listReleases({
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              });
+              
+              const existingRelease = releases.data.find(r => r.tag_name === tagName);
+              if (existingRelease) {
+                console.log(`Release ${tagName} already exists, skipping creation`);
+                return;
+              }
+              
+              await github.rest.repos.createRelease({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tag_name: tagName,
+                name: releaseName,
+                body: body,
+                draft: false,
+                prerelease: false
+              });
+            } catch (error) {
+              // If release already exists, that's okay
+              if (error.status === 422 && error.message.includes('already exists')) {
+                console.log(`Release ${tagName} already exists, skipping creation`);
+              } else {
+                throw error;
+              }
+            }
 
       - name: Release Summary
         if: always()
