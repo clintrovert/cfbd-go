@@ -1,0 +1,51 @@
+[
+    {
+        "id": 401778330,
+        "season": 2025,
+        "seasonType": "postseason",
+        "week": 1,
+        "startDate": "2025-12-31T20:00:00.000Z",
+        "homeTeamId": 251,
+        "homeTeam": "Texas",
+        "homeConference": "SEC",
+        "homeClassification": "fbs",
+        "homeScore": 41,
+        "awayTeamId": 130,
+        "awayTeam": "Michigan",
+        "awayConference": "Big Ten",
+        "awayClassification": "fbs",
+        "awayScore": 27,
+        "lines": [
+            {
+                "provider": "Bovada",
+                "spread": -7,
+                "formattedSpread": "Texas -7.0",
+                "spreadOpen": -5.5,
+                "overUnder": 50,
+                "overUnderOpen": 46,
+                "homeMoneyline": -210,
+                "awayMoneyline": 175
+            },
+            {
+                "provider": "Draft Kings",
+                "spread": -4,
+                "formattedSpread": "Texas -4",
+                "spreadOpen": null,
+                "overUnder": 50.5,
+                "overUnderOpen": null,
+                "homeMoneyline": null,
+                "awayMoneyline": null
+            },
+            {
+                "provider": "DraftKings",
+                "spread": -4.5,
+                "formattedSpread": "Texas -4.5",
+                "spreadOpen": null,
+                "overUnder": 50.5,
+                "overUnderOpen": null,
+                "homeMoneyline": -198,
+                "awayMoneyline": 164
+            }
+        ]
+    }
+]

@@ -1,0 +1,25 @@
+[
+    {
+        "id": "106347",
+        "athleteId": "5141509",
+        "recruitType": "HighSchool",
+        "year": 2025,
+        "ranking": 156,
+        "name": "Karle Lacey Jr.",
+        "school": "Saraland",
+        "committedTo": "Texas",
+        "position": "QB",
+        "height": 72,
+        "weight": 175,
+        "stars": 4,
+        "rating": 0.9336,
+        "city": "Saraland",
+        "stateProvince": "AL",
+        "country": "USA",
+        "hometownInfo": {
+            "latitude": 30.820742,
+            "longitude": -88.0705556,
+            "fipsCode": "01097"
+        }
+    }
+]

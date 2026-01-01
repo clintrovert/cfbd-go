@@ -1635,6 +1635,324 @@ func TestGetTransferPortalPlayers_ValidRequest_ShouldSucceed(t *testing.T) {
 	assert.Equal(t, transfer.Eligibility.Value, "Immediate")
 }
 
+func TestGetRankings_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "rankings.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetRankings(
+		context.Background(), GetRankingsRequest{
+			Year:       testYear,
+			Week:       testWeek,
+			SeasonType: "regular",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	pollWeek := response[0]
+	assert.Equal(t, pollWeek.Season, int32(2025))
+	assert.Equal(t, pollWeek.SeasonType, "regular")
+	assert.Equal(t, pollWeek.Week, int32(1))
+	require.NotNil(t, pollWeek.Polls)
+	assert.Len(t, pollWeek.Polls, 5)
+
+	// Helper function to find poll by name
+	findPoll := func(name string) *Poll {
+		for _, poll := range pollWeek.Polls {
+			if poll.Poll == name {
+				return poll
+			}
+		}
+		return nil
+	}
+
+	// Test Coaches Poll
+	coachesPoll := findPoll("Coaches Poll")
+	require.NotNil(t, coachesPoll)
+	assert.Len(t, coachesPoll.Ranks, 25)
+
+	rank1 := coachesPoll.Ranks[0]
+	require.NotNil(t, rank1.Rank)
+	assert.Equal(t, rank1.Rank.Value, int32(1))
+	require.NotNil(t, rank1.TeamId)
+	assert.Equal(t, rank1.TeamId.Value, int32(251))
+	assert.Equal(t, rank1.School, "Texas")
+	require.NotNil(t, rank1.Conference)
+	assert.Equal(t, rank1.Conference.Value, "SEC")
+	require.NotNil(t, rank1.FirstPlaceVotes)
+	assert.Equal(t, rank1.FirstPlaceVotes.Value, int32(28))
+	require.NotNil(t, rank1.Points)
+	assert.Equal(t, rank1.Points.Value, int32(1606))
+
+	// Test AP Top 25 poll
+	apPoll := findPoll("AP Top 25")
+	require.NotNil(t, apPoll)
+	assert.Len(t, apPoll.Ranks, 25)
+
+	apRank1 := apPoll.Ranks[0]
+	require.NotNil(t, apRank1.Rank)
+	assert.Equal(t, apRank1.Rank.Value, int32(1))
+	assert.Equal(t, apRank1.School, "Texas")
+	require.NotNil(t, apRank1.FirstPlaceVotes)
+	assert.Equal(t, apRank1.FirstPlaceVotes.Value, int32(25))
+	require.NotNil(t, apRank1.Points)
+	assert.Equal(t, apRank1.Points.Value, int32(1552))
+}
+
+func TestGetBettingLines_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "lines.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetBettingLines(
+		context.Background(), GetBettingLinesRequest{
+			Year:       testYear,
+			Week:       testWeek,
+			SeasonType: "postseason",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test BettingGame
+	game := response[0]
+	assert.Equal(t, game.Id, int32(401778330))
+	assert.Equal(t, game.Season, int32(2025))
+	assert.Equal(t, game.SeasonType, "postseason")
+	assert.Equal(t, game.Week, int32(1))
+	assert.Equal(t,
+		game.StartDate.AsTime().Format(defaultTimeFormat),
+		"2025-12-31T20:00:00.000Z",
+	)
+	assert.Equal(t, game.HomeTeamId, int32(251))
+	assert.Equal(t, game.HomeTeam, "Texas")
+	require.NotNil(t, game.HomeConference)
+	assert.Equal(t, game.HomeConference.Value, "SEC")
+	require.NotNil(t, game.HomeClassification)
+	assert.Equal(t, game.HomeClassification.Value, "fbs")
+	require.NotNil(t, game.HomeScore)
+	assert.Equal(t, game.HomeScore.Value, int32(41))
+	assert.Equal(t, game.AwayTeamId, int32(130))
+	assert.Equal(t, game.AwayTeam, "Michigan")
+	require.NotNil(t, game.AwayConference)
+	assert.Equal(t, game.AwayConference.Value, "Big Ten")
+	require.NotNil(t, game.AwayClassification)
+	assert.Equal(t, game.AwayClassification.Value, "fbs")
+	require.NotNil(t, game.AwayScore)
+	assert.Equal(t, game.AwayScore.Value, int32(27))
+
+	// Test lines array
+	require.NotNil(t, game.Lines)
+	assert.Len(t, game.Lines, 3)
+
+	// Helper function to find line by provider
+	findLine := func(provider string) *GameLine {
+		for _, line := range game.Lines {
+			if line.Provider == provider {
+				return line
+			}
+		}
+		return nil
+	}
+
+	// Test Bovada line (has all fields)
+	bovadaLine := findLine("Bovada")
+	require.NotNil(t, bovadaLine)
+	assert.Equal(t, bovadaLine.Provider, "Bovada")
+	require.NotNil(t, bovadaLine.Spread)
+	assert.Equal(t, bovadaLine.Spread.Value, -7.0)
+	require.NotNil(t, bovadaLine.FormattedSpread)
+	assert.Equal(t, bovadaLine.FormattedSpread.Value, "Texas -7.0")
+	require.NotNil(t, bovadaLine.SpreadOpen)
+	assert.Equal(t, bovadaLine.SpreadOpen.Value, -5.5)
+	require.NotNil(t, bovadaLine.OverUnder)
+	assert.Equal(t, bovadaLine.OverUnder.Value, 50.0)
+	require.NotNil(t, bovadaLine.OverUnderOpen)
+	assert.Equal(t, bovadaLine.OverUnderOpen.Value, 46.0)
+	require.NotNil(t, bovadaLine.HomeMoneyline)
+	assert.Equal(t, bovadaLine.HomeMoneyline.Value, -210.0)
+	require.NotNil(t, bovadaLine.AwayMoneyline)
+	assert.Equal(t, bovadaLine.AwayMoneyline.Value, 175.0)
+
+	// Test Draft Kings line (has some null fields)
+	draftKingsLine := findLine("Draft Kings")
+	require.NotNil(t, draftKingsLine)
+	assert.Equal(t, draftKingsLine.Provider, "Draft Kings")
+	require.NotNil(t, draftKingsLine.Spread)
+	assert.Equal(t, draftKingsLine.Spread.Value, -4.0)
+	require.NotNil(t, draftKingsLine.FormattedSpread)
+	assert.Equal(t, draftKingsLine.FormattedSpread.Value, "Texas -4")
+	assert.Nil(t, draftKingsLine.SpreadOpen) // null in JSON
+	require.NotNil(t, draftKingsLine.OverUnder)
+	assert.Equal(t, draftKingsLine.OverUnder.Value, 50.5)
+	assert.Nil(t, draftKingsLine.OverUnderOpen) // null in JSON
+	assert.Nil(t, draftKingsLine.HomeMoneyline) // null in JSON
+	assert.Nil(t, draftKingsLine.AwayMoneyline) // null in JSON
+}
+
+func TestGetPlayerRecruitingRankings_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "recruiting_players.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetPlayerRecruitingRankings(
+		context.Background(), GetPlayersRecruitingRankingsRequest{
+			Year:     testYear,
+			Team:     testTeam,
+			Position: "QB",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single recruit
+	recruit := response[0]
+	assert.Equal(t, recruit.Id, "106347")
+	require.NotNil(t, recruit.AthleteId)
+	assert.Equal(t, recruit.AthleteId.Value, "5141509")
+	assert.Equal(t, recruit.RecruitType, "HighSchool")
+	assert.Equal(t, recruit.Year, int32(2025))
+	require.NotNil(t, recruit.Ranking)
+	assert.Equal(t, recruit.Ranking.Value, int32(156))
+	assert.Equal(t, recruit.Name, "Karle Lacey Jr.")
+	require.NotNil(t, recruit.School)
+	assert.Equal(t, recruit.School.Value, "Saraland")
+	require.NotNil(t, recruit.CommittedTo)
+	assert.Equal(t, recruit.CommittedTo.Value, "Texas")
+	require.NotNil(t, recruit.Position)
+	assert.Equal(t, recruit.Position.Value, "QB")
+	require.NotNil(t, recruit.Height)
+	assert.Equal(t, recruit.Height.Value, 72.0)
+	require.NotNil(t, recruit.Weight)
+	assert.Equal(t, recruit.Weight.Value, int32(175))
+	assert.Equal(t, recruit.Stars, int32(4))
+	assert.Equal(t, recruit.Rating, 0.9336)
+	require.NotNil(t, recruit.City)
+	assert.Equal(t, recruit.City.Value, "Saraland")
+	require.NotNil(t, recruit.StateProvince)
+	assert.Equal(t, recruit.StateProvince.Value, "AL")
+	require.NotNil(t, recruit.Country)
+	assert.Equal(t, recruit.Country.Value, "USA")
+
+	// Test hometown info
+	require.NotNil(t, recruit.HometownInfo)
+	require.NotNil(t, recruit.HometownInfo.Latitude)
+	assert.Equal(t, recruit.HometownInfo.Latitude.Value, 30.820742)
+	require.NotNil(t, recruit.HometownInfo.Longitude)
+	assert.Equal(t, recruit.HometownInfo.Longitude.Value, -88.0705556)
+	require.NotNil(t, recruit.HometownInfo.FipsCode)
+	assert.Equal(t, recruit.HometownInfo.FipsCode.Value, "01097")
+}
+
+func TestGetTeamRecruitingRankings_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "recruiting_teams.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetTeamRecruitingRankings(
+		context.Background(), GetTeamRecruitingRankingsRequest{
+			Year: testYear,
+			Team: testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single team recruiting ranking
+	ranking := response[0]
+	assert.Equal(t, ranking.Year, int32(2025))
+	assert.Equal(t, ranking.Rank, int32(1))
+	assert.Equal(t, ranking.Team, "Texas")
+	assert.Equal(t, ranking.Points, 312.27)
+}
+
+func TestGetTeamPositionGroupRecruitingRankings_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "recruiting_groups.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetTeamPositionGroupRecruitingRankings(
+		context.Background(), GetTeamPositionGroupRecruitingRankingsRequest{
+			Team:      testTeam,
+			StartYear: 2020,
+			EndYear:   2025,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 10)
+
+	findGroup := func(positionGroup string) *AggregatedTeamRecruiting {
+		for _, group := range response {
+			if group.PositionGroup != nil && group.PositionGroup.Value == positionGroup {
+				return group
+			}
+		}
+		return nil
+	}
+
+	// Test Defensive Line group
+	defensiveLine := findGroup("Defensive Line")
+	require.NotNil(t, defensiveLine)
+	assert.Equal(t, defensiveLine.Team, "Texas")
+	assert.Equal(t, defensiveLine.Conference, "SEC")
+	require.NotNil(t, defensiveLine.PositionGroup)
+	assert.Equal(t, defensiveLine.PositionGroup.Value, "Defensive Line")
+	assert.Equal(t, defensiveLine.AverageRating, 0.8632249981164932)
+	assert.Equal(t, defensiveLine.TotalRating, 3.4529)
+	assert.Equal(t, defensiveLine.Commits, int32(4))
+	assert.Equal(t, defensiveLine.AverageStars, 3.25)
+
+	// Test Linebacker group (different values)
+	linebacker := findGroup("Linebacker")
+	require.NotNil(t, linebacker)
+	assert.Equal(t, linebacker.Team, "Texas")
+	assert.Equal(t, linebacker.Conference, "SEC")
+	require.NotNil(t, linebacker.PositionGroup)
+	assert.Equal(t, linebacker.PositionGroup.Value, "Linebacker")
+	assert.Equal(t, linebacker.AverageRating, 0.8768333395322164)
+	assert.Equal(t, linebacker.TotalRating, 2.6305)
+	assert.Equal(t, linebacker.Commits, int32(3))
+	assert.Equal(t, linebacker.AverageStars, 3.3333333333333333)
+
+	// Test Offensive Line group
+	offensiveLine := findGroup("Offensive Line")
+	require.NotNil(t, offensiveLine)
+	assert.Equal(t, offensiveLine.Team, "Texas")
+	assert.Equal(t, offensiveLine.Conference, "SEC")
+	require.NotNil(t, offensiveLine.PositionGroup)
+	assert.Equal(t, offensiveLine.PositionGroup.Value, "Offensive Line")
+	assert.Equal(t, offensiveLine.AverageRating, 0.8646166721979777)
+	assert.Equal(t, offensiveLine.TotalRating, 5.1877003)
+	assert.Equal(t, offensiveLine.Commits, int32(6))
+	assert.Equal(t, offensiveLine.AverageStars, 3.0)
+}
+
 func convertToInt32Slice(values []*structpb.Value) []int32 {
 	results := make([]int32, len(values))
 	for i, v := range values {

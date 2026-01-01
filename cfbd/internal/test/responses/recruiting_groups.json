@@ -1,0 +1,92 @@
+[
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "Defensive Line",
+        "averageRating": 0.8632249981164932,
+        "totalRating": 3.4529,
+        "commits": "4",
+        "averageStars": "3.2500000000000000"
+    },
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "Linebacker",
+        "averageRating": 0.8768333395322164,
+        "totalRating": 2.6305,
+        "commits": "3",
+        "averageStars": "3.3333333333333333"
+    },
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "Offensive Line",
+        "averageRating": 0.8646166721979777,
+        "totalRating": 5.1877003,
+        "commits": "6",
+        "averageStars": "3.0000000000000000"
+    },
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "Receiver",
+        "averageRating": 0.8635999858379364,
+        "totalRating": 1.7272,
+        "commits": "2",
+        "averageStars": "3.0000000000000000"
+    },
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "Special Teams",
+        "averageRating": 0.8041999936103821,
+        "totalRating": 0.8042,
+        "commits": "1",
+        "averageStars": "3.0000000000000000"
+    },
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "All Positions",
+        "averageRating": 0.8632249981164932,
+        "totalRating": 3.4529,
+        "commits": "4",
+        "averageStars": "3.2500000000000000"
+    },
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "All Positions",
+        "averageRating": 0.8768333395322164,
+        "totalRating": 2.6305,
+        "commits": "3",
+        "averageStars": "3.3333333333333333"
+    },
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "All Positions",
+        "averageRating": 0.8646166721979777,
+        "totalRating": 5.1877003,
+        "commits": "6",
+        "averageStars": "3.0000000000000000"
+    },
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "All Positions",
+        "averageRating": 0.8635999858379364,
+        "totalRating": 1.7272,
+        "commits": "2",
+        "averageStars": "3.0000000000000000"
+    },
+    {
+        "team": "Texas",
+        "conference": "SEC",
+        "positionGroup": "All Positions",
+        "averageRating": 0.8041999936103821,
+        "totalRating": 0.8042,
+        "commits": "1",
+        "averageStars": "3.0000000000000000"
+    }
+]
