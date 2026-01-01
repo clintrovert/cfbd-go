@@ -1,0 +1,22 @@
+[
+  {
+    "id": "4870906",
+    "firstName": "Arch",
+    "lastName": "Manning",
+    "team": "Texas",
+    "weight": 219,
+    "height": 76,
+    "jersey": 16,
+    "year": 2,
+    "position": "QB",
+    "homeCity": "New Orleans",
+    "homeState": "LA",
+    "homeCountry": "USA",
+    "homeLatitude": 29.9499323,
+    "homeLongitude": -90.0701156,
+    "homeCountyFIPS": "22071",
+    "recruitIds": [
+      "111247"
+    ]
+  }
+]

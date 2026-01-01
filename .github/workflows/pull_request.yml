@@ -1,0 +1,134 @@
+name: Test and Version
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Run tests
+        run: go test ./... -v
+
+  version-comment:
+    name: Calculate Next Version
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event.action == 'opened' || github.event.action == 'reopened'
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
+
+      - name: Calculate next version
+        id: version
+        run: |
+          # Get the latest tag
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          
+          # Remove 'v' prefix if present
+          LATEST_VERSION=${LATEST_TAG#v}
+          
+          # Parse version components using awk for better compatibility
+          MAJOR=$(echo "$LATEST_VERSION" | awk -F. '{print $1}')
+          MINOR=$(echo "$LATEST_VERSION" | awk -F. '{print $2}')
+          PATCH=$(echo "$LATEST_VERSION" | awk -F. '{print $3}')
+          
+          # Default to 0.0.0 if no tags exist or parsing failed
+          MAJOR=${MAJOR:-0}
+          MINOR=${MINOR:-0}
+          PATCH=${PATCH:-0}
+          
+          # Get the branch name (head ref for the PR)
+          BRANCH_NAME="${{ github.head_ref }}"
+          
+          # Determine bump type based on branch name prefix
+          if echo "$BRANCH_NAME" | grep -qiE "^major/"; then
+            MAJOR=$((MAJOR + 1))
+            MINOR=0
+            PATCH=0
+            BUMP_TYPE="major"
+          elif echo "$BRANCH_NAME" | grep -qiE "^minor/"; then
+            MINOR=$((MINOR + 1))
+            PATCH=0
+            BUMP_TYPE="minor"
+          elif echo "$BRANCH_NAME" | grep -qiE "^patch/"; then
+            PATCH=$((PATCH + 1))
+            BUMP_TYPE="patch"
+          else
+            # Default to patch if no prefix is found
+            PATCH=$((PATCH + 1))
+            BUMP_TYPE="patch"
+          fi
+          
+          NEXT_VERSION="v${MAJOR}.${MINOR}.${PATCH}"
+          
+          echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+          echo "next_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+          echo "current_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const latestTag = '${{ steps.version.outputs.latest_tag }}';
+            const nextVersion = '${{ steps.version.outputs.next_version }}';
+            const bumpType = '${{ steps.version.outputs.bump_type }}';
+            const currentVersion = '${{ steps.version.outputs.current_version }}';
+            
+            const comment = `## 📦 Next Release Version
+            
+            Based on the changes in this PR, the suggested next release version is:
+            
+            **\`${nextVersion}\`** (${bumpType} bump)
+            
+            - Current version: \`${latestTag || 'none (first release)'}\`
+            - Version bump type: **${bumpType}**
+            
+            ### How this was determined:
+            - **Major** (${nextVersion.split('.')[0]}.0.0): Branch name starts with \`major/\`
+            - **Minor** (x.${nextVersion.split('.')[1]}.0): Branch name starts with \`minor/\`
+            - **Patch** (x.x.${nextVersion.split('.')[2]}): Branch name starts with \`patch/\` or no prefix (default)
+            
+            > 💡 Tip: Prefix your branch name with \`major/\`, \`minor/\`, or \`patch/\` to indicate the version bump type.
+            > Examples: \`major/breaking-api-changes\`, \`minor/add-new-endpoint\`, \`patch/fix-bug\`
+            
+            ---
+            *This comment is automatically generated. Please review and adjust the version as needed.*`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+

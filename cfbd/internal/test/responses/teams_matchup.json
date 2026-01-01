@@ -1,0 +1,23 @@
+{
+  "team1": "Texas",
+  "team2": "Oklahoma",
+  "startYear": 2025,
+  "team1Wins": 1,
+  "team2Wins": 0,
+  "ties": 0,
+  "games": [
+    {
+      "season": 2025,
+      "week": 7,
+      "seasonType": "regular",
+      "date": "2025-10-11T19:30:00.000Z",
+      "neutralSite": true,
+      "venue": "Cotton Bowl",
+      "homeTeam": "Texas",
+      "homeScore": 23,
+      "awayTeam": "Oklahoma",
+      "awayScore": 6,
+      "winner": "Texas"
+    }
+  ]
+}

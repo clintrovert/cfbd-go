@@ -1,0 +1,13 @@
+[
+  {
+    "year": 2025,
+    "teamId": 251,
+    "team": "Texas",
+    "conference": "SEC",
+    "games": 13,
+    "atsWins": 5,
+    "atsLosses": 8,
+    "atsPushes": 0,
+    "avgCoverMargin": -2.08
+  }
+]
