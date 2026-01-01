@@ -25,7 +25,7 @@ func main() {
    // }
    printRecords(ctx, client)
    printCalendar(ctx, client)
-   printScoreboard(ctx, client)
+   // printScoreboard(ctx, client)
    printGameAdvancedBoxScore(ctx, client)
 
    // DRIVES
@@ -162,7 +162,7 @@ func printMedia(ctx context.Context, client *cfbd.Client) {
 func printRecords(ctx context.Context, client *cfbd.Client) {
    records, err := client.GetTeamRecords(
       ctx,
-      cfbd.GetRecordsRequest{Team: "Texas"},
+      cfbd.GetTeamRecordsRequest{Team: "Texas"},
    )
    if err != nil {
       fmt.Printf("error occurred retrieving calendar: %s", err.Error())
@@ -186,9 +186,9 @@ func printCalendar(ctx context.Context, client *cfbd.Client) {
    }
 }
 
-func printScoreboard(ctx context.Context, client *cfbd.Client) {
-   panic("implement")
-}
+// func printScoreboard(ctx context.Context, client *cfbd.Client) {
+//    panic("implement")
+// }
 
 func printGameAdvancedBoxScore(ctx context.Context, client *cfbd.Client) {
    boxScore, err := client.GetAdvancedBoxScore(ctx, 401767768)
