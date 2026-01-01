@@ -1,0 +1,22 @@
+[
+    {
+        "year": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "fpi": 18.267,
+        "resumeRanks": {
+            "strengthOfRecord": 12,
+            "fpi": 13,
+            "averageWinProbability": 43,
+            "strengthOfSchedule": 8,
+            "remainingStrengthOfSchedule": 13,
+            "gameControl": 17
+        },
+        "efficiencies": {
+            "overall": 78.647,
+            "offense": 61.362,
+            "defense": 79.781,
+            "specialTeams": 67.791
+        }
+    }
+]

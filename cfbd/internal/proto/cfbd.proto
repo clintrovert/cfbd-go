@@ -687,23 +687,34 @@ message PredictedPointsValue {
   double predicted_points = 2;
 }
 
+// PredictedPointsAddedTotals for teams (uses "total" in JSON)
 message PredictedPointsAddedTotals {
   double third_down = 1;
   double second_down = 2;
   double first_down = 3;
   double rushing = 4;
   double passing = 5;
-  double overall = 6;
+  double total = 6;  // JSON uses "total" in teams cumulative
+}
+
+// PredictedPointsAddedTotalsForGames for games (uses "overall" in JSON)
+message PredictedPointsAddedTotalsForGames {
+  double third_down = 1;
+  double second_down = 2;
+  double first_down = 3;
+  double rushing = 4;
+  double passing = 5;
+  double overall = 6;  // JSON uses "overall" in games offense/defense
 }
 
 message TeamSeasonPredictedPointsAddedUnit {
   PredictedPointsAddedTotals cumulative = 1;
-  repeated PredictedPointsValue third_down = 2;
-  repeated PredictedPointsValue second_down = 3;
-  repeated PredictedPointsValue first_down = 4;
-  repeated PredictedPointsValue rushing = 5;
-  repeated PredictedPointsValue passing = 6;
-  repeated PredictedPointsValue overall = 7;
+  google.protobuf.DoubleValue third_down = 2;
+  google.protobuf.DoubleValue second_down = 3;
+  google.protobuf.DoubleValue first_down = 4;
+  google.protobuf.DoubleValue rushing = 5;
+  google.protobuf.DoubleValue passing = 6;
+  google.protobuf.DoubleValue overall = 7;
 }
 
 message TeamSeasonPredictedPointsAdded {
@@ -722,8 +733,8 @@ message TeamGamePredictedPointsAdded {
   string team = 5;
   string conference = 6;
   string opponent = 7;
-  PredictedPointsAddedTotals offense = 8;
-  PredictedPointsAddedTotals defense = 9;
+  PredictedPointsAddedTotalsForGames offense = 8;
+  PredictedPointsAddedTotalsForGames defense = 9;
 }
 
 message AveragePpa {

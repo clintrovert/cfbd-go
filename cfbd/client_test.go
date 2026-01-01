@@ -2207,6 +2207,221 @@ func TestGetEloRatings_ValidRequest_ShouldSucceed(t *testing.T) {
 	assert.Equal(t, rating.Elo.Value, int32(1925))
 }
 
+func TestGetFPIRatings_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ratings_fpi.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetFPIRatings(
+		context.Background(), GetFPIRatingsRequest{
+			Year:       testYear,
+			Team:       testTeam,
+			Conference: "SEC",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single FPI rating
+	rating := response[0]
+	assert.Equal(t, rating.Year, int32(2025))
+	assert.Equal(t, rating.Team, "Texas")
+	require.NotNil(t, rating.Conference)
+	assert.Equal(t, rating.Conference.Value, "SEC")
+	require.NotNil(t, rating.Fpi)
+	assert.Equal(t, rating.Fpi.Value, 18.267)
+
+	// Test resume ranks
+	require.NotNil(t, rating.ResumeRanks)
+	require.NotNil(t, rating.ResumeRanks.StrengthOfRecord)
+	assert.Equal(t, rating.ResumeRanks.StrengthOfRecord.Value, int32(12))
+	require.NotNil(t, rating.ResumeRanks.Fpi)
+	assert.Equal(t, rating.ResumeRanks.Fpi.Value, int32(13))
+	require.NotNil(t, rating.ResumeRanks.AverageWinProbability)
+	assert.Equal(t, rating.ResumeRanks.AverageWinProbability.Value, int32(43))
+	require.NotNil(t, rating.ResumeRanks.StrengthOfSchedule)
+	assert.Equal(t, rating.ResumeRanks.StrengthOfSchedule.Value, int32(8))
+	require.NotNil(t, rating.ResumeRanks.RemainingStrengthOfSchedule)
+	assert.Equal(t, rating.ResumeRanks.RemainingStrengthOfSchedule.Value, int32(13))
+	require.NotNil(t, rating.ResumeRanks.GameControl)
+	assert.Equal(t, rating.ResumeRanks.GameControl.Value, int32(17))
+
+	// Test efficiencies
+	require.NotNil(t, rating.Efficiencies)
+	require.NotNil(t, rating.Efficiencies.Overall)
+	assert.Equal(t, rating.Efficiencies.Overall.Value, 78.647)
+	require.NotNil(t, rating.Efficiencies.Offense)
+	assert.Equal(t, rating.Efficiencies.Offense.Value, 61.362)
+	require.NotNil(t, rating.Efficiencies.Defense)
+	assert.Equal(t, rating.Efficiencies.Defense.Value, 79.781)
+	require.NotNil(t, rating.Efficiencies.SpecialTeams)
+	assert.Equal(t, rating.Efficiencies.SpecialTeams.Value, 67.791)
+}
+
+func TestGetPredictedPoints_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ppa_predicted.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetPredictedPoints(
+		context.Background(), GetPredictedPointsRequest{
+			Down:     1,
+			Distance: 10,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 90)
+
+	// Test first item (yardLine 90)
+	first := response[0]
+	assert.Equal(t, first.YardLine, int32(90))
+	assert.Equal(t, first.PredictedPoints, 4.49)
+
+	// Test middle item (yardLine 50)
+	middle := response[40] // 90 - 50 = 40
+	assert.Equal(t, middle.YardLine, int32(50))
+	assert.Equal(t, middle.PredictedPoints, 3.16)
+
+	// Test last item (yardLine 1)
+	last := response[89] // 90 - 1 = 89
+	assert.Equal(t, last.YardLine, int32(1))
+	assert.Equal(t, last.PredictedPoints, 0.01)
+
+	// Test a few more representative items
+	item25 := response[65] // 90 - 25 = 65
+	assert.Equal(t, item25.YardLine, int32(25))
+	assert.Equal(t, item25.PredictedPoints, 0.92)
+
+	item10 := response[80] // 90 - 10 = 80
+	assert.Equal(t, item10.YardLine, int32(10))
+	assert.Equal(t, item10.PredictedPoints, 0.21)
+}
+
+func TestGetTeamsPPA_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ppa_teams.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetTeamsPPA(
+		context.Background(), GetTeamsPPARequest{
+			Year:       testYear,
+			Team:       testTeam,
+			Conference: "SEC",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single team PPA
+	teamPPA := response[0]
+	assert.Equal(t, teamPPA.Season, int32(2025))
+	assert.Equal(t, teamPPA.Conference, "SEC")
+	assert.Equal(t, teamPPA.Team, "Texas")
+
+	// Test offense
+	require.NotNil(t, teamPPA.Offense)
+	require.NotNil(t, teamPPA.Offense.Cumulative)
+	assert.Equal(t, teamPPA.Offense.Cumulative.Total, 151.8)
+	assert.Equal(t, teamPPA.Offense.Cumulative.Passing, 130.34)
+	assert.Equal(t, teamPPA.Offense.Cumulative.Rushing, 28.8)
+	require.NotNil(t, teamPPA.Offense.Overall)
+	assert.Equal(t, teamPPA.Offense.Overall.Value, 0.18)
+	require.NotNil(t, teamPPA.Offense.Passing)
+	assert.Equal(t, teamPPA.Offense.Passing.Value, 0.3)
+	require.NotNil(t, teamPPA.Offense.Rushing)
+	assert.Equal(t, teamPPA.Offense.Rushing.Value, 0.07)
+	require.NotNil(t, teamPPA.Offense.FirstDown)
+	assert.Equal(t, teamPPA.Offense.FirstDown.Value, 0.0)
+	require.NotNil(t, teamPPA.Offense.SecondDown)
+	assert.Equal(t, teamPPA.Offense.SecondDown.Value, 0.27)
+	require.NotNil(t, teamPPA.Offense.ThirdDown)
+	assert.Equal(t, teamPPA.Offense.ThirdDown.Value, 0.5)
+
+	// Test defense
+	require.NotNil(t, teamPPA.Defense)
+	require.NotNil(t, teamPPA.Defense.Cumulative)
+	assert.Equal(t, teamPPA.Defense.Cumulative.Total, 94.4)
+	assert.Equal(t, teamPPA.Defense.Cumulative.Passing, 956.2)
+	assert.Equal(t, teamPPA.Defense.Cumulative.Rushing, 8.9)
+	require.NotNil(t, teamPPA.Defense.Overall)
+	assert.Equal(t, teamPPA.Defense.Overall.Value, 0.11)
+	require.NotNil(t, teamPPA.Defense.Passing)
+	assert.Equal(t, teamPPA.Defense.Passing.Value, 0.2)
+	require.NotNil(t, teamPPA.Defense.Rushing)
+	assert.Equal(t, teamPPA.Defense.Rushing.Value, 0.02)
+	require.NotNil(t, teamPPA.Defense.FirstDown)
+	assert.Equal(t, teamPPA.Defense.FirstDown.Value, 0.02)
+	require.NotNil(t, teamPPA.Defense.SecondDown)
+	assert.Equal(t, teamPPA.Defense.SecondDown.Value, 0.06)
+	require.NotNil(t, teamPPA.Defense.ThirdDown)
+	assert.Equal(t, teamPPA.Defense.ThirdDown.Value, 0.38)
+}
+
+func TestGetGamesPPA_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "ppa_games.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetGamesPPA(
+		context.Background(), GetPpaGamesRequest{
+			Year:       testYear,
+			Week:       testWeek,
+			SeasonType: "regular",
+			Team:       testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single game PPA
+	gamePPA := response[0]
+	assert.Equal(t, gamePPA.GameId, int32(401752677))
+	assert.Equal(t, gamePPA.Season, int32(2025))
+	assert.Equal(t, gamePPA.Week, int32(1))
+	assert.Equal(t, gamePPA.SeasonType, "regular")
+	assert.Equal(t, gamePPA.Team, "Texas")
+	assert.Equal(t, gamePPA.Conference, "SEC")
+	assert.Equal(t, gamePPA.Opponent, "Ohio State")
+
+	// Test offense
+	require.NotNil(t, gamePPA.Offense)
+	assert.Equal(t, gamePPA.Offense.Overall, -0.12)
+	assert.Equal(t, gamePPA.Offense.Passing, -0.25)
+	assert.Equal(t, gamePPA.Offense.Rushing, 0.1)
+	assert.Equal(t, gamePPA.Offense.FirstDown, -0.13)
+	assert.Equal(t, gamePPA.Offense.SecondDown, 0.06)
+	assert.Equal(t, gamePPA.Offense.ThirdDown, 0.47)
+
+	// Test defense
+	require.NotNil(t, gamePPA.Defense)
+	assert.Equal(t, gamePPA.Defense.Overall, 0.04)
+	assert.Equal(t, gamePPA.Defense.Passing, 0.32)
+	assert.Equal(t, gamePPA.Defense.Rushing, -0.13)
+	assert.Equal(t, gamePPA.Defense.FirstDown, -0.16)
+	assert.Equal(t, gamePPA.Defense.SecondDown, 0.11)
+	assert.Equal(t, gamePPA.Defense.ThirdDown, 0.12)
+}
+
 func convertToInt32Slice(values []*structpb.Value) []int32 {
 	results := make([]int32, len(values))
 	for i, v := range values {

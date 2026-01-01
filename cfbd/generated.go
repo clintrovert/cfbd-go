@@ -5811,6 +5811,7 @@ func (x *PredictedPointsValue) GetPredictedPoints() float64 {
 	return 0
 }
 
+// PredictedPointsAddedTotals for teams (uses "total" in JSON)
 type PredictedPointsAddedTotals struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ThirdDown     float64                `protobuf:"fixed64,1,opt,name=third_down,json=thirdDown,proto3" json:"third_down,omitempty"`
@@ -5818,7 +5819,7 @@ type PredictedPointsAddedTotals struct {
 	FirstDown     float64                `protobuf:"fixed64,3,opt,name=first_down,json=firstDown,proto3" json:"first_down,omitempty"`
 	Rushing       float64                `protobuf:"fixed64,4,opt,name=rushing,proto3" json:"rushing,omitempty"`
 	Passing       float64                `protobuf:"fixed64,5,opt,name=passing,proto3" json:"passing,omitempty"`
-	Overall       float64                `protobuf:"fixed64,6,opt,name=overall,proto3" json:"overall,omitempty"`
+	Total         float64                `protobuf:"fixed64,6,opt,name=total,proto3" json:"total,omitempty"` // JSON uses "total" in teams cumulative
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -5888,7 +5889,92 @@ func (x *PredictedPointsAddedTotals) GetPassing() float64 {
 	return 0
 }
 
-func (x *PredictedPointsAddedTotals) GetOverall() float64 {
+func (x *PredictedPointsAddedTotals) GetTotal() float64 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+// PredictedPointsAddedTotalsForGames for games (uses "overall" in JSON)
+type PredictedPointsAddedTotalsForGames struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ThirdDown     float64                `protobuf:"fixed64,1,opt,name=third_down,json=thirdDown,proto3" json:"third_down,omitempty"`
+	SecondDown    float64                `protobuf:"fixed64,2,opt,name=second_down,json=secondDown,proto3" json:"second_down,omitempty"`
+	FirstDown     float64                `protobuf:"fixed64,3,opt,name=first_down,json=firstDown,proto3" json:"first_down,omitempty"`
+	Rushing       float64                `protobuf:"fixed64,4,opt,name=rushing,proto3" json:"rushing,omitempty"`
+	Passing       float64                `protobuf:"fixed64,5,opt,name=passing,proto3" json:"passing,omitempty"`
+	Overall       float64                `protobuf:"fixed64,6,opt,name=overall,proto3" json:"overall,omitempty"` // JSON uses "overall" in games offense/defense
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PredictedPointsAddedTotalsForGames) Reset() {
+	*x = PredictedPointsAddedTotalsForGames{}
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[61]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PredictedPointsAddedTotalsForGames) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PredictedPointsAddedTotalsForGames) ProtoMessage() {}
+
+func (x *PredictedPointsAddedTotalsForGames) ProtoReflect() protoreflect.Message {
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[61]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PredictedPointsAddedTotalsForGames.ProtoReflect.Descriptor instead.
+func (*PredictedPointsAddedTotalsForGames) Descriptor() ([]byte, []int) {
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{61}
+}
+
+func (x *PredictedPointsAddedTotalsForGames) GetThirdDown() float64 {
+	if x != nil {
+		return x.ThirdDown
+	}
+	return 0
+}
+
+func (x *PredictedPointsAddedTotalsForGames) GetSecondDown() float64 {
+	if x != nil {
+		return x.SecondDown
+	}
+	return 0
+}
+
+func (x *PredictedPointsAddedTotalsForGames) GetFirstDown() float64 {
+	if x != nil {
+		return x.FirstDown
+	}
+	return 0
+}
+
+func (x *PredictedPointsAddedTotalsForGames) GetRushing() float64 {
+	if x != nil {
+		return x.Rushing
+	}
+	return 0
+}
+
+func (x *PredictedPointsAddedTotalsForGames) GetPassing() float64 {
+	if x != nil {
+		return x.Passing
+	}
+	return 0
+}
+
+func (x *PredictedPointsAddedTotalsForGames) GetOverall() float64 {
 	if x != nil {
 		return x.Overall
 	}
@@ -5898,19 +5984,19 @@ func (x *PredictedPointsAddedTotals) GetOverall() float64 {
 type TeamSeasonPredictedPointsAddedUnit struct {
 	state         protoimpl.MessageState      `protogen:"open.v1"`
 	Cumulative    *PredictedPointsAddedTotals `protobuf:"bytes,1,opt,name=cumulative,proto3" json:"cumulative,omitempty"`
-	ThirdDown     []*PredictedPointsValue     `protobuf:"bytes,2,rep,name=third_down,json=thirdDown,proto3" json:"third_down,omitempty"`
-	SecondDown    []*PredictedPointsValue     `protobuf:"bytes,3,rep,name=second_down,json=secondDown,proto3" json:"second_down,omitempty"`
-	FirstDown     []*PredictedPointsValue     `protobuf:"bytes,4,rep,name=first_down,json=firstDown,proto3" json:"first_down,omitempty"`
-	Rushing       []*PredictedPointsValue     `protobuf:"bytes,5,rep,name=rushing,proto3" json:"rushing,omitempty"`
-	Passing       []*PredictedPointsValue     `protobuf:"bytes,6,rep,name=passing,proto3" json:"passing,omitempty"`
-	Overall       []*PredictedPointsValue     `protobuf:"bytes,7,rep,name=overall,proto3" json:"overall,omitempty"`
+	ThirdDown     *wrapperspb.DoubleValue     `protobuf:"bytes,2,opt,name=third_down,json=thirdDown,proto3" json:"third_down,omitempty"`
+	SecondDown    *wrapperspb.DoubleValue     `protobuf:"bytes,3,opt,name=second_down,json=secondDown,proto3" json:"second_down,omitempty"`
+	FirstDown     *wrapperspb.DoubleValue     `protobuf:"bytes,4,opt,name=first_down,json=firstDown,proto3" json:"first_down,omitempty"`
+	Rushing       *wrapperspb.DoubleValue     `protobuf:"bytes,5,opt,name=rushing,proto3" json:"rushing,omitempty"`
+	Passing       *wrapperspb.DoubleValue     `protobuf:"bytes,6,opt,name=passing,proto3" json:"passing,omitempty"`
+	Overall       *wrapperspb.DoubleValue     `protobuf:"bytes,7,opt,name=overall,proto3" json:"overall,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TeamSeasonPredictedPointsAddedUnit) Reset() {
 	*x = TeamSeasonPredictedPointsAddedUnit{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[61]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[62]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -5922,7 +6008,7 @@ func (x *TeamSeasonPredictedPointsAddedUnit) String() string {
 func (*TeamSeasonPredictedPointsAddedUnit) ProtoMessage() {}
 
 func (x *TeamSeasonPredictedPointsAddedUnit) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[61]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[62]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -5935,7 +6021,7 @@ func (x *TeamSeasonPredictedPointsAddedUnit) ProtoReflect() protoreflect.Message
 
 // Deprecated: Use TeamSeasonPredictedPointsAddedUnit.ProtoReflect.Descriptor instead.
 func (*TeamSeasonPredictedPointsAddedUnit) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{61}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{62}
 }
 
 func (x *TeamSeasonPredictedPointsAddedUnit) GetCumulative() *PredictedPointsAddedTotals {
@@ -5945,42 +6031,42 @@ func (x *TeamSeasonPredictedPointsAddedUnit) GetCumulative() *PredictedPointsAdd
 	return nil
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetThirdDown() []*PredictedPointsValue {
+func (x *TeamSeasonPredictedPointsAddedUnit) GetThirdDown() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.ThirdDown
 	}
 	return nil
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetSecondDown() []*PredictedPointsValue {
+func (x *TeamSeasonPredictedPointsAddedUnit) GetSecondDown() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.SecondDown
 	}
 	return nil
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetFirstDown() []*PredictedPointsValue {
+func (x *TeamSeasonPredictedPointsAddedUnit) GetFirstDown() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.FirstDown
 	}
 	return nil
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetRushing() []*PredictedPointsValue {
+func (x *TeamSeasonPredictedPointsAddedUnit) GetRushing() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.Rushing
 	}
 	return nil
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetPassing() []*PredictedPointsValue {
+func (x *TeamSeasonPredictedPointsAddedUnit) GetPassing() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.Passing
 	}
 	return nil
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetOverall() []*PredictedPointsValue {
+func (x *TeamSeasonPredictedPointsAddedUnit) GetOverall() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.Overall
 	}
@@ -6000,7 +6086,7 @@ type TeamSeasonPredictedPointsAdded struct {
 
 func (x *TeamSeasonPredictedPointsAdded) Reset() {
 	*x = TeamSeasonPredictedPointsAdded{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[62]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[63]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6012,7 +6098,7 @@ func (x *TeamSeasonPredictedPointsAdded) String() string {
 func (*TeamSeasonPredictedPointsAdded) ProtoMessage() {}
 
 func (x *TeamSeasonPredictedPointsAdded) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[62]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[63]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6025,7 +6111,7 @@ func (x *TeamSeasonPredictedPointsAdded) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamSeasonPredictedPointsAdded.ProtoReflect.Descriptor instead.
 func (*TeamSeasonPredictedPointsAdded) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{62}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{63}
 }
 
 func (x *TeamSeasonPredictedPointsAdded) GetSeason() int32 {
@@ -6064,23 +6150,23 @@ func (x *TeamSeasonPredictedPointsAdded) GetDefense() *TeamSeasonPredictedPoints
 }
 
 type TeamGamePredictedPointsAdded struct {
-	state         protoimpl.MessageState      `protogen:"open.v1"`
-	GameId        int32                       `protobuf:"varint,1,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
-	Season        int32                       `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
-	Week          int32                       `protobuf:"varint,3,opt,name=week,proto3" json:"week,omitempty"`
-	SeasonType    string                      `protobuf:"bytes,4,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
-	Team          string                      `protobuf:"bytes,5,opt,name=team,proto3" json:"team,omitempty"`
-	Conference    string                      `protobuf:"bytes,6,opt,name=conference,proto3" json:"conference,omitempty"`
-	Opponent      string                      `protobuf:"bytes,7,opt,name=opponent,proto3" json:"opponent,omitempty"`
-	Offense       *PredictedPointsAddedTotals `protobuf:"bytes,8,opt,name=offense,proto3" json:"offense,omitempty"`
-	Defense       *PredictedPointsAddedTotals `protobuf:"bytes,9,opt,name=defense,proto3" json:"defense,omitempty"`
+	state         protoimpl.MessageState              `protogen:"open.v1"`
+	GameId        int32                               `protobuf:"varint,1,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	Season        int32                               `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
+	Week          int32                               `protobuf:"varint,3,opt,name=week,proto3" json:"week,omitempty"`
+	SeasonType    string                              `protobuf:"bytes,4,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
+	Team          string                              `protobuf:"bytes,5,opt,name=team,proto3" json:"team,omitempty"`
+	Conference    string                              `protobuf:"bytes,6,opt,name=conference,proto3" json:"conference,omitempty"`
+	Opponent      string                              `protobuf:"bytes,7,opt,name=opponent,proto3" json:"opponent,omitempty"`
+	Offense       *PredictedPointsAddedTotalsForGames `protobuf:"bytes,8,opt,name=offense,proto3" json:"offense,omitempty"`
+	Defense       *PredictedPointsAddedTotalsForGames `protobuf:"bytes,9,opt,name=defense,proto3" json:"defense,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TeamGamePredictedPointsAdded) Reset() {
 	*x = TeamGamePredictedPointsAdded{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[63]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[64]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6092,7 +6178,7 @@ func (x *TeamGamePredictedPointsAdded) String() string {
 func (*TeamGamePredictedPointsAdded) ProtoMessage() {}
 
 func (x *TeamGamePredictedPointsAdded) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[63]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[64]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6105,7 +6191,7 @@ func (x *TeamGamePredictedPointsAdded) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamGamePredictedPointsAdded.ProtoReflect.Descriptor instead.
 func (*TeamGamePredictedPointsAdded) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{63}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{64}
 }
 
 func (x *TeamGamePredictedPointsAdded) GetGameId() int32 {
@@ -6157,14 +6243,14 @@ func (x *TeamGamePredictedPointsAdded) GetOpponent() string {
 	return ""
 }
 
-func (x *TeamGamePredictedPointsAdded) GetOffense() *PredictedPointsAddedTotals {
+func (x *TeamGamePredictedPointsAdded) GetOffense() *PredictedPointsAddedTotalsForGames {
 	if x != nil {
 		return x.Offense
 	}
 	return nil
 }
 
-func (x *TeamGamePredictedPointsAdded) GetDefense() *PredictedPointsAddedTotals {
+func (x *TeamGamePredictedPointsAdded) GetDefense() *PredictedPointsAddedTotalsForGames {
 	if x != nil {
 		return x.Defense
 	}
@@ -6182,7 +6268,7 @@ type AveragePpa struct {
 
 func (x *AveragePpa) Reset() {
 	*x = AveragePpa{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[64]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[65]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6194,7 +6280,7 @@ func (x *AveragePpa) String() string {
 func (*AveragePpa) ProtoMessage() {}
 
 func (x *AveragePpa) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[64]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[65]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6207,7 +6293,7 @@ func (x *AveragePpa) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AveragePpa.ProtoReflect.Descriptor instead.
 func (*AveragePpa) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{64}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{65}
 }
 
 func (x *AveragePpa) GetRush() float64 {
@@ -6248,7 +6334,7 @@ type PlayerGamePredictedPointsAdded struct {
 
 func (x *PlayerGamePredictedPointsAdded) Reset() {
 	*x = PlayerGamePredictedPointsAdded{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[65]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[66]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6260,7 +6346,7 @@ func (x *PlayerGamePredictedPointsAdded) String() string {
 func (*PlayerGamePredictedPointsAdded) ProtoMessage() {}
 
 func (x *PlayerGamePredictedPointsAdded) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[65]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[66]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6273,7 +6359,7 @@ func (x *PlayerGamePredictedPointsAdded) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerGamePredictedPointsAdded.ProtoReflect.Descriptor instead.
 func (*PlayerGamePredictedPointsAdded) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{65}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{66}
 }
 
 func (x *PlayerGamePredictedPointsAdded) GetSeason() int32 {
@@ -6355,7 +6441,7 @@ type PlayerSeasonPpaSplits struct {
 
 func (x *PlayerSeasonPpaSplits) Reset() {
 	*x = PlayerSeasonPpaSplits{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[66]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[67]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6367,7 +6453,7 @@ func (x *PlayerSeasonPpaSplits) String() string {
 func (*PlayerSeasonPpaSplits) ProtoMessage() {}
 
 func (x *PlayerSeasonPpaSplits) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[66]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[67]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6380,7 +6466,7 @@ func (x *PlayerSeasonPpaSplits) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerSeasonPpaSplits.ProtoReflect.Descriptor instead.
 func (*PlayerSeasonPpaSplits) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{66}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{67}
 }
 
 func (x *PlayerSeasonPpaSplits) GetPassingDowns() *structpb.ListValue {
@@ -6455,7 +6541,7 @@ type PlayerSeasonPredictedPointsAdded struct {
 
 func (x *PlayerSeasonPredictedPointsAdded) Reset() {
 	*x = PlayerSeasonPredictedPointsAdded{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[67]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[68]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6467,7 +6553,7 @@ func (x *PlayerSeasonPredictedPointsAdded) String() string {
 func (*PlayerSeasonPredictedPointsAdded) ProtoMessage() {}
 
 func (x *PlayerSeasonPredictedPointsAdded) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[67]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[68]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6480,7 +6566,7 @@ func (x *PlayerSeasonPredictedPointsAdded) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerSeasonPredictedPointsAdded.ProtoReflect.Descriptor instead.
 func (*PlayerSeasonPredictedPointsAdded) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{67}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{68}
 }
 
 func (x *PlayerSeasonPredictedPointsAdded) GetSeason() int32 {
@@ -6563,7 +6649,7 @@ type PlayWinProbability struct {
 
 func (x *PlayWinProbability) Reset() {
 	*x = PlayWinProbability{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[68]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[69]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6575,7 +6661,7 @@ func (x *PlayWinProbability) String() string {
 func (*PlayWinProbability) ProtoMessage() {}
 
 func (x *PlayWinProbability) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[68]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[69]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6588,7 +6674,7 @@ func (x *PlayWinProbability) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayWinProbability.ProtoReflect.Descriptor instead.
 func (*PlayWinProbability) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{68}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{69}
 }
 
 func (x *PlayWinProbability) GetGameId() int32 {
@@ -6719,7 +6805,7 @@ type PregameWinProbability struct {
 
 func (x *PregameWinProbability) Reset() {
 	*x = PregameWinProbability{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[69]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[70]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6731,7 +6817,7 @@ func (x *PregameWinProbability) String() string {
 func (*PregameWinProbability) ProtoMessage() {}
 
 func (x *PregameWinProbability) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[69]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[70]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6744,7 +6830,7 @@ func (x *PregameWinProbability) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PregameWinProbability.ProtoReflect.Descriptor instead.
 func (*PregameWinProbability) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{69}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{70}
 }
 
 func (x *PregameWinProbability) GetSeason() int32 {
@@ -6814,7 +6900,7 @@ type FieldGoalEP struct {
 
 func (x *FieldGoalEP) Reset() {
 	*x = FieldGoalEP{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[70]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[71]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6826,7 +6912,7 @@ func (x *FieldGoalEP) String() string {
 func (*FieldGoalEP) ProtoMessage() {}
 
 func (x *FieldGoalEP) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[70]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[71]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6839,7 +6925,7 @@ func (x *FieldGoalEP) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FieldGoalEP.ProtoReflect.Descriptor instead.
 func (*FieldGoalEP) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{70}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{71}
 }
 
 func (x *FieldGoalEP) GetYardsToGoal() int32 {
@@ -6898,7 +6984,7 @@ type LiveGameTeam struct {
 
 func (x *LiveGameTeam) Reset() {
 	*x = LiveGameTeam{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[71]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[72]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -6910,7 +6996,7 @@ func (x *LiveGameTeam) String() string {
 func (*LiveGameTeam) ProtoMessage() {}
 
 func (x *LiveGameTeam) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[71]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[72]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6923,7 +7009,7 @@ func (x *LiveGameTeam) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveGameTeam.ProtoReflect.Descriptor instead.
 func (*LiveGameTeam) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{71}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{72}
 }
 
 func (x *LiveGameTeam) GetTeamId() int32 {
@@ -7143,7 +7229,7 @@ type LiveGamePlay struct {
 
 func (x *LiveGamePlay) Reset() {
 	*x = LiveGamePlay{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[72]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[73]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7155,7 +7241,7 @@ func (x *LiveGamePlay) String() string {
 func (*LiveGamePlay) ProtoMessage() {}
 
 func (x *LiveGamePlay) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[72]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[73]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7168,7 +7254,7 @@ func (x *LiveGamePlay) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveGamePlay.ProtoReflect.Descriptor instead.
 func (*LiveGamePlay) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{72}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{73}
 }
 
 func (x *LiveGamePlay) GetId() string {
@@ -7337,7 +7423,7 @@ type LiveGameDrive struct {
 
 func (x *LiveGameDrive) Reset() {
 	*x = LiveGameDrive{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[73]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[74]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7349,7 +7435,7 @@ func (x *LiveGameDrive) String() string {
 func (*LiveGameDrive) ProtoMessage() {}
 
 func (x *LiveGameDrive) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[73]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[74]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7362,7 +7448,7 @@ func (x *LiveGameDrive) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveGameDrive.ProtoReflect.Descriptor instead.
 func (*LiveGameDrive) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{73}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{74}
 }
 
 func (x *LiveGameDrive) GetId() string {
@@ -7509,7 +7595,7 @@ type LiveGame struct {
 
 func (x *LiveGame) Reset() {
 	*x = LiveGame{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[74]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[75]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7521,7 +7607,7 @@ func (x *LiveGame) String() string {
 func (*LiveGame) ProtoMessage() {}
 
 func (x *LiveGame) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[74]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[75]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7534,7 +7620,7 @@ func (x *LiveGame) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LiveGame.ProtoReflect.Descriptor instead.
 func (*LiveGame) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{74}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{75}
 }
 
 func (x *LiveGame) GetId() int32 {
@@ -7623,7 +7709,7 @@ type GameLine struct {
 
 func (x *GameLine) Reset() {
 	*x = GameLine{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[75]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[76]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7635,7 +7721,7 @@ func (x *GameLine) String() string {
 func (*GameLine) ProtoMessage() {}
 
 func (x *GameLine) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[75]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[76]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7648,7 +7734,7 @@ func (x *GameLine) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameLine.ProtoReflect.Descriptor instead.
 func (*GameLine) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{75}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{76}
 }
 
 func (x *GameLine) GetProvider() string {
@@ -7731,7 +7817,7 @@ type BettingGame struct {
 
 func (x *BettingGame) Reset() {
 	*x = BettingGame{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[76]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[77]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7743,7 +7829,7 @@ func (x *BettingGame) String() string {
 func (*BettingGame) ProtoMessage() {}
 
 func (x *BettingGame) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[76]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[77]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7756,7 +7842,7 @@ func (x *BettingGame) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BettingGame.ProtoReflect.Descriptor instead.
 func (*BettingGame) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{76}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{77}
 }
 
 func (x *BettingGame) GetId() int32 {
@@ -7881,7 +7967,7 @@ type UserInfo struct {
 
 func (x *UserInfo) Reset() {
 	*x = UserInfo{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[77]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[78]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7893,7 +7979,7 @@ func (x *UserInfo) String() string {
 func (*UserInfo) ProtoMessage() {}
 
 func (x *UserInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[77]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[78]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7906,7 +7992,7 @@ func (x *UserInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserInfo.ProtoReflect.Descriptor instead.
 func (*UserInfo) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{77}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{78}
 }
 
 func (x *UserInfo) GetPatronLevel() float64 {
@@ -7964,7 +8050,7 @@ type Game struct {
 
 func (x *Game) Reset() {
 	*x = Game{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[78]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[79]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -7976,7 +8062,7 @@ func (x *Game) String() string {
 func (*Game) ProtoMessage() {}
 
 func (x *Game) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[78]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[79]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7989,7 +8075,7 @@ func (x *Game) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Game.ProtoReflect.Descriptor instead.
 func (*Game) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{78}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{79}
 }
 
 func (x *Game) GetId() int32 {
@@ -8233,7 +8319,7 @@ type GameTeamStatsTeamStat struct {
 
 func (x *GameTeamStatsTeamStat) Reset() {
 	*x = GameTeamStatsTeamStat{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[79]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[80]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8245,7 +8331,7 @@ func (x *GameTeamStatsTeamStat) String() string {
 func (*GameTeamStatsTeamStat) ProtoMessage() {}
 
 func (x *GameTeamStatsTeamStat) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[79]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[80]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8258,7 +8344,7 @@ func (x *GameTeamStatsTeamStat) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameTeamStatsTeamStat.ProtoReflect.Descriptor instead.
 func (*GameTeamStatsTeamStat) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{79}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{80}
 }
 
 func (x *GameTeamStatsTeamStat) GetCategory() string {
@@ -8289,7 +8375,7 @@ type GameTeamStatsTeam struct {
 
 func (x *GameTeamStatsTeam) Reset() {
 	*x = GameTeamStatsTeam{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[80]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[81]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8301,7 +8387,7 @@ func (x *GameTeamStatsTeam) String() string {
 func (*GameTeamStatsTeam) ProtoMessage() {}
 
 func (x *GameTeamStatsTeam) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[80]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[81]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8314,7 +8400,7 @@ func (x *GameTeamStatsTeam) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameTeamStatsTeam.ProtoReflect.Descriptor instead.
 func (*GameTeamStatsTeam) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{80}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{81}
 }
 
 func (x *GameTeamStatsTeam) GetTeamId() int32 {
@@ -8369,7 +8455,7 @@ type GameTeamStats struct {
 
 func (x *GameTeamStats) Reset() {
 	*x = GameTeamStats{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[81]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[82]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8381,7 +8467,7 @@ func (x *GameTeamStats) String() string {
 func (*GameTeamStats) ProtoMessage() {}
 
 func (x *GameTeamStats) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[81]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[82]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8394,7 +8480,7 @@ func (x *GameTeamStats) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameTeamStats.ProtoReflect.Descriptor instead.
 func (*GameTeamStats) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{81}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{82}
 }
 
 func (x *GameTeamStats) GetId() int32 {
@@ -8422,7 +8508,7 @@ type GamePlayerStatPlayer struct {
 
 func (x *GamePlayerStatPlayer) Reset() {
 	*x = GamePlayerStatPlayer{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[82]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[83]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8434,7 +8520,7 @@ func (x *GamePlayerStatPlayer) String() string {
 func (*GamePlayerStatPlayer) ProtoMessage() {}
 
 func (x *GamePlayerStatPlayer) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[82]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[83]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8447,7 +8533,7 @@ func (x *GamePlayerStatPlayer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStatPlayer.ProtoReflect.Descriptor instead.
 func (*GamePlayerStatPlayer) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{82}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{83}
 }
 
 func (x *GamePlayerStatPlayer) GetId() string {
@@ -8481,7 +8567,7 @@ type GamePlayerStatTypes struct {
 
 func (x *GamePlayerStatTypes) Reset() {
 	*x = GamePlayerStatTypes{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[83]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[84]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8493,7 +8579,7 @@ func (x *GamePlayerStatTypes) String() string {
 func (*GamePlayerStatTypes) ProtoMessage() {}
 
 func (x *GamePlayerStatTypes) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[83]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[84]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8506,7 +8592,7 @@ func (x *GamePlayerStatTypes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStatTypes.ProtoReflect.Descriptor instead.
 func (*GamePlayerStatTypes) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{83}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{84}
 }
 
 func (x *GamePlayerStatTypes) GetName() string {
@@ -8533,7 +8619,7 @@ type GamePlayerStatCategories struct {
 
 func (x *GamePlayerStatCategories) Reset() {
 	*x = GamePlayerStatCategories{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[84]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[85]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8545,7 +8631,7 @@ func (x *GamePlayerStatCategories) String() string {
 func (*GamePlayerStatCategories) ProtoMessage() {}
 
 func (x *GamePlayerStatCategories) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[84]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[85]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8558,7 +8644,7 @@ func (x *GamePlayerStatCategories) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStatCategories.ProtoReflect.Descriptor instead.
 func (*GamePlayerStatCategories) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{84}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{85}
 }
 
 func (x *GamePlayerStatCategories) GetName() string {
@@ -8588,7 +8674,7 @@ type GamePlayerStatsTeam struct {
 
 func (x *GamePlayerStatsTeam) Reset() {
 	*x = GamePlayerStatsTeam{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[85]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[86]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8600,7 +8686,7 @@ func (x *GamePlayerStatsTeam) String() string {
 func (*GamePlayerStatsTeam) ProtoMessage() {}
 
 func (x *GamePlayerStatsTeam) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[85]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[86]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8613,7 +8699,7 @@ func (x *GamePlayerStatsTeam) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStatsTeam.ProtoReflect.Descriptor instead.
 func (*GamePlayerStatsTeam) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{85}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{86}
 }
 
 func (x *GamePlayerStatsTeam) GetTeam() string {
@@ -8661,7 +8747,7 @@ type GamePlayerStats struct {
 
 func (x *GamePlayerStats) Reset() {
 	*x = GamePlayerStats{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[86]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[87]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8673,7 +8759,7 @@ func (x *GamePlayerStats) String() string {
 func (*GamePlayerStats) ProtoMessage() {}
 
 func (x *GamePlayerStats) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[86]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[87]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8686,7 +8772,7 @@ func (x *GamePlayerStats) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStats.ProtoReflect.Descriptor instead.
 func (*GamePlayerStats) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{86}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{87}
 }
 
 func (x *GamePlayerStats) GetId() int32 {
@@ -8723,7 +8809,7 @@ type GameMedia struct {
 
 func (x *GameMedia) Reset() {
 	*x = GameMedia{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[87]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[88]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8735,7 +8821,7 @@ func (x *GameMedia) String() string {
 func (*GameMedia) ProtoMessage() {}
 
 func (x *GameMedia) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[87]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[88]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8748,7 +8834,7 @@ func (x *GameMedia) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameMedia.ProtoReflect.Descriptor instead.
 func (*GameMedia) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{87}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{88}
 }
 
 func (x *GameMedia) GetId() int32 {
@@ -8865,7 +8951,7 @@ type GameWeather struct {
 
 func (x *GameWeather) Reset() {
 	*x = GameWeather{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[88]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[89]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8877,7 +8963,7 @@ func (x *GameWeather) String() string {
 func (*GameWeather) ProtoMessage() {}
 
 func (x *GameWeather) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[88]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[89]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8890,7 +8976,7 @@ func (x *GameWeather) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameWeather.ProtoReflect.Descriptor instead.
 func (*GameWeather) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{88}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{89}
 }
 
 func (x *GameWeather) GetId() int32 {
@@ -9059,7 +9145,7 @@ type TeamRecord struct {
 
 func (x *TeamRecord) Reset() {
 	*x = TeamRecord{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[89]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[90]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9071,7 +9157,7 @@ func (x *TeamRecord) String() string {
 func (*TeamRecord) ProtoMessage() {}
 
 func (x *TeamRecord) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[89]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[90]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9084,7 +9170,7 @@ func (x *TeamRecord) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamRecord.ProtoReflect.Descriptor instead.
 func (*TeamRecord) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{89}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{90}
 }
 
 func (x *TeamRecord) GetGames() int32 {
@@ -9137,7 +9223,7 @@ type TeamRecords struct {
 
 func (x *TeamRecords) Reset() {
 	*x = TeamRecords{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[90]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[91]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9149,7 +9235,7 @@ func (x *TeamRecords) String() string {
 func (*TeamRecords) ProtoMessage() {}
 
 func (x *TeamRecords) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[90]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[91]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9162,7 +9248,7 @@ func (x *TeamRecords) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamRecords.ProtoReflect.Descriptor instead.
 func (*TeamRecords) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{90}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{91}
 }
 
 func (x *TeamRecords) GetYear() int32 {
@@ -9280,7 +9366,7 @@ type CalendarWeek struct {
 
 func (x *CalendarWeek) Reset() {
 	*x = CalendarWeek{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[91]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[92]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9292,7 +9378,7 @@ func (x *CalendarWeek) String() string {
 func (*CalendarWeek) ProtoMessage() {}
 
 func (x *CalendarWeek) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[91]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[92]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9305,7 +9391,7 @@ func (x *CalendarWeek) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CalendarWeek.ProtoReflect.Descriptor instead.
 func (*CalendarWeek) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{91}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{92}
 }
 
 func (x *CalendarWeek) GetSeason() int32 {
@@ -9384,7 +9470,7 @@ type Scoreboard struct {
 
 func (x *Scoreboard) Reset() {
 	*x = Scoreboard{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[92]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[93]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9396,7 +9482,7 @@ func (x *Scoreboard) String() string {
 func (*Scoreboard) ProtoMessage() {}
 
 func (x *Scoreboard) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[92]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[93]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9409,7 +9495,7 @@ func (x *Scoreboard) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Scoreboard.ProtoReflect.Descriptor instead.
 func (*Scoreboard) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{92}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{93}
 }
 
 func (x *Scoreboard) GetId() int32 {
@@ -9564,7 +9650,7 @@ type Drive struct {
 
 func (x *Drive) Reset() {
 	*x = Drive{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[93]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[94]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9576,7 +9662,7 @@ func (x *Drive) String() string {
 func (*Drive) ProtoMessage() {}
 
 func (x *Drive) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[93]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[94]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9589,7 +9675,7 @@ func (x *Drive) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Drive.ProtoReflect.Descriptor instead.
 func (*Drive) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{93}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{94}
 }
 
 func (x *Drive) GetOffense() string {
@@ -9779,7 +9865,7 @@ type DraftTeam struct {
 
 func (x *DraftTeam) Reset() {
 	*x = DraftTeam{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[94]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[95]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9791,7 +9877,7 @@ func (x *DraftTeam) String() string {
 func (*DraftTeam) ProtoMessage() {}
 
 func (x *DraftTeam) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[94]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[95]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9804,7 +9890,7 @@ func (x *DraftTeam) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DraftTeam.ProtoReflect.Descriptor instead.
 func (*DraftTeam) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{94}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{95}
 }
 
 func (x *DraftTeam) GetLocation() string {
@@ -9845,7 +9931,7 @@ type DraftPosition struct {
 
 func (x *DraftPosition) Reset() {
 	*x = DraftPosition{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[95]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[96]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9857,7 +9943,7 @@ func (x *DraftPosition) String() string {
 func (*DraftPosition) ProtoMessage() {}
 
 func (x *DraftPosition) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[95]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[96]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9870,7 +9956,7 @@ func (x *DraftPosition) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DraftPosition.ProtoReflect.Descriptor instead.
 func (*DraftPosition) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{95}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{96}
 }
 
 func (x *DraftPosition) GetName() string {
@@ -9901,7 +9987,7 @@ type DraftPickHometownInfo struct {
 
 func (x *DraftPickHometownInfo) Reset() {
 	*x = DraftPickHometownInfo{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[96]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[97]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9913,7 +9999,7 @@ func (x *DraftPickHometownInfo) String() string {
 func (*DraftPickHometownInfo) ProtoMessage() {}
 
 func (x *DraftPickHometownInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[96]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[97]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9926,7 +10012,7 @@ func (x *DraftPickHometownInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DraftPickHometownInfo.ProtoReflect.Descriptor instead.
 func (*DraftPickHometownInfo) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{96}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{97}
 }
 
 func (x *DraftPickHometownInfo) GetCountyFips() *wrapperspb.StringValue {
@@ -9998,7 +10084,7 @@ type DraftPick struct {
 
 func (x *DraftPick) Reset() {
 	*x = DraftPick{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[97]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[98]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10010,7 +10096,7 @@ func (x *DraftPick) String() string {
 func (*DraftPick) ProtoMessage() {}
 
 func (x *DraftPick) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[97]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[98]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10023,7 +10109,7 @@ func (x *DraftPick) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DraftPick.ProtoReflect.Descriptor instead.
 func (*DraftPick) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{97}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{98}
 }
 
 func (x *DraftPick) GetCollegeAthleteId() *wrapperspb.Int32Value {
@@ -10179,7 +10265,7 @@ type CoachSeason struct {
 
 func (x *CoachSeason) Reset() {
 	*x = CoachSeason{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[98]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[99]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10191,7 +10277,7 @@ func (x *CoachSeason) String() string {
 func (*CoachSeason) ProtoMessage() {}
 
 func (x *CoachSeason) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[98]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[99]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10204,7 +10290,7 @@ func (x *CoachSeason) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CoachSeason.ProtoReflect.Descriptor instead.
 func (*CoachSeason) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{98}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{99}
 }
 
 func (x *CoachSeason) GetSchool() string {
@@ -10303,7 +10389,7 @@ type Coach struct {
 
 func (x *Coach) Reset() {
 	*x = Coach{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[99]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[100]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10315,7 +10401,7 @@ func (x *Coach) String() string {
 func (*Coach) ProtoMessage() {}
 
 func (x *Coach) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[99]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[100]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10328,7 +10414,7 @@ func (x *Coach) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Coach.ProtoReflect.Descriptor instead.
 func (*Coach) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{99}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{100}
 }
 
 func (x *Coach) GetFirstName() string {
@@ -10372,7 +10458,7 @@ type StatsByQuarter struct {
 
 func (x *StatsByQuarter) Reset() {
 	*x = StatsByQuarter{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[100]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[101]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10384,7 +10470,7 @@ func (x *StatsByQuarter) String() string {
 func (*StatsByQuarter) ProtoMessage() {}
 
 func (x *StatsByQuarter) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[100]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[101]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10397,7 +10483,7 @@ func (x *StatsByQuarter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StatsByQuarter.ProtoReflect.Descriptor instead.
 func (*StatsByQuarter) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{100}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{101}
 }
 
 func (x *StatsByQuarter) GetTotal() float64 {
@@ -10448,7 +10534,7 @@ type TeamPPA struct {
 
 func (x *TeamPPA) Reset() {
 	*x = TeamPPA{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[101]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[102]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10460,7 +10546,7 @@ func (x *TeamPPA) String() string {
 func (*TeamPPA) ProtoMessage() {}
 
 func (x *TeamPPA) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[101]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[102]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10473,7 +10559,7 @@ func (x *TeamPPA) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamPPA.ProtoReflect.Descriptor instead.
 func (*TeamPPA) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{101}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{102}
 }
 
 func (x *TeamPPA) GetTeam() string {
@@ -10523,7 +10609,7 @@ type TeamSuccessRates struct {
 
 func (x *TeamSuccessRates) Reset() {
 	*x = TeamSuccessRates{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[102]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[103]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10535,7 +10621,7 @@ func (x *TeamSuccessRates) String() string {
 func (*TeamSuccessRates) ProtoMessage() {}
 
 func (x *TeamSuccessRates) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[102]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[103]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10548,7 +10634,7 @@ func (x *TeamSuccessRates) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamSuccessRates.ProtoReflect.Descriptor instead.
 func (*TeamSuccessRates) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{102}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{103}
 }
 
 func (x *TeamSuccessRates) GetTeam() string {
@@ -10589,7 +10675,7 @@ type TeamExplosiveness struct {
 
 func (x *TeamExplosiveness) Reset() {
 	*x = TeamExplosiveness{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[103]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[104]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10601,7 +10687,7 @@ func (x *TeamExplosiveness) String() string {
 func (*TeamExplosiveness) ProtoMessage() {}
 
 func (x *TeamExplosiveness) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[103]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[104]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10614,7 +10700,7 @@ func (x *TeamExplosiveness) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamExplosiveness.ProtoReflect.Descriptor instead.
 func (*TeamExplosiveness) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{103}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{104}
 }
 
 func (x *TeamExplosiveness) GetTeam() string {
@@ -10648,7 +10734,7 @@ type TeamRushingStats struct {
 
 func (x *TeamRushingStats) Reset() {
 	*x = TeamRushingStats{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[104]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[105]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10660,7 +10746,7 @@ func (x *TeamRushingStats) String() string {
 func (*TeamRushingStats) ProtoMessage() {}
 
 func (x *TeamRushingStats) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[104]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[105]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10673,7 +10759,7 @@ func (x *TeamRushingStats) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamRushingStats.ProtoReflect.Descriptor instead.
 func (*TeamRushingStats) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{104}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{105}
 }
 
 func (x *TeamRushingStats) GetTeam() string {
@@ -10751,7 +10837,7 @@ type TeamHavoc struct {
 
 func (x *TeamHavoc) Reset() {
 	*x = TeamHavoc{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[105]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[106]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10763,7 +10849,7 @@ func (x *TeamHavoc) String() string {
 func (*TeamHavoc) ProtoMessage() {}
 
 func (x *TeamHavoc) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[105]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[106]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10776,7 +10862,7 @@ func (x *TeamHavoc) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamHavoc.ProtoReflect.Descriptor instead.
 func (*TeamHavoc) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{105}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{106}
 }
 
 func (x *TeamHavoc) GetTeam() string {
@@ -10819,7 +10905,7 @@ type TeamScoringOpportunities struct {
 
 func (x *TeamScoringOpportunities) Reset() {
 	*x = TeamScoringOpportunities{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[106]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[107]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10831,7 +10917,7 @@ func (x *TeamScoringOpportunities) String() string {
 func (*TeamScoringOpportunities) ProtoMessage() {}
 
 func (x *TeamScoringOpportunities) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[106]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[107]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10844,7 +10930,7 @@ func (x *TeamScoringOpportunities) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamScoringOpportunities.ProtoReflect.Descriptor instead.
 func (*TeamScoringOpportunities) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{106}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{107}
 }
 
 func (x *TeamScoringOpportunities) GetTeam() string {
@@ -10886,7 +10972,7 @@ type TeamFieldPosition struct {
 
 func (x *TeamFieldPosition) Reset() {
 	*x = TeamFieldPosition{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[107]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[108]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10898,7 +10984,7 @@ func (x *TeamFieldPosition) String() string {
 func (*TeamFieldPosition) ProtoMessage() {}
 
 func (x *TeamFieldPosition) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[107]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[108]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10911,7 +10997,7 @@ func (x *TeamFieldPosition) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamFieldPosition.ProtoReflect.Descriptor instead.
 func (*TeamFieldPosition) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{107}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{108}
 }
 
 func (x *TeamFieldPosition) GetTeam() string {
@@ -10953,7 +11039,7 @@ type PlayerGameUsage struct {
 
 func (x *PlayerGameUsage) Reset() {
 	*x = PlayerGameUsage{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[108]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[109]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10965,7 +11051,7 @@ func (x *PlayerGameUsage) String() string {
 func (*PlayerGameUsage) ProtoMessage() {}
 
 func (x *PlayerGameUsage) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[108]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[109]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10978,7 +11064,7 @@ func (x *PlayerGameUsage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerGameUsage.ProtoReflect.Descriptor instead.
 func (*PlayerGameUsage) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{108}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{109}
 }
 
 func (x *PlayerGameUsage) GetTotal() float64 {
@@ -11066,7 +11152,7 @@ type PlayerStatsByQuarter struct {
 
 func (x *PlayerStatsByQuarter) Reset() {
 	*x = PlayerStatsByQuarter{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[109]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[110]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11078,7 +11164,7 @@ func (x *PlayerStatsByQuarter) String() string {
 func (*PlayerStatsByQuarter) ProtoMessage() {}
 
 func (x *PlayerStatsByQuarter) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[109]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[110]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11091,7 +11177,7 @@ func (x *PlayerStatsByQuarter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerStatsByQuarter.ProtoReflect.Descriptor instead.
 func (*PlayerStatsByQuarter) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{109}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{110}
 }
 
 func (x *PlayerStatsByQuarter) GetTotal() float64 {
@@ -11156,7 +11242,7 @@ type PlayerPPA struct {
 
 func (x *PlayerPPA) Reset() {
 	*x = PlayerPPA{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[110]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[111]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11168,7 +11254,7 @@ func (x *PlayerPPA) String() string {
 func (*PlayerPPA) ProtoMessage() {}
 
 func (x *PlayerPPA) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[110]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[111]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11181,7 +11267,7 @@ func (x *PlayerPPA) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerPPA.ProtoReflect.Descriptor instead.
 func (*PlayerPPA) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{110}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{111}
 }
 
 func (x *PlayerPPA) GetPlayer() string {
@@ -11235,7 +11321,7 @@ type AdvancedBoxScoreGameInfo struct {
 
 func (x *AdvancedBoxScoreGameInfo) Reset() {
 	*x = AdvancedBoxScoreGameInfo{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[111]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[112]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11247,7 +11333,7 @@ func (x *AdvancedBoxScoreGameInfo) String() string {
 func (*AdvancedBoxScoreGameInfo) ProtoMessage() {}
 
 func (x *AdvancedBoxScoreGameInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[111]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[112]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11260,7 +11346,7 @@ func (x *AdvancedBoxScoreGameInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdvancedBoxScoreGameInfo.ProtoReflect.Descriptor instead.
 func (*AdvancedBoxScoreGameInfo) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{111}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{112}
 }
 
 func (x *AdvancedBoxScoreGameInfo) GetExcitement() float64 {
@@ -11335,7 +11421,7 @@ type AdvancedBoxScoreTeams struct {
 
 func (x *AdvancedBoxScoreTeams) Reset() {
 	*x = AdvancedBoxScoreTeams{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[112]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[113]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11347,7 +11433,7 @@ func (x *AdvancedBoxScoreTeams) String() string {
 func (*AdvancedBoxScoreTeams) ProtoMessage() {}
 
 func (x *AdvancedBoxScoreTeams) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[112]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[113]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11360,7 +11446,7 @@ func (x *AdvancedBoxScoreTeams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdvancedBoxScoreTeams.ProtoReflect.Descriptor instead.
 func (*AdvancedBoxScoreTeams) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{112}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{113}
 }
 
 func (x *AdvancedBoxScoreTeams) GetFieldPosition() []*TeamFieldPosition {
@@ -11429,7 +11515,7 @@ type AdvancedBoxScorePlayers struct {
 
 func (x *AdvancedBoxScorePlayers) Reset() {
 	*x = AdvancedBoxScorePlayers{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[113]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[114]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11441,7 +11527,7 @@ func (x *AdvancedBoxScorePlayers) String() string {
 func (*AdvancedBoxScorePlayers) ProtoMessage() {}
 
 func (x *AdvancedBoxScorePlayers) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[113]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[114]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11454,7 +11540,7 @@ func (x *AdvancedBoxScorePlayers) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdvancedBoxScorePlayers.ProtoReflect.Descriptor instead.
 func (*AdvancedBoxScorePlayers) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{113}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{114}
 }
 
 func (x *AdvancedBoxScorePlayers) GetPpa() []*PlayerPPA {
@@ -11482,7 +11568,7 @@ type AdvancedBoxScore struct {
 
 func (x *AdvancedBoxScore) Reset() {
 	*x = AdvancedBoxScore{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[114]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[115]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11494,7 +11580,7 @@ func (x *AdvancedBoxScore) String() string {
 func (*AdvancedBoxScore) ProtoMessage() {}
 
 func (x *AdvancedBoxScore) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[114]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[115]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11507,7 +11593,7 @@ func (x *AdvancedBoxScore) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdvancedBoxScore.ProtoReflect.Descriptor instead.
 func (*AdvancedBoxScore) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{114}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{115}
 }
 
 func (x *AdvancedBoxScore) GetGameInfo() *AdvancedBoxScoreGameInfo {
@@ -12146,7 +12232,7 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	" \x01(\v2\x1c.google.protobuf.StringValueR\veligibility\"^\n" +
 	"\x14PredictedPointsValue\x12\x1b\n" +
 	"\tyard_line\x18\x01 \x01(\x05R\byardLine\x12)\n" +
-	"\x10predicted_points\x18\x02 \x01(\x01R\x0fpredictedPoints\"\xc9\x01\n" +
+	"\x10predicted_points\x18\x02 \x01(\x01R\x0fpredictedPoints\"\xc5\x01\n" +
 	"\x1aPredictedPointsAddedTotals\x12\x1d\n" +
 	"\n" +
 	"third_down\x18\x01 \x01(\x01R\tthirdDown\x12\x1f\n" +
@@ -12155,21 +12241,31 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\n" +
 	"first_down\x18\x03 \x01(\x01R\tfirstDown\x12\x18\n" +
 	"\arushing\x18\x04 \x01(\x01R\arushing\x12\x18\n" +
+	"\apassing\x18\x05 \x01(\x01R\apassing\x12\x14\n" +
+	"\x05total\x18\x06 \x01(\x01R\x05total\"\xd1\x01\n" +
+	"\"PredictedPointsAddedTotalsForGames\x12\x1d\n" +
+	"\n" +
+	"third_down\x18\x01 \x01(\x01R\tthirdDown\x12\x1f\n" +
+	"\vsecond_down\x18\x02 \x01(\x01R\n" +
+	"secondDown\x12\x1d\n" +
+	"\n" +
+	"first_down\x18\x03 \x01(\x01R\tfirstDown\x12\x18\n" +
+	"\arushing\x18\x04 \x01(\x01R\arushing\x12\x18\n" +
 	"\apassing\x18\x05 \x01(\x01R\apassing\x12\x18\n" +
-	"\aoverall\x18\x06 \x01(\x01R\aoverall\"\xd0\x03\n" +
+	"\aoverall\x18\x06 \x01(\x01R\aoverall\"\xca\x03\n" +
 	"\"TeamSeasonPredictedPointsAddedUnit\x12C\n" +
 	"\n" +
 	"cumulative\x18\x01 \x01(\v2#.cfbd.v1.PredictedPointsAddedTotalsR\n" +
-	"cumulative\x12<\n" +
+	"cumulative\x12;\n" +
 	"\n" +
-	"third_down\x18\x02 \x03(\v2\x1d.cfbd.v1.PredictedPointsValueR\tthirdDown\x12>\n" +
-	"\vsecond_down\x18\x03 \x03(\v2\x1d.cfbd.v1.PredictedPointsValueR\n" +
-	"secondDown\x12<\n" +
+	"third_down\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\tthirdDown\x12=\n" +
+	"\vsecond_down\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\n" +
+	"secondDown\x12;\n" +
 	"\n" +
-	"first_down\x18\x04 \x03(\v2\x1d.cfbd.v1.PredictedPointsValueR\tfirstDown\x127\n" +
-	"\arushing\x18\x05 \x03(\v2\x1d.cfbd.v1.PredictedPointsValueR\arushing\x127\n" +
-	"\apassing\x18\x06 \x03(\v2\x1d.cfbd.v1.PredictedPointsValueR\apassing\x127\n" +
-	"\aoverall\x18\a \x03(\v2\x1d.cfbd.v1.PredictedPointsValueR\aoverall\"\xfa\x01\n" +
+	"first_down\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\tfirstDown\x126\n" +
+	"\arushing\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\arushing\x126\n" +
+	"\apassing\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\apassing\x126\n" +
+	"\aoverall\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\aoverall\"\xfa\x01\n" +
 	"\x1eTeamSeasonPredictedPointsAdded\x12\x16\n" +
 	"\x06season\x18\x01 \x01(\x05R\x06season\x12\x1e\n" +
 	"\n" +
@@ -12177,7 +12273,7 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"conference\x12\x12\n" +
 	"\x04team\x18\x03 \x01(\tR\x04team\x12E\n" +
 	"\aoffense\x18\x04 \x01(\v2+.cfbd.v1.TeamSeasonPredictedPointsAddedUnitR\aoffense\x12E\n" +
-	"\adefense\x18\x05 \x01(\v2+.cfbd.v1.TeamSeasonPredictedPointsAddedUnitR\adefense\"\xd2\x02\n" +
+	"\adefense\x18\x05 \x01(\v2+.cfbd.v1.TeamSeasonPredictedPointsAddedUnitR\adefense\"\xe2\x02\n" +
 	"\x1cTeamGamePredictedPointsAdded\x12\x17\n" +
 	"\agame_id\x18\x01 \x01(\x05R\x06gameId\x12\x16\n" +
 	"\x06season\x18\x02 \x01(\x05R\x06season\x12\x12\n" +
@@ -12188,9 +12284,9 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\n" +
 	"conference\x18\x06 \x01(\tR\n" +
 	"conference\x12\x1a\n" +
-	"\bopponent\x18\a \x01(\tR\bopponent\x12=\n" +
-	"\aoffense\x18\b \x01(\v2#.cfbd.v1.PredictedPointsAddedTotalsR\aoffense\x12=\n" +
-	"\adefense\x18\t \x01(\v2#.cfbd.v1.PredictedPointsAddedTotalsR\adefense\"F\n" +
+	"\bopponent\x18\a \x01(\tR\bopponent\x12E\n" +
+	"\aoffense\x18\b \x01(\v2+.cfbd.v1.PredictedPointsAddedTotalsForGamesR\aoffense\x12E\n" +
+	"\adefense\x18\t \x01(\v2+.cfbd.v1.PredictedPointsAddedTotalsForGamesR\adefense\"F\n" +
 	"\n" +
 	"AveragePpa\x12\x12\n" +
 	"\x04rush\x18\x01 \x01(\x01R\x04rush\x12\x12\n" +
@@ -12801,7 +12897,7 @@ func file_cfbd_internal_proto_cfbd_proto_rawDescGZIP() []byte {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescData
 }
 
-var file_cfbd_internal_proto_cfbd_proto_msgTypes = make([]protoimpl.MessageInfo, 115)
+var file_cfbd_internal_proto_cfbd_proto_msgTypes = make([]protoimpl.MessageInfo, 116)
 var file_cfbd_internal_proto_cfbd_proto_goTypes = []any{
 	(*EpaSplit)(nil),                           // 0: cfbd.v1.EpaSplit
 	(*SuccessRateSplit)(nil),                   // 1: cfbd.v1.SuccessRateSplit
@@ -12864,513 +12960,514 @@ var file_cfbd_internal_proto_cfbd_proto_goTypes = []any{
 	(*PlayerTransfer)(nil),                     // 58: cfbd.v1.PlayerTransfer
 	(*PredictedPointsValue)(nil),               // 59: cfbd.v1.PredictedPointsValue
 	(*PredictedPointsAddedTotals)(nil),         // 60: cfbd.v1.PredictedPointsAddedTotals
-	(*TeamSeasonPredictedPointsAddedUnit)(nil), // 61: cfbd.v1.TeamSeasonPredictedPointsAddedUnit
-	(*TeamSeasonPredictedPointsAdded)(nil),     // 62: cfbd.v1.TeamSeasonPredictedPointsAdded
-	(*TeamGamePredictedPointsAdded)(nil),       // 63: cfbd.v1.TeamGamePredictedPointsAdded
-	(*AveragePpa)(nil),                         // 64: cfbd.v1.AveragePpa
-	(*PlayerGamePredictedPointsAdded)(nil),     // 65: cfbd.v1.PlayerGamePredictedPointsAdded
-	(*PlayerSeasonPpaSplits)(nil),              // 66: cfbd.v1.PlayerSeasonPpaSplits
-	(*PlayerSeasonPredictedPointsAdded)(nil),   // 67: cfbd.v1.PlayerSeasonPredictedPointsAdded
-	(*PlayWinProbability)(nil),                 // 68: cfbd.v1.PlayWinProbability
-	(*PregameWinProbability)(nil),              // 69: cfbd.v1.PregameWinProbability
-	(*FieldGoalEP)(nil),                        // 70: cfbd.v1.FieldGoalEP
-	(*LiveGameTeam)(nil),                       // 71: cfbd.v1.LiveGameTeam
-	(*LiveGamePlay)(nil),                       // 72: cfbd.v1.LiveGamePlay
-	(*LiveGameDrive)(nil),                      // 73: cfbd.v1.LiveGameDrive
-	(*LiveGame)(nil),                           // 74: cfbd.v1.LiveGame
-	(*GameLine)(nil),                           // 75: cfbd.v1.GameLine
-	(*BettingGame)(nil),                        // 76: cfbd.v1.BettingGame
-	(*UserInfo)(nil),                           // 77: cfbd.v1.UserInfo
-	(*Game)(nil),                               // 78: cfbd.v1.Game
-	(*GameTeamStatsTeamStat)(nil),              // 79: cfbd.v1.GameTeamStatsTeamStat
-	(*GameTeamStatsTeam)(nil),                  // 80: cfbd.v1.GameTeamStatsTeam
-	(*GameTeamStats)(nil),                      // 81: cfbd.v1.GameTeamStats
-	(*GamePlayerStatPlayer)(nil),               // 82: cfbd.v1.GamePlayerStatPlayer
-	(*GamePlayerStatTypes)(nil),                // 83: cfbd.v1.GamePlayerStatTypes
-	(*GamePlayerStatCategories)(nil),           // 84: cfbd.v1.GamePlayerStatCategories
-	(*GamePlayerStatsTeam)(nil),                // 85: cfbd.v1.GamePlayerStatsTeam
-	(*GamePlayerStats)(nil),                    // 86: cfbd.v1.GamePlayerStats
-	(*GameMedia)(nil),                          // 87: cfbd.v1.GameMedia
-	(*GameWeather)(nil),                        // 88: cfbd.v1.GameWeather
-	(*TeamRecord)(nil),                         // 89: cfbd.v1.TeamRecord
-	(*TeamRecords)(nil),                        // 90: cfbd.v1.TeamRecords
-	(*CalendarWeek)(nil),                       // 91: cfbd.v1.CalendarWeek
-	(*Scoreboard)(nil),                         // 92: cfbd.v1.Scoreboard
-	(*Drive)(nil),                              // 93: cfbd.v1.Drive
-	(*DraftTeam)(nil),                          // 94: cfbd.v1.DraftTeam
-	(*DraftPosition)(nil),                      // 95: cfbd.v1.DraftPosition
-	(*DraftPickHometownInfo)(nil),              // 96: cfbd.v1.DraftPickHometownInfo
-	(*DraftPick)(nil),                          // 97: cfbd.v1.DraftPick
-	(*CoachSeason)(nil),                        // 98: cfbd.v1.CoachSeason
-	(*Coach)(nil),                              // 99: cfbd.v1.Coach
-	(*StatsByQuarter)(nil),                     // 100: cfbd.v1.StatsByQuarter
-	(*TeamPPA)(nil),                            // 101: cfbd.v1.TeamPPA
-	(*TeamSuccessRates)(nil),                   // 102: cfbd.v1.TeamSuccessRates
-	(*TeamExplosiveness)(nil),                  // 103: cfbd.v1.TeamExplosiveness
-	(*TeamRushingStats)(nil),                   // 104: cfbd.v1.TeamRushingStats
-	(*TeamHavoc)(nil),                          // 105: cfbd.v1.TeamHavoc
-	(*TeamScoringOpportunities)(nil),           // 106: cfbd.v1.TeamScoringOpportunities
-	(*TeamFieldPosition)(nil),                  // 107: cfbd.v1.TeamFieldPosition
-	(*PlayerGameUsage)(nil),                    // 108: cfbd.v1.PlayerGameUsage
-	(*PlayerStatsByQuarter)(nil),               // 109: cfbd.v1.PlayerStatsByQuarter
-	(*PlayerPPA)(nil),                          // 110: cfbd.v1.PlayerPPA
-	(*AdvancedBoxScoreGameInfo)(nil),           // 111: cfbd.v1.AdvancedBoxScoreGameInfo
-	(*AdvancedBoxScoreTeams)(nil),              // 112: cfbd.v1.AdvancedBoxScoreTeams
-	(*AdvancedBoxScorePlayers)(nil),            // 113: cfbd.v1.AdvancedBoxScorePlayers
-	(*AdvancedBoxScore)(nil),                   // 114: cfbd.v1.AdvancedBoxScore
-	(*wrapperspb.Int32Value)(nil),              // 115: google.protobuf.Int32Value
-	(*wrapperspb.DoubleValue)(nil),             // 116: google.protobuf.DoubleValue
-	(*structpb.Value)(nil),                     // 117: google.protobuf.Value
-	(*wrapperspb.StringValue)(nil),             // 118: google.protobuf.StringValue
-	(*wrapperspb.BoolValue)(nil),               // 119: google.protobuf.BoolValue
-	(*structpb.ListValue)(nil),                 // 120: google.protobuf.ListValue
-	(*timestamppb.Timestamp)(nil),              // 121: google.protobuf.Timestamp
-	(*structpb.Struct)(nil),                    // 122: google.protobuf.Struct
+	(*PredictedPointsAddedTotalsForGames)(nil), // 61: cfbd.v1.PredictedPointsAddedTotalsForGames
+	(*TeamSeasonPredictedPointsAddedUnit)(nil), // 62: cfbd.v1.TeamSeasonPredictedPointsAddedUnit
+	(*TeamSeasonPredictedPointsAdded)(nil),     // 63: cfbd.v1.TeamSeasonPredictedPointsAdded
+	(*TeamGamePredictedPointsAdded)(nil),       // 64: cfbd.v1.TeamGamePredictedPointsAdded
+	(*AveragePpa)(nil),                         // 65: cfbd.v1.AveragePpa
+	(*PlayerGamePredictedPointsAdded)(nil),     // 66: cfbd.v1.PlayerGamePredictedPointsAdded
+	(*PlayerSeasonPpaSplits)(nil),              // 67: cfbd.v1.PlayerSeasonPpaSplits
+	(*PlayerSeasonPredictedPointsAdded)(nil),   // 68: cfbd.v1.PlayerSeasonPredictedPointsAdded
+	(*PlayWinProbability)(nil),                 // 69: cfbd.v1.PlayWinProbability
+	(*PregameWinProbability)(nil),              // 70: cfbd.v1.PregameWinProbability
+	(*FieldGoalEP)(nil),                        // 71: cfbd.v1.FieldGoalEP
+	(*LiveGameTeam)(nil),                       // 72: cfbd.v1.LiveGameTeam
+	(*LiveGamePlay)(nil),                       // 73: cfbd.v1.LiveGamePlay
+	(*LiveGameDrive)(nil),                      // 74: cfbd.v1.LiveGameDrive
+	(*LiveGame)(nil),                           // 75: cfbd.v1.LiveGame
+	(*GameLine)(nil),                           // 76: cfbd.v1.GameLine
+	(*BettingGame)(nil),                        // 77: cfbd.v1.BettingGame
+	(*UserInfo)(nil),                           // 78: cfbd.v1.UserInfo
+	(*Game)(nil),                               // 79: cfbd.v1.Game
+	(*GameTeamStatsTeamStat)(nil),              // 80: cfbd.v1.GameTeamStatsTeamStat
+	(*GameTeamStatsTeam)(nil),                  // 81: cfbd.v1.GameTeamStatsTeam
+	(*GameTeamStats)(nil),                      // 82: cfbd.v1.GameTeamStats
+	(*GamePlayerStatPlayer)(nil),               // 83: cfbd.v1.GamePlayerStatPlayer
+	(*GamePlayerStatTypes)(nil),                // 84: cfbd.v1.GamePlayerStatTypes
+	(*GamePlayerStatCategories)(nil),           // 85: cfbd.v1.GamePlayerStatCategories
+	(*GamePlayerStatsTeam)(nil),                // 86: cfbd.v1.GamePlayerStatsTeam
+	(*GamePlayerStats)(nil),                    // 87: cfbd.v1.GamePlayerStats
+	(*GameMedia)(nil),                          // 88: cfbd.v1.GameMedia
+	(*GameWeather)(nil),                        // 89: cfbd.v1.GameWeather
+	(*TeamRecord)(nil),                         // 90: cfbd.v1.TeamRecord
+	(*TeamRecords)(nil),                        // 91: cfbd.v1.TeamRecords
+	(*CalendarWeek)(nil),                       // 92: cfbd.v1.CalendarWeek
+	(*Scoreboard)(nil),                         // 93: cfbd.v1.Scoreboard
+	(*Drive)(nil),                              // 94: cfbd.v1.Drive
+	(*DraftTeam)(nil),                          // 95: cfbd.v1.DraftTeam
+	(*DraftPosition)(nil),                      // 96: cfbd.v1.DraftPosition
+	(*DraftPickHometownInfo)(nil),              // 97: cfbd.v1.DraftPickHometownInfo
+	(*DraftPick)(nil),                          // 98: cfbd.v1.DraftPick
+	(*CoachSeason)(nil),                        // 99: cfbd.v1.CoachSeason
+	(*Coach)(nil),                              // 100: cfbd.v1.Coach
+	(*StatsByQuarter)(nil),                     // 101: cfbd.v1.StatsByQuarter
+	(*TeamPPA)(nil),                            // 102: cfbd.v1.TeamPPA
+	(*TeamSuccessRates)(nil),                   // 103: cfbd.v1.TeamSuccessRates
+	(*TeamExplosiveness)(nil),                  // 104: cfbd.v1.TeamExplosiveness
+	(*TeamRushingStats)(nil),                   // 105: cfbd.v1.TeamRushingStats
+	(*TeamHavoc)(nil),                          // 106: cfbd.v1.TeamHavoc
+	(*TeamScoringOpportunities)(nil),           // 107: cfbd.v1.TeamScoringOpportunities
+	(*TeamFieldPosition)(nil),                  // 108: cfbd.v1.TeamFieldPosition
+	(*PlayerGameUsage)(nil),                    // 109: cfbd.v1.PlayerGameUsage
+	(*PlayerStatsByQuarter)(nil),               // 110: cfbd.v1.PlayerStatsByQuarter
+	(*PlayerPPA)(nil),                          // 111: cfbd.v1.PlayerPPA
+	(*AdvancedBoxScoreGameInfo)(nil),           // 112: cfbd.v1.AdvancedBoxScoreGameInfo
+	(*AdvancedBoxScoreTeams)(nil),              // 113: cfbd.v1.AdvancedBoxScoreTeams
+	(*AdvancedBoxScorePlayers)(nil),            // 114: cfbd.v1.AdvancedBoxScorePlayers
+	(*AdvancedBoxScore)(nil),                   // 115: cfbd.v1.AdvancedBoxScore
+	(*wrapperspb.Int32Value)(nil),              // 116: google.protobuf.Int32Value
+	(*wrapperspb.DoubleValue)(nil),             // 117: google.protobuf.DoubleValue
+	(*structpb.Value)(nil),                     // 118: google.protobuf.Value
+	(*wrapperspb.StringValue)(nil),             // 119: google.protobuf.StringValue
+	(*wrapperspb.BoolValue)(nil),               // 120: google.protobuf.BoolValue
+	(*structpb.ListValue)(nil),                 // 121: google.protobuf.ListValue
+	(*timestamppb.Timestamp)(nil),              // 122: google.protobuf.Timestamp
+	(*structpb.Struct)(nil),                    // 123: google.protobuf.Struct
 }
 var file_cfbd_internal_proto_cfbd_proto_depIdxs = []int32{
-	115, // 0: cfbd.v1.ClockInt32.seconds:type_name -> google.protobuf.Int32Value
-	115, // 1: cfbd.v1.ClockInt32.minutes:type_name -> google.protobuf.Int32Value
-	116, // 2: cfbd.v1.ClockDouble.seconds:type_name -> google.protobuf.DoubleValue
-	116, // 3: cfbd.v1.ClockDouble.minutes:type_name -> google.protobuf.DoubleValue
-	117, // 4: cfbd.v1.StatValue.value:type_name -> google.protobuf.Value
+	116, // 0: cfbd.v1.ClockInt32.seconds:type_name -> google.protobuf.Int32Value
+	116, // 1: cfbd.v1.ClockInt32.minutes:type_name -> google.protobuf.Int32Value
+	117, // 2: cfbd.v1.ClockDouble.seconds:type_name -> google.protobuf.DoubleValue
+	117, // 3: cfbd.v1.ClockDouble.minutes:type_name -> google.protobuf.DoubleValue
+	118, // 4: cfbd.v1.StatValue.value:type_name -> google.protobuf.Value
 	0,   // 5: cfbd.v1.AdjustedTeamMetrics.epa:type_name -> cfbd.v1.EpaSplit
 	0,   // 6: cfbd.v1.AdjustedTeamMetrics.epa_allowed:type_name -> cfbd.v1.EpaSplit
 	1,   // 7: cfbd.v1.AdjustedTeamMetrics.success_rate:type_name -> cfbd.v1.SuccessRateSplit
 	1,   // 8: cfbd.v1.AdjustedTeamMetrics.success_rate_allowed:type_name -> cfbd.v1.SuccessRateSplit
 	2,   // 9: cfbd.v1.AdjustedTeamMetrics.rushing:type_name -> cfbd.v1.RushingYardsSplit
 	2,   // 10: cfbd.v1.AdjustedTeamMetrics.rushing_allowed:type_name -> cfbd.v1.RushingYardsSplit
-	115, // 11: cfbd.v1.Venue.id:type_name -> google.protobuf.Int32Value
-	118, // 12: cfbd.v1.Venue.name:type_name -> google.protobuf.StringValue
-	118, // 13: cfbd.v1.Venue.city:type_name -> google.protobuf.StringValue
-	118, // 14: cfbd.v1.Venue.state:type_name -> google.protobuf.StringValue
-	118, // 15: cfbd.v1.Venue.zip:type_name -> google.protobuf.StringValue
-	118, // 16: cfbd.v1.Venue.country_code:type_name -> google.protobuf.StringValue
-	118, // 17: cfbd.v1.Venue.timezone:type_name -> google.protobuf.StringValue
-	116, // 18: cfbd.v1.Venue.latitude:type_name -> google.protobuf.DoubleValue
-	116, // 19: cfbd.v1.Venue.longitude:type_name -> google.protobuf.DoubleValue
-	118, // 20: cfbd.v1.Venue.elevation:type_name -> google.protobuf.StringValue
-	115, // 21: cfbd.v1.Venue.capacity:type_name -> google.protobuf.Int32Value
-	115, // 22: cfbd.v1.Venue.construction_year:type_name -> google.protobuf.Int32Value
-	119, // 23: cfbd.v1.Venue.grass:type_name -> google.protobuf.BoolValue
-	119, // 24: cfbd.v1.Venue.dome:type_name -> google.protobuf.BoolValue
-	118, // 25: cfbd.v1.Team.mascot:type_name -> google.protobuf.StringValue
-	118, // 26: cfbd.v1.Team.abbreviation:type_name -> google.protobuf.StringValue
-	120, // 27: cfbd.v1.Team.alternate_names:type_name -> google.protobuf.ListValue
-	118, // 28: cfbd.v1.Team.conference:type_name -> google.protobuf.StringValue
-	118, // 29: cfbd.v1.Team.division:type_name -> google.protobuf.StringValue
-	118, // 30: cfbd.v1.Team.classification:type_name -> google.protobuf.StringValue
-	118, // 31: cfbd.v1.Team.color:type_name -> google.protobuf.StringValue
-	118, // 32: cfbd.v1.Team.alternate_color:type_name -> google.protobuf.StringValue
-	120, // 33: cfbd.v1.Team.logos:type_name -> google.protobuf.ListValue
+	116, // 11: cfbd.v1.Venue.id:type_name -> google.protobuf.Int32Value
+	119, // 12: cfbd.v1.Venue.name:type_name -> google.protobuf.StringValue
+	119, // 13: cfbd.v1.Venue.city:type_name -> google.protobuf.StringValue
+	119, // 14: cfbd.v1.Venue.state:type_name -> google.protobuf.StringValue
+	119, // 15: cfbd.v1.Venue.zip:type_name -> google.protobuf.StringValue
+	119, // 16: cfbd.v1.Venue.country_code:type_name -> google.protobuf.StringValue
+	119, // 17: cfbd.v1.Venue.timezone:type_name -> google.protobuf.StringValue
+	117, // 18: cfbd.v1.Venue.latitude:type_name -> google.protobuf.DoubleValue
+	117, // 19: cfbd.v1.Venue.longitude:type_name -> google.protobuf.DoubleValue
+	119, // 20: cfbd.v1.Venue.elevation:type_name -> google.protobuf.StringValue
+	116, // 21: cfbd.v1.Venue.capacity:type_name -> google.protobuf.Int32Value
+	116, // 22: cfbd.v1.Venue.construction_year:type_name -> google.protobuf.Int32Value
+	120, // 23: cfbd.v1.Venue.grass:type_name -> google.protobuf.BoolValue
+	120, // 24: cfbd.v1.Venue.dome:type_name -> google.protobuf.BoolValue
+	119, // 25: cfbd.v1.Team.mascot:type_name -> google.protobuf.StringValue
+	119, // 26: cfbd.v1.Team.abbreviation:type_name -> google.protobuf.StringValue
+	121, // 27: cfbd.v1.Team.alternate_names:type_name -> google.protobuf.ListValue
+	119, // 28: cfbd.v1.Team.conference:type_name -> google.protobuf.StringValue
+	119, // 29: cfbd.v1.Team.division:type_name -> google.protobuf.StringValue
+	119, // 30: cfbd.v1.Team.classification:type_name -> google.protobuf.StringValue
+	119, // 31: cfbd.v1.Team.color:type_name -> google.protobuf.StringValue
+	119, // 32: cfbd.v1.Team.alternate_color:type_name -> google.protobuf.StringValue
+	121, // 33: cfbd.v1.Team.logos:type_name -> google.protobuf.ListValue
 	9,   // 34: cfbd.v1.Team.location:type_name -> cfbd.v1.Venue
-	118, // 35: cfbd.v1.MatchupGame.venue:type_name -> google.protobuf.StringValue
-	115, // 36: cfbd.v1.MatchupGame.home_score:type_name -> google.protobuf.Int32Value
-	115, // 37: cfbd.v1.MatchupGame.away_score:type_name -> google.protobuf.Int32Value
-	118, // 38: cfbd.v1.MatchupGame.winner:type_name -> google.protobuf.StringValue
-	115, // 39: cfbd.v1.Matchup.start_year:type_name -> google.protobuf.Int32Value
-	115, // 40: cfbd.v1.Matchup.end_year:type_name -> google.protobuf.Int32Value
+	119, // 35: cfbd.v1.MatchupGame.venue:type_name -> google.protobuf.StringValue
+	116, // 36: cfbd.v1.MatchupGame.home_score:type_name -> google.protobuf.Int32Value
+	116, // 37: cfbd.v1.MatchupGame.away_score:type_name -> google.protobuf.Int32Value
+	119, // 38: cfbd.v1.MatchupGame.winner:type_name -> google.protobuf.StringValue
+	116, // 39: cfbd.v1.Matchup.start_year:type_name -> google.protobuf.Int32Value
+	116, // 40: cfbd.v1.Matchup.end_year:type_name -> google.protobuf.Int32Value
 	11,  // 41: cfbd.v1.Matchup.games:type_name -> cfbd.v1.MatchupGame
-	118, // 42: cfbd.v1.TeamATS.conference:type_name -> google.protobuf.StringValue
-	115, // 43: cfbd.v1.TeamATS.games:type_name -> google.protobuf.Int32Value
-	116, // 44: cfbd.v1.TeamATS.avg_cover_margin:type_name -> google.protobuf.DoubleValue
-	116, // 45: cfbd.v1.RosterPlayer.height:type_name -> google.protobuf.DoubleValue
-	115, // 46: cfbd.v1.RosterPlayer.weight:type_name -> google.protobuf.Int32Value
-	115, // 47: cfbd.v1.RosterPlayer.jersey:type_name -> google.protobuf.Int32Value
-	115, // 48: cfbd.v1.RosterPlayer.year:type_name -> google.protobuf.Int32Value
-	118, // 49: cfbd.v1.RosterPlayer.position:type_name -> google.protobuf.StringValue
-	118, // 50: cfbd.v1.RosterPlayer.home_city:type_name -> google.protobuf.StringValue
-	118, // 51: cfbd.v1.RosterPlayer.home_state:type_name -> google.protobuf.StringValue
-	118, // 52: cfbd.v1.RosterPlayer.home_country:type_name -> google.protobuf.StringValue
-	116, // 53: cfbd.v1.RosterPlayer.home_latitude:type_name -> google.protobuf.DoubleValue
-	116, // 54: cfbd.v1.RosterPlayer.home_longitude:type_name -> google.protobuf.DoubleValue
-	118, // 55: cfbd.v1.RosterPlayer.home_county_FIPS:type_name -> google.protobuf.StringValue
-	120, // 56: cfbd.v1.RosterPlayer.recruit_ids:type_name -> google.protobuf.ListValue
-	118, // 57: cfbd.v1.Conference.short_name:type_name -> google.protobuf.StringValue
-	118, // 58: cfbd.v1.Conference.abbreviation:type_name -> google.protobuf.StringValue
-	118, // 59: cfbd.v1.Conference.classification:type_name -> google.protobuf.StringValue
-	117, // 60: cfbd.v1.TeamStat.stat_value:type_name -> google.protobuf.Value
-	116, // 61: cfbd.v1.AdvancedRateMetrics.explosiveness:type_name -> google.protobuf.DoubleValue
-	116, // 62: cfbd.v1.AdvancedRateMetrics.success_rate:type_name -> google.protobuf.DoubleValue
-	116, // 63: cfbd.v1.AdvancedRateMetrics.total_PPA:type_name -> google.protobuf.DoubleValue
-	116, // 64: cfbd.v1.AdvancedRateMetrics.ppa:type_name -> google.protobuf.DoubleValue
-	116, // 65: cfbd.v1.AdvancedRateMetrics.rate:type_name -> google.protobuf.DoubleValue
-	116, // 66: cfbd.v1.AdvancedHavoc.db:type_name -> google.protobuf.DoubleValue
-	116, // 67: cfbd.v1.AdvancedHavoc.front_seven:type_name -> google.protobuf.DoubleValue
-	116, // 68: cfbd.v1.AdvancedHavoc.total:type_name -> google.protobuf.DoubleValue
-	116, // 69: cfbd.v1.AdvancedFieldPosition.average_predicted_points:type_name -> google.protobuf.DoubleValue
-	116, // 70: cfbd.v1.AdvancedFieldPosition.average_start:type_name -> google.protobuf.DoubleValue
+	119, // 42: cfbd.v1.TeamATS.conference:type_name -> google.protobuf.StringValue
+	116, // 43: cfbd.v1.TeamATS.games:type_name -> google.protobuf.Int32Value
+	117, // 44: cfbd.v1.TeamATS.avg_cover_margin:type_name -> google.protobuf.DoubleValue
+	117, // 45: cfbd.v1.RosterPlayer.height:type_name -> google.protobuf.DoubleValue
+	116, // 46: cfbd.v1.RosterPlayer.weight:type_name -> google.protobuf.Int32Value
+	116, // 47: cfbd.v1.RosterPlayer.jersey:type_name -> google.protobuf.Int32Value
+	116, // 48: cfbd.v1.RosterPlayer.year:type_name -> google.protobuf.Int32Value
+	119, // 49: cfbd.v1.RosterPlayer.position:type_name -> google.protobuf.StringValue
+	119, // 50: cfbd.v1.RosterPlayer.home_city:type_name -> google.protobuf.StringValue
+	119, // 51: cfbd.v1.RosterPlayer.home_state:type_name -> google.protobuf.StringValue
+	119, // 52: cfbd.v1.RosterPlayer.home_country:type_name -> google.protobuf.StringValue
+	117, // 53: cfbd.v1.RosterPlayer.home_latitude:type_name -> google.protobuf.DoubleValue
+	117, // 54: cfbd.v1.RosterPlayer.home_longitude:type_name -> google.protobuf.DoubleValue
+	119, // 55: cfbd.v1.RosterPlayer.home_county_FIPS:type_name -> google.protobuf.StringValue
+	121, // 56: cfbd.v1.RosterPlayer.recruit_ids:type_name -> google.protobuf.ListValue
+	119, // 57: cfbd.v1.Conference.short_name:type_name -> google.protobuf.StringValue
+	119, // 58: cfbd.v1.Conference.abbreviation:type_name -> google.protobuf.StringValue
+	119, // 59: cfbd.v1.Conference.classification:type_name -> google.protobuf.StringValue
+	118, // 60: cfbd.v1.TeamStat.stat_value:type_name -> google.protobuf.Value
+	117, // 61: cfbd.v1.AdvancedRateMetrics.explosiveness:type_name -> google.protobuf.DoubleValue
+	117, // 62: cfbd.v1.AdvancedRateMetrics.success_rate:type_name -> google.protobuf.DoubleValue
+	117, // 63: cfbd.v1.AdvancedRateMetrics.total_PPA:type_name -> google.protobuf.DoubleValue
+	117, // 64: cfbd.v1.AdvancedRateMetrics.ppa:type_name -> google.protobuf.DoubleValue
+	117, // 65: cfbd.v1.AdvancedRateMetrics.rate:type_name -> google.protobuf.DoubleValue
+	117, // 66: cfbd.v1.AdvancedHavoc.db:type_name -> google.protobuf.DoubleValue
+	117, // 67: cfbd.v1.AdvancedHavoc.front_seven:type_name -> google.protobuf.DoubleValue
+	117, // 68: cfbd.v1.AdvancedHavoc.total:type_name -> google.protobuf.DoubleValue
+	117, // 69: cfbd.v1.AdvancedFieldPosition.average_predicted_points:type_name -> google.protobuf.DoubleValue
+	117, // 70: cfbd.v1.AdvancedFieldPosition.average_start:type_name -> google.protobuf.DoubleValue
 	19,  // 71: cfbd.v1.AdvancedSeasonStatSide.passing_plays:type_name -> cfbd.v1.AdvancedRateMetrics
 	19,  // 72: cfbd.v1.AdvancedSeasonStatSide.rushing_plays:type_name -> cfbd.v1.AdvancedRateMetrics
 	19,  // 73: cfbd.v1.AdvancedSeasonStatSide.passing_downs:type_name -> cfbd.v1.AdvancedRateMetrics
 	19,  // 74: cfbd.v1.AdvancedSeasonStatSide.standard_downs:type_name -> cfbd.v1.AdvancedRateMetrics
 	20,  // 75: cfbd.v1.AdvancedSeasonStatSide.havoc:type_name -> cfbd.v1.AdvancedHavoc
 	21,  // 76: cfbd.v1.AdvancedSeasonStatSide.field_position:type_name -> cfbd.v1.AdvancedFieldPosition
-	116, // 77: cfbd.v1.AdvancedSeasonStatSide.points_per_opportunity:type_name -> google.protobuf.DoubleValue
-	115, // 78: cfbd.v1.AdvancedSeasonStatSide.total_opportunies:type_name -> google.protobuf.Int32Value
-	115, // 79: cfbd.v1.AdvancedSeasonStatSide.open_field_yards_total:type_name -> google.protobuf.Int32Value
-	116, // 80: cfbd.v1.AdvancedSeasonStatSide.open_field_yards:type_name -> google.protobuf.DoubleValue
-	115, // 81: cfbd.v1.AdvancedSeasonStatSide.second_level_yards_total:type_name -> google.protobuf.Int32Value
-	116, // 82: cfbd.v1.AdvancedSeasonStatSide.second_level_yards:type_name -> google.protobuf.DoubleValue
-	115, // 83: cfbd.v1.AdvancedSeasonStatSide.line_yards_total:type_name -> google.protobuf.Int32Value
-	116, // 84: cfbd.v1.AdvancedSeasonStatSide.line_yards:type_name -> google.protobuf.DoubleValue
-	116, // 85: cfbd.v1.AdvancedSeasonStatSide.stuff_rate:type_name -> google.protobuf.DoubleValue
-	116, // 86: cfbd.v1.AdvancedSeasonStatSide.power_success:type_name -> google.protobuf.DoubleValue
-	116, // 87: cfbd.v1.AdvancedSeasonStatSide.explosiveness:type_name -> google.protobuf.DoubleValue
-	116, // 88: cfbd.v1.AdvancedSeasonStatSide.success_rate:type_name -> google.protobuf.DoubleValue
-	116, // 89: cfbd.v1.AdvancedSeasonStatSide.total_PPA:type_name -> google.protobuf.DoubleValue
-	116, // 90: cfbd.v1.AdvancedSeasonStatSide.ppa:type_name -> google.protobuf.DoubleValue
-	115, // 91: cfbd.v1.AdvancedSeasonStatSide.drives:type_name -> google.protobuf.Int32Value
-	115, // 92: cfbd.v1.AdvancedSeasonStatSide.plays:type_name -> google.protobuf.Int32Value
+	117, // 77: cfbd.v1.AdvancedSeasonStatSide.points_per_opportunity:type_name -> google.protobuf.DoubleValue
+	116, // 78: cfbd.v1.AdvancedSeasonStatSide.total_opportunies:type_name -> google.protobuf.Int32Value
+	116, // 79: cfbd.v1.AdvancedSeasonStatSide.open_field_yards_total:type_name -> google.protobuf.Int32Value
+	117, // 80: cfbd.v1.AdvancedSeasonStatSide.open_field_yards:type_name -> google.protobuf.DoubleValue
+	116, // 81: cfbd.v1.AdvancedSeasonStatSide.second_level_yards_total:type_name -> google.protobuf.Int32Value
+	117, // 82: cfbd.v1.AdvancedSeasonStatSide.second_level_yards:type_name -> google.protobuf.DoubleValue
+	116, // 83: cfbd.v1.AdvancedSeasonStatSide.line_yards_total:type_name -> google.protobuf.Int32Value
+	117, // 84: cfbd.v1.AdvancedSeasonStatSide.line_yards:type_name -> google.protobuf.DoubleValue
+	117, // 85: cfbd.v1.AdvancedSeasonStatSide.stuff_rate:type_name -> google.protobuf.DoubleValue
+	117, // 86: cfbd.v1.AdvancedSeasonStatSide.power_success:type_name -> google.protobuf.DoubleValue
+	117, // 87: cfbd.v1.AdvancedSeasonStatSide.explosiveness:type_name -> google.protobuf.DoubleValue
+	117, // 88: cfbd.v1.AdvancedSeasonStatSide.success_rate:type_name -> google.protobuf.DoubleValue
+	117, // 89: cfbd.v1.AdvancedSeasonStatSide.total_PPA:type_name -> google.protobuf.DoubleValue
+	117, // 90: cfbd.v1.AdvancedSeasonStatSide.ppa:type_name -> google.protobuf.DoubleValue
+	116, // 91: cfbd.v1.AdvancedSeasonStatSide.drives:type_name -> google.protobuf.Int32Value
+	116, // 92: cfbd.v1.AdvancedSeasonStatSide.plays:type_name -> google.protobuf.Int32Value
 	22,  // 93: cfbd.v1.AdvancedSeasonStat.offense:type_name -> cfbd.v1.AdvancedSeasonStatSide
 	22,  // 94: cfbd.v1.AdvancedSeasonStat.defense:type_name -> cfbd.v1.AdvancedSeasonStatSide
-	116, // 95: cfbd.v1.AdvancedGameStatSidePlayMetrics.explosiveness:type_name -> google.protobuf.DoubleValue
-	116, // 96: cfbd.v1.AdvancedGameStatSidePlayMetrics.success_rate:type_name -> google.protobuf.DoubleValue
-	116, // 97: cfbd.v1.AdvancedGameStatSidePlayMetrics.total_PPA:type_name -> google.protobuf.DoubleValue
-	116, // 98: cfbd.v1.AdvancedGameStatSidePlayMetrics.ppa:type_name -> google.protobuf.DoubleValue
-	116, // 99: cfbd.v1.AdvancedGameStatSideDownMetrics.explosiveness:type_name -> google.protobuf.DoubleValue
-	116, // 100: cfbd.v1.AdvancedGameStatSideDownMetrics.success_rate:type_name -> google.protobuf.DoubleValue
-	116, // 101: cfbd.v1.AdvancedGameStatSideDownMetrics.ppa:type_name -> google.protobuf.DoubleValue
+	117, // 95: cfbd.v1.AdvancedGameStatSidePlayMetrics.explosiveness:type_name -> google.protobuf.DoubleValue
+	117, // 96: cfbd.v1.AdvancedGameStatSidePlayMetrics.success_rate:type_name -> google.protobuf.DoubleValue
+	117, // 97: cfbd.v1.AdvancedGameStatSidePlayMetrics.total_PPA:type_name -> google.protobuf.DoubleValue
+	117, // 98: cfbd.v1.AdvancedGameStatSidePlayMetrics.ppa:type_name -> google.protobuf.DoubleValue
+	117, // 99: cfbd.v1.AdvancedGameStatSideDownMetrics.explosiveness:type_name -> google.protobuf.DoubleValue
+	117, // 100: cfbd.v1.AdvancedGameStatSideDownMetrics.success_rate:type_name -> google.protobuf.DoubleValue
+	117, // 101: cfbd.v1.AdvancedGameStatSideDownMetrics.ppa:type_name -> google.protobuf.DoubleValue
 	24,  // 102: cfbd.v1.AdvancedGameStatSide.passing_plays:type_name -> cfbd.v1.AdvancedGameStatSidePlayMetrics
 	24,  // 103: cfbd.v1.AdvancedGameStatSide.rushing_plays:type_name -> cfbd.v1.AdvancedGameStatSidePlayMetrics
 	25,  // 104: cfbd.v1.AdvancedGameStatSide.passing_downs:type_name -> cfbd.v1.AdvancedGameStatSideDownMetrics
 	25,  // 105: cfbd.v1.AdvancedGameStatSide.standard_downs:type_name -> cfbd.v1.AdvancedGameStatSideDownMetrics
-	115, // 106: cfbd.v1.AdvancedGameStatSide.open_field_yards_total:type_name -> google.protobuf.Int32Value
-	116, // 107: cfbd.v1.AdvancedGameStatSide.open_field_yards:type_name -> google.protobuf.DoubleValue
-	115, // 108: cfbd.v1.AdvancedGameStatSide.second_level_yards_total:type_name -> google.protobuf.Int32Value
-	116, // 109: cfbd.v1.AdvancedGameStatSide.second_level_yards:type_name -> google.protobuf.DoubleValue
-	115, // 110: cfbd.v1.AdvancedGameStatSide.line_yards_total:type_name -> google.protobuf.Int32Value
-	116, // 111: cfbd.v1.AdvancedGameStatSide.line_yards:type_name -> google.protobuf.DoubleValue
-	116, // 112: cfbd.v1.AdvancedGameStatSide.stuff_rate:type_name -> google.protobuf.DoubleValue
-	116, // 113: cfbd.v1.AdvancedGameStatSide.power_success:type_name -> google.protobuf.DoubleValue
-	116, // 114: cfbd.v1.AdvancedGameStatSide.explosiveness:type_name -> google.protobuf.DoubleValue
-	116, // 115: cfbd.v1.AdvancedGameStatSide.success_rate:type_name -> google.protobuf.DoubleValue
-	116, // 116: cfbd.v1.AdvancedGameStatSide.total_PPA:type_name -> google.protobuf.DoubleValue
-	116, // 117: cfbd.v1.AdvancedGameStatSide.ppa:type_name -> google.protobuf.DoubleValue
-	115, // 118: cfbd.v1.AdvancedGameStatSide.drives:type_name -> google.protobuf.Int32Value
-	115, // 119: cfbd.v1.AdvancedGameStatSide.plays:type_name -> google.protobuf.Int32Value
+	116, // 106: cfbd.v1.AdvancedGameStatSide.open_field_yards_total:type_name -> google.protobuf.Int32Value
+	117, // 107: cfbd.v1.AdvancedGameStatSide.open_field_yards:type_name -> google.protobuf.DoubleValue
+	116, // 108: cfbd.v1.AdvancedGameStatSide.second_level_yards_total:type_name -> google.protobuf.Int32Value
+	117, // 109: cfbd.v1.AdvancedGameStatSide.second_level_yards:type_name -> google.protobuf.DoubleValue
+	116, // 110: cfbd.v1.AdvancedGameStatSide.line_yards_total:type_name -> google.protobuf.Int32Value
+	117, // 111: cfbd.v1.AdvancedGameStatSide.line_yards:type_name -> google.protobuf.DoubleValue
+	117, // 112: cfbd.v1.AdvancedGameStatSide.stuff_rate:type_name -> google.protobuf.DoubleValue
+	117, // 113: cfbd.v1.AdvancedGameStatSide.power_success:type_name -> google.protobuf.DoubleValue
+	117, // 114: cfbd.v1.AdvancedGameStatSide.explosiveness:type_name -> google.protobuf.DoubleValue
+	117, // 115: cfbd.v1.AdvancedGameStatSide.success_rate:type_name -> google.protobuf.DoubleValue
+	117, // 116: cfbd.v1.AdvancedGameStatSide.total_PPA:type_name -> google.protobuf.DoubleValue
+	117, // 117: cfbd.v1.AdvancedGameStatSide.ppa:type_name -> google.protobuf.DoubleValue
+	116, // 118: cfbd.v1.AdvancedGameStatSide.drives:type_name -> google.protobuf.Int32Value
+	116, // 119: cfbd.v1.AdvancedGameStatSide.plays:type_name -> google.protobuf.Int32Value
 	26,  // 120: cfbd.v1.AdvancedGameStat.offense:type_name -> cfbd.v1.AdvancedGameStatSide
 	26,  // 121: cfbd.v1.AdvancedGameStat.defense:type_name -> cfbd.v1.AdvancedGameStatSide
-	118, // 122: cfbd.v1.GameHavocStats.conference:type_name -> google.protobuf.StringValue
-	118, // 123: cfbd.v1.GameHavocStats.opponent_conference:type_name -> google.protobuf.StringValue
+	119, // 122: cfbd.v1.GameHavocStats.conference:type_name -> google.protobuf.StringValue
+	119, // 123: cfbd.v1.GameHavocStats.opponent_conference:type_name -> google.protobuf.StringValue
 	28,  // 124: cfbd.v1.GameHavocStats.offense:type_name -> cfbd.v1.GameHavocStatSide
 	28,  // 125: cfbd.v1.GameHavocStats.defense:type_name -> cfbd.v1.GameHavocStatSide
-	118, // 126: cfbd.v1.RecruitHometownInfo.fips_code:type_name -> google.protobuf.StringValue
-	116, // 127: cfbd.v1.RecruitHometownInfo.longitude:type_name -> google.protobuf.DoubleValue
-	116, // 128: cfbd.v1.RecruitHometownInfo.latitude:type_name -> google.protobuf.DoubleValue
-	118, // 129: cfbd.v1.Recruit.athlete_id:type_name -> google.protobuf.StringValue
-	115, // 130: cfbd.v1.Recruit.ranking:type_name -> google.protobuf.Int32Value
-	118, // 131: cfbd.v1.Recruit.school:type_name -> google.protobuf.StringValue
-	118, // 132: cfbd.v1.Recruit.committed_to:type_name -> google.protobuf.StringValue
-	118, // 133: cfbd.v1.Recruit.position:type_name -> google.protobuf.StringValue
-	116, // 134: cfbd.v1.Recruit.height:type_name -> google.protobuf.DoubleValue
-	115, // 135: cfbd.v1.Recruit.weight:type_name -> google.protobuf.Int32Value
-	118, // 136: cfbd.v1.Recruit.city:type_name -> google.protobuf.StringValue
-	118, // 137: cfbd.v1.Recruit.state_province:type_name -> google.protobuf.StringValue
-	118, // 138: cfbd.v1.Recruit.country:type_name -> google.protobuf.StringValue
+	119, // 126: cfbd.v1.RecruitHometownInfo.fips_code:type_name -> google.protobuf.StringValue
+	117, // 127: cfbd.v1.RecruitHometownInfo.longitude:type_name -> google.protobuf.DoubleValue
+	117, // 128: cfbd.v1.RecruitHometownInfo.latitude:type_name -> google.protobuf.DoubleValue
+	119, // 129: cfbd.v1.Recruit.athlete_id:type_name -> google.protobuf.StringValue
+	116, // 130: cfbd.v1.Recruit.ranking:type_name -> google.protobuf.Int32Value
+	119, // 131: cfbd.v1.Recruit.school:type_name -> google.protobuf.StringValue
+	119, // 132: cfbd.v1.Recruit.committed_to:type_name -> google.protobuf.StringValue
+	119, // 133: cfbd.v1.Recruit.position:type_name -> google.protobuf.StringValue
+	117, // 134: cfbd.v1.Recruit.height:type_name -> google.protobuf.DoubleValue
+	116, // 135: cfbd.v1.Recruit.weight:type_name -> google.protobuf.Int32Value
+	119, // 136: cfbd.v1.Recruit.city:type_name -> google.protobuf.StringValue
+	119, // 137: cfbd.v1.Recruit.state_province:type_name -> google.protobuf.StringValue
+	119, // 138: cfbd.v1.Recruit.country:type_name -> google.protobuf.StringValue
 	30,  // 139: cfbd.v1.Recruit.hometown_info:type_name -> cfbd.v1.RecruitHometownInfo
-	118, // 140: cfbd.v1.AggregatedTeamRecruiting.position_group:type_name -> google.protobuf.StringValue
-	116, // 141: cfbd.v1.SpTeamOffense.pace:type_name -> google.protobuf.DoubleValue
-	116, // 142: cfbd.v1.SpTeamOffense.run_rate:type_name -> google.protobuf.DoubleValue
-	116, // 143: cfbd.v1.SpTeamOffense.passing_downs:type_name -> google.protobuf.DoubleValue
-	116, // 144: cfbd.v1.SpTeamOffense.standard_downs:type_name -> google.protobuf.DoubleValue
-	116, // 145: cfbd.v1.SpTeamOffense.passing:type_name -> google.protobuf.DoubleValue
-	116, // 146: cfbd.v1.SpTeamOffense.rushing:type_name -> google.protobuf.DoubleValue
-	116, // 147: cfbd.v1.SpTeamOffense.explosiveness:type_name -> google.protobuf.DoubleValue
-	116, // 148: cfbd.v1.SpTeamOffense.success:type_name -> google.protobuf.DoubleValue
-	116, // 149: cfbd.v1.SpTeamOffense.rating:type_name -> google.protobuf.DoubleValue
-	115, // 150: cfbd.v1.SpTeamOffense.ranking:type_name -> google.protobuf.Int32Value
+	119, // 140: cfbd.v1.AggregatedTeamRecruiting.position_group:type_name -> google.protobuf.StringValue
+	117, // 141: cfbd.v1.SpTeamOffense.pace:type_name -> google.protobuf.DoubleValue
+	117, // 142: cfbd.v1.SpTeamOffense.run_rate:type_name -> google.protobuf.DoubleValue
+	117, // 143: cfbd.v1.SpTeamOffense.passing_downs:type_name -> google.protobuf.DoubleValue
+	117, // 144: cfbd.v1.SpTeamOffense.standard_downs:type_name -> google.protobuf.DoubleValue
+	117, // 145: cfbd.v1.SpTeamOffense.passing:type_name -> google.protobuf.DoubleValue
+	117, // 146: cfbd.v1.SpTeamOffense.rushing:type_name -> google.protobuf.DoubleValue
+	117, // 147: cfbd.v1.SpTeamOffense.explosiveness:type_name -> google.protobuf.DoubleValue
+	117, // 148: cfbd.v1.SpTeamOffense.success:type_name -> google.protobuf.DoubleValue
+	117, // 149: cfbd.v1.SpTeamOffense.rating:type_name -> google.protobuf.DoubleValue
+	116, // 150: cfbd.v1.SpTeamOffense.ranking:type_name -> google.protobuf.Int32Value
 	20,  // 151: cfbd.v1.SpTeamDefense.havoc:type_name -> cfbd.v1.AdvancedHavoc
-	116, // 152: cfbd.v1.SpTeamDefense.passing_downs:type_name -> google.protobuf.DoubleValue
-	116, // 153: cfbd.v1.SpTeamDefense.standard_downs:type_name -> google.protobuf.DoubleValue
-	116, // 154: cfbd.v1.SpTeamDefense.passing:type_name -> google.protobuf.DoubleValue
-	116, // 155: cfbd.v1.SpTeamDefense.rushing:type_name -> google.protobuf.DoubleValue
-	116, // 156: cfbd.v1.SpTeamDefense.explosiveness:type_name -> google.protobuf.DoubleValue
-	116, // 157: cfbd.v1.SpTeamDefense.success:type_name -> google.protobuf.DoubleValue
-	116, // 158: cfbd.v1.SpTeamDefense.rating:type_name -> google.protobuf.DoubleValue
-	115, // 159: cfbd.v1.SpTeamDefense.ranking:type_name -> google.protobuf.Int32Value
-	116, // 160: cfbd.v1.SpSpecialTeams.rating:type_name -> google.protobuf.DoubleValue
-	118, // 161: cfbd.v1.TeamSP.conference:type_name -> google.protobuf.StringValue
-	116, // 162: cfbd.v1.TeamSP.rating:type_name -> google.protobuf.DoubleValue
-	115, // 163: cfbd.v1.TeamSP.ranking:type_name -> google.protobuf.Int32Value
-	116, // 164: cfbd.v1.TeamSP.second_order_wins:type_name -> google.protobuf.DoubleValue
-	116, // 165: cfbd.v1.TeamSP.sos:type_name -> google.protobuf.DoubleValue
+	117, // 152: cfbd.v1.SpTeamDefense.passing_downs:type_name -> google.protobuf.DoubleValue
+	117, // 153: cfbd.v1.SpTeamDefense.standard_downs:type_name -> google.protobuf.DoubleValue
+	117, // 154: cfbd.v1.SpTeamDefense.passing:type_name -> google.protobuf.DoubleValue
+	117, // 155: cfbd.v1.SpTeamDefense.rushing:type_name -> google.protobuf.DoubleValue
+	117, // 156: cfbd.v1.SpTeamDefense.explosiveness:type_name -> google.protobuf.DoubleValue
+	117, // 157: cfbd.v1.SpTeamDefense.success:type_name -> google.protobuf.DoubleValue
+	117, // 158: cfbd.v1.SpTeamDefense.rating:type_name -> google.protobuf.DoubleValue
+	116, // 159: cfbd.v1.SpTeamDefense.ranking:type_name -> google.protobuf.Int32Value
+	117, // 160: cfbd.v1.SpSpecialTeams.rating:type_name -> google.protobuf.DoubleValue
+	119, // 161: cfbd.v1.TeamSP.conference:type_name -> google.protobuf.StringValue
+	117, // 162: cfbd.v1.TeamSP.rating:type_name -> google.protobuf.DoubleValue
+	116, // 163: cfbd.v1.TeamSP.ranking:type_name -> google.protobuf.Int32Value
+	117, // 164: cfbd.v1.TeamSP.second_order_wins:type_name -> google.protobuf.DoubleValue
+	117, // 165: cfbd.v1.TeamSP.sos:type_name -> google.protobuf.DoubleValue
 	34,  // 166: cfbd.v1.TeamSP.offense:type_name -> cfbd.v1.SpTeamOffense
 	35,  // 167: cfbd.v1.TeamSP.defense:type_name -> cfbd.v1.SpTeamDefense
 	36,  // 168: cfbd.v1.TeamSP.special_teams:type_name -> cfbd.v1.SpSpecialTeams
-	116, // 169: cfbd.v1.ConferenceSpOffense.pace:type_name -> google.protobuf.DoubleValue
-	116, // 170: cfbd.v1.ConferenceSpOffense.run_rate:type_name -> google.protobuf.DoubleValue
-	116, // 171: cfbd.v1.ConferenceSpOffense.passing_downs:type_name -> google.protobuf.DoubleValue
-	116, // 172: cfbd.v1.ConferenceSpOffense.standard_downs:type_name -> google.protobuf.DoubleValue
-	116, // 173: cfbd.v1.ConferenceSpOffense.passing:type_name -> google.protobuf.DoubleValue
-	116, // 174: cfbd.v1.ConferenceSpOffense.rushing:type_name -> google.protobuf.DoubleValue
-	116, // 175: cfbd.v1.ConferenceSpOffense.explosiveness:type_name -> google.protobuf.DoubleValue
-	116, // 176: cfbd.v1.ConferenceSpOffense.success:type_name -> google.protobuf.DoubleValue
-	116, // 177: cfbd.v1.ConferenceSpOffense.rating:type_name -> google.protobuf.DoubleValue
+	117, // 169: cfbd.v1.ConferenceSpOffense.pace:type_name -> google.protobuf.DoubleValue
+	117, // 170: cfbd.v1.ConferenceSpOffense.run_rate:type_name -> google.protobuf.DoubleValue
+	117, // 171: cfbd.v1.ConferenceSpOffense.passing_downs:type_name -> google.protobuf.DoubleValue
+	117, // 172: cfbd.v1.ConferenceSpOffense.standard_downs:type_name -> google.protobuf.DoubleValue
+	117, // 173: cfbd.v1.ConferenceSpOffense.passing:type_name -> google.protobuf.DoubleValue
+	117, // 174: cfbd.v1.ConferenceSpOffense.rushing:type_name -> google.protobuf.DoubleValue
+	117, // 175: cfbd.v1.ConferenceSpOffense.explosiveness:type_name -> google.protobuf.DoubleValue
+	117, // 176: cfbd.v1.ConferenceSpOffense.success:type_name -> google.protobuf.DoubleValue
+	117, // 177: cfbd.v1.ConferenceSpOffense.rating:type_name -> google.protobuf.DoubleValue
 	20,  // 178: cfbd.v1.ConferenceSpDefense.havoc:type_name -> cfbd.v1.AdvancedHavoc
-	116, // 179: cfbd.v1.ConferenceSpDefense.passing_downs:type_name -> google.protobuf.DoubleValue
-	116, // 180: cfbd.v1.ConferenceSpDefense.standard_downs:type_name -> google.protobuf.DoubleValue
-	116, // 181: cfbd.v1.ConferenceSpDefense.passing:type_name -> google.protobuf.DoubleValue
-	116, // 182: cfbd.v1.ConferenceSpDefense.rushing:type_name -> google.protobuf.DoubleValue
-	116, // 183: cfbd.v1.ConferenceSpDefense.explosiveness:type_name -> google.protobuf.DoubleValue
-	116, // 184: cfbd.v1.ConferenceSpDefense.success:type_name -> google.protobuf.DoubleValue
-	116, // 185: cfbd.v1.ConferenceSpDefense.rating:type_name -> google.protobuf.DoubleValue
-	116, // 186: cfbd.v1.ConferenceSP.sos:type_name -> google.protobuf.DoubleValue
+	117, // 179: cfbd.v1.ConferenceSpDefense.passing_downs:type_name -> google.protobuf.DoubleValue
+	117, // 180: cfbd.v1.ConferenceSpDefense.standard_downs:type_name -> google.protobuf.DoubleValue
+	117, // 181: cfbd.v1.ConferenceSpDefense.passing:type_name -> google.protobuf.DoubleValue
+	117, // 182: cfbd.v1.ConferenceSpDefense.rushing:type_name -> google.protobuf.DoubleValue
+	117, // 183: cfbd.v1.ConferenceSpDefense.explosiveness:type_name -> google.protobuf.DoubleValue
+	117, // 184: cfbd.v1.ConferenceSpDefense.success:type_name -> google.protobuf.DoubleValue
+	117, // 185: cfbd.v1.ConferenceSpDefense.rating:type_name -> google.protobuf.DoubleValue
+	117, // 186: cfbd.v1.ConferenceSP.sos:type_name -> google.protobuf.DoubleValue
 	38,  // 187: cfbd.v1.ConferenceSP.offense:type_name -> cfbd.v1.ConferenceSpOffense
 	39,  // 188: cfbd.v1.ConferenceSP.defense:type_name -> cfbd.v1.ConferenceSpDefense
 	36,  // 189: cfbd.v1.ConferenceSP.special_teams:type_name -> cfbd.v1.SpSpecialTeams
-	118, // 190: cfbd.v1.TeamSRS.conference:type_name -> google.protobuf.StringValue
-	118, // 191: cfbd.v1.TeamSRS.division:type_name -> google.protobuf.StringValue
-	115, // 192: cfbd.v1.TeamSRS.ranking:type_name -> google.protobuf.Int32Value
-	118, // 193: cfbd.v1.TeamElo.conference:type_name -> google.protobuf.StringValue
-	115, // 194: cfbd.v1.TeamElo.elo:type_name -> google.protobuf.Int32Value
-	115, // 195: cfbd.v1.FpiResumeRanks.game_control:type_name -> google.protobuf.Int32Value
-	115, // 196: cfbd.v1.FpiResumeRanks.remaining_strength_of_schedule:type_name -> google.protobuf.Int32Value
-	115, // 197: cfbd.v1.FpiResumeRanks.strength_of_schedule:type_name -> google.protobuf.Int32Value
-	115, // 198: cfbd.v1.FpiResumeRanks.average_win_probability:type_name -> google.protobuf.Int32Value
-	115, // 199: cfbd.v1.FpiResumeRanks.fpi:type_name -> google.protobuf.Int32Value
-	115, // 200: cfbd.v1.FpiResumeRanks.strength_of_record:type_name -> google.protobuf.Int32Value
-	116, // 201: cfbd.v1.FpiEfficiencies.special_teams:type_name -> google.protobuf.DoubleValue
-	116, // 202: cfbd.v1.FpiEfficiencies.defense:type_name -> google.protobuf.DoubleValue
-	116, // 203: cfbd.v1.FpiEfficiencies.offense:type_name -> google.protobuf.DoubleValue
-	116, // 204: cfbd.v1.FpiEfficiencies.overall:type_name -> google.protobuf.DoubleValue
-	118, // 205: cfbd.v1.TeamFPI.conference:type_name -> google.protobuf.StringValue
-	116, // 206: cfbd.v1.TeamFPI.fpi:type_name -> google.protobuf.DoubleValue
+	119, // 190: cfbd.v1.TeamSRS.conference:type_name -> google.protobuf.StringValue
+	119, // 191: cfbd.v1.TeamSRS.division:type_name -> google.protobuf.StringValue
+	116, // 192: cfbd.v1.TeamSRS.ranking:type_name -> google.protobuf.Int32Value
+	119, // 193: cfbd.v1.TeamElo.conference:type_name -> google.protobuf.StringValue
+	116, // 194: cfbd.v1.TeamElo.elo:type_name -> google.protobuf.Int32Value
+	116, // 195: cfbd.v1.FpiResumeRanks.game_control:type_name -> google.protobuf.Int32Value
+	116, // 196: cfbd.v1.FpiResumeRanks.remaining_strength_of_schedule:type_name -> google.protobuf.Int32Value
+	116, // 197: cfbd.v1.FpiResumeRanks.strength_of_schedule:type_name -> google.protobuf.Int32Value
+	116, // 198: cfbd.v1.FpiResumeRanks.average_win_probability:type_name -> google.protobuf.Int32Value
+	116, // 199: cfbd.v1.FpiResumeRanks.fpi:type_name -> google.protobuf.Int32Value
+	116, // 200: cfbd.v1.FpiResumeRanks.strength_of_record:type_name -> google.protobuf.Int32Value
+	117, // 201: cfbd.v1.FpiEfficiencies.special_teams:type_name -> google.protobuf.DoubleValue
+	117, // 202: cfbd.v1.FpiEfficiencies.defense:type_name -> google.protobuf.DoubleValue
+	117, // 203: cfbd.v1.FpiEfficiencies.offense:type_name -> google.protobuf.DoubleValue
+	117, // 204: cfbd.v1.FpiEfficiencies.overall:type_name -> google.protobuf.DoubleValue
+	119, // 205: cfbd.v1.TeamFPI.conference:type_name -> google.protobuf.StringValue
+	117, // 206: cfbd.v1.TeamFPI.fpi:type_name -> google.protobuf.DoubleValue
 	43,  // 207: cfbd.v1.TeamFPI.resume_ranks:type_name -> cfbd.v1.FpiResumeRanks
 	44,  // 208: cfbd.v1.TeamFPI.efficiencies:type_name -> cfbd.v1.FpiEfficiencies
-	115, // 209: cfbd.v1.PollRank.rank:type_name -> google.protobuf.Int32Value
-	115, // 210: cfbd.v1.PollRank.team_id:type_name -> google.protobuf.Int32Value
-	118, // 211: cfbd.v1.PollRank.conference:type_name -> google.protobuf.StringValue
-	115, // 212: cfbd.v1.PollRank.first_place_votes:type_name -> google.protobuf.Int32Value
-	115, // 213: cfbd.v1.PollRank.points:type_name -> google.protobuf.Int32Value
+	116, // 209: cfbd.v1.PollRank.rank:type_name -> google.protobuf.Int32Value
+	116, // 210: cfbd.v1.PollRank.team_id:type_name -> google.protobuf.Int32Value
+	119, // 211: cfbd.v1.PollRank.conference:type_name -> google.protobuf.StringValue
+	116, // 212: cfbd.v1.PollRank.first_place_votes:type_name -> google.protobuf.Int32Value
+	116, // 213: cfbd.v1.PollRank.points:type_name -> google.protobuf.Int32Value
 	46,  // 214: cfbd.v1.Poll.ranks:type_name -> cfbd.v1.PollRank
 	47,  // 215: cfbd.v1.PollWeek.polls:type_name -> cfbd.v1.Poll
-	115, // 216: cfbd.v1.Play.drive_number:type_name -> google.protobuf.Int32Value
-	115, // 217: cfbd.v1.Play.play_number:type_name -> google.protobuf.Int32Value
-	118, // 218: cfbd.v1.Play.offense_conference:type_name -> google.protobuf.StringValue
-	118, // 219: cfbd.v1.Play.defense_conference:type_name -> google.protobuf.StringValue
+	116, // 216: cfbd.v1.Play.drive_number:type_name -> google.protobuf.Int32Value
+	116, // 217: cfbd.v1.Play.play_number:type_name -> google.protobuf.Int32Value
+	119, // 218: cfbd.v1.Play.offense_conference:type_name -> google.protobuf.StringValue
+	119, // 219: cfbd.v1.Play.defense_conference:type_name -> google.protobuf.StringValue
 	3,   // 220: cfbd.v1.Play.clock:type_name -> cfbd.v1.ClockInt32
-	115, // 221: cfbd.v1.Play.offense_timeouts:type_name -> google.protobuf.Int32Value
-	115, // 222: cfbd.v1.Play.defense_timeouts:type_name -> google.protobuf.Int32Value
-	118, // 223: cfbd.v1.Play.play_text:type_name -> google.protobuf.StringValue
-	116, // 224: cfbd.v1.Play.ppa:type_name -> google.protobuf.DoubleValue
-	118, // 225: cfbd.v1.Play.wallclock:type_name -> google.protobuf.StringValue
-	118, // 226: cfbd.v1.PlayType.abbreviation:type_name -> google.protobuf.StringValue
+	116, // 221: cfbd.v1.Play.offense_timeouts:type_name -> google.protobuf.Int32Value
+	116, // 222: cfbd.v1.Play.defense_timeouts:type_name -> google.protobuf.Int32Value
+	119, // 223: cfbd.v1.Play.play_text:type_name -> google.protobuf.StringValue
+	117, // 224: cfbd.v1.Play.ppa:type_name -> google.protobuf.DoubleValue
+	119, // 225: cfbd.v1.Play.wallclock:type_name -> google.protobuf.StringValue
+	119, // 226: cfbd.v1.PlayType.abbreviation:type_name -> google.protobuf.StringValue
 	4,   // 227: cfbd.v1.PlayStat.clock:type_name -> cfbd.v1.ClockDouble
-	118, // 228: cfbd.v1.PlayerSearchResult.first_name:type_name -> google.protobuf.StringValue
-	118, // 229: cfbd.v1.PlayerSearchResult.last_name:type_name -> google.protobuf.StringValue
-	115, // 230: cfbd.v1.PlayerSearchResult.weight:type_name -> google.protobuf.Int32Value
-	116, // 231: cfbd.v1.PlayerSearchResult.height:type_name -> google.protobuf.DoubleValue
-	115, // 232: cfbd.v1.PlayerSearchResult.jersey:type_name -> google.protobuf.Int32Value
-	116, // 233: cfbd.v1.PlayerUsageSplits.passing_downs:type_name -> google.protobuf.DoubleValue
-	116, // 234: cfbd.v1.PlayerUsageSplits.standard_downs:type_name -> google.protobuf.DoubleValue
-	116, // 235: cfbd.v1.PlayerUsageSplits.third_down:type_name -> google.protobuf.DoubleValue
-	116, // 236: cfbd.v1.PlayerUsageSplits.second_down:type_name -> google.protobuf.DoubleValue
-	116, // 237: cfbd.v1.PlayerUsageSplits.first_down:type_name -> google.protobuf.DoubleValue
-	116, // 238: cfbd.v1.PlayerUsageSplits.rush:type_name -> google.protobuf.DoubleValue
-	116, // 239: cfbd.v1.PlayerUsageSplits.pass:type_name -> google.protobuf.DoubleValue
-	116, // 240: cfbd.v1.PlayerUsageSplits.overall:type_name -> google.protobuf.DoubleValue
+	119, // 228: cfbd.v1.PlayerSearchResult.first_name:type_name -> google.protobuf.StringValue
+	119, // 229: cfbd.v1.PlayerSearchResult.last_name:type_name -> google.protobuf.StringValue
+	116, // 230: cfbd.v1.PlayerSearchResult.weight:type_name -> google.protobuf.Int32Value
+	117, // 231: cfbd.v1.PlayerSearchResult.height:type_name -> google.protobuf.DoubleValue
+	116, // 232: cfbd.v1.PlayerSearchResult.jersey:type_name -> google.protobuf.Int32Value
+	117, // 233: cfbd.v1.PlayerUsageSplits.passing_downs:type_name -> google.protobuf.DoubleValue
+	117, // 234: cfbd.v1.PlayerUsageSplits.standard_downs:type_name -> google.protobuf.DoubleValue
+	117, // 235: cfbd.v1.PlayerUsageSplits.third_down:type_name -> google.protobuf.DoubleValue
+	117, // 236: cfbd.v1.PlayerUsageSplits.second_down:type_name -> google.protobuf.DoubleValue
+	117, // 237: cfbd.v1.PlayerUsageSplits.first_down:type_name -> google.protobuf.DoubleValue
+	117, // 238: cfbd.v1.PlayerUsageSplits.rush:type_name -> google.protobuf.DoubleValue
+	117, // 239: cfbd.v1.PlayerUsageSplits.pass:type_name -> google.protobuf.DoubleValue
+	117, // 240: cfbd.v1.PlayerUsageSplits.overall:type_name -> google.protobuf.DoubleValue
 	55,  // 241: cfbd.v1.PlayerUsage.usage:type_name -> cfbd.v1.PlayerUsageSplits
-	118, // 242: cfbd.v1.PlayerTransfer.destination:type_name -> google.protobuf.StringValue
-	121, // 243: cfbd.v1.PlayerTransfer.transfer_date:type_name -> google.protobuf.Timestamp
-	116, // 244: cfbd.v1.PlayerTransfer.rating:type_name -> google.protobuf.DoubleValue
-	115, // 245: cfbd.v1.PlayerTransfer.stars:type_name -> google.protobuf.Int32Value
-	118, // 246: cfbd.v1.PlayerTransfer.eligibility:type_name -> google.protobuf.StringValue
+	119, // 242: cfbd.v1.PlayerTransfer.destination:type_name -> google.protobuf.StringValue
+	122, // 243: cfbd.v1.PlayerTransfer.transfer_date:type_name -> google.protobuf.Timestamp
+	117, // 244: cfbd.v1.PlayerTransfer.rating:type_name -> google.protobuf.DoubleValue
+	116, // 245: cfbd.v1.PlayerTransfer.stars:type_name -> google.protobuf.Int32Value
+	119, // 246: cfbd.v1.PlayerTransfer.eligibility:type_name -> google.protobuf.StringValue
 	60,  // 247: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.cumulative:type_name -> cfbd.v1.PredictedPointsAddedTotals
-	59,  // 248: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.third_down:type_name -> cfbd.v1.PredictedPointsValue
-	59,  // 249: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.second_down:type_name -> cfbd.v1.PredictedPointsValue
-	59,  // 250: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.first_down:type_name -> cfbd.v1.PredictedPointsValue
-	59,  // 251: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.rushing:type_name -> cfbd.v1.PredictedPointsValue
-	59,  // 252: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.passing:type_name -> cfbd.v1.PredictedPointsValue
-	59,  // 253: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.overall:type_name -> cfbd.v1.PredictedPointsValue
-	61,  // 254: cfbd.v1.TeamSeasonPredictedPointsAdded.offense:type_name -> cfbd.v1.TeamSeasonPredictedPointsAddedUnit
-	61,  // 255: cfbd.v1.TeamSeasonPredictedPointsAdded.defense:type_name -> cfbd.v1.TeamSeasonPredictedPointsAddedUnit
-	60,  // 256: cfbd.v1.TeamGamePredictedPointsAdded.offense:type_name -> cfbd.v1.PredictedPointsAddedTotals
-	60,  // 257: cfbd.v1.TeamGamePredictedPointsAdded.defense:type_name -> cfbd.v1.PredictedPointsAddedTotals
-	64,  // 258: cfbd.v1.PlayerGamePredictedPointsAdded.average_PPA:type_name -> cfbd.v1.AveragePpa
-	120, // 259: cfbd.v1.PlayerSeasonPpaSplits.passing_downs:type_name -> google.protobuf.ListValue
-	120, // 260: cfbd.v1.PlayerSeasonPpaSplits.standard_downs:type_name -> google.protobuf.ListValue
-	120, // 261: cfbd.v1.PlayerSeasonPpaSplits.third_down:type_name -> google.protobuf.ListValue
-	120, // 262: cfbd.v1.PlayerSeasonPpaSplits.second_down:type_name -> google.protobuf.ListValue
-	120, // 263: cfbd.v1.PlayerSeasonPpaSplits.first_down:type_name -> google.protobuf.ListValue
-	120, // 264: cfbd.v1.PlayerSeasonPpaSplits.rush:type_name -> google.protobuf.ListValue
-	120, // 265: cfbd.v1.PlayerSeasonPpaSplits.pass:type_name -> google.protobuf.ListValue
-	120, // 266: cfbd.v1.PlayerSeasonPpaSplits.all:type_name -> google.protobuf.ListValue
-	66,  // 267: cfbd.v1.PlayerSeasonPredictedPointsAdded.average_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
-	66,  // 268: cfbd.v1.PlayerSeasonPredictedPointsAdded.total_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
-	116, // 269: cfbd.v1.LiveGameTeam.average_start_yard_line:type_name -> google.protobuf.DoubleValue
-	116, // 270: cfbd.v1.LiveGameTeam.deserve_to_win:type_name -> google.protobuf.DoubleValue
-	121, // 271: cfbd.v1.LiveGamePlay.wall_clock:type_name -> google.protobuf.Timestamp
-	116, // 272: cfbd.v1.LiveGamePlay.epa:type_name -> google.protobuf.DoubleValue
-	118, // 273: cfbd.v1.LiveGameDrive.start_clock:type_name -> google.protobuf.StringValue
-	115, // 274: cfbd.v1.LiveGameDrive.end_period:type_name -> google.protobuf.Int32Value
-	118, // 275: cfbd.v1.LiveGameDrive.end_clock:type_name -> google.protobuf.StringValue
-	115, // 276: cfbd.v1.LiveGameDrive.end_yards_to_goal:type_name -> google.protobuf.Int32Value
-	118, // 277: cfbd.v1.LiveGameDrive.duration:type_name -> google.protobuf.StringValue
-	72,  // 278: cfbd.v1.LiveGameDrive.plays:type_name -> cfbd.v1.LiveGamePlay
-	115, // 279: cfbd.v1.LiveGame.period:type_name -> google.protobuf.Int32Value
-	115, // 280: cfbd.v1.LiveGame.down:type_name -> google.protobuf.Int32Value
-	115, // 281: cfbd.v1.LiveGame.distance:type_name -> google.protobuf.Int32Value
-	115, // 282: cfbd.v1.LiveGame.yards_to_goal:type_name -> google.protobuf.Int32Value
-	71,  // 283: cfbd.v1.LiveGame.teams:type_name -> cfbd.v1.LiveGameTeam
-	73,  // 284: cfbd.v1.LiveGame.drives:type_name -> cfbd.v1.LiveGameDrive
-	116, // 285: cfbd.v1.GameLine.spread:type_name -> google.protobuf.DoubleValue
-	118, // 286: cfbd.v1.GameLine.formatted_spread:type_name -> google.protobuf.StringValue
-	116, // 287: cfbd.v1.GameLine.spread_open:type_name -> google.protobuf.DoubleValue
-	116, // 288: cfbd.v1.GameLine.over_under:type_name -> google.protobuf.DoubleValue
-	116, // 289: cfbd.v1.GameLine.over_under_open:type_name -> google.protobuf.DoubleValue
-	116, // 290: cfbd.v1.GameLine.home_moneyline:type_name -> google.protobuf.DoubleValue
-	116, // 291: cfbd.v1.GameLine.away_moneyline:type_name -> google.protobuf.DoubleValue
-	121, // 292: cfbd.v1.BettingGame.start_date:type_name -> google.protobuf.Timestamp
-	118, // 293: cfbd.v1.BettingGame.home_conference:type_name -> google.protobuf.StringValue
-	118, // 294: cfbd.v1.BettingGame.home_classification:type_name -> google.protobuf.StringValue
-	115, // 295: cfbd.v1.BettingGame.home_score:type_name -> google.protobuf.Int32Value
-	118, // 296: cfbd.v1.BettingGame.away_conference:type_name -> google.protobuf.StringValue
-	118, // 297: cfbd.v1.BettingGame.away_classification:type_name -> google.protobuf.StringValue
-	115, // 298: cfbd.v1.BettingGame.away_score:type_name -> google.protobuf.Int32Value
-	75,  // 299: cfbd.v1.BettingGame.lines:type_name -> cfbd.v1.GameLine
-	121, // 300: cfbd.v1.Game.start_date:type_name -> google.protobuf.Timestamp
-	115, // 301: cfbd.v1.Game.attendance:type_name -> google.protobuf.Int32Value
-	115, // 302: cfbd.v1.Game.venue_id:type_name -> google.protobuf.Int32Value
-	118, // 303: cfbd.v1.Game.venue:type_name -> google.protobuf.StringValue
-	115, // 304: cfbd.v1.Game.home_id:type_name -> google.protobuf.Int32Value
-	118, // 305: cfbd.v1.Game.home_conference:type_name -> google.protobuf.StringValue
-	118, // 306: cfbd.v1.Game.home_classification:type_name -> google.protobuf.StringValue
-	115, // 307: cfbd.v1.Game.home_points:type_name -> google.protobuf.Int32Value
-	120, // 308: cfbd.v1.Game.home_line_scores:type_name -> google.protobuf.ListValue
-	116, // 309: cfbd.v1.Game.home_postgame_win_probability:type_name -> google.protobuf.DoubleValue
-	115, // 310: cfbd.v1.Game.home_pregame_elo:type_name -> google.protobuf.Int32Value
-	115, // 311: cfbd.v1.Game.home_postgame_elo:type_name -> google.protobuf.Int32Value
-	115, // 312: cfbd.v1.Game.away_id:type_name -> google.protobuf.Int32Value
-	118, // 313: cfbd.v1.Game.away_conference:type_name -> google.protobuf.StringValue
-	118, // 314: cfbd.v1.Game.away_classification:type_name -> google.protobuf.StringValue
-	115, // 315: cfbd.v1.Game.away_points:type_name -> google.protobuf.Int32Value
-	120, // 316: cfbd.v1.Game.away_line_scores:type_name -> google.protobuf.ListValue
-	116, // 317: cfbd.v1.Game.away_postgame_win_probability:type_name -> google.protobuf.DoubleValue
-	115, // 318: cfbd.v1.Game.away_pregame_elo:type_name -> google.protobuf.Int32Value
-	115, // 319: cfbd.v1.Game.away_postgame_elo:type_name -> google.protobuf.Int32Value
-	116, // 320: cfbd.v1.Game.excitement_index:type_name -> google.protobuf.DoubleValue
-	118, // 321: cfbd.v1.Game.highlights:type_name -> google.protobuf.StringValue
-	118, // 322: cfbd.v1.Game.notes:type_name -> google.protobuf.StringValue
-	118, // 323: cfbd.v1.GameTeamStatsTeam.conference:type_name -> google.protobuf.StringValue
-	115, // 324: cfbd.v1.GameTeamStatsTeam.points:type_name -> google.protobuf.Int32Value
-	79,  // 325: cfbd.v1.GameTeamStatsTeam.stats:type_name -> cfbd.v1.GameTeamStatsTeamStat
-	80,  // 326: cfbd.v1.GameTeamStats.teams:type_name -> cfbd.v1.GameTeamStatsTeam
-	82,  // 327: cfbd.v1.GamePlayerStatTypes.athletes:type_name -> cfbd.v1.GamePlayerStatPlayer
-	83,  // 328: cfbd.v1.GamePlayerStatCategories.types:type_name -> cfbd.v1.GamePlayerStatTypes
-	118, // 329: cfbd.v1.GamePlayerStatsTeam.conference:type_name -> google.protobuf.StringValue
-	115, // 330: cfbd.v1.GamePlayerStatsTeam.points:type_name -> google.protobuf.Int32Value
-	84,  // 331: cfbd.v1.GamePlayerStatsTeam.categories:type_name -> cfbd.v1.GamePlayerStatCategories
-	85,  // 332: cfbd.v1.GamePlayerStats.teams:type_name -> cfbd.v1.GamePlayerStatsTeam
-	121, // 333: cfbd.v1.GameMedia.start_time:type_name -> google.protobuf.Timestamp
-	118, // 334: cfbd.v1.GameMedia.home_conference:type_name -> google.protobuf.StringValue
-	118, // 335: cfbd.v1.GameMedia.away_conference:type_name -> google.protobuf.StringValue
-	121, // 336: cfbd.v1.GameWeather.start_time:type_name -> google.protobuf.Timestamp
-	118, // 337: cfbd.v1.GameWeather.home_conference:type_name -> google.protobuf.StringValue
-	118, // 338: cfbd.v1.GameWeather.away_conference:type_name -> google.protobuf.StringValue
-	115, // 339: cfbd.v1.GameWeather.venue_id:type_name -> google.protobuf.Int32Value
-	118, // 340: cfbd.v1.GameWeather.venue:type_name -> google.protobuf.StringValue
-	116, // 341: cfbd.v1.GameWeather.temperature:type_name -> google.protobuf.DoubleValue
-	116, // 342: cfbd.v1.GameWeather.dew_point:type_name -> google.protobuf.DoubleValue
-	116, // 343: cfbd.v1.GameWeather.humidity:type_name -> google.protobuf.DoubleValue
-	116, // 344: cfbd.v1.GameWeather.precipitation:type_name -> google.protobuf.DoubleValue
-	116, // 345: cfbd.v1.GameWeather.snowfall:type_name -> google.protobuf.DoubleValue
-	116, // 346: cfbd.v1.GameWeather.wind_direction:type_name -> google.protobuf.DoubleValue
-	116, // 347: cfbd.v1.GameWeather.wind_speed:type_name -> google.protobuf.DoubleValue
-	116, // 348: cfbd.v1.GameWeather.pressure:type_name -> google.protobuf.DoubleValue
-	116, // 349: cfbd.v1.GameWeather.weather_condition_code:type_name -> google.protobuf.DoubleValue
-	118, // 350: cfbd.v1.GameWeather.weather_condition:type_name -> google.protobuf.StringValue
-	115, // 351: cfbd.v1.TeamRecords.team_id:type_name -> google.protobuf.Int32Value
-	118, // 352: cfbd.v1.TeamRecords.classification:type_name -> google.protobuf.StringValue
-	116, // 353: cfbd.v1.TeamRecords.expected_wins:type_name -> google.protobuf.DoubleValue
-	89,  // 354: cfbd.v1.TeamRecords.total:type_name -> cfbd.v1.TeamRecord
-	89,  // 355: cfbd.v1.TeamRecords.conference_games:type_name -> cfbd.v1.TeamRecord
-	89,  // 356: cfbd.v1.TeamRecords.home_games:type_name -> cfbd.v1.TeamRecord
-	89,  // 357: cfbd.v1.TeamRecords.away_games:type_name -> cfbd.v1.TeamRecord
-	89,  // 358: cfbd.v1.TeamRecords.neutral_site_games:type_name -> cfbd.v1.TeamRecord
-	89,  // 359: cfbd.v1.TeamRecords.regular_season:type_name -> cfbd.v1.TeamRecord
-	89,  // 360: cfbd.v1.TeamRecords.postseason:type_name -> cfbd.v1.TeamRecord
-	121, // 361: cfbd.v1.CalendarWeek.start_date:type_name -> google.protobuf.Timestamp
-	121, // 362: cfbd.v1.CalendarWeek.end_date:type_name -> google.protobuf.Timestamp
-	121, // 363: cfbd.v1.CalendarWeek.first_game_start:type_name -> google.protobuf.Timestamp
-	121, // 364: cfbd.v1.CalendarWeek.last_game_start:type_name -> google.protobuf.Timestamp
-	121, // 365: cfbd.v1.Scoreboard.start_date:type_name -> google.protobuf.Timestamp
-	118, // 366: cfbd.v1.Scoreboard.tv:type_name -> google.protobuf.StringValue
-	115, // 367: cfbd.v1.Scoreboard.period:type_name -> google.protobuf.Int32Value
-	118, // 368: cfbd.v1.Scoreboard.clock:type_name -> google.protobuf.StringValue
-	118, // 369: cfbd.v1.Scoreboard.situation:type_name -> google.protobuf.StringValue
-	118, // 370: cfbd.v1.Scoreboard.possession:type_name -> google.protobuf.StringValue
-	118, // 371: cfbd.v1.Scoreboard.last_play:type_name -> google.protobuf.StringValue
-	122, // 372: cfbd.v1.Scoreboard.venue:type_name -> google.protobuf.Struct
-	122, // 373: cfbd.v1.Scoreboard.home_team:type_name -> google.protobuf.Struct
-	122, // 374: cfbd.v1.Scoreboard.away_team:type_name -> google.protobuf.Struct
-	122, // 375: cfbd.v1.Scoreboard.weather:type_name -> google.protobuf.Struct
-	122, // 376: cfbd.v1.Scoreboard.betting:type_name -> google.protobuf.Struct
-	118, // 377: cfbd.v1.Drive.offense_conference:type_name -> google.protobuf.StringValue
-	118, // 378: cfbd.v1.Drive.defense_conference:type_name -> google.protobuf.StringValue
-	115, // 379: cfbd.v1.Drive.drive_number:type_name -> google.protobuf.Int32Value
+	117, // 248: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.third_down:type_name -> google.protobuf.DoubleValue
+	117, // 249: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.second_down:type_name -> google.protobuf.DoubleValue
+	117, // 250: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.first_down:type_name -> google.protobuf.DoubleValue
+	117, // 251: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.rushing:type_name -> google.protobuf.DoubleValue
+	117, // 252: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.passing:type_name -> google.protobuf.DoubleValue
+	117, // 253: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.overall:type_name -> google.protobuf.DoubleValue
+	62,  // 254: cfbd.v1.TeamSeasonPredictedPointsAdded.offense:type_name -> cfbd.v1.TeamSeasonPredictedPointsAddedUnit
+	62,  // 255: cfbd.v1.TeamSeasonPredictedPointsAdded.defense:type_name -> cfbd.v1.TeamSeasonPredictedPointsAddedUnit
+	61,  // 256: cfbd.v1.TeamGamePredictedPointsAdded.offense:type_name -> cfbd.v1.PredictedPointsAddedTotalsForGames
+	61,  // 257: cfbd.v1.TeamGamePredictedPointsAdded.defense:type_name -> cfbd.v1.PredictedPointsAddedTotalsForGames
+	65,  // 258: cfbd.v1.PlayerGamePredictedPointsAdded.average_PPA:type_name -> cfbd.v1.AveragePpa
+	121, // 259: cfbd.v1.PlayerSeasonPpaSplits.passing_downs:type_name -> google.protobuf.ListValue
+	121, // 260: cfbd.v1.PlayerSeasonPpaSplits.standard_downs:type_name -> google.protobuf.ListValue
+	121, // 261: cfbd.v1.PlayerSeasonPpaSplits.third_down:type_name -> google.protobuf.ListValue
+	121, // 262: cfbd.v1.PlayerSeasonPpaSplits.second_down:type_name -> google.protobuf.ListValue
+	121, // 263: cfbd.v1.PlayerSeasonPpaSplits.first_down:type_name -> google.protobuf.ListValue
+	121, // 264: cfbd.v1.PlayerSeasonPpaSplits.rush:type_name -> google.protobuf.ListValue
+	121, // 265: cfbd.v1.PlayerSeasonPpaSplits.pass:type_name -> google.protobuf.ListValue
+	121, // 266: cfbd.v1.PlayerSeasonPpaSplits.all:type_name -> google.protobuf.ListValue
+	67,  // 267: cfbd.v1.PlayerSeasonPredictedPointsAdded.average_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
+	67,  // 268: cfbd.v1.PlayerSeasonPredictedPointsAdded.total_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
+	117, // 269: cfbd.v1.LiveGameTeam.average_start_yard_line:type_name -> google.protobuf.DoubleValue
+	117, // 270: cfbd.v1.LiveGameTeam.deserve_to_win:type_name -> google.protobuf.DoubleValue
+	122, // 271: cfbd.v1.LiveGamePlay.wall_clock:type_name -> google.protobuf.Timestamp
+	117, // 272: cfbd.v1.LiveGamePlay.epa:type_name -> google.protobuf.DoubleValue
+	119, // 273: cfbd.v1.LiveGameDrive.start_clock:type_name -> google.protobuf.StringValue
+	116, // 274: cfbd.v1.LiveGameDrive.end_period:type_name -> google.protobuf.Int32Value
+	119, // 275: cfbd.v1.LiveGameDrive.end_clock:type_name -> google.protobuf.StringValue
+	116, // 276: cfbd.v1.LiveGameDrive.end_yards_to_goal:type_name -> google.protobuf.Int32Value
+	119, // 277: cfbd.v1.LiveGameDrive.duration:type_name -> google.protobuf.StringValue
+	73,  // 278: cfbd.v1.LiveGameDrive.plays:type_name -> cfbd.v1.LiveGamePlay
+	116, // 279: cfbd.v1.LiveGame.period:type_name -> google.protobuf.Int32Value
+	116, // 280: cfbd.v1.LiveGame.down:type_name -> google.protobuf.Int32Value
+	116, // 281: cfbd.v1.LiveGame.distance:type_name -> google.protobuf.Int32Value
+	116, // 282: cfbd.v1.LiveGame.yards_to_goal:type_name -> google.protobuf.Int32Value
+	72,  // 283: cfbd.v1.LiveGame.teams:type_name -> cfbd.v1.LiveGameTeam
+	74,  // 284: cfbd.v1.LiveGame.drives:type_name -> cfbd.v1.LiveGameDrive
+	117, // 285: cfbd.v1.GameLine.spread:type_name -> google.protobuf.DoubleValue
+	119, // 286: cfbd.v1.GameLine.formatted_spread:type_name -> google.protobuf.StringValue
+	117, // 287: cfbd.v1.GameLine.spread_open:type_name -> google.protobuf.DoubleValue
+	117, // 288: cfbd.v1.GameLine.over_under:type_name -> google.protobuf.DoubleValue
+	117, // 289: cfbd.v1.GameLine.over_under_open:type_name -> google.protobuf.DoubleValue
+	117, // 290: cfbd.v1.GameLine.home_moneyline:type_name -> google.protobuf.DoubleValue
+	117, // 291: cfbd.v1.GameLine.away_moneyline:type_name -> google.protobuf.DoubleValue
+	122, // 292: cfbd.v1.BettingGame.start_date:type_name -> google.protobuf.Timestamp
+	119, // 293: cfbd.v1.BettingGame.home_conference:type_name -> google.protobuf.StringValue
+	119, // 294: cfbd.v1.BettingGame.home_classification:type_name -> google.protobuf.StringValue
+	116, // 295: cfbd.v1.BettingGame.home_score:type_name -> google.protobuf.Int32Value
+	119, // 296: cfbd.v1.BettingGame.away_conference:type_name -> google.protobuf.StringValue
+	119, // 297: cfbd.v1.BettingGame.away_classification:type_name -> google.protobuf.StringValue
+	116, // 298: cfbd.v1.BettingGame.away_score:type_name -> google.protobuf.Int32Value
+	76,  // 299: cfbd.v1.BettingGame.lines:type_name -> cfbd.v1.GameLine
+	122, // 300: cfbd.v1.Game.start_date:type_name -> google.protobuf.Timestamp
+	116, // 301: cfbd.v1.Game.attendance:type_name -> google.protobuf.Int32Value
+	116, // 302: cfbd.v1.Game.venue_id:type_name -> google.protobuf.Int32Value
+	119, // 303: cfbd.v1.Game.venue:type_name -> google.protobuf.StringValue
+	116, // 304: cfbd.v1.Game.home_id:type_name -> google.protobuf.Int32Value
+	119, // 305: cfbd.v1.Game.home_conference:type_name -> google.protobuf.StringValue
+	119, // 306: cfbd.v1.Game.home_classification:type_name -> google.protobuf.StringValue
+	116, // 307: cfbd.v1.Game.home_points:type_name -> google.protobuf.Int32Value
+	121, // 308: cfbd.v1.Game.home_line_scores:type_name -> google.protobuf.ListValue
+	117, // 309: cfbd.v1.Game.home_postgame_win_probability:type_name -> google.protobuf.DoubleValue
+	116, // 310: cfbd.v1.Game.home_pregame_elo:type_name -> google.protobuf.Int32Value
+	116, // 311: cfbd.v1.Game.home_postgame_elo:type_name -> google.protobuf.Int32Value
+	116, // 312: cfbd.v1.Game.away_id:type_name -> google.protobuf.Int32Value
+	119, // 313: cfbd.v1.Game.away_conference:type_name -> google.protobuf.StringValue
+	119, // 314: cfbd.v1.Game.away_classification:type_name -> google.protobuf.StringValue
+	116, // 315: cfbd.v1.Game.away_points:type_name -> google.protobuf.Int32Value
+	121, // 316: cfbd.v1.Game.away_line_scores:type_name -> google.protobuf.ListValue
+	117, // 317: cfbd.v1.Game.away_postgame_win_probability:type_name -> google.protobuf.DoubleValue
+	116, // 318: cfbd.v1.Game.away_pregame_elo:type_name -> google.protobuf.Int32Value
+	116, // 319: cfbd.v1.Game.away_postgame_elo:type_name -> google.protobuf.Int32Value
+	117, // 320: cfbd.v1.Game.excitement_index:type_name -> google.protobuf.DoubleValue
+	119, // 321: cfbd.v1.Game.highlights:type_name -> google.protobuf.StringValue
+	119, // 322: cfbd.v1.Game.notes:type_name -> google.protobuf.StringValue
+	119, // 323: cfbd.v1.GameTeamStatsTeam.conference:type_name -> google.protobuf.StringValue
+	116, // 324: cfbd.v1.GameTeamStatsTeam.points:type_name -> google.protobuf.Int32Value
+	80,  // 325: cfbd.v1.GameTeamStatsTeam.stats:type_name -> cfbd.v1.GameTeamStatsTeamStat
+	81,  // 326: cfbd.v1.GameTeamStats.teams:type_name -> cfbd.v1.GameTeamStatsTeam
+	83,  // 327: cfbd.v1.GamePlayerStatTypes.athletes:type_name -> cfbd.v1.GamePlayerStatPlayer
+	84,  // 328: cfbd.v1.GamePlayerStatCategories.types:type_name -> cfbd.v1.GamePlayerStatTypes
+	119, // 329: cfbd.v1.GamePlayerStatsTeam.conference:type_name -> google.protobuf.StringValue
+	116, // 330: cfbd.v1.GamePlayerStatsTeam.points:type_name -> google.protobuf.Int32Value
+	85,  // 331: cfbd.v1.GamePlayerStatsTeam.categories:type_name -> cfbd.v1.GamePlayerStatCategories
+	86,  // 332: cfbd.v1.GamePlayerStats.teams:type_name -> cfbd.v1.GamePlayerStatsTeam
+	122, // 333: cfbd.v1.GameMedia.start_time:type_name -> google.protobuf.Timestamp
+	119, // 334: cfbd.v1.GameMedia.home_conference:type_name -> google.protobuf.StringValue
+	119, // 335: cfbd.v1.GameMedia.away_conference:type_name -> google.protobuf.StringValue
+	122, // 336: cfbd.v1.GameWeather.start_time:type_name -> google.protobuf.Timestamp
+	119, // 337: cfbd.v1.GameWeather.home_conference:type_name -> google.protobuf.StringValue
+	119, // 338: cfbd.v1.GameWeather.away_conference:type_name -> google.protobuf.StringValue
+	116, // 339: cfbd.v1.GameWeather.venue_id:type_name -> google.protobuf.Int32Value
+	119, // 340: cfbd.v1.GameWeather.venue:type_name -> google.protobuf.StringValue
+	117, // 341: cfbd.v1.GameWeather.temperature:type_name -> google.protobuf.DoubleValue
+	117, // 342: cfbd.v1.GameWeather.dew_point:type_name -> google.protobuf.DoubleValue
+	117, // 343: cfbd.v1.GameWeather.humidity:type_name -> google.protobuf.DoubleValue
+	117, // 344: cfbd.v1.GameWeather.precipitation:type_name -> google.protobuf.DoubleValue
+	117, // 345: cfbd.v1.GameWeather.snowfall:type_name -> google.protobuf.DoubleValue
+	117, // 346: cfbd.v1.GameWeather.wind_direction:type_name -> google.protobuf.DoubleValue
+	117, // 347: cfbd.v1.GameWeather.wind_speed:type_name -> google.protobuf.DoubleValue
+	117, // 348: cfbd.v1.GameWeather.pressure:type_name -> google.protobuf.DoubleValue
+	117, // 349: cfbd.v1.GameWeather.weather_condition_code:type_name -> google.protobuf.DoubleValue
+	119, // 350: cfbd.v1.GameWeather.weather_condition:type_name -> google.protobuf.StringValue
+	116, // 351: cfbd.v1.TeamRecords.team_id:type_name -> google.protobuf.Int32Value
+	119, // 352: cfbd.v1.TeamRecords.classification:type_name -> google.protobuf.StringValue
+	117, // 353: cfbd.v1.TeamRecords.expected_wins:type_name -> google.protobuf.DoubleValue
+	90,  // 354: cfbd.v1.TeamRecords.total:type_name -> cfbd.v1.TeamRecord
+	90,  // 355: cfbd.v1.TeamRecords.conference_games:type_name -> cfbd.v1.TeamRecord
+	90,  // 356: cfbd.v1.TeamRecords.home_games:type_name -> cfbd.v1.TeamRecord
+	90,  // 357: cfbd.v1.TeamRecords.away_games:type_name -> cfbd.v1.TeamRecord
+	90,  // 358: cfbd.v1.TeamRecords.neutral_site_games:type_name -> cfbd.v1.TeamRecord
+	90,  // 359: cfbd.v1.TeamRecords.regular_season:type_name -> cfbd.v1.TeamRecord
+	90,  // 360: cfbd.v1.TeamRecords.postseason:type_name -> cfbd.v1.TeamRecord
+	122, // 361: cfbd.v1.CalendarWeek.start_date:type_name -> google.protobuf.Timestamp
+	122, // 362: cfbd.v1.CalendarWeek.end_date:type_name -> google.protobuf.Timestamp
+	122, // 363: cfbd.v1.CalendarWeek.first_game_start:type_name -> google.protobuf.Timestamp
+	122, // 364: cfbd.v1.CalendarWeek.last_game_start:type_name -> google.protobuf.Timestamp
+	122, // 365: cfbd.v1.Scoreboard.start_date:type_name -> google.protobuf.Timestamp
+	119, // 366: cfbd.v1.Scoreboard.tv:type_name -> google.protobuf.StringValue
+	116, // 367: cfbd.v1.Scoreboard.period:type_name -> google.protobuf.Int32Value
+	119, // 368: cfbd.v1.Scoreboard.clock:type_name -> google.protobuf.StringValue
+	119, // 369: cfbd.v1.Scoreboard.situation:type_name -> google.protobuf.StringValue
+	119, // 370: cfbd.v1.Scoreboard.possession:type_name -> google.protobuf.StringValue
+	119, // 371: cfbd.v1.Scoreboard.last_play:type_name -> google.protobuf.StringValue
+	123, // 372: cfbd.v1.Scoreboard.venue:type_name -> google.protobuf.Struct
+	123, // 373: cfbd.v1.Scoreboard.home_team:type_name -> google.protobuf.Struct
+	123, // 374: cfbd.v1.Scoreboard.away_team:type_name -> google.protobuf.Struct
+	123, // 375: cfbd.v1.Scoreboard.weather:type_name -> google.protobuf.Struct
+	123, // 376: cfbd.v1.Scoreboard.betting:type_name -> google.protobuf.Struct
+	119, // 377: cfbd.v1.Drive.offense_conference:type_name -> google.protobuf.StringValue
+	119, // 378: cfbd.v1.Drive.defense_conference:type_name -> google.protobuf.StringValue
+	116, // 379: cfbd.v1.Drive.drive_number:type_name -> google.protobuf.Int32Value
 	3,   // 380: cfbd.v1.Drive.start_time:type_name -> cfbd.v1.ClockInt32
 	3,   // 381: cfbd.v1.Drive.end_time:type_name -> cfbd.v1.ClockInt32
 	3,   // 382: cfbd.v1.Drive.elapsed:type_name -> cfbd.v1.ClockInt32
-	118, // 383: cfbd.v1.DraftTeam.nickname:type_name -> google.protobuf.StringValue
-	118, // 384: cfbd.v1.DraftTeam.display_name:type_name -> google.protobuf.StringValue
-	118, // 385: cfbd.v1.DraftTeam.logo:type_name -> google.protobuf.StringValue
-	118, // 386: cfbd.v1.DraftPickHometownInfo.county_fips:type_name -> google.protobuf.StringValue
-	118, // 387: cfbd.v1.DraftPickHometownInfo.longitude:type_name -> google.protobuf.StringValue
-	118, // 388: cfbd.v1.DraftPickHometownInfo.latitude:type_name -> google.protobuf.StringValue
-	118, // 389: cfbd.v1.DraftPickHometownInfo.country:type_name -> google.protobuf.StringValue
-	118, // 390: cfbd.v1.DraftPickHometownInfo.state:type_name -> google.protobuf.StringValue
-	118, // 391: cfbd.v1.DraftPickHometownInfo.city:type_name -> google.protobuf.StringValue
-	115, // 392: cfbd.v1.DraftPick.college_athlete_id:type_name -> google.protobuf.Int32Value
-	115, // 393: cfbd.v1.DraftPick.nfl_athlete_id:type_name -> google.protobuf.Int32Value
-	118, // 394: cfbd.v1.DraftPick.college_conference:type_name -> google.protobuf.StringValue
-	116, // 395: cfbd.v1.DraftPick.height:type_name -> google.protobuf.DoubleValue
-	115, // 396: cfbd.v1.DraftPick.weight:type_name -> google.protobuf.Int32Value
-	115, // 397: cfbd.v1.DraftPick.pre_draft_ranking:type_name -> google.protobuf.Int32Value
-	115, // 398: cfbd.v1.DraftPick.pre_draft_position_ranking:type_name -> google.protobuf.Int32Value
-	115, // 399: cfbd.v1.DraftPick.pre_draft_grade:type_name -> google.protobuf.Int32Value
-	96,  // 400: cfbd.v1.DraftPick.hometown_info:type_name -> cfbd.v1.DraftPickHometownInfo
-	115, // 401: cfbd.v1.CoachSeason.preseason_rank:type_name -> google.protobuf.Int32Value
-	115, // 402: cfbd.v1.CoachSeason.postseason_rank:type_name -> google.protobuf.Int32Value
-	116, // 403: cfbd.v1.CoachSeason.srs:type_name -> google.protobuf.DoubleValue
-	116, // 404: cfbd.v1.CoachSeason.sp_overall:type_name -> google.protobuf.DoubleValue
-	116, // 405: cfbd.v1.CoachSeason.sp_offense:type_name -> google.protobuf.DoubleValue
-	116, // 406: cfbd.v1.CoachSeason.sp_defense:type_name -> google.protobuf.DoubleValue
-	121, // 407: cfbd.v1.Coach.hire_date:type_name -> google.protobuf.Timestamp
-	98,  // 408: cfbd.v1.Coach.seasons:type_name -> cfbd.v1.CoachSeason
-	116, // 409: cfbd.v1.StatsByQuarter.quarter1:type_name -> google.protobuf.DoubleValue
-	116, // 410: cfbd.v1.StatsByQuarter.quarter2:type_name -> google.protobuf.DoubleValue
-	116, // 411: cfbd.v1.StatsByQuarter.quarter3:type_name -> google.protobuf.DoubleValue
-	116, // 412: cfbd.v1.StatsByQuarter.quarter4:type_name -> google.protobuf.DoubleValue
-	100, // 413: cfbd.v1.TeamPPA.overall:type_name -> cfbd.v1.StatsByQuarter
-	100, // 414: cfbd.v1.TeamPPA.passing:type_name -> cfbd.v1.StatsByQuarter
-	100, // 415: cfbd.v1.TeamPPA.rushing:type_name -> cfbd.v1.StatsByQuarter
-	100, // 416: cfbd.v1.TeamSuccessRates.overall:type_name -> cfbd.v1.StatsByQuarter
-	100, // 417: cfbd.v1.TeamSuccessRates.standard_downs:type_name -> cfbd.v1.StatsByQuarter
-	100, // 418: cfbd.v1.TeamSuccessRates.passing_downs:type_name -> cfbd.v1.StatsByQuarter
-	100, // 419: cfbd.v1.TeamExplosiveness.overall:type_name -> cfbd.v1.StatsByQuarter
-	116, // 420: cfbd.v1.PlayerGameUsage.quarter1:type_name -> google.protobuf.DoubleValue
-	116, // 421: cfbd.v1.PlayerGameUsage.quarter2:type_name -> google.protobuf.DoubleValue
-	116, // 422: cfbd.v1.PlayerGameUsage.quarter3:type_name -> google.protobuf.DoubleValue
-	116, // 423: cfbd.v1.PlayerGameUsage.quarter4:type_name -> google.protobuf.DoubleValue
-	116, // 424: cfbd.v1.PlayerStatsByQuarter.quarter1:type_name -> google.protobuf.DoubleValue
-	116, // 425: cfbd.v1.PlayerStatsByQuarter.quarter2:type_name -> google.protobuf.DoubleValue
-	116, // 426: cfbd.v1.PlayerStatsByQuarter.quarter3:type_name -> google.protobuf.DoubleValue
-	116, // 427: cfbd.v1.PlayerStatsByQuarter.quarter4:type_name -> google.protobuf.DoubleValue
-	109, // 428: cfbd.v1.PlayerPPA.average:type_name -> cfbd.v1.PlayerStatsByQuarter
-	109, // 429: cfbd.v1.PlayerPPA.cumulative:type_name -> cfbd.v1.PlayerStatsByQuarter
-	107, // 430: cfbd.v1.AdvancedBoxScoreTeams.field_position:type_name -> cfbd.v1.TeamFieldPosition
-	106, // 431: cfbd.v1.AdvancedBoxScoreTeams.scoring_opportunities:type_name -> cfbd.v1.TeamScoringOpportunities
-	105, // 432: cfbd.v1.AdvancedBoxScoreTeams.havoc:type_name -> cfbd.v1.TeamHavoc
-	104, // 433: cfbd.v1.AdvancedBoxScoreTeams.rushing:type_name -> cfbd.v1.TeamRushingStats
-	103, // 434: cfbd.v1.AdvancedBoxScoreTeams.explosiveness:type_name -> cfbd.v1.TeamExplosiveness
-	102, // 435: cfbd.v1.AdvancedBoxScoreTeams.success_rates:type_name -> cfbd.v1.TeamSuccessRates
-	101, // 436: cfbd.v1.AdvancedBoxScoreTeams.cumulative_ppa:type_name -> cfbd.v1.TeamPPA
-	101, // 437: cfbd.v1.AdvancedBoxScoreTeams.ppa:type_name -> cfbd.v1.TeamPPA
-	110, // 438: cfbd.v1.AdvancedBoxScorePlayers.ppa:type_name -> cfbd.v1.PlayerPPA
-	108, // 439: cfbd.v1.AdvancedBoxScorePlayers.usage:type_name -> cfbd.v1.PlayerGameUsage
-	111, // 440: cfbd.v1.AdvancedBoxScore.game_info:type_name -> cfbd.v1.AdvancedBoxScoreGameInfo
-	112, // 441: cfbd.v1.AdvancedBoxScore.teams:type_name -> cfbd.v1.AdvancedBoxScoreTeams
-	113, // 442: cfbd.v1.AdvancedBoxScore.players:type_name -> cfbd.v1.AdvancedBoxScorePlayers
+	119, // 383: cfbd.v1.DraftTeam.nickname:type_name -> google.protobuf.StringValue
+	119, // 384: cfbd.v1.DraftTeam.display_name:type_name -> google.protobuf.StringValue
+	119, // 385: cfbd.v1.DraftTeam.logo:type_name -> google.protobuf.StringValue
+	119, // 386: cfbd.v1.DraftPickHometownInfo.county_fips:type_name -> google.protobuf.StringValue
+	119, // 387: cfbd.v1.DraftPickHometownInfo.longitude:type_name -> google.protobuf.StringValue
+	119, // 388: cfbd.v1.DraftPickHometownInfo.latitude:type_name -> google.protobuf.StringValue
+	119, // 389: cfbd.v1.DraftPickHometownInfo.country:type_name -> google.protobuf.StringValue
+	119, // 390: cfbd.v1.DraftPickHometownInfo.state:type_name -> google.protobuf.StringValue
+	119, // 391: cfbd.v1.DraftPickHometownInfo.city:type_name -> google.protobuf.StringValue
+	116, // 392: cfbd.v1.DraftPick.college_athlete_id:type_name -> google.protobuf.Int32Value
+	116, // 393: cfbd.v1.DraftPick.nfl_athlete_id:type_name -> google.protobuf.Int32Value
+	119, // 394: cfbd.v1.DraftPick.college_conference:type_name -> google.protobuf.StringValue
+	117, // 395: cfbd.v1.DraftPick.height:type_name -> google.protobuf.DoubleValue
+	116, // 396: cfbd.v1.DraftPick.weight:type_name -> google.protobuf.Int32Value
+	116, // 397: cfbd.v1.DraftPick.pre_draft_ranking:type_name -> google.protobuf.Int32Value
+	116, // 398: cfbd.v1.DraftPick.pre_draft_position_ranking:type_name -> google.protobuf.Int32Value
+	116, // 399: cfbd.v1.DraftPick.pre_draft_grade:type_name -> google.protobuf.Int32Value
+	97,  // 400: cfbd.v1.DraftPick.hometown_info:type_name -> cfbd.v1.DraftPickHometownInfo
+	116, // 401: cfbd.v1.CoachSeason.preseason_rank:type_name -> google.protobuf.Int32Value
+	116, // 402: cfbd.v1.CoachSeason.postseason_rank:type_name -> google.protobuf.Int32Value
+	117, // 403: cfbd.v1.CoachSeason.srs:type_name -> google.protobuf.DoubleValue
+	117, // 404: cfbd.v1.CoachSeason.sp_overall:type_name -> google.protobuf.DoubleValue
+	117, // 405: cfbd.v1.CoachSeason.sp_offense:type_name -> google.protobuf.DoubleValue
+	117, // 406: cfbd.v1.CoachSeason.sp_defense:type_name -> google.protobuf.DoubleValue
+	122, // 407: cfbd.v1.Coach.hire_date:type_name -> google.protobuf.Timestamp
+	99,  // 408: cfbd.v1.Coach.seasons:type_name -> cfbd.v1.CoachSeason
+	117, // 409: cfbd.v1.StatsByQuarter.quarter1:type_name -> google.protobuf.DoubleValue
+	117, // 410: cfbd.v1.StatsByQuarter.quarter2:type_name -> google.protobuf.DoubleValue
+	117, // 411: cfbd.v1.StatsByQuarter.quarter3:type_name -> google.protobuf.DoubleValue
+	117, // 412: cfbd.v1.StatsByQuarter.quarter4:type_name -> google.protobuf.DoubleValue
+	101, // 413: cfbd.v1.TeamPPA.overall:type_name -> cfbd.v1.StatsByQuarter
+	101, // 414: cfbd.v1.TeamPPA.passing:type_name -> cfbd.v1.StatsByQuarter
+	101, // 415: cfbd.v1.TeamPPA.rushing:type_name -> cfbd.v1.StatsByQuarter
+	101, // 416: cfbd.v1.TeamSuccessRates.overall:type_name -> cfbd.v1.StatsByQuarter
+	101, // 417: cfbd.v1.TeamSuccessRates.standard_downs:type_name -> cfbd.v1.StatsByQuarter
+	101, // 418: cfbd.v1.TeamSuccessRates.passing_downs:type_name -> cfbd.v1.StatsByQuarter
+	101, // 419: cfbd.v1.TeamExplosiveness.overall:type_name -> cfbd.v1.StatsByQuarter
+	117, // 420: cfbd.v1.PlayerGameUsage.quarter1:type_name -> google.protobuf.DoubleValue
+	117, // 421: cfbd.v1.PlayerGameUsage.quarter2:type_name -> google.protobuf.DoubleValue
+	117, // 422: cfbd.v1.PlayerGameUsage.quarter3:type_name -> google.protobuf.DoubleValue
+	117, // 423: cfbd.v1.PlayerGameUsage.quarter4:type_name -> google.protobuf.DoubleValue
+	117, // 424: cfbd.v1.PlayerStatsByQuarter.quarter1:type_name -> google.protobuf.DoubleValue
+	117, // 425: cfbd.v1.PlayerStatsByQuarter.quarter2:type_name -> google.protobuf.DoubleValue
+	117, // 426: cfbd.v1.PlayerStatsByQuarter.quarter3:type_name -> google.protobuf.DoubleValue
+	117, // 427: cfbd.v1.PlayerStatsByQuarter.quarter4:type_name -> google.protobuf.DoubleValue
+	110, // 428: cfbd.v1.PlayerPPA.average:type_name -> cfbd.v1.PlayerStatsByQuarter
+	110, // 429: cfbd.v1.PlayerPPA.cumulative:type_name -> cfbd.v1.PlayerStatsByQuarter
+	108, // 430: cfbd.v1.AdvancedBoxScoreTeams.field_position:type_name -> cfbd.v1.TeamFieldPosition
+	107, // 431: cfbd.v1.AdvancedBoxScoreTeams.scoring_opportunities:type_name -> cfbd.v1.TeamScoringOpportunities
+	106, // 432: cfbd.v1.AdvancedBoxScoreTeams.havoc:type_name -> cfbd.v1.TeamHavoc
+	105, // 433: cfbd.v1.AdvancedBoxScoreTeams.rushing:type_name -> cfbd.v1.TeamRushingStats
+	104, // 434: cfbd.v1.AdvancedBoxScoreTeams.explosiveness:type_name -> cfbd.v1.TeamExplosiveness
+	103, // 435: cfbd.v1.AdvancedBoxScoreTeams.success_rates:type_name -> cfbd.v1.TeamSuccessRates
+	102, // 436: cfbd.v1.AdvancedBoxScoreTeams.cumulative_ppa:type_name -> cfbd.v1.TeamPPA
+	102, // 437: cfbd.v1.AdvancedBoxScoreTeams.ppa:type_name -> cfbd.v1.TeamPPA
+	111, // 438: cfbd.v1.AdvancedBoxScorePlayers.ppa:type_name -> cfbd.v1.PlayerPPA
+	109, // 439: cfbd.v1.AdvancedBoxScorePlayers.usage:type_name -> cfbd.v1.PlayerGameUsage
+	112, // 440: cfbd.v1.AdvancedBoxScore.game_info:type_name -> cfbd.v1.AdvancedBoxScoreGameInfo
+	113, // 441: cfbd.v1.AdvancedBoxScore.teams:type_name -> cfbd.v1.AdvancedBoxScoreTeams
+	114, // 442: cfbd.v1.AdvancedBoxScore.players:type_name -> cfbd.v1.AdvancedBoxScorePlayers
 	443, // [443:443] is the sub-list for method output_type
 	443, // [443:443] is the sub-list for method input_type
 	443, // [443:443] is the sub-list for extension type_name
@@ -13389,7 +13486,7 @@ func file_cfbd_internal_proto_cfbd_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_cfbd_internal_proto_cfbd_proto_rawDesc), len(file_cfbd_internal_proto_cfbd_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   115,
+			NumMessages:   116,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

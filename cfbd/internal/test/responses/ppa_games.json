@@ -1,0 +1,27 @@
+[
+    {
+        "gameId": 401752677,
+        "season": 2025,
+        "week": 1,
+        "seasonType": "regular",
+        "team": "Texas",
+        "conference": "SEC",
+        "opponent": "Ohio State",
+        "offense": {
+            "overall": -0.12,
+            "passing": -0.25,
+            "rushing": 0.1,
+            "firstDown": -0.13,
+            "secondDown": 0.06,
+            "thirdDown": 0.47
+        },
+        "defense": {
+            "overall": 0.04,
+            "passing": 0.32,
+            "rushing": -0.13,
+            "firstDown": -0.16,
+            "secondDown": 0.11,
+            "thirdDown": 0.12
+        }
+    }
+]
