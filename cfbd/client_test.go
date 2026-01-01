@@ -1557,6 +1557,84 @@ func TestGetPlayerUsage_ValidRequest_ShouldSucceed(t *testing.T) {
 	assert.Equal(t, usage.Usage.PassingDowns.Value, 0.622)
 }
 
+func TestGetReturningProduction_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "player_returning.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetReturningProduction(
+		context.Background(), GetReturningProductionRequest{
+			Year: testYear,
+			Team: testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single returning production record
+	production := response[0]
+	assert.Equal(t, production.Season, int32(2025))
+	assert.Equal(t, production.Team, "Texas")
+	assert.Equal(t, production.Conference, "SEC")
+	assert.Equal(t, production.Total_PPA, 172.5)
+	assert.Equal(t, production.TotalPassing_PPA, 55.1)
+	assert.Equal(t, production.TotalReceiving_PPA, 66.0)
+	assert.Equal(t, production.TotalRushing_PPA, 51.4)
+	assert.Equal(t, production.Percent_PPA, 0.283)
+	assert.Equal(t, production.PercentPassing_PPA, 0.266)
+	assert.Equal(t, production.PercentReceiving_PPA, 0.207)
+	assert.Equal(t, production.PercentRushing_PPA, 0.614)
+	assert.Equal(t, production.Usage, 0.395)
+	assert.Equal(t, production.PassingUsage, 0.172)
+	assert.Equal(t, production.ReceivingUsage, 0.352)
+	assert.Equal(t, production.RushingUsage, 0.675)
+}
+
+func TestGetTransferPortalPlayers_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "player_portal.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetTransferPortalPlayers(
+		context.Background(), GetTransferPortalPlayersRequest{
+			Year: testYear,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 4499)
+
+	// Test single transfer (Isaiah Rogers - has complete data)
+	transfer := response[2]
+	assert.Equal(t, transfer.Season, int32(2025))
+	assert.Equal(t, transfer.FirstName, "Isaiah")
+	assert.Equal(t, transfer.LastName, "Rogers")
+	assert.Equal(t, transfer.Position, "DL")
+	assert.Equal(t, transfer.Origin, "Monmouth")
+	require.NotNil(t, transfer.Destination)
+	assert.Equal(t, transfer.Destination.Value, "Cincinnati")
+	require.NotNil(t, transfer.TransferDate)
+	assert.Equal(t,
+		transfer.TransferDate.AsTime().Format(defaultTimeFormat),
+		"2025-04-23T01:29:00.000Z",
+	)
+	require.NotNil(t, transfer.Rating)
+	assert.Equal(t, transfer.Rating.Value, 0.84)
+	require.NotNil(t, transfer.Stars)
+	assert.Equal(t, transfer.Stars.Value, int32(3))
+	require.NotNil(t, transfer.Eligibility)
+	assert.Equal(t, transfer.Eligibility.Value, "Immediate")
+}
+
 func convertToInt32Slice(values []*structpb.Value) []int32 {
 	results := make([]int32, len(values))
 	for i, v := range values {
