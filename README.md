@@ -226,7 +226,9 @@ weather, err := client.GetGameWeather(ctx, cfbd.GetGameWeatherRequest{
 Get advanced box score statistics for a specific game.
 
 ```go
-boxScore, err := client.GetAdvancedBoxScore(ctx, gameID)
+boxScore, err := client.GetAdvancedBoxScore(ctx, cfbd.GetAdvancedBoxScoreRequest{
+    GameID: 401752677,
+})
 ```
 
 #### GetCalendar
@@ -235,7 +237,9 @@ boxScore, err := client.GetAdvancedBoxScore(ctx, gameID)
 Retrieve calendar weeks for a year.
 
 ```go
-weeks, err := client.GetCalendar(ctx, 2024)
+weeks, err := client.GetCalendar(ctx, cfbd.GetCalendarRequest{
+    Year: 2024,
+})
 ```
 
 #### GetScoreboard
@@ -438,7 +442,9 @@ statTypes, err := client.GetPlayStatTypes(ctx)
 Get live play-by-play data for a game (requires live game ID).
 
 ```go
-liveGame, err := client.GetLivePlays(ctx, gameID)
+liveGame, err := client.GetLivePlays(ctx, cfbd.GetLivePlaysRequest{
+    GameID: 401778330,
+})
 ```
 
 #### GetDrives
@@ -734,7 +740,9 @@ ppa, err := client.GetPlayerSeasonPPA(ctx, cfbd.GetPlayerSeasonPPARequest{
 Get win probability data for each play in a game.
 
 ```go
-probabilities, err := client.GetWinProbability(ctx, gameID)
+probabilities, err := client.GetWinProbability(ctx, cfbd.GetWinProbabilityRequest{
+    GameID: 401778330,
+})
 ```
 
 #### GetPregameWinProbability
