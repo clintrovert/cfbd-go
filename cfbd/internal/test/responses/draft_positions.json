@@ -1,0 +1,118 @@
+[
+    {
+        "name": "Center",
+        "abbreviation": "C"
+    },
+    {
+        "name": "Cornerback",
+        "abbreviation": "CB"
+    },
+    {
+        "name": "Defensive Back",
+        "abbreviation": "DB"
+    },
+    {
+        "name": "Defensive Edge",
+        "abbreviation": "EDGE"
+    },
+    {
+        "name": "Defensive End",
+        "abbreviation": "DE"
+    },
+    {
+        "name": "Defensive Lineman",
+        "abbreviation": "DL"
+    },
+    {
+        "name": "Defensive Tackle",
+        "abbreviation": "DT"
+    },
+    {
+        "name": "Free Safety",
+        "abbreviation": "FS"
+    },
+    {
+        "name": "Fullback",
+        "abbreviation": "FB"
+    },
+    {
+        "name": "Inside Linebacker",
+        "abbreviation": "ILB"
+    },
+    {
+        "name": "Kick Returner",
+        "abbreviation": "KR"
+    },
+    {
+        "name": "Left Tackle",
+        "abbreviation": "LT"
+    },
+    {
+        "name": "Linebacker",
+        "abbreviation": "LB"
+    },
+    {
+        "name": "Long Snapper",
+        "abbreviation": "LS"
+    },
+    {
+        "name": "Middle Linebacker",
+        "abbreviation": "MLB"
+    },
+    {
+        "name": "Nose Tackle",
+        "abbreviation": "NT"
+    },
+    {
+        "name": "Offensive Guard",
+        "abbreviation": "OG"
+    },
+    {
+        "name": "Offensive Tackle",
+        "abbreviation": "OT"
+    },
+    {
+        "name": "Outside Linebacker",
+        "abbreviation": "OLB"
+    },
+    {
+        "name": "Place Kicker",
+        "abbreviation": "PK"
+    },
+    {
+        "name": "Punter",
+        "abbreviation": "P"
+    },
+    {
+        "name": "Quarterback",
+        "abbreviation": "QB"
+    },
+    {
+        "name": "Running Back",
+        "abbreviation": "RB"
+    },
+    {
+        "name": "Safety",
+        "abbreviation": "S"
+    },
+    {
+        "name": "Strong Safety",
+        "abbreviation": "SS"
+    },
+    {
+        "name": "Tackle",
+        "abbreviation": "T"
+    },
+    {
+        "name": "Tight End",
+        "abbreviation": "TE"
+    },
+    {
+        "name": "Unknown",
+        "abbreviation": "-"
+    },
+    {
+        "name": "Wide Receiver",
+        "abbreviation": "WR"
+    }
+]

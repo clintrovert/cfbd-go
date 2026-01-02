@@ -1,0 +1,366 @@
+[
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "firstDowns",
+        "statValue": 16
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "firstDownsOpponent",
+        "statValue": 11
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "fourthDownConversions",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "fourthDownConversionsOpponent",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "fourthDowns",
+        "statValue": 5
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "fourthDownsOpponent",
+        "statValue": 2
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "fumblesLost",
+        "statValue": 0
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "fumblesLostOpponent",
+        "statValue": 0
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "games",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "interceptions",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "interceptionsOpponent",
+        "statValue": 0
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "interceptionTDsOpponent",
+        "statValue": 0
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "interceptionYardsOpponent",
+        "statValue": 5
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "kickReturns",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "kickReturnTDs",
+        "statValue": 0
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "kickReturnYards",
+        "statValue": 15
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "netPassingYards",
+        "statValue": 170
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "netPassingYardsOpponent",
+        "statValue": 126
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "passAttempts",
+        "statValue": 30
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "passAttemptsOpponent",
+        "statValue": 20
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "passCompletions",
+        "statValue": 17
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "passCompletionsOpponent",
+        "statValue": 13
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "passesInterceptedOpponent",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "passingTDs",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "passingTDsOpponent",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "penalties",
+        "statValue": 6
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "penaltiesOpponent",
+        "statValue": 2
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "penaltyYards",
+        "statValue": 50
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "penaltyYardsOpponent",
+        "statValue": 15
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "possessionTime",
+        "statValue": 1675
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "possessionTimeOpponent",
+        "statValue": 1925
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "puntReturns",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "puntReturnTDs",
+        "statValue": 0
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "puntReturnYards",
+        "statValue": 3
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "rushingAttempts",
+        "statValue": 37
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "rushingAttemptsOpponent",
+        "statValue": 34
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "rushingTDs",
+        "statValue": 0
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "rushingTDsOpponent",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "rushingYards",
+        "statValue": 166
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "rushingYardsOpponent",
+        "statValue": 77
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "sacks",
+        "statValue": 0
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "sacksOpponent",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "tacklesForLoss",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "tacklesForLossOpponent",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "thirdDownConversions",
+        "statValue": 5
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "thirdDownConversionsOpponent",
+        "statValue": 3
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "thirdDowns",
+        "statValue": 14
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "thirdDownsOpponent",
+        "statValue": 12
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "totalYards",
+        "statValue": 336
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "totalYardsOpponent",
+        "statValue": 203
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "turnovers",
+        "statValue": 1
+    },
+    {
+        "season": 2025,
+        "team": "Texas",
+        "conference": "SEC",
+        "statName": "turnoversOpponent",
+        "statValue": 0
+    }
+]

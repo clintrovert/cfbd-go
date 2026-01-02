@@ -2636,6 +2636,665 @@ func TestGetFieldGoalExpectedPoints_ValidRequest_ShouldSucceed(t *testing.T) {
 	assert.Equal(t, ep.ExpectedPoints, 2.85)
 }
 
+func TestGetPlayerSeasonStats_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "stat_player_season.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetPlayerSeasonStats(
+		context.Background(), GetPlayerSeasonStatsRequest{
+			Year:     testYear,
+			Team:     testTeam,
+			Category: "passing",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 7)
+
+	// Test first stat (ATT)
+	stat := response[0]
+	assert.Equal(t, stat.Season, int32(2025))
+	assert.Equal(t, stat.PlayerId, "4870906")
+	assert.Equal(t, stat.Player, "Arch Manning")
+	assert.Equal(t, stat.Position, "QB")
+	assert.Equal(t, stat.Team, "Texas")
+	assert.Equal(t, stat.Conference, "SEC")
+	assert.Equal(t, stat.Category, "passing")
+	assert.Equal(t, stat.StatType, "ATT")
+	assert.Equal(t, stat.Stat, "30")
+}
+
+func TestGetTeamSeasonStats_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "stat_season.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetTeamSeasonStats(
+		context.Background(), GetTeamSeasonStatsRequest{
+			Year: testYear,
+			Team: testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 52)
+
+	// Test first stat (firstDowns)
+	stat := response[0]
+	assert.Equal(t, stat.Season, int32(2025))
+	assert.Equal(t, stat.Team, "Texas")
+	assert.Equal(t, stat.Conference, "SEC")
+	assert.Equal(t, stat.StatName, "firstDowns")
+	require.NotNil(t, stat.StatValue)
+	assert.Equal(t, stat.StatValue.GetNumberValue(), float64(16))
+}
+
+func TestGetStatCategories_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "stat_categories.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetStatCategories(context.Background())
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 38)
+
+	// Test first category
+	assert.Equal(t, response[0], "completionAttempts")
+}
+
+func TestGetAdvancedSeasonStats_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "stat_season_advanced.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetAdvancedSeasonStats(
+		context.Background(), GetAdvancedSeasonStatsRequest{
+			Year: testYear,
+			Team: testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single advanced season stat
+	stat := response[0]
+	assert.Equal(t, stat.Season, int32(2025))
+	assert.Equal(t, stat.Team, "Texas")
+	assert.Equal(t, stat.Conference, "SEC")
+
+	// Test offense
+	require.NotNil(t, stat.Offense)
+	require.NotNil(t, stat.Offense.Plays)
+	assert.Equal(t, stat.Offense.Plays.Value, int32(67))
+	require.NotNil(t, stat.Offense.Drives)
+	assert.Equal(t, stat.Offense.Drives.Value, int32(10))
+	require.NotNil(t, stat.Offense.Ppa)
+	assert.Equal(t, stat.Offense.Ppa.Value, -0.12004779138818919)
+	require.NotNil(t, stat.Offense.Total_PPA)
+	assert.Equal(t, stat.Offense.Total_PPA.Value, -8.043202023008677)
+	require.NotNil(t, stat.Offense.SuccessRate)
+	assert.Equal(t, stat.Offense.SuccessRate.Value, 0.417910447761194)
+	require.NotNil(t, stat.Offense.Explosiveness)
+	assert.Equal(t, stat.Offense.Explosiveness.Value, 0.9056990216331493)
+	require.NotNil(t, stat.Offense.PowerSuccess)
+	assert.Equal(t, stat.Offense.PowerSuccess.Value, 0.75)
+	require.NotNil(t, stat.Offense.StuffRate)
+	assert.Equal(t, stat.Offense.StuffRate.Value, 0.05714285714285714)
+	require.NotNil(t, stat.Offense.LineYards)
+	assert.Equal(t, stat.Offense.LineYards.Value, 3.6)
+	require.NotNil(t, stat.Offense.LineYardsTotal)
+	assert.Equal(t, stat.Offense.LineYardsTotal.Value, int32(126))
+	require.NotNil(t, stat.Offense.SecondLevelYards)
+	assert.Equal(t, stat.Offense.SecondLevelYards.Value, 0.9428571428571428)
+	require.NotNil(t, stat.Offense.SecondLevelYardsTotal)
+	assert.Equal(t, stat.Offense.SecondLevelYardsTotal.Value, int32(33))
+	require.NotNil(t, stat.Offense.OpenFieldYards)
+	assert.Equal(t, stat.Offense.OpenFieldYards.Value, 0.34285714285714286)
+	require.NotNil(t, stat.Offense.OpenFieldYardsTotal)
+	assert.Equal(t, stat.Offense.OpenFieldYardsTotal.Value, int32(12))
+	require.NotNil(t, stat.Offense.TotalOpportunies)
+	assert.Equal(t, stat.Offense.TotalOpportunies.Value, int32(3))
+	require.NotNil(t, stat.Offense.PointsPerOpportunity)
+	assert.Equal(t, stat.Offense.PointsPerOpportunity.Value, 2.3333333333333335)
+
+	// Test offense field position
+	require.NotNil(t, stat.Offense.FieldPosition)
+	require.NotNil(t, stat.Offense.FieldPosition.AverageStart)
+	assert.Equal(t, stat.Offense.FieldPosition.AverageStart.Value, float64(68))
+	require.NotNil(t, stat.Offense.FieldPosition.AveragePredictedPoints)
+	assert.Equal(t, stat.Offense.FieldPosition.AveragePredictedPoints.Value, 1.613)
+
+	// Test offense havoc
+	require.NotNil(t, stat.Offense.Havoc)
+	require.NotNil(t, stat.Offense.Havoc.Total)
+	assert.Equal(t, stat.Offense.Havoc.Total.Value, 0.045)
+	require.NotNil(t, stat.Offense.Havoc.FrontSeven)
+	assert.Equal(t, stat.Offense.Havoc.FrontSeven.Value, 0.015)
+	require.NotNil(t, stat.Offense.Havoc.Db)
+	assert.Equal(t, stat.Offense.Havoc.Db.Value, 0.03)
+
+	// Test offense standard downs
+	require.NotNil(t, stat.Offense.StandardDowns)
+	require.NotNil(t, stat.Offense.StandardDowns.Rate)
+	assert.Equal(t, stat.Offense.StandardDowns.Rate.Value, 0.7313432835820896)
+	require.NotNil(t, stat.Offense.StandardDowns.Ppa)
+	assert.Equal(t, stat.Offense.StandardDowns.Ppa.Value, -0.2825433028390425)
+	require.NotNil(t, stat.Offense.StandardDowns.SuccessRate)
+	assert.Equal(t, stat.Offense.StandardDowns.SuccessRate.Value, 0.46938775510204084)
+	require.NotNil(t, stat.Offense.StandardDowns.Explosiveness)
+	assert.Equal(t, stat.Offense.StandardDowns.Explosiveness.Value, 0.6228045350329661)
+
+	// Test offense passing downs
+	require.NotNil(t, stat.Offense.PassingDowns)
+	require.NotNil(t, stat.Offense.PassingDowns.Rate)
+	assert.Equal(t, stat.Offense.PassingDowns.Rate.Value, 0.26865671641791045)
+	require.NotNil(t, stat.Offense.PassingDowns.Ppa)
+	assert.Equal(t, stat.Offense.PassingDowns.Ppa.Value, 0.32230110089468933)
+
+	// Test offense rushing plays
+	require.NotNil(t, stat.Offense.RushingPlays)
+	require.NotNil(t, stat.Offense.RushingPlays.Rate)
+	assert.Equal(t, stat.Offense.RushingPlays.Rate.Value, 0.5223880597014925)
+	require.NotNil(t, stat.Offense.RushingPlays.Ppa)
+	assert.Equal(t, stat.Offense.RushingPlays.Ppa.Value, 0.09681986254637139)
+	require.NotNil(t, stat.Offense.RushingPlays.Total_PPA)
+	assert.Equal(t, stat.Offense.RushingPlays.Total_PPA.Value, 3.3886951891229984)
+
+	// Test offense passing plays
+	require.NotNil(t, stat.Offense.PassingPlays)
+	require.NotNil(t, stat.Offense.PassingPlays.Rate)
+	assert.Equal(t, stat.Offense.PassingPlays.Rate.Value, 0.4626865671641791)
+	require.NotNil(t, stat.Offense.PassingPlays.Ppa)
+	assert.Equal(t, stat.Offense.PassingPlays.Ppa.Value, -0.2511053967762106)
+	require.NotNil(t, stat.Offense.PassingPlays.Total_PPA)
+	assert.Equal(t, stat.Offense.PassingPlays.Total_PPA.Value, -7.784267300062528)
+
+	// Test defense
+	require.NotNil(t, stat.Defense)
+	require.NotNil(t, stat.Defense.Plays)
+	assert.Equal(t, stat.Defense.Plays.Value, int32(54))
+	require.NotNil(t, stat.Defense.Drives)
+	assert.Equal(t, stat.Defense.Drives.Value, int32(11))
+	require.NotNil(t, stat.Defense.Ppa)
+	assert.Equal(t, stat.Defense.Ppa.Value, 0.035721038997178885)
+	require.NotNil(t, stat.Defense.Total_PPA)
+	assert.Equal(t, stat.Defense.Total_PPA.Value, 1.9289361058476597)
+	require.NotNil(t, stat.Defense.SuccessRate)
+	assert.Equal(t, stat.Defense.SuccessRate.Value, 0.3333333333333333)
+	require.NotNil(t, stat.Defense.Explosiveness)
+	assert.Equal(t, stat.Defense.Explosiveness.Value, 0.927354893379026)
+	require.NotNil(t, stat.Defense.PowerSuccess)
+	assert.Equal(t, stat.Defense.PowerSuccess.Value, 0.5)
+	require.NotNil(t, stat.Defense.StuffRate)
+	assert.Equal(t, stat.Defense.StuffRate.Value, 0.2647058823529412)
+	require.NotNil(t, stat.Defense.LineYards)
+	assert.Equal(t, stat.Defense.LineYards.Value, 1.8941176470588235)
+	require.NotNil(t, stat.Defense.LineYardsTotal)
+	assert.Equal(t, stat.Defense.LineYardsTotal.Value, int32(64))
+	require.NotNil(t, stat.Defense.SecondLevelYards)
+	assert.Equal(t, stat.Defense.SecondLevelYards.Value, 0.29411764705882354)
+	require.NotNil(t, stat.Defense.SecondLevelYardsTotal)
+	assert.Equal(t, stat.Defense.SecondLevelYardsTotal.Value, int32(10))
+	require.NotNil(t, stat.Defense.OpenFieldYards)
+	assert.Equal(t, stat.Defense.OpenFieldYards.Value, 0.0)
+	require.NotNil(t, stat.Defense.OpenFieldYardsTotal)
+	assert.Equal(t, stat.Defense.OpenFieldYardsTotal.Value, int32(0))
+	require.NotNil(t, stat.Defense.TotalOpportunies)
+	assert.Equal(t, stat.Defense.TotalOpportunies.Value, int32(2))
+	require.NotNil(t, stat.Defense.PointsPerOpportunity)
+	assert.Equal(t, stat.Defense.PointsPerOpportunity.Value, 7.0)
+
+	// Test defense field position
+	require.NotNil(t, stat.Defense.FieldPosition)
+	require.NotNil(t, stat.Defense.FieldPosition.AverageStart)
+	assert.Equal(t, stat.Defense.FieldPosition.AverageStart.Value, 80.5)
+	require.NotNil(t, stat.Defense.FieldPosition.AveragePredictedPoints)
+	assert.Equal(t, stat.Defense.FieldPosition.AveragePredictedPoints.Value, -0.881)
+
+	// Test defense havoc
+	require.NotNil(t, stat.Defense.Havoc)
+	require.NotNil(t, stat.Defense.Havoc.Total)
+	assert.Equal(t, stat.Defense.Havoc.Total.Value, 0.056)
+	require.NotNil(t, stat.Defense.Havoc.FrontSeven)
+	assert.Equal(t, stat.Defense.Havoc.FrontSeven.Value, 0.019)
+	require.NotNil(t, stat.Defense.Havoc.Db)
+	assert.Equal(t, stat.Defense.Havoc.Db.Value, 0.037)
+
+	// Test defense standard downs
+	require.NotNil(t, stat.Defense.StandardDowns)
+	require.NotNil(t, stat.Defense.StandardDowns.Rate)
+	assert.Equal(t, stat.Defense.StandardDowns.Rate.Value, 0.7407407407407407)
+	require.NotNil(t, stat.Defense.StandardDowns.Ppa)
+	assert.Equal(t, stat.Defense.StandardDowns.Ppa.Value, 0.10119335863760198)
+
+	// Test defense passing downs
+	require.NotNil(t, stat.Defense.PassingDowns)
+	require.NotNil(t, stat.Defense.PassingDowns.Rate)
+	assert.Equal(t, stat.Defense.PassingDowns.Rate.Value, 0.25925925925925924)
+	require.NotNil(t, stat.Defense.PassingDowns.Ppa)
+	assert.Equal(t, stat.Defense.PassingDowns.Ppa.Value, -0.15134273140402998)
+	require.NotNil(t, stat.Defense.PassingDowns.Total_PPA)
+	assert.Equal(t, stat.Defense.PassingDowns.Total_PPA.Value, 6.385830807151504)
+
+	// Test defense rushing plays
+	require.NotNil(t, stat.Defense.RushingPlays)
+	require.NotNil(t, stat.Defense.RushingPlays.Rate)
+	assert.Equal(t, stat.Defense.RushingPlays.Rate.Value, 0.6296296296296297)
+	require.NotNil(t, stat.Defense.RushingPlays.Ppa)
+	assert.Equal(t, stat.Defense.RushingPlays.Ppa.Value, -0.1310851382736425)
+	require.NotNil(t, stat.Defense.RushingPlays.Total_PPA)
+	assert.Equal(t, stat.Defense.RushingPlays.Total_PPA.Value, -4.4568947013038445)
+
+	// Test defense passing plays
+	require.NotNil(t, stat.Defense.PassingPlays)
+	require.NotNil(t, stat.Defense.PassingPlays.Rate)
+	assert.Equal(t, stat.Defense.PassingPlays.Rate.Value, 0.37037037037037035)
+	require.NotNil(t, stat.Defense.PassingPlays.Ppa)
+	assert.Equal(t, stat.Defense.PassingPlays.Ppa.Value, 0.31929154035757523)
+	require.NotNil(t, stat.Defense.PassingPlays.Total_PPA)
+	assert.Equal(t, stat.Defense.PassingPlays.Total_PPA.Value, 6.385830807151504)
+}
+
+func TestGetAdvancedGameStats_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "stat_game_advanced.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetAdvancedGameStats(
+		context.Background(), GetAdvancedGameStatsRequest{
+			Year:       testYear,
+			Week:       testWeek,
+			Team:       testTeam,
+			SeasonType: "regular",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single advanced game stat
+	stat := response[0]
+	assert.Equal(t, stat.GameId, int32(401752677))
+	assert.Equal(t, stat.Season, int32(2025))
+	assert.Equal(t, stat.SeasonType, "regular")
+	assert.Equal(t, stat.Week, int32(1))
+	assert.Equal(t, stat.Team, "Texas")
+	assert.Equal(t, stat.Opponent, "Ohio State")
+
+	// Test offense
+	require.NotNil(t, stat.Offense)
+	require.NotNil(t, stat.Offense.Plays)
+	assert.Equal(t, stat.Offense.Plays.Value, int32(67))
+	require.NotNil(t, stat.Offense.Drives)
+	assert.Equal(t, stat.Offense.Drives.Value, int32(10))
+	require.NotNil(t, stat.Offense.Ppa)
+	assert.Equal(t, stat.Offense.Ppa.Value, -0.12004779138818919)
+	require.NotNil(t, stat.Offense.Total_PPA)
+	assert.Equal(t, stat.Offense.Total_PPA.Value, -8.043202023008677)
+	require.NotNil(t, stat.Offense.SuccessRate)
+	assert.Equal(t, stat.Offense.SuccessRate.Value, 0.417910447761194)
+	require.NotNil(t, stat.Offense.Explosiveness)
+	assert.Equal(t, stat.Offense.Explosiveness.Value, 0.9056990216331493)
+	require.NotNil(t, stat.Offense.PowerSuccess)
+	assert.Equal(t, stat.Offense.PowerSuccess.Value, 0.75)
+	require.NotNil(t, stat.Offense.StuffRate)
+	assert.Equal(t, stat.Offense.StuffRate.Value, 0.05714285714285714)
+	require.NotNil(t, stat.Offense.LineYards)
+	assert.Equal(t, stat.Offense.LineYards.Value, 3.6)
+	require.NotNil(t, stat.Offense.LineYardsTotal)
+	assert.Equal(t, stat.Offense.LineYardsTotal.Value, int32(126))
+	require.NotNil(t, stat.Offense.SecondLevelYards)
+	assert.Equal(t, stat.Offense.SecondLevelYards.Value, 0.9428571428571428)
+	require.NotNil(t, stat.Offense.SecondLevelYardsTotal)
+	assert.Equal(t, stat.Offense.SecondLevelYardsTotal.Value, int32(33))
+	require.NotNil(t, stat.Offense.OpenFieldYards)
+	assert.Equal(t, stat.Offense.OpenFieldYards.Value, 0.34285714285714286)
+	require.NotNil(t, stat.Offense.OpenFieldYardsTotal)
+	assert.Equal(t, stat.Offense.OpenFieldYardsTotal.Value, int32(12))
+
+	// Test offense standard downs
+	require.NotNil(t, stat.Offense.StandardDowns)
+	require.NotNil(t, stat.Offense.StandardDowns.Ppa)
+	assert.Equal(t, stat.Offense.StandardDowns.Ppa.Value, -0.2825433028390425)
+	require.NotNil(t, stat.Offense.StandardDowns.SuccessRate)
+	assert.Equal(t, stat.Offense.StandardDowns.SuccessRate.Value, 0.46938775510204084)
+	require.NotNil(t, stat.Offense.StandardDowns.Explosiveness)
+	assert.Equal(t, stat.Offense.StandardDowns.Explosiveness.Value, 0.6228045350329661)
+
+	// Test offense passing downs
+	require.NotNil(t, stat.Offense.PassingDowns)
+	require.NotNil(t, stat.Offense.PassingDowns.Ppa)
+	assert.Equal(t, stat.Offense.PassingDowns.Ppa.Value, 0.32230110089468933)
+	require.NotNil(t, stat.Offense.PassingDowns.SuccessRate)
+	assert.Equal(t, stat.Offense.PassingDowns.SuccessRate.Value, 0.2777777777777778)
+	require.NotNil(t, stat.Offense.PassingDowns.Explosiveness)
+	assert.Equal(t, stat.Offense.PassingDowns.Explosiveness.Value, 2.2070136599939922)
+
+	// Test offense rushing plays
+	require.NotNil(t, stat.Offense.RushingPlays)
+	require.NotNil(t, stat.Offense.RushingPlays.Ppa)
+	assert.Equal(t, stat.Offense.RushingPlays.Ppa.Value, 0.09681986254637139)
+	require.NotNil(t, stat.Offense.RushingPlays.Total_PPA)
+	assert.Equal(t, stat.Offense.RushingPlays.Total_PPA.Value, 3.3886951891229984)
+	require.NotNil(t, stat.Offense.RushingPlays.SuccessRate)
+	assert.Equal(t, stat.Offense.RushingPlays.SuccessRate.Value, 0.5142857142857142)
+	require.NotNil(t, stat.Offense.RushingPlays.Explosiveness)
+	assert.Equal(t, stat.Offense.RushingPlays.Explosiveness.Value, 0.7596644406102547)
+
+	// Test offense passing plays
+	require.NotNil(t, stat.Offense.PassingPlays)
+	require.NotNil(t, stat.Offense.PassingPlays.Ppa)
+	assert.Equal(t, stat.Offense.PassingPlays.Ppa.Value, -0.2511053967762106)
+	require.NotNil(t, stat.Offense.PassingPlays.Total_PPA)
+	assert.Equal(t, stat.Offense.PassingPlays.Total_PPA.Value, -7.784267300062528)
+	require.NotNil(t, stat.Offense.PassingPlays.SuccessRate)
+	assert.Equal(t, stat.Offense.PassingPlays.SuccessRate.Value, 0.3225806451612903)
+	require.NotNil(t, stat.Offense.PassingPlays.Explosiveness)
+	assert.Equal(t, stat.Offense.PassingPlays.Explosiveness.Value, 1.1685612674743595)
+
+	// Test defense
+	require.NotNil(t, stat.Defense)
+	require.NotNil(t, stat.Defense.Plays)
+	assert.Equal(t, stat.Defense.Plays.Value, int32(54))
+	require.NotNil(t, stat.Defense.Drives)
+	assert.Equal(t, stat.Defense.Drives.Value, int32(11))
+	require.NotNil(t, stat.Defense.Ppa)
+	assert.Equal(t, stat.Defense.Ppa.Value, 0.035721038997178885)
+	require.NotNil(t, stat.Defense.Total_PPA)
+	assert.Equal(t, stat.Defense.Total_PPA.Value, 1.9289361058476597)
+	require.NotNil(t, stat.Defense.SuccessRate)
+	assert.Equal(t, stat.Defense.SuccessRate.Value, 0.3333333333333333)
+	require.NotNil(t, stat.Defense.Explosiveness)
+	assert.Equal(t, stat.Defense.Explosiveness.Value, 0.927354893379026)
+	require.NotNil(t, stat.Defense.PowerSuccess)
+	assert.Equal(t, stat.Defense.PowerSuccess.Value, 0.5)
+	require.NotNil(t, stat.Defense.StuffRate)
+	assert.Equal(t, stat.Defense.StuffRate.Value, 0.2647058823529412)
+	require.NotNil(t, stat.Defense.LineYards)
+	assert.Equal(t, stat.Defense.LineYards.Value, 1.8941176470588235)
+	require.NotNil(t, stat.Defense.LineYardsTotal)
+	assert.Equal(t, stat.Defense.LineYardsTotal.Value, int32(64))
+	require.NotNil(t, stat.Defense.SecondLevelYards)
+	assert.Equal(t, stat.Defense.SecondLevelYards.Value, 0.29411764705882354)
+	require.NotNil(t, stat.Defense.SecondLevelYardsTotal)
+	assert.Equal(t, stat.Defense.SecondLevelYardsTotal.Value, int32(10))
+	require.NotNil(t, stat.Defense.OpenFieldYards)
+	assert.Equal(t, stat.Defense.OpenFieldYards.Value, 0.0)
+	require.NotNil(t, stat.Defense.OpenFieldYardsTotal)
+	assert.Equal(t, stat.Defense.OpenFieldYardsTotal.Value, int32(0))
+
+	// Test defense standard downs
+	require.NotNil(t, stat.Defense.StandardDowns)
+	require.NotNil(t, stat.Defense.StandardDowns.Ppa)
+	assert.Equal(t, stat.Defense.StandardDowns.Ppa.Value, 0.10119335863760198)
+	require.NotNil(t, stat.Defense.StandardDowns.SuccessRate)
+	assert.Equal(t, stat.Defense.StandardDowns.SuccessRate.Value, 0.425)
+	require.NotNil(t, stat.Defense.StandardDowns.Explosiveness)
+	assert.Equal(t, stat.Defense.StandardDowns.Explosiveness.Value, 0.9448430356014096)
+
+	// Test defense passing downs
+	require.NotNil(t, stat.Defense.PassingDowns)
+	require.NotNil(t, stat.Defense.PassingDowns.Ppa)
+	assert.Equal(t, stat.Defense.PassingDowns.Ppa.Value, -0.15134273140402998)
+	require.NotNil(t, stat.Defense.PassingDowns.SuccessRate)
+	assert.Equal(t, stat.Defense.PassingDowns.SuccessRate.Value, 0.07142857142857142)
+	require.NotNil(t, stat.Defense.PassingDowns.Explosiveness)
+	assert.Equal(t, stat.Defense.PassingDowns.Explosiveness.Value, 0.6300564755985045)
+
+	// Test defense rushing plays
+	require.NotNil(t, stat.Defense.RushingPlays)
+	require.NotNil(t, stat.Defense.RushingPlays.Ppa)
+	assert.Equal(t, stat.Defense.RushingPlays.Ppa.Value, -0.1310851382736425)
+	require.NotNil(t, stat.Defense.RushingPlays.Total_PPA)
+	assert.Equal(t, stat.Defense.RushingPlays.Total_PPA.Value, -4.4568947013038445)
+	require.NotNil(t, stat.Defense.RushingPlays.SuccessRate)
+	assert.Equal(t, stat.Defense.RushingPlays.SuccessRate.Value, 0.29411764705882354)
+	require.NotNil(t, stat.Defense.RushingPlays.Explosiveness)
+	assert.Equal(t, stat.Defense.RushingPlays.Explosiveness.Value, 0.5795895017950248)
+
+	// Test defense passing plays
+	require.NotNil(t, stat.Defense.PassingPlays)
+	require.NotNil(t, stat.Defense.PassingPlays.Ppa)
+	assert.Equal(t, stat.Defense.PassingPlays.Ppa.Value, 0.31929154035757523)
+	require.NotNil(t, stat.Defense.PassingPlays.Total_PPA)
+	assert.Equal(t, stat.Defense.PassingPlays.Total_PPA.Value, 6.385830807151504)
+	require.NotNil(t, stat.Defense.PassingPlays.SuccessRate)
+	assert.Equal(t, stat.Defense.PassingPlays.SuccessRate.Value, 0.4)
+	require.NotNil(t, stat.Defense.PassingPlays.Explosiveness)
+	assert.Equal(t, stat.Defense.PassingPlays.Explosiveness.Value, 1.3620616328590274)
+}
+
+func TestGetHavocGameStats_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "stat_game_havoc.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetHavocGameStats(
+		context.Background(), GetHavocGameStatsRequest{
+			Year:       testYear,
+			Week:       testWeek,
+			Team:       testTeam,
+			SeasonType: "regular",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single havoc game stat
+	stat := response[0]
+	assert.Equal(t, stat.GameId, int32(401752677))
+	assert.Equal(t, stat.Season, int32(2025))
+	assert.Equal(t, stat.SeasonType, "regular")
+	assert.Equal(t, stat.Week, int32(1))
+	assert.Equal(t, stat.Team, "Texas")
+	require.NotNil(t, stat.Conference)
+	assert.Equal(t, stat.Conference.Value, "SEC")
+	assert.Equal(t, stat.Opponent, "Ohio State")
+	require.NotNil(t, stat.OpponentConference)
+	assert.Equal(t, stat.OpponentConference.Value, "B1G")
+
+	// Test offense
+	require.NotNil(t, stat.Offense)
+	assert.Equal(t, stat.Offense.TotalPlays, 67.0)
+	assert.Equal(t, stat.Offense.TotalHavocEvents, 3.0)
+	assert.Equal(t, stat.Offense.FrontSevenHavocEvents, 1.0)
+	assert.Equal(t, stat.Offense.DbHavocEvents, 2.0)
+	assert.Equal(t, stat.Offense.HavocRate, 0.04477611940298507)
+	assert.Equal(t, stat.Offense.FrontSevenHavocRate, 0.014925373134328358)
+	assert.Equal(t, stat.Offense.DbHavocRate, 0.029850746268656716)
+
+	// Test defense
+	require.NotNil(t, stat.Defense)
+	assert.Equal(t, stat.Defense.TotalPlays, 54.0)
+	assert.Equal(t, stat.Defense.TotalHavocEvents, 3.0)
+	assert.Equal(t, stat.Defense.FrontSevenHavocEvents, 1.0)
+	assert.Equal(t, stat.Defense.DbHavocEvents, 2.0)
+	assert.Equal(t, stat.Defense.HavocRate, 0.05555555555555555)
+	assert.Equal(t, stat.Defense.FrontSevenHavocRate, 0.018518518518518517)
+	assert.Equal(t, stat.Defense.DbHavocRate, 0.037037037037037035)
+}
+
+func TestGetDraftTeams_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "draft_teams.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetDraftTeams(context.Background())
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 32)
+
+	// Helper function to find team by location
+	findTeam := func(location string) *DraftTeam {
+		for _, team := range response {
+			if team.Location == location {
+				return team
+			}
+		}
+		return nil
+	}
+
+	// Test Cincinnati Bengals (has nickname)
+	bengals := findTeam("Cincinnati")
+	require.NotNil(t, bengals)
+	assert.Equal(t, bengals.Location, "Cincinnati")
+	require.NotNil(t, bengals.Nickname)
+	assert.Equal(t, bengals.Nickname.Value, "Bengals")
+	require.NotNil(t, bengals.DisplayName)
+	assert.Equal(t, bengals.DisplayName.Value, "Cincinnati Bengals")
+	require.NotNil(t, bengals.Logo)
+	assert.Equal(t, bengals.Logo.Value, "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png")
+
+	// Test Washington (has null nickname)
+	washington := findTeam("Washington")
+	require.NotNil(t, washington)
+	assert.Equal(t, washington.Location, "Washington")
+	assert.Nil(t, washington.Nickname) // null in JSON
+	require.NotNil(t, washington.DisplayName)
+	assert.Equal(t, washington.DisplayName.Value, "Washington")
+	require.NotNil(t, washington.Logo)
+	assert.Equal(t, washington.Logo.Value, "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png")
+}
+
+func TestGetDraftPositions_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "draft_positions.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetDraftPositions(context.Background())
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 29)
+
+	// Helper function to find position by name
+	findPosition := func(name string) *DraftPosition {
+		for _, pos := range response {
+			if pos.Name == name {
+				return pos
+			}
+		}
+		return nil
+	}
+
+	// Test Center (first position)
+	center := findPosition("Center")
+	require.NotNil(t, center)
+	assert.Equal(t, center.Name, "Center")
+	assert.Equal(t, center.Abbreviation, "C")
+
+	// Test Quarterback
+	qb := findPosition("Quarterback")
+	require.NotNil(t, qb)
+	assert.Equal(t, qb.Name, "Quarterback")
+	assert.Equal(t, qb.Abbreviation, "QB")
+
+	// Test Unknown (has special abbreviation)
+	unknown := findPosition("Unknown")
+	require.NotNil(t, unknown)
+	assert.Equal(t, unknown.Name, "Unknown")
+	assert.Equal(t, unknown.Abbreviation, "-")
+}
+
+func TestGetDraftPicks_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "draft_picks.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetDraftPicks(
+		context.Background(), GetDraftPicksRequest{
+			Year: testYear,
+			Team: "Green Bay",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single draft pick
+	pick := response[0]
+	require.NotNil(t, pick.CollegeAthleteId)
+	assert.Equal(t, pick.CollegeAthleteId.Value, int32(4701936))
+	require.NotNil(t, pick.NflAthleteId)
+	assert.Equal(t, pick.NflAthleteId.Value, int32(109383))
+	assert.Equal(t, pick.CollegeId, int32(251))
+	assert.Equal(t, pick.CollegeTeam, "Texas")
+	require.NotNil(t, pick.CollegeConference)
+	assert.Equal(t, pick.CollegeConference.Value, "SEC")
+	assert.Equal(t, pick.NflTeamId, int32(9))
+	assert.Equal(t, pick.NflTeam, "Green Bay")
+	assert.Equal(t, pick.Year, int32(2025))
+	assert.Equal(t, pick.Overall, int32(23))
+	assert.Equal(t, pick.Round, int32(1))
+	assert.Equal(t, pick.Pick, int32(23))
+	assert.Equal(t, pick.Name, "Matthew Golden")
+	assert.Equal(t, pick.Position, "Wide Receiver")
+	require.NotNil(t, pick.Height)
+	assert.Equal(t, pick.Height.Value, 71.0)
+	require.NotNil(t, pick.Weight)
+	assert.Equal(t, pick.Weight.Value, int32(191))
+	require.NotNil(t, pick.PreDraftRanking)
+	assert.Equal(t, pick.PreDraftRanking.Value, int32(23))
+	require.NotNil(t, pick.PreDraftPositionRanking)
+	assert.Equal(t, pick.PreDraftPositionRanking.Value, int32(2))
+	require.NotNil(t, pick.PreDraftGrade)
+	assert.Equal(t, pick.PreDraftGrade.Value, int32(89))
+
+	// Test hometown info
+	require.NotNil(t, pick.HometownInfo)
+	require.NotNil(t, pick.HometownInfo.City)
+	assert.Equal(t, pick.HometownInfo.City.Value, "Houston")
+	require.NotNil(t, pick.HometownInfo.State)
+	assert.Equal(t, pick.HometownInfo.State.Value, "TX")
+	require.NotNil(t, pick.HometownInfo.Country)
+	assert.Equal(t, pick.HometownInfo.Country.Value, "USA")
+	require.NotNil(t, pick.HometownInfo.Latitude)
+	assert.Equal(t, pick.HometownInfo.Latitude.Value, "29.7589382")
+	require.NotNil(t, pick.HometownInfo.Longitude)
+	assert.Equal(t, pick.HometownInfo.Longitude.Value, "-95.3676974")
+	require.NotNil(t, pick.HometownInfo.CountyFips)
+	assert.Equal(t, pick.HometownInfo.CountyFips.Value, "48201")
+}
+
 func convertToInt32Slice(values []*structpb.Value) []int32 {
 	results := make([]int32, len(values))
 	for i, v := range values {

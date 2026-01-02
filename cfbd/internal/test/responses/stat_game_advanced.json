@@ -1,0 +1,86 @@
+[
+    {
+        "gameId": 401752677,
+        "season": 2025,
+        "seasonType": "regular",
+        "week": 1,
+        "team": "Texas",
+        "opponent": "Ohio State",
+        "offense": {
+            "plays": 67,
+            "drives": 10,
+            "ppa": -0.12004779138818919,
+            "totalPPA": -8.043202023008677,
+            "successRate": 0.417910447761194,
+            "explosiveness": 0.9056990216331493,
+            "powerSuccess": 0.75,
+            "stuffRate": 0.05714285714285714,
+            "lineYards": 3.6,
+            "lineYardsTotal": 126,
+            "secondLevelYards": 0.9428571428571428,
+            "secondLevelYardsTotal": 33,
+            "openFieldYards": 0.34285714285714286,
+            "openFieldYardsTotal": 12,
+            "standardDowns": {
+                "ppa": -0.2825433028390425,
+                "successRate": 0.46938775510204084,
+                "explosiveness": 0.6228045350329661
+            },
+            "passingDowns": {
+                "ppa": 0.32230110089468933,
+                "successRate": 0.2777777777777778,
+                "explosiveness": 2.2070136599939922
+            },
+            "rushingPlays": {
+                "ppa": 0.09681986254637139,
+                "totalPPA": 3.3886951891229984,
+                "successRate": 0.5142857142857142,
+                "explosiveness": 0.7596644406102547
+            },
+            "passingPlays": {
+                "ppa": -0.2511053967762106,
+                "totalPPA": -7.784267300062528,
+                "successRate": 0.3225806451612903,
+                "explosiveness": 1.1685612674743595
+            }
+        },
+        "defense": {
+            "plays": 54,
+            "drives": 11,
+            "ppa": 0.035721038997178885,
+            "totalPPA": 1.9289361058476597,
+            "successRate": 0.3333333333333333,
+            "explosiveness": 0.927354893379026,
+            "powerSuccess": 0.5,
+            "stuffRate": 0.2647058823529412,
+            "lineYards": 1.8941176470588235,
+            "lineYardsTotal": 64,
+            "secondLevelYards": 0.29411764705882354,
+            "secondLevelYardsTotal": 10,
+            "openFieldYards": 0,
+            "openFieldYardsTotal": 0,
+            "standardDowns": {
+                "ppa": 0.10119335863760198,
+                "successRate": 0.425,
+                "explosiveness": 0.9448430356014096
+            },
+            "passingDowns": {
+                "ppa": -0.15134273140402998,
+                "successRate": 0.07142857142857142,
+                "explosiveness": 0.6300564755985045
+            },
+            "rushingPlays": {
+                "ppa": -0.1310851382736425,
+                "totalPPA": -4.4568947013038445,
+                "successRate": 0.29411764705882354,
+                "explosiveness": 0.5795895017950248
+            },
+            "passingPlays": {
+                "ppa": 0.31929154035757523,
+                "totalPPA": 6.385830807151504,
+                "successRate": 0.4,
+                "explosiveness": 1.3620616328590274
+            }
+        }
+    }
+]

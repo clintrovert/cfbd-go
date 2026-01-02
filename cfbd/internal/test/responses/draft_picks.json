@@ -1,0 +1,30 @@
+[
+    {
+        "collegeAthleteId": 4701936,
+        "nflAthleteId": 109383,
+        "collegeId": 251,
+        "collegeTeam": "Texas",
+        "collegeConference": "SEC",
+        "nflTeamId": 9,
+        "nflTeam": "Green Bay",
+        "year": 2025,
+        "overall": 23,
+        "round": 1,
+        "pick": 23,
+        "name": "Matthew Golden",
+        "position": "Wide Receiver",
+        "height": 71,
+        "weight": 191,
+        "preDraftRanking": 23,
+        "preDraftPositionRanking": 2,
+        "preDraftGrade": 89,
+        "hometownInfo": {
+            "city": "Houston",
+            "state": "TX",
+            "country": "USA",
+            "latitude": "29.7589382",
+            "longitude": "-95.3676974",
+            "countyFips": "48201"
+        }
+    }
+]

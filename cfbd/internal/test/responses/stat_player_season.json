@@ -1,0 +1,79 @@
+[
+    {
+        "season": 2025,
+        "playerId": "4870906",
+        "player": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "category": "passing",
+        "statType": "ATT",
+        "stat": "30"
+    },
+    {
+        "season": 2025,
+        "playerId": "4870906",
+        "player": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "category": "passing",
+        "statType": "COMPLETIONS",
+        "stat": "17"
+    },
+    {
+        "season": 2025,
+        "playerId": "4870906",
+        "player": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "category": "passing",
+        "statType": "INT",
+        "stat": "1"
+    },
+    {
+        "season": 2025,
+        "playerId": "4870906",
+        "player": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "category": "passing",
+        "statType": "PCT",
+        "stat": "0.567"
+    },
+    {
+        "season": 2025,
+        "playerId": "4870906",
+        "player": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "category": "passing",
+        "statType": "TD",
+        "stat": "1"
+    },
+    {
+        "season": 2025,
+        "playerId": "4870906",
+        "player": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "category": "passing",
+        "statType": "YDS",
+        "stat": "170"
+    },
+    {
+        "season": 2025,
+        "playerId": "4870906",
+        "player": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "category": "passing",
+        "statType": "YPA",
+        "stat": "5.7"
+    }
+]

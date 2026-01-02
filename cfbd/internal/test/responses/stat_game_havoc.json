@@ -1,0 +1,30 @@
+[
+    {
+        "gameId": 401752677,
+        "season": 2025,
+        "seasonType": "regular",
+        "week": 1,
+        "team": "Texas",
+        "conference": "SEC",
+        "opponent": "Ohio State",
+        "opponentConference": "B1G",
+        "offense": {
+            "totalPlays": 67,
+            "totalHavocEvents": 3,
+            "frontSevenHavocEvents": 1,
+            "dbHavocEvents": 2,
+            "havocRate": 0.04477611940298507,
+            "frontSevenHavocRate": 0.014925373134328358,
+            "dbHavocRate": 0.029850746268656716
+        },
+        "defense": {
+            "totalPlays": 54,
+            "totalHavocEvents": 3,
+            "frontSevenHavocEvents": 1,
+            "dbHavocEvents": 2,
+            "havocRate": 0.05555555555555555,
+            "frontSevenHavocRate": 0.018518518518518517,
+            "dbHavocRate": 0.037037037037037035
+        }
+    }
+]

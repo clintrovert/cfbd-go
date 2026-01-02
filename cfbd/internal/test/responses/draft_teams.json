@@ -1,0 +1,194 @@
+[
+    {
+        "location": "Cincinnati",
+        "nickname": "Bengals",
+        "displayName": "Cincinnati Bengals",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png"
+    },
+    {
+        "location": "Tennessee",
+        "nickname": "Titans",
+        "displayName": "Tennessee Titans",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png"
+    },
+    {
+        "location": "New York",
+        "nickname": "Jets",
+        "displayName": "New York Jets",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png"
+    },
+    {
+        "location": "Buffalo",
+        "nickname": "Bills",
+        "displayName": "Buffalo Bills",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png"
+    },
+    {
+        "location": "New Orleans",
+        "nickname": "Saints",
+        "displayName": "New Orleans Saints",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png"
+    },
+    {
+        "location": "Denver",
+        "nickname": "Broncos",
+        "displayName": "Denver Broncos",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png"
+    },
+    {
+        "location": "Arizona",
+        "nickname": "Cardinals",
+        "displayName": "Arizona Cardinals",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png"
+    },
+    {
+        "location": "Jacksonville",
+        "nickname": "Jaguars",
+        "displayName": "Jacksonville Jaguars",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png"
+    },
+    {
+        "location": "Indianapolis",
+        "nickname": "Colts",
+        "displayName": "Indianapolis Colts",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png"
+    },
+    {
+        "location": "Las Vegas",
+        "nickname": "Raiders",
+        "displayName": "Las Vegas Raiders",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png"
+    },
+    {
+        "location": "Dallas",
+        "nickname": "Cowboys",
+        "displayName": "Dallas Cowboys",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png"
+    },
+    {
+        "location": "Cleveland",
+        "nickname": "Browns",
+        "displayName": "Cleveland Browns",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png"
+    },
+    {
+        "location": "San Francisco",
+        "nickname": "49ers",
+        "displayName": "San Francisco 49ers",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png"
+    },
+    {
+        "location": "Baltimore",
+        "nickname": "Ravens",
+        "displayName": "Baltimore Ravens",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png"
+    },
+    {
+        "location": "Miami",
+        "nickname": "Dolphins",
+        "displayName": "Miami Dolphins",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png"
+    },
+    {
+        "location": "Seattle",
+        "nickname": "Seahawks",
+        "displayName": "Seattle Seahawks",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png"
+    },
+    {
+        "location": "Chicago",
+        "nickname": "Bears",
+        "displayName": "Chicago Bears",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png"
+    },
+    {
+        "location": "Los Angeles",
+        "nickname": "Rams",
+        "displayName": "Los Angeles Rams",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png"
+    },
+    {
+        "location": "Kansas City",
+        "nickname": "Chiefs",
+        "displayName": "Kansas City Chiefs",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png"
+    },
+    {
+        "location": "Houston",
+        "nickname": "Texans",
+        "displayName": "Houston Texans",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png"
+    },
+    {
+        "location": "Philadelphia",
+        "nickname": "Eagles",
+        "displayName": "Philadelphia Eagles",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png"
+    },
+    {
+        "location": "Green Bay",
+        "nickname": "Packers",
+        "displayName": "Green Bay Packers",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png"
+    },
+    {
+        "location": "Detroit",
+        "nickname": "Lions",
+        "displayName": "Detroit Lions",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png"
+    },
+    {
+        "location": "Atlanta",
+        "nickname": "Falcons",
+        "displayName": "Atlanta Falcons",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png"
+    },
+    {
+        "location": "Washington",
+        "nickname": null,
+        "displayName": "Washington",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png"
+    },
+    {
+        "location": "Carolina",
+        "nickname": "Panthers",
+        "displayName": "Carolina Panthers",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png"
+    },
+    {
+        "location": "Tampa Bay",
+        "nickname": "Buccaneers",
+        "displayName": "Tampa Bay Buccaneers",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png"
+    },
+    {
+        "location": "New England",
+        "nickname": "Patriots",
+        "displayName": "New England Patriots",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png"
+    },
+    {
+        "location": "Los Angeles",
+        "nickname": "Chargers",
+        "displayName": "Los Angeles Chargers",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png"
+    },
+    {
+        "location": "Minnesota",
+        "nickname": "Vikings",
+        "displayName": "Minnesota Vikings",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png"
+    },
+    {
+        "location": "Pittsburgh",
+        "nickname": "Steelers",
+        "displayName": "Pittsburgh Steelers",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png"
+    },
+    {
+        "location": "New York",
+        "nickname": "Giants",
+        "displayName": "New York Giants",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png"
+    }
+]
