@@ -338,7 +338,9 @@ func TestGetCalendar_ValidRequest_ShouldSucceed(t *testing.T) {
 		Times(1)
 
 	response, err := tester.client.GetCalendar(
-		context.Background(), testYear,
+		context.Background(), GetCalendarRequest{
+			Year: testYear,
+		},
 	)
 
 	require.NoError(t, err)
@@ -411,7 +413,9 @@ func TestGetAdvancedBoxScore_ValidRequest_ShouldSucceed(t *testing.T) {
 		Times(1)
 
 	response, err := tester.client.GetAdvancedBoxScore(
-		context.Background(), 401752677,
+		context.Background(), GetAdvancedBoxScoreRequest{
+			GameID: 401752677,
+		},
 	)
 
 	assert.NoError(t, err)
@@ -910,7 +914,11 @@ func TestGetLivePlays_ValidRequest_ShouldSucceed(t *testing.T) {
 		Return(bytes, nil).
 		Times(1)
 
-	response, err := tester.client.GetLivePlays(context.Background(), 401778330)
+	response, err := tester.client.GetLivePlays(
+		context.Background(), GetLivePlaysRequest{
+			GameID: 401778330,
+		},
+	)
 
 	require.NoError(t, err)
 	require.NotNil(t, response)
@@ -2556,7 +2564,9 @@ func TestGetWinProbability_ValidRequest_ShouldSucceed(t *testing.T) {
 		Times(1)
 
 	response, err := tester.client.GetWinProbability(
-		context.Background(), 401778330,
+		context.Background(), GetWinProbabilityRequest{
+			GameID: 401778330,
+		},
 	)
 
 	require.NoError(t, err)

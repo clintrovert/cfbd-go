@@ -444,6 +444,15 @@ func (c *Client) GetGameWeather(
 	return games, nil
 }
 
+// ========================= GET /game/box/advanced ==========================
+
+// GetAdvancedBoxScoreRequest is the request configuration for the resource
+// located at GET /game/box/advanced.
+type GetAdvancedBoxScoreRequest struct {
+	// GameID is required.
+	GameID int32
+}
+
 // GetAdvancedBoxScore retrieves advanced box score statistics for the
 // specified game.
 //
@@ -451,20 +460,20 @@ func (c *Client) GetGameWeather(
 //
 // The behavior depends on the provided parameters:
 //
-//	ctx     controls request cancellation
-//	gameID  is the unique identifier for the game
+//	ctx      controls request cancellation
+//	request  contains the game ID for the advanced box score
 func (c *Client) GetAdvancedBoxScore(
 	ctx context.Context,
-	gameID int32,
+	request GetAdvancedBoxScoreRequest,
 ) (*AdvancedBoxScore, error) {
-	if gameID < 1 {
+	if request.GameID < 1 {
 		return nil, fmt.Errorf(
 			"game ID is required; %w", ErrMissingRequiredParams,
 		)
 	}
 
 	v := url.Values{}
-	setInt32(v, idKey, gameID)
+	setInt32(v, idKey, request.GameID)
 	response, err := c.httpGet.Execute(ctx, "/game/box/advanced", v)
 	if err != nil {
 		return nil, fmt.Errorf("failed to request /game/box/advanced; %w", err)
@@ -478,24 +487,33 @@ func (c *Client) GetAdvancedBoxScore(
 	return &val, nil
 }
 
+// ================================ GET /calendar ===============================
+
+// GetCalendarRequest is the request configuration for the resource
+// located at GET /calendar.
+type GetCalendarRequest struct {
+	// Year is required.
+	Year int32
+}
+
 // GetCalendar retrieves calendar weeks for the specified year.
 //
 // Calls GET /calendar.
 //
 // The behavior depends on the provided parameters:
 //
-//	ctx   controls request cancellation
-//	year  is the calendar year to retrieve weeks for
+//	ctx      controls request cancellation
+//	request  contains the calendar year to retrieve weeks for
 func (c *Client) GetCalendar(
 	ctx context.Context,
-	year int32,
+	request GetCalendarRequest,
 ) ([]*CalendarWeek, error) {
-	if year < 1 {
+	if request.Year < 1 {
 		return nil, fmt.Errorf("year is required; %w", ErrMissingRequiredParams)
 	}
 
 	v := url.Values{}
-	setInt32(v, yearKey, year)
+	setInt32(v, yearKey, request.Year)
 	response, err := c.httpGet.Execute(ctx, "/calendar", v)
 	if err != nil {
 		return nil, fmt.Errorf("failed to request /calendar; %w", err)
@@ -856,26 +874,35 @@ func (c *Client) GetPlayStatTypes(
 	return statTypes, nil
 }
 
+// =============================== GET /live/plays ==============================
+
+// GetLivePlaysRequest is the request configuration for the resource
+// located at GET /live/plays.
+type GetLivePlaysRequest struct {
+	// GameID is required.
+	GameID int32
+}
+
 // GetLivePlays retrieves live play-by-play data for the specified game.
 //
 // Calls GET /live/plays.
 //
 // The behavior depends on the provided parameters:
 //
-//	ctx     controls request cancellation
-//	gameID  is the unique identifier for the game
+//	ctx      controls request cancellation
+//	request  contains the game ID for live play data
 func (c *Client) GetLivePlays(
 	ctx context.Context,
-	gameID int32,
+	request GetLivePlaysRequest,
 ) (*LiveGame, error) {
-	if gameID < 1 {
+	if request.GameID < 1 {
 		return nil, fmt.Errorf(
 			"game ID is required; %w", ErrMissingRequiredParams,
 		)
 	}
 
 	params := url.Values{}
-	setInt32(params, gameIDKey, gameID)
+	setInt32(params, gameIDKey, request.GameID)
 
 	response, err := c.httpGet.Execute(ctx, "/live/plays", params)
 	if err != nil {
@@ -2252,6 +2279,15 @@ func (c *Client) GetPlayerSeasonPPA(
 	return players, nil
 }
 
+// =============================== GET /metrics/wp ==============================
+
+// GetWinProbabilityRequest is the request configuration for the resource
+// located at GET /metrics/wp.
+type GetWinProbabilityRequest struct {
+	// GameID is required.
+	GameID int32
+}
+
 // GetWinProbability retrieves win probability data for each play in the
 // specified game.
 //
@@ -2259,20 +2295,20 @@ func (c *Client) GetPlayerSeasonPPA(
 //
 // The behavior depends on the provided parameters:
 //
-//	ctx     controls request cancellation
-//	gameID  is the unique identifier for the game
+//	ctx      controls request cancellation
+//	request  contains the game ID for win probability data
 func (c *Client) GetWinProbability(
 	ctx context.Context,
-	gameID int32,
+	request GetWinProbabilityRequest,
 ) ([]*PlayWinProbability, error) {
-	if gameID < 1 {
+	if request.GameID < 1 {
 		return nil, fmt.Errorf(
 			"game ID is required; %w", ErrMissingRequiredParams,
 		)
 	}
 
 	params := url.Values{}
-	setInt32(params, gameIDKey, gameID)
+	setInt32(params, gameIDKey, request.GameID)
 
 	response, err := c.httpGet.Execute(ctx, "/metrics/wp", params)
 	if err != nil {
