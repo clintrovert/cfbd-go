@@ -1,10 +1,9 @@
 # cfbd-go
 
-A minimal, type-safe Golang client for the [College Football Data API](https://collegefootballdata.com/).
+A lightweight Golang client for the [College Football Data API](https://collegefootballdata.com/).
 
 ## Table of Contents
 
-- [Features](#features)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Authentication](#authentication)
@@ -91,14 +90,6 @@ A minimal, type-safe Golang client for the [College Football Data API](https://c
 - [Contributing](#contributing)
   - [Branch Naming and Versioning](#branch-naming-and-versioning)
   - [Workflow](#workflow)
-
-## Features
-
-- **Type-safe**: All API responses are strongly typed using Protocol Buffers
-- **Comprehensive**: Supports all endpoints covering games, teams, players, stats, ratings, and more
-- **Minimal dependencies**: Lightweight with no unnecessary dependencies
-- **Context-aware**: All methods support `context.Context` for cancellation and timeouts
-- **Future-proof**: Unknown JSON fields are discarded by default to tolerate future API releases
 
 ## Installation
 
