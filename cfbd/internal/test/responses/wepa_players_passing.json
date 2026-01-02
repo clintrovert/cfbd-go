@@ -1,0 +1,22 @@
+[
+    {
+        "year": 2024,
+        "athleteId": "4870906",
+        "athleteName": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "wepa": 0.56,
+        "plays": 104
+    },
+    {
+        "year": 2024,
+        "athleteId": "4889929",
+        "athleteName": "Quinn Ewers",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "wepa": 0.51,
+        "plays": 497
+    }
+]

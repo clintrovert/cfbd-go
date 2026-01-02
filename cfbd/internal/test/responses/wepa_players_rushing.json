@@ -1,0 +1,42 @@
+[
+    {
+        "year": 2025,
+        "athleteId": "4870609",
+        "athleteName": "CJ Baxter Jr.",
+        "position": "RB",
+        "team": "Texas",
+        "conference": "SEC",
+        "wepa": 0.05,
+        "plays": 55
+    },
+    {
+        "year": 2025,
+        "athleteId": "4870906",
+        "athleteName": "Arch Manning",
+        "position": "QB",
+        "team": "Texas",
+        "conference": "SEC",
+        "wepa": 0.4,
+        "plays": 62
+    },
+    {
+        "year": 2025,
+        "athleteId": "4871076",
+        "athleteName": "Tre Wisner",
+        "position": "RB",
+        "team": "Texas",
+        "conference": "SEC",
+        "wepa": 0.13,
+        "plays": 132
+    },
+    {
+        "year": 2025,
+        "athleteId": "5079410",
+        "athleteName": "Jerrick Gibson",
+        "position": "RB",
+        "team": "Texas",
+        "conference": "SEC",
+        "wepa": 0.07,
+        "plays": 36
+    }
+]

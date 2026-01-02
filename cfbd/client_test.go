@@ -3295,6 +3295,185 @@ func TestGetDraftPicks_ValidRequest_ShouldSucceed(t *testing.T) {
 	assert.Equal(t, pick.HometownInfo.CountyFips.Value, "48201")
 }
 
+func TestGetTeamSeasonWEPA_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "wepa_team_season.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetTeamSeasonWEPA(
+		context.Background(), GetTeamSeasonWEPARequest{
+			Year: testYear,
+			Team: testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single team season WEPA
+	metrics := response[0]
+	assert.Equal(t, metrics.Year, int32(2025))
+	assert.Equal(t, metrics.TeamId, int32(251))
+	assert.Equal(t, metrics.Team, "Texas")
+	assert.Equal(t, metrics.Conference, "SEC")
+
+	// Test EPA
+	require.NotNil(t, metrics.Epa)
+	assert.Equal(t, metrics.Epa.Total, 0.17545634971647253)
+	assert.Equal(t, metrics.Epa.Passing, 0.2803925737870518)
+	assert.Equal(t, metrics.Epa.Rushing, 0.07977603419857002)
+
+	// Test EPA allowed
+	require.NotNil(t, metrics.EpaAllowed)
+	assert.Equal(t, metrics.EpaAllowed.Total, 0.08771694750634644)
+	assert.Equal(t, metrics.EpaAllowed.Passing, 0.21759566537288927)
+	assert.Equal(t, metrics.EpaAllowed.Rushing, 0.01867713857283139)
+
+	// Test success rate
+	require.NotNil(t, metrics.SuccessRate)
+	assert.Equal(t, metrics.SuccessRate.Total, 0.4207559985305706)
+	assert.Equal(t, metrics.SuccessRate.StandardDowns, 0.4566700388341596)
+	assert.Equal(t, metrics.SuccessRate.PassingDowns, 0.31272982888204703)
+
+	// Test success rate allowed
+	require.NotNil(t, metrics.SuccessRateAllowed)
+	assert.Equal(t, metrics.SuccessRateAllowed.Total, 0.3696890031307442)
+	assert.Equal(t, metrics.SuccessRateAllowed.StandardDowns, 0.42633233616477106)
+	assert.Equal(t, metrics.SuccessRateAllowed.PassingDowns, 0.29292298674855677)
+
+	// Test rushing
+	require.NotNil(t, metrics.Rushing)
+	assert.Equal(t, metrics.Rushing.LineYards, 2.9321416417952397)
+	assert.Equal(t, metrics.Rushing.SecondLevelYards, 1.0568281637129442)
+	assert.Equal(t, metrics.Rushing.OpenFieldYards, 1.034077989725977)
+	assert.Equal(t, metrics.Rushing.HighlightYards, 1.7425301745916677)
+
+	// Test rushing allowed
+	require.NotNil(t, metrics.RushingAllowed)
+	assert.Equal(t, metrics.RushingAllowed.LineYards, 2.571020902423395)
+	assert.Equal(t, metrics.RushingAllowed.SecondLevelYards, 0.9445094826115275)
+	assert.Equal(t, metrics.RushingAllowed.OpenFieldYards, 0.9512178840545604)
+	assert.Equal(t, metrics.RushingAllowed.HighlightYards, 1.6102300563059462)
+
+	// Test explosiveness
+	assert.Equal(t, metrics.Explosiveness, 0.9189173355950073)
+	assert.Equal(t, metrics.ExplosivenessAllowed, 0.9176157693147786)
+}
+
+func TestGetPlayerPassingWEPA_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "wepa_players_passing.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetPlayerPassingWEPA(
+		context.Background(), GetPlayerWEPARequest{
+			Year:     2024,
+			Team:     testTeam,
+			Position: "QB",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 2)
+
+	// Test first player (Arch Manning)
+	player1 := response[0]
+	assert.Equal(t, player1.Year, int32(2024))
+	assert.Equal(t, player1.AthleteId, "4870906")
+	assert.Equal(t, player1.AthleteName, "Arch Manning")
+	assert.Equal(t, player1.Position, "QB")
+	assert.Equal(t, player1.Team, "Texas")
+	assert.Equal(t, player1.Conference, "SEC")
+	assert.Equal(t, player1.Wepa, 0.56)
+	assert.Equal(t, player1.Plays, int32(104))
+}
+
+func TestGetPlayerRushingWEPA_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "wepa_players_rushing.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetPlayerRushingWEPA(
+		context.Background(), GetPlayerWEPARequest{
+			Year:     testYear,
+			Team:     testTeam,
+			Position: "RB",
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 4)
+
+	// Test first player (CJ Baxter Jr.)
+	player1 := response[0]
+	assert.Equal(t, player1.Year, int32(2025))
+	assert.Equal(t, player1.AthleteId, "4870609")
+	assert.Equal(t, player1.AthleteName, "CJ Baxter Jr.")
+	assert.Equal(t, player1.Position, "RB")
+	assert.Equal(t, player1.Team, "Texas")
+	assert.Equal(t, player1.Conference, "SEC")
+	assert.Equal(t, player1.Wepa, 0.05)
+	assert.Equal(t, player1.Plays, int32(55))
+}
+
+func TestGetPlayerKickingWEPA_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "wepa_players_kicking.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetPlayerKickingWEPA(
+		context.Background(), GetWepaPlayersKickingRequest{
+			Year: testYear,
+			Team: testTeam,
+		},
+	)
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Len(t, response, 1)
+
+	// Test single kicker PAAR
+	kicker := response[0]
+	assert.Equal(t, kicker.Year, int32(2025))
+	assert.Equal(t, kicker.AthleteId, "4879682")
+	assert.Equal(t, kicker.AthleteName, "Mason Shipley")
+	assert.Equal(t, kicker.Team, "Texas")
+	assert.Equal(t, kicker.Conference, "SEC")
+	assert.Equal(t, kicker.Paar, 7.92)
+	assert.Equal(t, kicker.Attempts, int32(21))
+}
+
+func TestGetInfo_ValidRequest_ShouldSucceed(t *testing.T) {
+	tester, bytes := setupTestWithFile(t, "info.json")
+
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Return(bytes, nil).
+		Times(1)
+
+	response, err := tester.client.GetInfo(context.Background())
+
+	require.NoError(t, err)
+	require.NotNil(t, response)
+	assert.Equal(t, response.PatronLevel, 3.0)
+	assert.Equal(t, response.RemainingCalls, 74904.0)
+}
+
 func convertToInt32Slice(values []*structpb.Value) []int32 {
 	results := make([]int32, len(values))
 	for i, v := range values {

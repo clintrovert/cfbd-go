@@ -1,0 +1,42 @@
+[
+    {
+        "year": 2025,
+        "teamId": 251,
+        "team": "Texas",
+        "conference": "SEC",
+        "epa": {
+            "total": 0.17545634971647253,
+            "passing": 0.2803925737870518,
+            "rushing": 0.07977603419857002
+        },
+        "epaAllowed": {
+            "total": 0.08771694750634644,
+            "passing": 0.21759566537288927,
+            "rushing": 0.01867713857283139
+        },
+        "successRate": {
+            "total": 0.4207559985305706,
+            "standardDowns": 0.4566700388341596,
+            "passingDowns": 0.31272982888204703
+        },
+        "successRateAllowed": {
+            "total": 0.3696890031307442,
+            "standardDowns": 0.42633233616477106,
+            "passingDowns": 0.29292298674855677
+        },
+        "rushing": {
+            "lineYards": 2.9321416417952397,
+            "secondLevelYards": 1.0568281637129442,
+            "openFieldYards": 1.034077989725977,
+            "highlightYards": 1.7425301745916677
+        },
+        "rushingAllowed": {
+            "lineYards": 2.571020902423395,
+            "secondLevelYards": 0.9445094826115275,
+            "openFieldYards": 0.9512178840545604,
+            "highlightYards": 1.6102300563059462
+        },
+        "explosiveness": 0.9189173355950073,
+        "explosivenessAllowed": 0.9176157693147786
+    }
+]
