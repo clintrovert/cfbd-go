@@ -1,4 +1,5 @@
-// Package httpget provides an HTTP client wrapper for dependency injection and testing.
+// Package httpget provides an HTTP client wrapper for dependency injection
+// and testing.
 package httpget
 
 import (
@@ -45,7 +46,8 @@ type Client struct {
 	APIKey     string
 }
 
-// Execute performs an HTTP GET request with the given path and query parameters.
+// Execute performs an HTTP GET request with the given path and query
+// parameters.
 func (c *Client) Execute(
 	ctx context.Context,
 	path string,
