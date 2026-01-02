@@ -20,13 +20,14 @@ func main() {
    printGameTeams(ctx, client)
    printGamePlayers(ctx, client)
    printMedia(ctx, client)
-   // if isPatreonSubscriber {
-   //    printWeather(ctx, client)
-   // }
+   if isPatreonSubscriber {
+      printWeather(ctx, client)
+   }
    printRecords(ctx, client)
    printCalendar(ctx, client)
    // printScoreboard(ctx, client)
    printGameAdvancedBoxScore(ctx, client)
+   printScoreboard(ctx, client)
 
    // DRIVES
    printDrives(ctx, client)
@@ -36,7 +37,7 @@ func main() {
    printPlayTypes(ctx, client)
    printPlayStats(ctx, client)
    printPlayStatTypes(ctx, client)
-   // printLivePlays(ctx, client) // must use a live game ID
+   printLivePlays(ctx, client)
 
    // TEAMS
    printTeams(ctx, client)
@@ -159,6 +160,20 @@ func printMedia(ctx context.Context, client *cfbd.Client) {
    }
 }
 
+func printWeather(ctx context.Context, client *cfbd.Client) {
+   weather, err := client.GetGameWeather(
+      ctx, cfbd.GetGameWeatherRequest{GameID: 401767768},
+   )
+   if err != nil {
+      fmt.Printf("error occurred retrieving game weather: %s", err.Error())
+   }
+
+   fmt.Println("================= GAME WEATHER =================")
+   for _, w := range weather {
+      fmt.Println(w.String())
+   }
+}
+
 func printRecords(ctx context.Context, client *cfbd.Client) {
    records, err := client.GetTeamRecords(
       ctx,
@@ -175,7 +190,7 @@ func printRecords(ctx context.Context, client *cfbd.Client) {
 }
 
 func printCalendar(ctx context.Context, client *cfbd.Client) {
-   weeks, err := client.GetCalendar(ctx, 2025)
+   weeks, err := client.GetCalendar(ctx, cfbd.GetCalendarRequest{Year: 2025})
    if err != nil {
       fmt.Printf("error occurred retrieving calendar: %s", err.Error())
    }
@@ -186,12 +201,24 @@ func printCalendar(ctx context.Context, client *cfbd.Client) {
    }
 }
 
-// func printScoreboard(ctx context.Context, client *cfbd.Client) {
-//    panic("implement")
-// }
+func printScoreboard(ctx context.Context, client *cfbd.Client) {
+   scoreboard, err := client.GetScoreboard(
+      ctx, cfbd.GetScoreboardRequest{Conference: "SEC"},
+   )
+   if err != nil {
+      fmt.Printf("error occurred retrieving scoreboard: %s", err.Error())
+   }
+
+   fmt.Println("================= SCOREBOARD =================")
+   for _, s := range scoreboard {
+      fmt.Println(s.String())
+   }
+}
 
 func printGameAdvancedBoxScore(ctx context.Context, client *cfbd.Client) {
-   boxScore, err := client.GetAdvancedBoxScore(ctx, 401767768)
+   boxScore, err := client.GetAdvancedBoxScore(
+      ctx, cfbd.GetAdvancedBoxScoreRequest{GameID: 401767768},
+   )
    if err != nil {
       fmt.Printf("error occurred get advanced box score: %s", err.Error())
    }
@@ -263,7 +290,9 @@ func printPlayStatTypes(ctx context.Context, client *cfbd.Client) {
 }
 
 func printLivePlays(ctx context.Context, client *cfbd.Client) {
-   plays, err := client.GetLivePlays(ctx, 401778326)
+   plays, err := client.GetLivePlays(
+      ctx, cfbd.GetLivePlaysRequest{GameID: 401778326},
+   )
    if err != nil {
       fmt.Printf("error occurred retrieving All Teams: %s", err.Error())
    }
