@@ -1305,7 +1305,6 @@ func (c *Client) SearchPlayers(
 	ctx context.Context,
 	request SearchPlayersRequest,
 ) ([]*PlayerSearchResult, error) {
-	// TODO: URL encode search term
 	if request.SearchTerm == "" {
 		return nil, fmt.Errorf(
 			"search term is required; %w", ErrMissingRequiredParams,
@@ -3091,7 +3090,11 @@ func setString(v url.Values, key string, val string) {
 		return
 	}
 
-	v.Set(key, strings.TrimSpace(val))
+	// Explicitly URL encode the string value before setting it as a query parameter.
+	// This ensures proper encoding of special characters in all string parameters.
+	trimmed := strings.TrimSpace(val)
+	encoded := url.QueryEscape(trimmed)
+	v.Set(key, encoded)
 }
 
 func setInt32(v url.Values, key string, val int32) {

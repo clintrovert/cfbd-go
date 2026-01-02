@@ -56,7 +56,18 @@ func (c *Client) Execute(
 	}
 
 	u := c.BaseURL.ResolveReference(&url.URL{Path: path})
-	u.RawQuery = params.Encode()
+	// Build query string manually since values are already URL encoded
+	// by setString() in client.go to avoid double encoding from Encode().
+	var queryParts []string
+	for key, values := range params {
+		// Encode the key (though keys are typically constants, encode for safety)
+		encodedKey := url.QueryEscape(key)
+		for _, value := range values {
+			// Value is already encoded by setString(), so use it as-is
+			queryParts = append(queryParts, encodedKey+"="+value)
+		}
+	}
+	u.RawQuery = strings.Join(queryParts, "&")
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
 	if err != nil {

@@ -5,6 +5,7 @@ import (
 	"net/url"
 	"os"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/golang/mock/gomock"
@@ -3482,6 +3483,226 @@ func TestGetInfo_ValidRequest_ShouldSucceed(t *testing.T) {
 	require.NotNil(t, response)
 	assert.Equal(t, response.PatronLevel, 3.0)
 	assert.Equal(t, response.RemainingCalls, 74904.0)
+}
+
+func TestURLEncoding_StringParameters_ShouldBeEncoded(t *testing.T) {
+	tests := []struct {
+		name          string
+		request       interface{}
+		expectedKey   string
+		expectedValue string
+		callMethod    func(*Client, context.Context, interface{}) error
+	}{
+		{
+			name: "Team name with space",
+			request: GetGamesRequest{
+				Year: 2024,
+				Team: "San José State",
+			},
+			expectedKey:   "team",
+			expectedValue: "San+Jos%C3%A9+State", // Space becomes +, é becomes %C3%A9
+			callMethod: func(c *Client, ctx context.Context, req interface{}) error {
+				_, err := c.GetGames(ctx, req.(GetGamesRequest))
+				return err
+			},
+		},
+		{
+			name: "Conference with special characters",
+			request: GetTeamsRequest{
+				Conference: "Big Ten",
+			},
+			expectedKey:   "conference",
+			expectedValue: "Big+Ten", // Space becomes +
+			callMethod: func(c *Client, ctx context.Context, req interface{}) error {
+				_, err := c.GetTeams(ctx, req.(GetTeamsRequest))
+				return err
+			},
+		},
+		{
+			name: "Search term with ampersand",
+			request: SearchPlayersRequest{
+				SearchTerm: "Smith & Jones",
+			},
+			expectedKey:   "searchTerm",
+			expectedValue: "Smith+%26+Jones", // Space becomes +, & becomes %26
+			callMethod: func(c *Client, ctx context.Context, req interface{}) error {
+				_, err := c.SearchPlayers(ctx, req.(SearchPlayersRequest))
+				return err
+			},
+		},
+		{
+			name: "Team name with plus sign",
+			request: GetGamesRequest{
+				Year: 2024,
+				Team: "Team+Plus",
+			},
+			expectedKey:   "team",
+			expectedValue: "Team%2BPlus", // + becomes %2B
+			callMethod: func(c *Client, ctx context.Context, req interface{}) error {
+				_, err := c.GetGames(ctx, req.(GetGamesRequest))
+				return err
+			},
+		},
+		{
+			name: "Position with equals sign",
+			request: GetPlayerUsageRequest{
+				Year:     2024,
+				Position: "QB=Starter",
+			},
+			expectedKey:   "position",
+			expectedValue: "QB%3DStarter", // = becomes %3D
+			callMethod: func(c *Client, ctx context.Context, req interface{}) error {
+				_, err := c.GetPlayerUsage(ctx, req.(GetPlayerUsageRequest))
+				return err
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tester := newTestClient(t)
+
+			// Capture the params passed to Execute
+			var capturedParams url.Values
+			tester.requestExecutor.EXPECT().
+				Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+				Do(func(ctx context.Context, path string, params url.Values) {
+					capturedParams = params
+				}).
+				Return([]byte("[]"), nil).
+				Times(1)
+
+			err := tt.callMethod(tester.client, context.Background(), tt.request)
+			require.NoError(t, err, "method call should not error")
+
+			// Verify the parameter was set and is URL encoded
+			require.NotNil(t, capturedParams, "params should be captured")
+			values, ok := capturedParams[tt.expectedKey]
+			require.True(t, ok, "expected key %s should be present", tt.expectedKey)
+			require.Len(t, values, 1, "expected exactly one value for key %s", tt.expectedKey)
+			assert.Equal(t, tt.expectedValue, values[0], "value should be properly URL encoded")
+		})
+	}
+}
+
+func TestURLEncoding_MultipleStringParameters_ShouldAllBeEncoded(t *testing.T) {
+	tester := newTestClient(t)
+
+	var capturedParams url.Values
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Do(func(ctx context.Context, path string, params url.Values) {
+			capturedParams = params
+		}).
+		Return([]byte("[]"), nil).
+		Times(1)
+
+	_, err := tester.client.GetGames(context.Background(), GetGamesRequest{
+		Year:       2024,
+		Team:       "Texas A&M",
+		Conference: "SEC",
+		Home:       "Home Team",
+		Away:       "Away & Team",
+	})
+	require.NoError(t, err)
+
+	// Verify all string parameters are encoded
+	require.NotNil(t, capturedParams)
+
+	teamValues, ok := capturedParams["team"]
+	require.True(t, ok)
+	assert.Equal(t, "Texas+A%26M", teamValues[0]) // Space becomes +, & becomes %26
+
+	conferenceValues, ok := capturedParams["conference"]
+	require.True(t, ok)
+	assert.Equal(t, "SEC", conferenceValues[0]) // No encoding needed
+
+	homeValues, ok := capturedParams["home"]
+	require.True(t, ok)
+	assert.Equal(t, "Home+Team", homeValues[0]) // Space becomes +
+
+	awayValues, ok := capturedParams["away"]
+	require.True(t, ok)
+	assert.Equal(t, "Away+%26+Team", awayValues[0]) // Space becomes +, & becomes %26
+}
+
+func TestURLEncoding_EmptyAndWhitespaceStrings_ShouldNotBeSet(t *testing.T) {
+	tester := newTestClient(t)
+
+	var capturedParams url.Values
+	tester.requestExecutor.EXPECT().
+		Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+		Do(func(ctx context.Context, path string, params url.Values) {
+			capturedParams = params
+		}).
+		Return([]byte("[]"), nil).
+		Times(1)
+
+	_, err := tester.client.GetGames(context.Background(), GetGamesRequest{
+		Year:       2024,
+		Team:       "",      // Empty string
+		Conference: "   ",   // Whitespace only
+		Home:       "Valid", // Valid string
+	})
+	require.NoError(t, err)
+
+	require.NotNil(t, capturedParams)
+
+	// Empty and whitespace strings should not be set
+	_, ok := capturedParams["team"]
+	assert.False(t, ok, "empty string should not be set")
+
+	_, ok = capturedParams["conference"]
+	assert.False(t, ok, "whitespace-only string should not be set")
+
+	// Valid string should be set and encoded
+	homeValues, ok := capturedParams["home"]
+	require.True(t, ok)
+	assert.Equal(t, "Valid", homeValues[0])
+}
+
+func TestURLEncoding_UsesQueryEscape(t *testing.T) {
+	// Test that our encoding matches url.QueryEscape behavior
+	testStrings := []string{
+		"normal",
+		"with space",
+		"with&ampersand",
+		"with=equals",
+		"with+plus",
+		"with%percent",
+		"San José",
+		"Team #1",
+		"value?query",
+		"path/segment",
+	}
+
+	for _, testStr := range testStrings {
+		t.Run(testStr, func(t *testing.T) {
+			tester := newTestClient(t)
+
+			var capturedParams url.Values
+			tester.requestExecutor.EXPECT().
+				Execute(gomock.Any(), gomock.Any(), gomock.Any()).
+				Do(func(ctx context.Context, path string, params url.Values) {
+					capturedParams = params
+				}).
+				Return([]byte("[]"), nil).
+				Times(1)
+
+			_, err := tester.client.GetGames(context.Background(), GetGamesRequest{
+				Year: 2024,
+				Team: testStr,
+			})
+			require.NoError(t, err)
+
+			// Verify the encoded value matches url.QueryEscape
+			expectedEncoded := url.QueryEscape(strings.TrimSpace(testStr))
+			teamValues, ok := capturedParams["team"]
+			require.True(t, ok, "team parameter should be set")
+			assert.Equal(t, expectedEncoded, teamValues[0],
+				"encoded value should match url.QueryEscape output")
+		})
+	}
 }
 
 func convertToInt32Slice(values []*structpb.Value) []int32 {
