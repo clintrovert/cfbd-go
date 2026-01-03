@@ -15,7 +15,6 @@ package cfbd.v1;
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
-import "google/protobuf/wrappers.proto";
 
 option go_package = "github.com/clintrovert/cfbd-go/cfbd;cfbd";
 option java_package = "com.cfbd.api.v1";
@@ -47,13 +46,13 @@ message RushingYardsSplit {
 }
 
 message ClockInt32 {
-  google.protobuf.Int32Value seconds = 1;
-  google.protobuf.Int32Value minutes = 2;
+  optional int32 seconds = 1;
+  optional int32 minutes = 2;
 }
 
 message ClockDouble {
-  google.protobuf.DoubleValue seconds = 1;
-  google.protobuf.DoubleValue minutes = 2;
+  optional double seconds = 1;
+  optional double minutes = 2;
 }
 
 message StatValue {
@@ -102,34 +101,34 @@ message KickerPAAR {
 }
 
 message Venue {
-  google.protobuf.Int32Value id = 1;
-  google.protobuf.StringValue name = 2;
-  google.protobuf.StringValue city = 3;
-  google.protobuf.StringValue state = 4;
-  google.protobuf.StringValue zip = 5;
-  google.protobuf.StringValue country_code = 6;
-  google.protobuf.StringValue timezone = 7;
-  google.protobuf.DoubleValue latitude = 8;
-  google.protobuf.DoubleValue longitude = 9;
-  google.protobuf.StringValue elevation = 10;
-  google.protobuf.Int32Value capacity = 11;
-  google.protobuf.Int32Value construction_year = 12;
-  google.protobuf.BoolValue grass = 13;
-  google.protobuf.BoolValue dome = 14;
+  optional int32 id = 1;
+  string name = 2;
+  string city = 3;
+  string state = 4;
+  string zip = 5;
+  string country_code = 6;
+  string timezone = 7;
+  optional double latitude = 8;
+  optional double longitude = 9;
+  string elevation = 10;
+  optional int32 capacity = 11;
+  optional int32 construction_year = 12;
+  optional bool grass = 13;
+  optional bool dome = 14;
 }
 
 message Team {
   int32 id = 1;
   string school = 2;
-  google.protobuf.StringValue mascot = 3;
-  google.protobuf.StringValue abbreviation = 4;
-  google.protobuf.ListValue alternate_names = 5;
-  google.protobuf.StringValue conference = 6;
-  google.protobuf.StringValue division = 7;
-  google.protobuf.StringValue classification = 8;
-  google.protobuf.StringValue color = 9;
-  google.protobuf.StringValue alternate_color = 10;
-  google.protobuf.ListValue logos = 11;
+  string mascot = 3;
+  string abbreviation = 4;
+  repeated string alternate_names = 5;
+  string conference = 6;
+  string division = 7;
+  string classification = 8;
+  string color = 9;
+  string alternate_color = 10;
+  repeated string logos = 11;
   string twitter = 12;
   Venue location = 13;
 }
@@ -140,19 +139,19 @@ message MatchupGame {
   string season_type = 3;
   string date = 4;
   bool neutral_site = 5;
-  google.protobuf.StringValue venue = 6;
+  string venue = 6;
   string home_team = 7;
-  google.protobuf.Int32Value home_score = 8;
+  optional int32 home_score = 8;
   string away_team = 9;
-  google.protobuf.Int32Value away_score = 10;
-  google.protobuf.StringValue winner = 11;
+  optional int32 away_score = 10;
+  string winner = 11;
 }
 
 message Matchup {
   string team1 = 1;
   string team2 = 2;
-  google.protobuf.Int32Value start_year = 3;
-  google.protobuf.Int32Value end_year = 4;
+  optional int32 start_year = 3;
+  optional int32 end_year = 4;
   int32 team1_wins = 5;
   int32 team2_wins = 6;
   int32 ties = 7;
@@ -163,12 +162,12 @@ message TeamATS {
   int32 year = 1;
   int32 team_id = 2;
   string team = 3;
-  google.protobuf.StringValue conference = 4;
-  google.protobuf.Int32Value games = 5;
+  string conference = 4;
+  optional int32 games = 5;
   int32 ats_wins = 6;
   int32 ats_losses = 7;
   int32 ats_pushes = 8;
-  google.protobuf.DoubleValue avg_cover_margin = 9;
+  optional double avg_cover_margin = 9;
 }
 
 message RosterPlayer {
@@ -176,26 +175,26 @@ message RosterPlayer {
   string first_name = 2;
   string last_name = 3;
   string team = 4;
-  google.protobuf.DoubleValue height = 5;
-  google.protobuf.Int32Value weight = 6;
-  google.protobuf.Int32Value jersey = 7;
-  google.protobuf.Int32Value year = 8 [deprecated = true];
-  google.protobuf.StringValue position = 9;
-  google.protobuf.StringValue home_city = 10;
-  google.protobuf.StringValue home_state = 11;
-  google.protobuf.StringValue home_country = 12;
-  google.protobuf.DoubleValue home_latitude = 13;
-  google.protobuf.DoubleValue home_longitude = 14;
-  google.protobuf.StringValue home_county_FIPS = 15;
-  google.protobuf.ListValue recruit_ids = 16;
+  optional double height = 5;
+  optional int32 weight = 6;
+  optional int32 jersey = 7;
+  optional int32 year = 8 [deprecated = true];
+  string position = 9;
+  string home_city = 10;
+  string home_state = 11;
+  string home_country = 12;
+  optional double home_latitude = 13;
+  optional double home_longitude = 14;
+  string home_county_FIPS = 15;
+  repeated string recruit_ids = 16;
 }
 
 message Conference {
   int32 id = 1;
   string name = 2;
-  google.protobuf.StringValue short_name = 3;
-  google.protobuf.StringValue abbreviation = 4;
-  google.protobuf.StringValue classification = 5;
+  string short_name = 3;
+  string abbreviation = 4;
+  string classification = 5;
 }
 
 message TeamTalent {
@@ -227,22 +226,22 @@ message TeamStat {
 // -------------------- Advanced season/game stats --------------------
 
 message AdvancedRateMetrics {
-  google.protobuf.DoubleValue explosiveness = 1;
-  google.protobuf.DoubleValue success_rate = 2;
-  google.protobuf.DoubleValue total_PPA = 3;
-  google.protobuf.DoubleValue ppa = 4;
-  google.protobuf.DoubleValue rate = 5;
+  optional double explosiveness = 1;
+  optional double success_rate = 2;
+  optional double total_PPA = 3;
+  optional double ppa = 4;
+  optional double rate = 5;
 }
 
 message AdvancedHavoc {
-  google.protobuf.DoubleValue db = 1;
-  google.protobuf.DoubleValue front_seven = 2;
-  google.protobuf.DoubleValue total = 3;
+  optional double db = 1;
+  optional double front_seven = 2;
+  optional double total = 3;
 }
 
 message AdvancedFieldPosition {
-  google.protobuf.DoubleValue average_predicted_points = 1;
-  google.protobuf.DoubleValue average_start = 2;
+  optional double average_predicted_points = 1;
+  optional double average_start = 2;
 }
 
 message AdvancedSeasonStatSide {
@@ -252,22 +251,22 @@ message AdvancedSeasonStatSide {
   AdvancedRateMetrics standard_downs = 4;
   AdvancedHavoc havoc = 5;
   AdvancedFieldPosition field_position = 6;
-  google.protobuf.DoubleValue points_per_opportunity = 7;
-  google.protobuf.Int32Value total_opportunies = 8; // typo in API: totalOpportunies
-  google.protobuf.Int32Value open_field_yards_total = 9;
-  google.protobuf.DoubleValue open_field_yards = 10;
-  google.protobuf.Int32Value second_level_yards_total = 11;
-  google.protobuf.DoubleValue second_level_yards = 12;
-  google.protobuf.Int32Value line_yards_total = 13;
-  google.protobuf.DoubleValue line_yards = 14;
-  google.protobuf.DoubleValue stuff_rate = 15;
-  google.protobuf.DoubleValue power_success = 16;
-  google.protobuf.DoubleValue explosiveness = 17;
-  google.protobuf.DoubleValue success_rate = 18;
-  google.protobuf.DoubleValue total_PPA = 19;
-  google.protobuf.DoubleValue ppa = 20;
-  google.protobuf.Int32Value drives = 21;
-  google.protobuf.Int32Value plays = 22;
+  optional double points_per_opportunity = 7;
+  optional int32 total_opportunies = 8; // typo in API: totalOpportunies
+  optional int32 open_field_yards_total = 9;
+  optional double open_field_yards = 10;
+  optional int32 second_level_yards_total = 11;
+  optional double second_level_yards = 12;
+  optional int32 line_yards_total = 13;
+  optional double line_yards = 14;
+  optional double stuff_rate = 15;
+  optional double power_success = 16;
+  optional double explosiveness = 17;
+  optional double success_rate = 18;
+  optional double total_PPA = 19;
+  optional double ppa = 20;
+  optional int32 drives = 21;
+  optional int32 plays = 22;
 }
 
 message AdvancedSeasonStat {
@@ -279,16 +278,16 @@ message AdvancedSeasonStat {
 }
 
 message AdvancedGameStatSidePlayMetrics {
-  google.protobuf.DoubleValue explosiveness = 1;
-  google.protobuf.DoubleValue success_rate = 2;
-  google.protobuf.DoubleValue total_PPA = 3;
-  google.protobuf.DoubleValue ppa = 4;
+  optional double explosiveness = 1;
+  optional double success_rate = 2;
+  optional double total_PPA = 3;
+  optional double ppa = 4;
 }
 
 message AdvancedGameStatSideDownMetrics {
-  google.protobuf.DoubleValue explosiveness = 1;
-  google.protobuf.DoubleValue success_rate = 2;
-  google.protobuf.DoubleValue ppa = 3;
+  optional double explosiveness = 1;
+  optional double success_rate = 2;
+  optional double ppa = 3;
 }
 
 message AdvancedGameStatSide {
@@ -296,20 +295,20 @@ message AdvancedGameStatSide {
   AdvancedGameStatSidePlayMetrics rushing_plays = 2;
   AdvancedGameStatSideDownMetrics passing_downs = 3;
   AdvancedGameStatSideDownMetrics standard_downs = 4;
-  google.protobuf.Int32Value open_field_yards_total = 5;
-  google.protobuf.DoubleValue open_field_yards = 6;
-  google.protobuf.Int32Value second_level_yards_total = 7;
-  google.protobuf.DoubleValue second_level_yards = 8;
-  google.protobuf.Int32Value line_yards_total = 9;
-  google.protobuf.DoubleValue line_yards = 10;
-  google.protobuf.DoubleValue stuff_rate = 11;
-  google.protobuf.DoubleValue power_success = 12;
-  google.protobuf.DoubleValue explosiveness = 13;
-  google.protobuf.DoubleValue success_rate = 14;
-  google.protobuf.DoubleValue total_PPA = 15;
-  google.protobuf.DoubleValue ppa = 16;
-  google.protobuf.Int32Value drives = 17;
-  google.protobuf.Int32Value plays = 18;
+  optional int32 open_field_yards_total = 5;
+  optional double open_field_yards = 6;
+  optional int32 second_level_yards_total = 7;
+  optional double second_level_yards = 8;
+  optional int32 line_yards_total = 9;
+  optional double line_yards = 10;
+  optional double stuff_rate = 11;
+  optional double power_success = 12;
+  optional double explosiveness = 13;
+  optional double success_rate = 14;
+  optional double total_PPA = 15;
+  optional double ppa = 16;
+  optional int32 drives = 17;
+  optional int32 plays = 18;
 }
 
 message AdvancedGameStat {
@@ -339,9 +338,9 @@ message GameHavocStats {
   string season_type = 3;
   int32 week = 4;
   string team = 5;
-  google.protobuf.StringValue conference = 6;
+  string conference = 6;
   string opponent = 7;
-  google.protobuf.StringValue opponent_conference = 8;
+  string opponent_conference = 8;
   GameHavocStatSide offense = 9;
   GameHavocStatSide defense = 10;
 }
@@ -349,28 +348,28 @@ message GameHavocStats {
 // -------------------- Recruiting --------------------
 
 message RecruitHometownInfo {
-  google.protobuf.StringValue fips_code = 1;
-  google.protobuf.DoubleValue longitude = 2;
-  google.protobuf.DoubleValue latitude = 3;
+  string fips_code = 1;
+  optional double longitude = 2;
+  optional double latitude = 3;
 }
 
 message Recruit {
   string id = 1;
-  google.protobuf.StringValue athlete_id = 2;
+  string athlete_id = 2;
   string recruit_type = 3;
   int32 year = 4;
-  google.protobuf.Int32Value ranking = 5;
+  optional int32 ranking = 5;
   string name = 6;
-  google.protobuf.StringValue school = 7;
-  google.protobuf.StringValue committed_to = 8;
-  google.protobuf.StringValue position = 9;
-  google.protobuf.DoubleValue height = 10;
-  google.protobuf.Int32Value weight = 11;
+  string school = 7;
+  string committed_to = 8;
+  string position = 9;
+  optional double height = 10;
+  optional int32 weight = 11;
   int32 stars = 12;
   double rating = 13;
-  google.protobuf.StringValue city = 14;
-  google.protobuf.StringValue state_province = 15;
-  google.protobuf.StringValue country = 16;
+  string city = 14;
+  string state_province = 15;
+  string country = 16;
   RecruitHometownInfo hometown_info = 17;
 }
 
@@ -384,7 +383,7 @@ message TeamRecruitingRanking {
 message AggregatedTeamRecruiting {
   string team = 1;
   string conference = 2;
-  google.protobuf.StringValue position_group = 3;
+  optional string position_group = 3;
   double average_rating = 4;
   double total_rating = 5;
   int32 commits = 6;
@@ -394,44 +393,44 @@ message AggregatedTeamRecruiting {
 // -------------------- SP / SRS / Elo / FPI --------------------
 
 message SpTeamOffense {
-  google.protobuf.DoubleValue pace = 1;
-  google.protobuf.DoubleValue run_rate = 2;
-  google.protobuf.DoubleValue passing_downs = 3;
-  google.protobuf.DoubleValue standard_downs = 4;
-  google.protobuf.DoubleValue passing = 5;
-  google.protobuf.DoubleValue rushing = 6;
-  google.protobuf.DoubleValue explosiveness = 7;
-  google.protobuf.DoubleValue success = 8;
-  google.protobuf.DoubleValue rating = 9;
-  google.protobuf.Int32Value ranking = 10;
+  optional double pace = 1;
+  optional double run_rate = 2;
+  optional double passing_downs = 3;
+  optional double standard_downs = 4;
+  optional double passing = 5;
+  optional double rushing = 6;
+  optional double explosiveness = 7;
+  optional double success = 8;
+  optional double rating = 9;
+  optional int32 ranking = 10;
 }
 
 message SpTeamDefense {
   AdvancedHavoc havoc = 1;
-  google.protobuf.DoubleValue passing_downs = 2;
-  google.protobuf.DoubleValue standard_downs = 3;
-  google.protobuf.DoubleValue passing = 4;
-  google.protobuf.DoubleValue rushing = 5;
-  google.protobuf.DoubleValue explosiveness = 6;
-  google.protobuf.DoubleValue success = 7;
-  google.protobuf.DoubleValue rating = 8;
-  google.protobuf.Int32Value ranking = 9;
+  optional double passing_downs = 2;
+  optional double standard_downs = 3;
+  optional double passing = 4;
+  optional double rushing = 5;
+  optional double explosiveness = 6;
+  optional double success = 7;
+  optional double rating = 8;
+  optional int32 ranking = 9;
 }
 
 message SpSpecialTeams {
-  google.protobuf.DoubleValue rating = 1;
+  optional double rating = 1;
 }
 
 message TeamSP {
   int32 year = 1;
   string team = 2;
-  google.protobuf.StringValue conference = 3;
+  string conference = 3;
 
-  google.protobuf.DoubleValue rating = 4;
-  google.protobuf.Int32Value ranking = 5;
+  optional double rating = 4;
+  optional int32 ranking = 5;
 
-  google.protobuf.DoubleValue second_order_wins = 6;
-  google.protobuf.DoubleValue sos = 7;
+  optional double second_order_wins = 6;
+  optional double sos = 7;
 
   SpTeamOffense offense = 8;
   SpTeamDefense defense = 9;
@@ -439,26 +438,26 @@ message TeamSP {
 }
 
 message ConferenceSpOffense {
-  google.protobuf.DoubleValue pace = 1;
-  google.protobuf.DoubleValue run_rate = 2;
-  google.protobuf.DoubleValue passing_downs = 3;
-  google.protobuf.DoubleValue standard_downs = 4;
-  google.protobuf.DoubleValue passing = 5;
-  google.protobuf.DoubleValue rushing = 6;
-  google.protobuf.DoubleValue explosiveness = 7;
-  google.protobuf.DoubleValue success = 8;
-  google.protobuf.DoubleValue rating = 9;
+  optional double pace = 1;
+  optional double run_rate = 2;
+  optional double passing_downs = 3;
+  optional double standard_downs = 4;
+  optional double passing = 5;
+  optional double rushing = 6;
+  optional double explosiveness = 7;
+  optional double success = 8;
+  optional double rating = 9;
 }
 
 message ConferenceSpDefense {
   AdvancedHavoc havoc = 1;
-  google.protobuf.DoubleValue passing_downs = 2;
-  google.protobuf.DoubleValue standard_downs = 3;
-  google.protobuf.DoubleValue passing = 4;
-  google.protobuf.DoubleValue rushing = 5;
-  google.protobuf.DoubleValue explosiveness = 6;
-  google.protobuf.DoubleValue success = 7;
-  google.protobuf.DoubleValue rating = 8;
+  optional double passing_downs = 2;
+  optional double standard_downs = 3;
+  optional double passing = 4;
+  optional double rushing = 5;
+  optional double explosiveness = 6;
+  optional double success = 7;
+  optional double rating = 8;
 }
 
 message ConferenceSP {
@@ -466,7 +465,7 @@ message ConferenceSP {
   string conference = 2;
   double rating = 3;
   double second_order_wins = 4;
-  google.protobuf.DoubleValue sos = 5;
+  optional double sos = 5;
 
   ConferenceSpOffense offense = 6;
   ConferenceSpDefense defense = 7;
@@ -476,41 +475,41 @@ message ConferenceSP {
 message TeamSRS {
   int32 year = 1;
   string team = 2;
-  google.protobuf.StringValue conference = 3;
-  google.protobuf.StringValue division = 4;
+  string conference = 3;
+  string division = 4;
   double rating = 5;
-  google.protobuf.Int32Value ranking = 6;
+  optional int32 ranking = 6;
 }
 
 message TeamElo {
   int32 year = 1;
   string team = 2;
-  google.protobuf.StringValue conference = 3;
-  google.protobuf.Int32Value elo = 4;
+  string conference = 3;
+  optional int32 elo = 4;
 }
 
 message FpiResumeRanks {
-  google.protobuf.Int32Value game_control = 1;
-  google.protobuf.Int32Value remaining_strength_of_schedule = 2;
-  google.protobuf.Int32Value strength_of_schedule = 3;
-  google.protobuf.Int32Value average_win_probability = 4;
-  google.protobuf.Int32Value fpi = 5;
-  google.protobuf.Int32Value strength_of_record = 6;
+  optional int32 game_control = 1;
+  optional int32 remaining_strength_of_schedule = 2;
+  optional int32 strength_of_schedule = 3;
+  optional int32 average_win_probability = 4;
+  optional int32 fpi = 5;
+  optional int32 strength_of_record = 6;
 }
 
 message FpiEfficiencies {
-  google.protobuf.DoubleValue special_teams = 1;
-  google.protobuf.DoubleValue defense = 2;
-  google.protobuf.DoubleValue offense = 3;
-  google.protobuf.DoubleValue overall = 4;
+  optional double special_teams = 1;
+  optional double defense = 2;
+  optional double offense = 3;
+  optional double overall = 4;
 }
 
 message TeamFPI {
   int32 year = 1;
   string team = 2;
-  google.protobuf.StringValue conference = 3;
+  string conference = 3;
 
-  google.protobuf.DoubleValue fpi = 4;
+  optional double fpi = 4;
   FpiResumeRanks resume_ranks = 5;
   FpiEfficiencies efficiencies = 6;
 }
@@ -518,12 +517,12 @@ message TeamFPI {
 // -------------------- Polls --------------------
 
 message PollRank {
-  google.protobuf.Int32Value rank = 1;
-  google.protobuf.Int32Value team_id = 2;
+  optional int32 rank = 1;
+  optional int32 team_id = 2;
   string school = 3;
-  google.protobuf.StringValue conference = 4;
-  google.protobuf.Int32Value first_place_votes = 5;
-  google.protobuf.Int32Value points = 6;
+  string conference = 4;
+  optional int32 first_place_votes = 5;
+  optional int32 points = 6;
 }
 
 message Poll {
@@ -544,20 +543,20 @@ message Play {
   string id = 1;
   string drive_id = 2;
   int32 game_id = 3;
-  google.protobuf.Int32Value drive_number = 4;
-  google.protobuf.Int32Value play_number = 5;
+  optional int32 drive_number = 4;
+  optional int32 play_number = 5;
   string offense = 6;
-  google.protobuf.StringValue offense_conference = 7;
+  string offense_conference = 7;
   int32 offense_score = 8;
   string defense = 9;
   string home = 10;
   string away = 11;
-  google.protobuf.StringValue defense_conference = 12;
+  string defense_conference = 12;
   int32 defense_score = 13;
   int32 period = 14;
   ClockInt32 clock = 15;
-  google.protobuf.Int32Value offense_timeouts = 16;
-  google.protobuf.Int32Value defense_timeouts = 17;
+  optional int32 offense_timeouts = 16;
+  optional int32 defense_timeouts = 17;
   int32 yardline = 18;
   int32 yards_to_goal = 19;
   int32 down = 20;
@@ -565,15 +564,15 @@ message Play {
   int32 yards_gained = 22;
   bool scoring = 23;
   string play_type = 24;
-  google.protobuf.StringValue play_text = 25;
-  google.protobuf.DoubleValue ppa = 26;
-  google.protobuf.StringValue wallclock = 27;
+  string play_text = 25;
+  optional double ppa = 26;
+  string wallclock = 27;
 }
 
 message PlayType {
   int32 id = 1;
   string text = 2;
-  google.protobuf.StringValue abbreviation = 3;
+  string abbreviation = 3;
 }
 
 message PlayStat {
@@ -607,11 +606,11 @@ message PlayerSearchResult {
   string id = 1;
   string team = 2;
   string name = 3;
-  google.protobuf.StringValue first_name = 4;
-  google.protobuf.StringValue last_name = 5;
-  google.protobuf.Int32Value weight = 6;
-  google.protobuf.DoubleValue height = 7;
-  google.protobuf.Int32Value jersey = 8;
+  string first_name = 4;
+  string last_name = 5;
+  optional int32 weight = 6;
+  optional double height = 7;
+  optional int32 jersey = 8;
   string position = 9;
   string hometown = 10;
   string team_color = 11;
@@ -624,14 +623,14 @@ message PlayerPPAChartItem {
 }
 
 message PlayerUsageSplits {
-  google.protobuf.DoubleValue passing_downs = 1;
-  google.protobuf.DoubleValue standard_downs = 2;
-  google.protobuf.DoubleValue third_down = 3;
-  google.protobuf.DoubleValue second_down = 4;
-  google.protobuf.DoubleValue first_down = 5;
-  google.protobuf.DoubleValue rush = 6;
-  google.protobuf.DoubleValue pass = 7;
-  google.protobuf.DoubleValue overall = 8;
+  optional double passing_downs = 1;
+  optional double standard_downs = 2;
+  optional double third_down = 3;
+  optional double second_down = 4;
+  optional double first_down = 5;
+  optional double rush = 6;
+  optional double pass = 7;
+  optional double overall = 8;
 }
 
 message PlayerUsage {
@@ -673,11 +672,11 @@ message PlayerTransfer {
   string last_name = 3;
   string position = 4;
   string origin = 5;
-  google.protobuf.StringValue destination = 6;
+  string destination = 6;
   google.protobuf.Timestamp transfer_date = 7;
-  google.protobuf.DoubleValue rating = 8;
-  google.protobuf.Int32Value stars = 9;
-  google.protobuf.StringValue eligibility = 10;
+  optional double rating = 8;
+  optional int32 stars = 9;
+  string eligibility = 10;
 }
 
 // -------------------- Predicted points & PPA added --------------------
@@ -709,12 +708,12 @@ message PredictedPointsAddedTotalsForGames {
 
 message TeamSeasonPredictedPointsAddedUnit {
   PredictedPointsAddedTotals cumulative = 1;
-  google.protobuf.DoubleValue third_down = 2;
-  google.protobuf.DoubleValue second_down = 3;
-  google.protobuf.DoubleValue first_down = 4;
-  google.protobuf.DoubleValue rushing = 5;
-  google.protobuf.DoubleValue passing = 6;
-  google.protobuf.DoubleValue overall = 7;
+  optional double third_down = 2;
+  optional double second_down = 3;
+  optional double first_down = 4;
+  optional double rushing = 5;
+  optional double passing = 6;
+  optional double overall = 7;
 }
 
 message TeamSeasonPredictedPointsAdded {
@@ -756,14 +755,14 @@ message PlayerGamePredictedPointsAdded {
 }
 
 message PlayerSeasonPpaSplits {
-  google.protobuf.DoubleValue passing_downs = 1;
-  google.protobuf.DoubleValue standard_downs = 2;
-  google.protobuf.DoubleValue third_down = 3;
-  google.protobuf.DoubleValue second_down = 4;
-  google.protobuf.DoubleValue first_down = 5;
-  google.protobuf.DoubleValue rush = 6;
-  google.protobuf.DoubleValue pass = 7;
-  google.protobuf.DoubleValue all = 8;
+  optional double passing_downs = 1;
+  optional double standard_downs = 2;
+  optional double third_down = 3;
+  optional double second_down = 4;
+  optional double first_down = 5;
+  optional double rush = 6;
+  optional double pass = 7;
+  optional double all = 8;
 }
 
 message PlayerSeasonPredictedPointsAdded {
@@ -826,7 +825,7 @@ message LiveGameTeam {
   int32 drives = 6;
   int32 scoring_opportunities = 7;
   double points_per_opportunity = 8;
-  google.protobuf.DoubleValue average_start_yard_line = 9;
+  optional double average_start_yard_line = 9;
   int32 plays = 10;
   double line_yards = 11;
   double line_yards_per_rush = 12;
@@ -844,7 +843,7 @@ message LiveGameTeam {
   double standard_down_success_rate = 24;
   double passing_down_success_rate = 25;
   double explosiveness = 26;
-  google.protobuf.DoubleValue deserve_to_win = 27;
+  optional double deserve_to_win = 27;
 }
 
 message LiveGamePlay {
@@ -862,7 +861,7 @@ message LiveGamePlay {
   int32 yards_gained = 12;
   int32 play_type_id = 13;
   string play_type = 14;
-  google.protobuf.DoubleValue epa = 15;
+  optional double epa = 15;
   bool garbage_time = 16;
   bool success = 17;
   string rush_pass = 18;
@@ -879,12 +878,12 @@ message LiveGameDrive {
   int32 play_count = 6;
   int32 yards = 7;
   int32 start_period = 8;
-  google.protobuf.StringValue start_clock = 9;
+  string start_clock = 9;
   int32 start_yards_to_goal = 10;
-  google.protobuf.Int32Value end_period = 11;
-  google.protobuf.StringValue end_clock = 12;
-  google.protobuf.Int32Value end_yards_to_goal = 13;
-  google.protobuf.StringValue duration = 14;
+  optional int32 end_period = 11;
+  string end_clock = 12;
+  optional int32 end_yards_to_goal = 13;
+  string duration = 14;
   bool scoring_opportunity = 15;
   string result = 16;
   int32 points_gained = 17;
@@ -894,12 +893,12 @@ message LiveGameDrive {
 message LiveGame {
   int32 id = 1;
   string status = 2;
-  google.protobuf.Int32Value period = 3;
+  optional int32 period = 3;
   string clock = 4;
   string possession = 5;
-  google.protobuf.Int32Value down = 6;
-  google.protobuf.Int32Value distance = 7;
-  google.protobuf.Int32Value yards_to_goal = 8;
+  optional int32 down = 6;
+  optional int32 distance = 7;
+  optional int32 yards_to_goal = 8;
   repeated LiveGameTeam teams = 9;
   repeated LiveGameDrive drives = 10;
 }
@@ -908,13 +907,13 @@ message LiveGame {
 
 message GameLine {
   string provider = 1;
-  google.protobuf.DoubleValue spread = 2;
-  google.protobuf.StringValue formatted_spread = 3;
-  google.protobuf.DoubleValue spread_open = 4;
-  google.protobuf.DoubleValue over_under = 5;
-  google.protobuf.DoubleValue over_under_open = 6;
-  google.protobuf.DoubleValue home_moneyline = 7;
-  google.protobuf.DoubleValue away_moneyline = 8;
+  optional double spread = 2;
+  string formatted_spread = 3;
+  optional double spread_open = 4;
+  optional double over_under = 5;
+  optional double over_under_open = 6;
+  optional double home_moneyline = 7;
+  optional double away_moneyline = 8;
 }
 
 message BettingGame {
@@ -925,20 +924,24 @@ message BettingGame {
   google.protobuf.Timestamp start_date = 5;
   int32 home_team_id = 6;
   string home_team = 7;
-  google.protobuf.StringValue home_conference = 8;
-  google.protobuf.StringValue home_classification = 9;
-  google.protobuf.Int32Value home_score = 10;
+  string home_conference = 8;
+  string home_classification = 9;
+  optional int32 home_score = 10;
   int32 away_team_id = 11;
   string away_team = 12;
-  google.protobuf.StringValue away_conference = 13;
-  google.protobuf.StringValue away_classification = 14;
-  google.protobuf.Int32Value away_score = 15;
+  string away_conference = 13;
+  string away_classification = 14;
+  optional int32 away_score = 15;
   repeated GameLine lines = 16;
 }
 
 message UserInfo {
   double patron_level = 1;
   double remaining_calls = 2;
+}
+
+message Int32List {
+  repeated int32 values = 1;
 }
 
 message Game {
@@ -951,30 +954,30 @@ message Game {
   bool completed = 7;
   bool neutral_site = 8;
   bool conference_game = 9;
-  google.protobuf.Int32Value attendance = 10;
-  google.protobuf.Int32Value venue_id = 11;
-  google.protobuf.StringValue venue = 12;
-  google.protobuf.Int32Value home_id = 13;
+  optional int32 attendance = 10;
+  optional int32 venue_id = 11;
+  string venue = 12;
+  optional int32 home_id = 13;
   string home_team = 14;
-  google.protobuf.StringValue home_conference = 15;
-  google.protobuf.StringValue home_classification = 16;
-  google.protobuf.Int32Value home_points = 17;
-  google.protobuf.ListValue home_line_scores = 18;
-  google.protobuf.DoubleValue home_postgame_win_probability = 19;
-  google.protobuf.Int32Value home_pregame_elo = 20;
-  google.protobuf.Int32Value home_postgame_elo = 21;
-  google.protobuf.Int32Value away_id = 22;
+  string home_conference = 15;
+  string home_classification = 16;
+  optional int32 home_points = 17;
+  repeated int32 home_line_scores = 18;
+  optional double home_postgame_win_probability = 19;
+  optional int32 home_pregame_elo = 20;
+  optional int32 home_postgame_elo = 21;
+  optional int32 away_id = 22;
   string away_team = 23;
-  google.protobuf.StringValue away_conference = 24;
-  google.protobuf.StringValue away_classification = 25;
-  google.protobuf.Int32Value away_points = 26;
-  google.protobuf.ListValue away_line_scores = 27;
-  google.protobuf.DoubleValue away_postgame_win_probability = 28;
-  google.protobuf.Int32Value away_pregame_elo = 29;
-  google.protobuf.Int32Value away_postgame_elo = 30;
-  google.protobuf.DoubleValue excitement_index = 31;
-  google.protobuf.StringValue highlights = 32;
-  google.protobuf.StringValue notes = 33;
+  string away_conference = 24;
+  string away_classification = 25;
+  optional int32 away_points = 26;
+  repeated int32 away_line_scores = 27;
+  optional double away_postgame_win_probability = 28;
+  optional int32 away_pregame_elo = 29;
+  optional int32 away_postgame_elo = 30;
+  optional double excitement_index = 31;
+  string highlights = 32;
+  string notes = 33;
 }
 
 // -------------------- Game team stats --------------------
@@ -987,9 +990,9 @@ message GameTeamStatsTeamStat {
 message GameTeamStatsTeam {
   int32 team_id = 1;
   string team = 2;
-  google.protobuf.StringValue conference = 3;
+  string conference = 3;
   string home_away = 4;
-  google.protobuf.Int32Value points = 5;
+  optional int32 points = 5;
   repeated GameTeamStatsTeamStat stats = 6;
 }
 
@@ -1018,9 +1021,9 @@ message GamePlayerStatCategories {
 
 message GamePlayerStatsTeam {
   string team = 1;
-  google.protobuf.StringValue conference = 2;
+  string conference = 2;
   string home_away = 3;
-  google.protobuf.Int32Value points = 4;
+  optional int32 points = 4;
   repeated GamePlayerStatCategories categories = 5;
 }
 
@@ -1039,9 +1042,9 @@ message GameMedia {
   google.protobuf.Timestamp start_time = 5;
   bool is_start_time_TBD = 6;
   string home_team = 7;
-  google.protobuf.StringValue home_conference = 8;
+  string home_conference = 8;
   string away_team = 9;
-  google.protobuf.StringValue away_conference = 10;
+  string away_conference = 10;
   string media_type = 11;
   string outlet = 12;
 }
@@ -1054,21 +1057,21 @@ message GameWeather {
   google.protobuf.Timestamp start_time = 5;
   bool game_indoors = 6;
   string home_team = 7;
-  google.protobuf.StringValue home_conference = 8;
+  string home_conference = 8;
   string away_team = 9;
-  google.protobuf.StringValue away_conference = 10;
-  google.protobuf.Int32Value venue_id = 11;
-  google.protobuf.StringValue venue = 12;
-  google.protobuf.DoubleValue temperature = 13;
-  google.protobuf.DoubleValue dew_point = 14;
-  google.protobuf.DoubleValue humidity = 15;
-  google.protobuf.DoubleValue precipitation = 16;
-  google.protobuf.DoubleValue snowfall = 17;
-  google.protobuf.DoubleValue wind_direction = 18;
-  google.protobuf.DoubleValue wind_speed = 19;
-  google.protobuf.DoubleValue pressure = 20;
-  google.protobuf.DoubleValue weather_condition_code = 21;
-  google.protobuf.StringValue weather_condition = 22;
+  string away_conference = 10;
+  optional int32 venue_id = 11;
+  string venue = 12;
+  optional double temperature = 13;
+  optional double dew_point = 14;
+  optional double humidity = 15;
+  optional double precipitation = 16;
+  optional double snowfall = 17;
+  optional double wind_direction = 18;
+  optional double wind_speed = 19;
+  optional double pressure = 20;
+  optional double weather_condition_code = 21;
+  string weather_condition = 22;
 }
 
 // -------------------- Records / calendar / scoreboard --------------------
@@ -1082,12 +1085,12 @@ message TeamRecord {
 
 message TeamRecords {
   int32 year = 1;
-  google.protobuf.Int32Value team_id = 2;
+  optional int32 team_id = 2;
   string team = 3;
-  google.protobuf.StringValue classification = 4;
+  string classification = 4;
   string conference = 5;
   string division = 6;
-  google.protobuf.DoubleValue expected_wins = 7;
+  optional double expected_wins = 7;
   TeamRecord total = 8;
   TeamRecord conference_games = 9;
   TeamRecord home_games = 10;
@@ -1111,15 +1114,15 @@ message Scoreboard {
   int32 id = 1;
   google.protobuf.Timestamp start_date = 2;
   bool start_time_TBD = 3;
-  google.protobuf.StringValue tv = 4;
+  string tv = 4;
   bool neutral_site = 5;
   bool conference_game = 6;
   string status = 7;
-  google.protobuf.Int32Value period = 8;
-  google.protobuf.StringValue clock = 9;
-  google.protobuf.StringValue situation = 10;
-  google.protobuf.StringValue possession = 11;
-  google.protobuf.StringValue last_play = 12;
+  optional int32 period = 8;
+  string clock = 9;
+  string situation = 10;
+  string possession = 11;
+  string last_play = 12;
   google.protobuf.Struct venue = 13;
   google.protobuf.Struct home_team = 14;
   google.protobuf.Struct away_team = 15;
@@ -1131,12 +1134,12 @@ message Scoreboard {
 
 message Drive {
   string offense = 1;
-  google.protobuf.StringValue offense_conference = 2;
+  string offense_conference = 2;
   string defense = 3;
-  google.protobuf.StringValue defense_conference = 4;
+  string defense_conference = 4;
   int32 game_id = 5;
   string id = 6;
-  google.protobuf.Int32Value drive_number = 7;
+  optional int32 drive_number = 7;
   bool scoring = 8;
   int32 start_period = 9;
   int32 start_yardline = 10;
@@ -1161,9 +1164,9 @@ message Drive {
 
 message DraftTeam {
   string location = 1;
-  google.protobuf.StringValue nickname = 2;
-  google.protobuf.StringValue display_name = 3;
-  google.protobuf.StringValue logo = 4;
+  string nickname = 2;
+  string display_name = 3;
+  string logo = 4;
 }
 
 message DraftPosition {
@@ -1172,20 +1175,20 @@ message DraftPosition {
 }
 
 message DraftPickHometownInfo {
-  google.protobuf.StringValue county_fips = 1;
-  google.protobuf.StringValue longitude = 2;
-  google.protobuf.StringValue latitude = 3;
-  google.protobuf.StringValue country = 4;
-  google.protobuf.StringValue state = 5;
-  google.protobuf.StringValue city = 6;
+  string county_fips = 1;
+  string longitude = 2;
+  string latitude = 3;
+  string country = 4;
+  string state = 5;
+  string city = 6;
 }
 
 message DraftPick {
-  google.protobuf.Int32Value college_athlete_id = 1;
-  google.protobuf.Int32Value nfl_athlete_id = 2;
+  optional int32 college_athlete_id = 1;
+  optional int32 nfl_athlete_id = 2;
   int32 college_id = 3;
   string college_team = 4;
-  google.protobuf.StringValue college_conference = 5;
+  string college_conference = 5;
   int32 nfl_team_id = 6;
   string nfl_team = 7;
   int32 year = 8;
@@ -1194,11 +1197,11 @@ message DraftPick {
   int32 pick = 11;
   string name = 12;
   string position = 13;
-  google.protobuf.DoubleValue height = 14;
-  google.protobuf.Int32Value weight = 15;
-  google.protobuf.Int32Value pre_draft_ranking = 16;
-  google.protobuf.Int32Value pre_draft_position_ranking = 17;
-  google.protobuf.Int32Value pre_draft_grade = 18;
+  optional double height = 14;
+  optional int32 weight = 15;
+  optional int32 pre_draft_ranking = 16;
+  optional int32 pre_draft_position_ranking = 17;
+  optional int32 pre_draft_grade = 18;
   DraftPickHometownInfo hometown_info = 19;
 }
 
@@ -1211,12 +1214,12 @@ message CoachSeason {
   int32 wins = 4;
   int32 losses = 5;
   int32 ties = 6;
-  google.protobuf.Int32Value preseason_rank = 7;
-  google.protobuf.Int32Value postseason_rank = 8;
-  google.protobuf.DoubleValue srs = 9;
-  google.protobuf.DoubleValue sp_overall = 10;
-  google.protobuf.DoubleValue sp_offense = 11;
-  google.protobuf.DoubleValue sp_defense = 12;
+  optional int32 preseason_rank = 7;
+  optional int32 postseason_rank = 8;
+  optional double srs = 9;
+  optional double sp_overall = 10;
+  optional double sp_offense = 11;
+  optional double sp_defense = 12;
 }
 
 message Coach {
@@ -1230,10 +1233,10 @@ message Coach {
 
 message StatsByQuarter {
   double total = 1;
-  google.protobuf.DoubleValue quarter1 = 2;
-  google.protobuf.DoubleValue quarter2 = 3;
-  google.protobuf.DoubleValue quarter3 = 4;
-  google.protobuf.DoubleValue quarter4 = 5;
+  optional double quarter1 = 2;
+  optional double quarter2 = 3;
+  optional double quarter3 = 4;
+  optional double quarter4 = 5;
 }
 
 message TeamPPA {
@@ -1292,10 +1295,10 @@ message TeamFieldPosition {
 
 message PlayerGameUsage {
   double total = 1;
-  google.protobuf.DoubleValue quarter1 = 2;
-  google.protobuf.DoubleValue quarter2 = 3;
-  google.protobuf.DoubleValue quarter3 = 4;
-  google.protobuf.DoubleValue quarter4 = 5;
+  optional double quarter1 = 2;
+  optional double quarter2 = 3;
+  optional double quarter3 = 4;
+  optional double quarter4 = 5;
   double rushing = 6;
   double passing = 7;
 
@@ -1306,10 +1309,10 @@ message PlayerGameUsage {
 
 message PlayerStatsByQuarter {
   double total = 1;
-  google.protobuf.DoubleValue quarter1 = 2;
-  google.protobuf.DoubleValue quarter2 = 3;
-  google.protobuf.DoubleValue quarter3 = 4;
-  google.protobuf.DoubleValue quarter4 = 5;
+  optional double quarter1 = 2;
+  optional double quarter2 = 3;
+  optional double quarter3 = 4;
+  optional double quarter4 = 5;
   double rushing = 6;
   double passing = 7;
 }
