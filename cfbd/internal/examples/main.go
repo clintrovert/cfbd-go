@@ -575,7 +575,7 @@ func printFPIRatings(ctx context.Context, client *cfbd.Client) {
    fmt.Println("================= FPI RATINGS =================")
    for _, rating := range ratings {
       if rating.Fpi != nil {
-         fmt.Printf("%d, %s - %f\n", rating.Year, rating.Team, rating.Fpi.Value)
+         fmt.Printf("%d, %s - %f\n", rating.Year, rating.Team, *rating.Fpi)
       }
    }
 }
