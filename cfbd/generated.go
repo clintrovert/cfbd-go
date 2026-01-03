@@ -686,7 +686,7 @@ func (x *KickerPAAR) GetAttempts() int32 {
 
 type Venue struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
-	Id               *int32                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
+	Id               int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Name             string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	City             string                 `protobuf:"bytes,3,opt,name=city,proto3" json:"city,omitempty"`
 	State            string                 `protobuf:"bytes,4,opt,name=state,proto3" json:"state,omitempty"`
@@ -735,8 +735,8 @@ func (*Venue) Descriptor() ([]byte, []int) {
 }
 
 func (x *Venue) GetId() int32 {
-	if x != nil && x.Id != nil {
-		return *x.Id
+	if x != nil {
+		return x.Id
 	}
 	return 0
 }
@@ -11736,24 +11736,23 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"conference\x18\x05 \x01(\tR\n" +
 	"conference\x12\x12\n" +
 	"\x04paar\x18\x06 \x01(\x01R\x04paar\x12\x1a\n" +
-	"\battempts\x18\a \x01(\x05R\battempts\"\xec\x03\n" +
-	"\x05Venue\x12\x13\n" +
-	"\x02id\x18\x01 \x01(\x05H\x00R\x02id\x88\x01\x01\x12\x12\n" +
+	"\battempts\x18\a \x01(\x05R\battempts\"\xe0\x03\n" +
+	"\x05Venue\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
 	"\x04city\x18\x03 \x01(\tR\x04city\x12\x14\n" +
 	"\x05state\x18\x04 \x01(\tR\x05state\x12\x10\n" +
 	"\x03zip\x18\x05 \x01(\tR\x03zip\x12!\n" +
 	"\fcountry_code\x18\x06 \x01(\tR\vcountryCode\x12\x1a\n" +
 	"\btimezone\x18\a \x01(\tR\btimezone\x12\x1f\n" +
-	"\blatitude\x18\b \x01(\x01H\x01R\blatitude\x88\x01\x01\x12!\n" +
-	"\tlongitude\x18\t \x01(\x01H\x02R\tlongitude\x88\x01\x01\x12\x1c\n" +
+	"\blatitude\x18\b \x01(\x01H\x00R\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\t \x01(\x01H\x01R\tlongitude\x88\x01\x01\x12\x1c\n" +
 	"\televation\x18\n" +
 	" \x01(\tR\televation\x12\x1f\n" +
-	"\bcapacity\x18\v \x01(\x05H\x03R\bcapacity\x88\x01\x01\x120\n" +
-	"\x11construction_year\x18\f \x01(\x05H\x04R\x10constructionYear\x88\x01\x01\x12\x19\n" +
-	"\x05grass\x18\r \x01(\bH\x05R\x05grass\x88\x01\x01\x12\x17\n" +
-	"\x04dome\x18\x0e \x01(\bH\x06R\x04dome\x88\x01\x01B\x05\n" +
-	"\x03_idB\v\n" +
+	"\bcapacity\x18\v \x01(\x05H\x02R\bcapacity\x88\x01\x01\x120\n" +
+	"\x11construction_year\x18\f \x01(\x05H\x03R\x10constructionYear\x88\x01\x01\x12\x19\n" +
+	"\x05grass\x18\r \x01(\bH\x04R\x05grass\x88\x01\x01\x12\x17\n" +
+	"\x04dome\x18\x0e \x01(\bH\x05R\x04dome\x88\x01\x01B\v\n" +
 	"\t_latitudeB\f\n" +
 	"\n" +
 	"_longitudeB\v\n" +

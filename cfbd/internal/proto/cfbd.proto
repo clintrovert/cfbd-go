@@ -101,7 +101,7 @@ message KickerPAAR {
 }
 
 message Venue {
-  optional int32 id = 1;
+  int32 id = 1;
   string name = 2;
   string city = 3;
   string state = 4;

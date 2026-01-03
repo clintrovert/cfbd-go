@@ -1104,7 +1104,7 @@ func TestGetTeams_ValidRequest_ShouldSucceed(t *testing.T) {
 	require.NotNil(t, team.Location)
 	location := team.Location
 	require.NotNil(t, location.Id)
-	assert.Equal(t, *location.Id, int32(3657))
+	assert.Equal(t, location.Id, int32(3657))
 	require.NotNil(t, location.Name)
 	assert.Equal(t, location.Name, "Bryant-Denny Stadium")
 	require.NotNil(t, location.City)
@@ -1178,7 +1178,7 @@ func TestGetFBSTeams_ValidRequest_ShouldSucceed(t *testing.T) {
 	require.NotNil(t, team.Location)
 	location := team.Location
 	require.NotNil(t, location.Id)
-	assert.Equal(t, *location.Id, int32(3713))
+	assert.Equal(t, location.Id, int32(3713))
 	require.NotNil(t, location.Name)
 	assert.Equal(t, location.Name, "Falcon Stadium")
 	require.NotNil(t, location.City)
@@ -1418,7 +1418,7 @@ func TestGetVenues_ValidRequest_ShouldSucceed(t *testing.T) {
 	// Helper function to find venue by ID
 	findVenue := func(id int32) *Venue {
 		for _, venue := range response {
-			if venue.Id != nil && *venue.Id == id {
+			if venue.Id == id {
 				return venue
 			}
 		}
@@ -1429,7 +1429,7 @@ func TestGetVenues_ValidRequest_ShouldSucceed(t *testing.T) {
 	venue := findVenue(3910)
 	require.NotNil(t, venue)
 	require.NotNil(t, venue.Id)
-	assert.Equal(t, *venue.Id, int32(3910))
+	assert.Equal(t, venue.Id, int32(3910))
 	require.NotNil(t, venue.Name)
 	assert.Equal(t, venue.Name, "DKR-Texas Memorial Stadium")
 	require.NotNil(t, venue.Capacity)
