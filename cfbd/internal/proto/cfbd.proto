@@ -383,7 +383,7 @@ message TeamRecruitingRanking {
 message AggregatedTeamRecruiting {
   string team = 1;
   string conference = 2;
-  optional string position_group = 3;
+  string position_group = 3;
   double average_rating = 4;
   double total_rating = 5;
   int32 commits = 6;
