@@ -11,7 +11,6 @@ import (
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	structpb "google.golang.org/protobuf/types/known/structpb"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
-	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -214,8 +213,8 @@ func (x *RushingYardsSplit) GetLineYards() float64 {
 
 type ClockInt32 struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Seconds       *wrapperspb.Int32Value `protobuf:"bytes,1,opt,name=seconds,proto3" json:"seconds,omitempty"`
-	Minutes       *wrapperspb.Int32Value `protobuf:"bytes,2,opt,name=minutes,proto3" json:"minutes,omitempty"`
+	Seconds       *int32                 `protobuf:"varint,1,opt,name=seconds,proto3,oneof" json:"seconds,omitempty"`
+	Minutes       *int32                 `protobuf:"varint,2,opt,name=minutes,proto3,oneof" json:"minutes,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -250,24 +249,24 @@ func (*ClockInt32) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *ClockInt32) GetSeconds() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Seconds
+func (x *ClockInt32) GetSeconds() int32 {
+	if x != nil && x.Seconds != nil {
+		return *x.Seconds
 	}
-	return nil
+	return 0
 }
 
-func (x *ClockInt32) GetMinutes() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Minutes
+func (x *ClockInt32) GetMinutes() int32 {
+	if x != nil && x.Minutes != nil {
+		return *x.Minutes
 	}
-	return nil
+	return 0
 }
 
 type ClockDouble struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Seconds       *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=seconds,proto3" json:"seconds,omitempty"`
-	Minutes       *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=minutes,proto3" json:"minutes,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Seconds       *float64               `protobuf:"fixed64,1,opt,name=seconds,proto3,oneof" json:"seconds,omitempty"`
+	Minutes       *float64               `protobuf:"fixed64,2,opt,name=minutes,proto3,oneof" json:"minutes,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -302,18 +301,18 @@ func (*ClockDouble) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *ClockDouble) GetSeconds() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Seconds
+func (x *ClockDouble) GetSeconds() float64 {
+	if x != nil && x.Seconds != nil {
+		return *x.Seconds
 	}
-	return nil
+	return 0
 }
 
-func (x *ClockDouble) GetMinutes() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Minutes
+func (x *ClockDouble) GetMinutes() float64 {
+	if x != nil && x.Minutes != nil {
+		return *x.Minutes
 	}
-	return nil
+	return 0
 }
 
 type StatValue struct {
@@ -686,21 +685,21 @@ func (x *KickerPAAR) GetAttempts() int32 {
 }
 
 type Venue struct {
-	state            protoimpl.MessageState  `protogen:"open.v1"`
-	Id               *wrapperspb.Int32Value  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name             *wrapperspb.StringValue `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	City             *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=city,proto3" json:"city,omitempty"`
-	State            *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=state,proto3" json:"state,omitempty"`
-	Zip              *wrapperspb.StringValue `protobuf:"bytes,5,opt,name=zip,proto3" json:"zip,omitempty"`
-	CountryCode      *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
-	Timezone         *wrapperspb.StringValue `protobuf:"bytes,7,opt,name=timezone,proto3" json:"timezone,omitempty"`
-	Latitude         *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Longitude        *wrapperspb.DoubleValue `protobuf:"bytes,9,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	Elevation        *wrapperspb.StringValue `protobuf:"bytes,10,opt,name=elevation,proto3" json:"elevation,omitempty"`
-	Capacity         *wrapperspb.Int32Value  `protobuf:"bytes,11,opt,name=capacity,proto3" json:"capacity,omitempty"`
-	ConstructionYear *wrapperspb.Int32Value  `protobuf:"bytes,12,opt,name=construction_year,json=constructionYear,proto3" json:"construction_year,omitempty"`
-	Grass            *wrapperspb.BoolValue   `protobuf:"bytes,13,opt,name=grass,proto3" json:"grass,omitempty"`
-	Dome             *wrapperspb.BoolValue   `protobuf:"bytes,14,opt,name=dome,proto3" json:"dome,omitempty"`
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Id               *int32                 `protobuf:"varint,1,opt,name=id,proto3,oneof" json:"id,omitempty"`
+	Name             string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	City             string                 `protobuf:"bytes,3,opt,name=city,proto3" json:"city,omitempty"`
+	State            string                 `protobuf:"bytes,4,opt,name=state,proto3" json:"state,omitempty"`
+	Zip              string                 `protobuf:"bytes,5,opt,name=zip,proto3" json:"zip,omitempty"`
+	CountryCode      string                 `protobuf:"bytes,6,opt,name=country_code,json=countryCode,proto3" json:"country_code,omitempty"`
+	Timezone         string                 `protobuf:"bytes,7,opt,name=timezone,proto3" json:"timezone,omitempty"`
+	Latitude         *float64               `protobuf:"fixed64,8,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
+	Longitude        *float64               `protobuf:"fixed64,9,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
+	Elevation        string                 `protobuf:"bytes,10,opt,name=elevation,proto3" json:"elevation,omitempty"`
+	Capacity         *int32                 `protobuf:"varint,11,opt,name=capacity,proto3,oneof" json:"capacity,omitempty"`
+	ConstructionYear *int32                 `protobuf:"varint,12,opt,name=construction_year,json=constructionYear,proto3,oneof" json:"construction_year,omitempty"`
+	Grass            *bool                  `protobuf:"varint,13,opt,name=grass,proto3,oneof" json:"grass,omitempty"`
+	Dome             *bool                  `protobuf:"varint,14,opt,name=dome,proto3,oneof" json:"dome,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
@@ -735,119 +734,119 @@ func (*Venue) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *Venue) GetId() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Id
+func (x *Venue) GetId() int32 {
+	if x != nil && x.Id != nil {
+		return *x.Id
 	}
-	return nil
+	return 0
 }
 
-func (x *Venue) GetName() *wrapperspb.StringValue {
+func (x *Venue) GetName() string {
 	if x != nil {
 		return x.Name
 	}
-	return nil
+	return ""
 }
 
-func (x *Venue) GetCity() *wrapperspb.StringValue {
+func (x *Venue) GetCity() string {
 	if x != nil {
 		return x.City
 	}
-	return nil
+	return ""
 }
 
-func (x *Venue) GetState() *wrapperspb.StringValue {
+func (x *Venue) GetState() string {
 	if x != nil {
 		return x.State
 	}
-	return nil
+	return ""
 }
 
-func (x *Venue) GetZip() *wrapperspb.StringValue {
+func (x *Venue) GetZip() string {
 	if x != nil {
 		return x.Zip
 	}
-	return nil
+	return ""
 }
 
-func (x *Venue) GetCountryCode() *wrapperspb.StringValue {
+func (x *Venue) GetCountryCode() string {
 	if x != nil {
 		return x.CountryCode
 	}
-	return nil
+	return ""
 }
 
-func (x *Venue) GetTimezone() *wrapperspb.StringValue {
+func (x *Venue) GetTimezone() string {
 	if x != nil {
 		return x.Timezone
 	}
-	return nil
+	return ""
 }
 
-func (x *Venue) GetLatitude() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Latitude
+func (x *Venue) GetLatitude() float64 {
+	if x != nil && x.Latitude != nil {
+		return *x.Latitude
 	}
-	return nil
+	return 0
 }
 
-func (x *Venue) GetLongitude() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Longitude
+func (x *Venue) GetLongitude() float64 {
+	if x != nil && x.Longitude != nil {
+		return *x.Longitude
 	}
-	return nil
+	return 0
 }
 
-func (x *Venue) GetElevation() *wrapperspb.StringValue {
+func (x *Venue) GetElevation() string {
 	if x != nil {
 		return x.Elevation
 	}
-	return nil
+	return ""
 }
 
-func (x *Venue) GetCapacity() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Capacity
+func (x *Venue) GetCapacity() int32 {
+	if x != nil && x.Capacity != nil {
+		return *x.Capacity
 	}
-	return nil
+	return 0
 }
 
-func (x *Venue) GetConstructionYear() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.ConstructionYear
+func (x *Venue) GetConstructionYear() int32 {
+	if x != nil && x.ConstructionYear != nil {
+		return *x.ConstructionYear
 	}
-	return nil
+	return 0
 }
 
-func (x *Venue) GetGrass() *wrapperspb.BoolValue {
-	if x != nil {
-		return x.Grass
+func (x *Venue) GetGrass() bool {
+	if x != nil && x.Grass != nil {
+		return *x.Grass
 	}
-	return nil
+	return false
 }
 
-func (x *Venue) GetDome() *wrapperspb.BoolValue {
-	if x != nil {
-		return x.Dome
+func (x *Venue) GetDome() bool {
+	if x != nil && x.Dome != nil {
+		return *x.Dome
 	}
-	return nil
+	return false
 }
 
 type Team struct {
-	state          protoimpl.MessageState  `protogen:"open.v1"`
-	Id             int32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	School         string                  `protobuf:"bytes,2,opt,name=school,proto3" json:"school,omitempty"`
-	Mascot         *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=mascot,proto3" json:"mascot,omitempty"`
-	Abbreviation   *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=abbreviation,proto3" json:"abbreviation,omitempty"`
-	AlternateNames *structpb.ListValue     `protobuf:"bytes,5,opt,name=alternate_names,json=alternateNames,proto3" json:"alternate_names,omitempty"`
-	Conference     *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=conference,proto3" json:"conference,omitempty"`
-	Division       *wrapperspb.StringValue `protobuf:"bytes,7,opt,name=division,proto3" json:"division,omitempty"`
-	Classification *wrapperspb.StringValue `protobuf:"bytes,8,opt,name=classification,proto3" json:"classification,omitempty"`
-	Color          *wrapperspb.StringValue `protobuf:"bytes,9,opt,name=color,proto3" json:"color,omitempty"`
-	AlternateColor *wrapperspb.StringValue `protobuf:"bytes,10,opt,name=alternate_color,json=alternateColor,proto3" json:"alternate_color,omitempty"`
-	Logos          *structpb.ListValue     `protobuf:"bytes,11,opt,name=logos,proto3" json:"logos,omitempty"`
-	Twitter        string                  `protobuf:"bytes,12,opt,name=twitter,proto3" json:"twitter,omitempty"`
-	Location       *Venue                  `protobuf:"bytes,13,opt,name=location,proto3" json:"location,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Id             int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	School         string                 `protobuf:"bytes,2,opt,name=school,proto3" json:"school,omitempty"`
+	Mascot         string                 `protobuf:"bytes,3,opt,name=mascot,proto3" json:"mascot,omitempty"`
+	Abbreviation   string                 `protobuf:"bytes,4,opt,name=abbreviation,proto3" json:"abbreviation,omitempty"`
+	AlternateNames []string               `protobuf:"bytes,5,rep,name=alternate_names,json=alternateNames,proto3" json:"alternate_names,omitempty"`
+	Conference     string                 `protobuf:"bytes,6,opt,name=conference,proto3" json:"conference,omitempty"`
+	Division       string                 `protobuf:"bytes,7,opt,name=division,proto3" json:"division,omitempty"`
+	Classification string                 `protobuf:"bytes,8,opt,name=classification,proto3" json:"classification,omitempty"`
+	Color          string                 `protobuf:"bytes,9,opt,name=color,proto3" json:"color,omitempty"`
+	AlternateColor string                 `protobuf:"bytes,10,opt,name=alternate_color,json=alternateColor,proto3" json:"alternate_color,omitempty"`
+	Logos          []string               `protobuf:"bytes,11,rep,name=logos,proto3" json:"logos,omitempty"`
+	Twitter        string                 `protobuf:"bytes,12,opt,name=twitter,proto3" json:"twitter,omitempty"`
+	Location       *Venue                 `protobuf:"bytes,13,opt,name=location,proto3" json:"location,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -896,63 +895,63 @@ func (x *Team) GetSchool() string {
 	return ""
 }
 
-func (x *Team) GetMascot() *wrapperspb.StringValue {
+func (x *Team) GetMascot() string {
 	if x != nil {
 		return x.Mascot
 	}
-	return nil
+	return ""
 }
 
-func (x *Team) GetAbbreviation() *wrapperspb.StringValue {
+func (x *Team) GetAbbreviation() string {
 	if x != nil {
 		return x.Abbreviation
 	}
-	return nil
+	return ""
 }
 
-func (x *Team) GetAlternateNames() *structpb.ListValue {
+func (x *Team) GetAlternateNames() []string {
 	if x != nil {
 		return x.AlternateNames
 	}
 	return nil
 }
 
-func (x *Team) GetConference() *wrapperspb.StringValue {
+func (x *Team) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
-func (x *Team) GetDivision() *wrapperspb.StringValue {
+func (x *Team) GetDivision() string {
 	if x != nil {
 		return x.Division
 	}
-	return nil
+	return ""
 }
 
-func (x *Team) GetClassification() *wrapperspb.StringValue {
+func (x *Team) GetClassification() string {
 	if x != nil {
 		return x.Classification
 	}
-	return nil
+	return ""
 }
 
-func (x *Team) GetColor() *wrapperspb.StringValue {
+func (x *Team) GetColor() string {
 	if x != nil {
 		return x.Color
 	}
-	return nil
+	return ""
 }
 
-func (x *Team) GetAlternateColor() *wrapperspb.StringValue {
+func (x *Team) GetAlternateColor() string {
 	if x != nil {
 		return x.AlternateColor
 	}
-	return nil
+	return ""
 }
 
-func (x *Team) GetLogos() *structpb.ListValue {
+func (x *Team) GetLogos() []string {
 	if x != nil {
 		return x.Logos
 	}
@@ -974,18 +973,18 @@ func (x *Team) GetLocation() *Venue {
 }
 
 type MatchupGame struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Season        int32                   `protobuf:"varint,1,opt,name=season,proto3" json:"season,omitempty"`
-	Week          int32                   `protobuf:"varint,2,opt,name=week,proto3" json:"week,omitempty"`
-	SeasonType    string                  `protobuf:"bytes,3,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
-	Date          string                  `protobuf:"bytes,4,opt,name=date,proto3" json:"date,omitempty"`
-	NeutralSite   bool                    `protobuf:"varint,5,opt,name=neutral_site,json=neutralSite,proto3" json:"neutral_site,omitempty"`
-	Venue         *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=venue,proto3" json:"venue,omitempty"`
-	HomeTeam      string                  `protobuf:"bytes,7,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
-	HomeScore     *wrapperspb.Int32Value  `protobuf:"bytes,8,opt,name=home_score,json=homeScore,proto3" json:"home_score,omitempty"`
-	AwayTeam      string                  `protobuf:"bytes,9,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
-	AwayScore     *wrapperspb.Int32Value  `protobuf:"bytes,10,opt,name=away_score,json=awayScore,proto3" json:"away_score,omitempty"`
-	Winner        *wrapperspb.StringValue `protobuf:"bytes,11,opt,name=winner,proto3" json:"winner,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Season        int32                  `protobuf:"varint,1,opt,name=season,proto3" json:"season,omitempty"`
+	Week          int32                  `protobuf:"varint,2,opt,name=week,proto3" json:"week,omitempty"`
+	SeasonType    string                 `protobuf:"bytes,3,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
+	Date          string                 `protobuf:"bytes,4,opt,name=date,proto3" json:"date,omitempty"`
+	NeutralSite   bool                   `protobuf:"varint,5,opt,name=neutral_site,json=neutralSite,proto3" json:"neutral_site,omitempty"`
+	Venue         string                 `protobuf:"bytes,6,opt,name=venue,proto3" json:"venue,omitempty"`
+	HomeTeam      string                 `protobuf:"bytes,7,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
+	HomeScore     *int32                 `protobuf:"varint,8,opt,name=home_score,json=homeScore,proto3,oneof" json:"home_score,omitempty"`
+	AwayTeam      string                 `protobuf:"bytes,9,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
+	AwayScore     *int32                 `protobuf:"varint,10,opt,name=away_score,json=awayScore,proto3,oneof" json:"away_score,omitempty"`
+	Winner        string                 `protobuf:"bytes,11,opt,name=winner,proto3" json:"winner,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1055,11 +1054,11 @@ func (x *MatchupGame) GetNeutralSite() bool {
 	return false
 }
 
-func (x *MatchupGame) GetVenue() *wrapperspb.StringValue {
+func (x *MatchupGame) GetVenue() string {
 	if x != nil {
 		return x.Venue
 	}
-	return nil
+	return ""
 }
 
 func (x *MatchupGame) GetHomeTeam() string {
@@ -1069,11 +1068,11 @@ func (x *MatchupGame) GetHomeTeam() string {
 	return ""
 }
 
-func (x *MatchupGame) GetHomeScore() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.HomeScore
+func (x *MatchupGame) GetHomeScore() int32 {
+	if x != nil && x.HomeScore != nil {
+		return *x.HomeScore
 	}
-	return nil
+	return 0
 }
 
 func (x *MatchupGame) GetAwayTeam() string {
@@ -1083,26 +1082,26 @@ func (x *MatchupGame) GetAwayTeam() string {
 	return ""
 }
 
-func (x *MatchupGame) GetAwayScore() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.AwayScore
+func (x *MatchupGame) GetAwayScore() int32 {
+	if x != nil && x.AwayScore != nil {
+		return *x.AwayScore
 	}
-	return nil
+	return 0
 }
 
-func (x *MatchupGame) GetWinner() *wrapperspb.StringValue {
+func (x *MatchupGame) GetWinner() string {
 	if x != nil {
 		return x.Winner
 	}
-	return nil
+	return ""
 }
 
 type Matchup struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Team1         string                 `protobuf:"bytes,1,opt,name=team1,proto3" json:"team1,omitempty"`
 	Team2         string                 `protobuf:"bytes,2,opt,name=team2,proto3" json:"team2,omitempty"`
-	StartYear     *wrapperspb.Int32Value `protobuf:"bytes,3,opt,name=start_year,json=startYear,proto3" json:"start_year,omitempty"`
-	EndYear       *wrapperspb.Int32Value `protobuf:"bytes,4,opt,name=end_year,json=endYear,proto3" json:"end_year,omitempty"`
+	StartYear     *int32                 `protobuf:"varint,3,opt,name=start_year,json=startYear,proto3,oneof" json:"start_year,omitempty"`
+	EndYear       *int32                 `protobuf:"varint,4,opt,name=end_year,json=endYear,proto3,oneof" json:"end_year,omitempty"`
 	Team1Wins     int32                  `protobuf:"varint,5,opt,name=team1_wins,json=team1Wins,proto3" json:"team1_wins,omitempty"`
 	Team2Wins     int32                  `protobuf:"varint,6,opt,name=team2_wins,json=team2Wins,proto3" json:"team2_wins,omitempty"`
 	Ties          int32                  `protobuf:"varint,7,opt,name=ties,proto3" json:"ties,omitempty"`
@@ -1155,18 +1154,18 @@ func (x *Matchup) GetTeam2() string {
 	return ""
 }
 
-func (x *Matchup) GetStartYear() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.StartYear
+func (x *Matchup) GetStartYear() int32 {
+	if x != nil && x.StartYear != nil {
+		return *x.StartYear
 	}
-	return nil
+	return 0
 }
 
-func (x *Matchup) GetEndYear() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.EndYear
+func (x *Matchup) GetEndYear() int32 {
+	if x != nil && x.EndYear != nil {
+		return *x.EndYear
 	}
-	return nil
+	return 0
 }
 
 func (x *Matchup) GetTeam1Wins() int32 {
@@ -1198,16 +1197,16 @@ func (x *Matchup) GetGames() []*MatchupGame {
 }
 
 type TeamATS struct {
-	state          protoimpl.MessageState  `protogen:"open.v1"`
-	Year           int32                   `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
-	TeamId         int32                   `protobuf:"varint,2,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
-	Team           string                  `protobuf:"bytes,3,opt,name=team,proto3" json:"team,omitempty"`
-	Conference     *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=conference,proto3" json:"conference,omitempty"`
-	Games          *wrapperspb.Int32Value  `protobuf:"bytes,5,opt,name=games,proto3" json:"games,omitempty"`
-	AtsWins        int32                   `protobuf:"varint,6,opt,name=ats_wins,json=atsWins,proto3" json:"ats_wins,omitempty"`
-	AtsLosses      int32                   `protobuf:"varint,7,opt,name=ats_losses,json=atsLosses,proto3" json:"ats_losses,omitempty"`
-	AtsPushes      int32                   `protobuf:"varint,8,opt,name=ats_pushes,json=atsPushes,proto3" json:"ats_pushes,omitempty"`
-	AvgCoverMargin *wrapperspb.DoubleValue `protobuf:"bytes,9,opt,name=avg_cover_margin,json=avgCoverMargin,proto3" json:"avg_cover_margin,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Year           int32                  `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
+	TeamId         int32                  `protobuf:"varint,2,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
+	Team           string                 `protobuf:"bytes,3,opt,name=team,proto3" json:"team,omitempty"`
+	Conference     string                 `protobuf:"bytes,4,opt,name=conference,proto3" json:"conference,omitempty"`
+	Games          *int32                 `protobuf:"varint,5,opt,name=games,proto3,oneof" json:"games,omitempty"`
+	AtsWins        int32                  `protobuf:"varint,6,opt,name=ats_wins,json=atsWins,proto3" json:"ats_wins,omitempty"`
+	AtsLosses      int32                  `protobuf:"varint,7,opt,name=ats_losses,json=atsLosses,proto3" json:"ats_losses,omitempty"`
+	AtsPushes      int32                  `protobuf:"varint,8,opt,name=ats_pushes,json=atsPushes,proto3" json:"ats_pushes,omitempty"`
+	AvgCoverMargin *float64               `protobuf:"fixed64,9,opt,name=avg_cover_margin,json=avgCoverMargin,proto3,oneof" json:"avg_cover_margin,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -1263,18 +1262,18 @@ func (x *TeamATS) GetTeam() string {
 	return ""
 }
 
-func (x *TeamATS) GetConference() *wrapperspb.StringValue {
+func (x *TeamATS) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
-func (x *TeamATS) GetGames() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Games
+func (x *TeamATS) GetGames() int32 {
+	if x != nil && x.Games != nil {
+		return *x.Games
 	}
-	return nil
+	return 0
 }
 
 func (x *TeamATS) GetAtsWins() int32 {
@@ -1298,32 +1297,32 @@ func (x *TeamATS) GetAtsPushes() int32 {
 	return 0
 }
 
-func (x *TeamATS) GetAvgCoverMargin() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.AvgCoverMargin
+func (x *TeamATS) GetAvgCoverMargin() float64 {
+	if x != nil && x.AvgCoverMargin != nil {
+		return *x.AvgCoverMargin
 	}
-	return nil
+	return 0
 }
 
 type RosterPlayer struct {
-	state     protoimpl.MessageState  `protogen:"open.v1"`
-	Id        string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	FirstName string                  `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName  string                  `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	Team      string                  `protobuf:"bytes,4,opt,name=team,proto3" json:"team,omitempty"`
-	Height    *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=height,proto3" json:"height,omitempty"`
-	Weight    *wrapperspb.Int32Value  `protobuf:"bytes,6,opt,name=weight,proto3" json:"weight,omitempty"`
-	Jersey    *wrapperspb.Int32Value  `protobuf:"bytes,7,opt,name=jersey,proto3" json:"jersey,omitempty"`
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	FirstName string                 `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName  string                 `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	Team      string                 `protobuf:"bytes,4,opt,name=team,proto3" json:"team,omitempty"`
+	Height    *float64               `protobuf:"fixed64,5,opt,name=height,proto3,oneof" json:"height,omitempty"`
+	Weight    *int32                 `protobuf:"varint,6,opt,name=weight,proto3,oneof" json:"weight,omitempty"`
+	Jersey    *int32                 `protobuf:"varint,7,opt,name=jersey,proto3,oneof" json:"jersey,omitempty"`
 	// Deprecated: Marked as deprecated in cfbd/internal/proto/cfbd.proto.
-	Year            *wrapperspb.Int32Value  `protobuf:"bytes,8,opt,name=year,proto3" json:"year,omitempty"`
-	Position        *wrapperspb.StringValue `protobuf:"bytes,9,opt,name=position,proto3" json:"position,omitempty"`
-	HomeCity        *wrapperspb.StringValue `protobuf:"bytes,10,opt,name=home_city,json=homeCity,proto3" json:"home_city,omitempty"`
-	HomeState       *wrapperspb.StringValue `protobuf:"bytes,11,opt,name=home_state,json=homeState,proto3" json:"home_state,omitempty"`
-	HomeCountry     *wrapperspb.StringValue `protobuf:"bytes,12,opt,name=home_country,json=homeCountry,proto3" json:"home_country,omitempty"`
-	HomeLatitude    *wrapperspb.DoubleValue `protobuf:"bytes,13,opt,name=home_latitude,json=homeLatitude,proto3" json:"home_latitude,omitempty"`
-	HomeLongitude   *wrapperspb.DoubleValue `protobuf:"bytes,14,opt,name=home_longitude,json=homeLongitude,proto3" json:"home_longitude,omitempty"`
-	HomeCounty_FIPS *wrapperspb.StringValue `protobuf:"bytes,15,opt,name=home_county_FIPS,json=homeCountyFIPS,proto3" json:"home_county_FIPS,omitempty"`
-	RecruitIds      *structpb.ListValue     `protobuf:"bytes,16,opt,name=recruit_ids,json=recruitIds,proto3" json:"recruit_ids,omitempty"`
+	Year            *int32   `protobuf:"varint,8,opt,name=year,proto3,oneof" json:"year,omitempty"`
+	Position        string   `protobuf:"bytes,9,opt,name=position,proto3" json:"position,omitempty"`
+	HomeCity        string   `protobuf:"bytes,10,opt,name=home_city,json=homeCity,proto3" json:"home_city,omitempty"`
+	HomeState       string   `protobuf:"bytes,11,opt,name=home_state,json=homeState,proto3" json:"home_state,omitempty"`
+	HomeCountry     string   `protobuf:"bytes,12,opt,name=home_country,json=homeCountry,proto3" json:"home_country,omitempty"`
+	HomeLatitude    *float64 `protobuf:"fixed64,13,opt,name=home_latitude,json=homeLatitude,proto3,oneof" json:"home_latitude,omitempty"`
+	HomeLongitude   *float64 `protobuf:"fixed64,14,opt,name=home_longitude,json=homeLongitude,proto3,oneof" json:"home_longitude,omitempty"`
+	HomeCounty_FIPS string   `protobuf:"bytes,15,opt,name=home_county_FIPS,json=homeCountyFIPS,proto3" json:"home_county_FIPS,omitempty"`
+	RecruitIds      []string `protobuf:"bytes,16,rep,name=recruit_ids,json=recruitIds,proto3" json:"recruit_ids,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -1386,85 +1385,85 @@ func (x *RosterPlayer) GetTeam() string {
 	return ""
 }
 
-func (x *RosterPlayer) GetHeight() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Height
+func (x *RosterPlayer) GetHeight() float64 {
+	if x != nil && x.Height != nil {
+		return *x.Height
 	}
-	return nil
+	return 0
 }
 
-func (x *RosterPlayer) GetWeight() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Weight
+func (x *RosterPlayer) GetWeight() int32 {
+	if x != nil && x.Weight != nil {
+		return *x.Weight
 	}
-	return nil
+	return 0
 }
 
-func (x *RosterPlayer) GetJersey() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Jersey
+func (x *RosterPlayer) GetJersey() int32 {
+	if x != nil && x.Jersey != nil {
+		return *x.Jersey
 	}
-	return nil
+	return 0
 }
 
 // Deprecated: Marked as deprecated in cfbd/internal/proto/cfbd.proto.
-func (x *RosterPlayer) GetYear() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Year
+func (x *RosterPlayer) GetYear() int32 {
+	if x != nil && x.Year != nil {
+		return *x.Year
 	}
-	return nil
+	return 0
 }
 
-func (x *RosterPlayer) GetPosition() *wrapperspb.StringValue {
+func (x *RosterPlayer) GetPosition() string {
 	if x != nil {
 		return x.Position
 	}
-	return nil
+	return ""
 }
 
-func (x *RosterPlayer) GetHomeCity() *wrapperspb.StringValue {
+func (x *RosterPlayer) GetHomeCity() string {
 	if x != nil {
 		return x.HomeCity
 	}
-	return nil
+	return ""
 }
 
-func (x *RosterPlayer) GetHomeState() *wrapperspb.StringValue {
+func (x *RosterPlayer) GetHomeState() string {
 	if x != nil {
 		return x.HomeState
 	}
-	return nil
+	return ""
 }
 
-func (x *RosterPlayer) GetHomeCountry() *wrapperspb.StringValue {
+func (x *RosterPlayer) GetHomeCountry() string {
 	if x != nil {
 		return x.HomeCountry
 	}
-	return nil
+	return ""
 }
 
-func (x *RosterPlayer) GetHomeLatitude() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.HomeLatitude
+func (x *RosterPlayer) GetHomeLatitude() float64 {
+	if x != nil && x.HomeLatitude != nil {
+		return *x.HomeLatitude
 	}
-	return nil
+	return 0
 }
 
-func (x *RosterPlayer) GetHomeLongitude() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.HomeLongitude
+func (x *RosterPlayer) GetHomeLongitude() float64 {
+	if x != nil && x.HomeLongitude != nil {
+		return *x.HomeLongitude
 	}
-	return nil
+	return 0
 }
 
-func (x *RosterPlayer) GetHomeCounty_FIPS() *wrapperspb.StringValue {
+func (x *RosterPlayer) GetHomeCounty_FIPS() string {
 	if x != nil {
 		return x.HomeCounty_FIPS
 	}
-	return nil
+	return ""
 }
 
-func (x *RosterPlayer) GetRecruitIds() *structpb.ListValue {
+func (x *RosterPlayer) GetRecruitIds() []string {
 	if x != nil {
 		return x.RecruitIds
 	}
@@ -1472,12 +1471,12 @@ func (x *RosterPlayer) GetRecruitIds() *structpb.ListValue {
 }
 
 type Conference struct {
-	state          protoimpl.MessageState  `protogen:"open.v1"`
-	Id             int32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name           string                  `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	ShortName      *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=short_name,json=shortName,proto3" json:"short_name,omitempty"`
-	Abbreviation   *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=abbreviation,proto3" json:"abbreviation,omitempty"`
-	Classification *wrapperspb.StringValue `protobuf:"bytes,5,opt,name=classification,proto3" json:"classification,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Id             int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name           string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	ShortName      string                 `protobuf:"bytes,3,opt,name=short_name,json=shortName,proto3" json:"short_name,omitempty"`
+	Abbreviation   string                 `protobuf:"bytes,4,opt,name=abbreviation,proto3" json:"abbreviation,omitempty"`
+	Classification string                 `protobuf:"bytes,5,opt,name=classification,proto3" json:"classification,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
@@ -1526,25 +1525,25 @@ func (x *Conference) GetName() string {
 	return ""
 }
 
-func (x *Conference) GetShortName() *wrapperspb.StringValue {
+func (x *Conference) GetShortName() string {
 	if x != nil {
 		return x.ShortName
 	}
-	return nil
+	return ""
 }
 
-func (x *Conference) GetAbbreviation() *wrapperspb.StringValue {
+func (x *Conference) GetAbbreviation() string {
 	if x != nil {
 		return x.Abbreviation
 	}
-	return nil
+	return ""
 }
 
-func (x *Conference) GetClassification() *wrapperspb.StringValue {
+func (x *Conference) GetClassification() string {
 	if x != nil {
 		return x.Classification
 	}
-	return nil
+	return ""
 }
 
 type TeamTalent struct {
@@ -1792,12 +1791,12 @@ func (x *TeamStat) GetStatValue() *structpb.Value {
 }
 
 type AdvancedRateMetrics struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Explosiveness *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	SuccessRate   *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=success_rate,json=successRate,proto3" json:"success_rate,omitempty"`
-	Total_PPA     *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=total_PPA,json=totalPPA,proto3" json:"total_PPA,omitempty"`
-	Ppa           *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=ppa,proto3" json:"ppa,omitempty"`
-	Rate          *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=rate,proto3" json:"rate,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Explosiveness *float64               `protobuf:"fixed64,1,opt,name=explosiveness,proto3,oneof" json:"explosiveness,omitempty"`
+	SuccessRate   *float64               `protobuf:"fixed64,2,opt,name=success_rate,json=successRate,proto3,oneof" json:"success_rate,omitempty"`
+	Total_PPA     *float64               `protobuf:"fixed64,3,opt,name=total_PPA,json=totalPPA,proto3,oneof" json:"total_PPA,omitempty"`
+	Ppa           *float64               `protobuf:"fixed64,4,opt,name=ppa,proto3,oneof" json:"ppa,omitempty"`
+	Rate          *float64               `protobuf:"fixed64,5,opt,name=rate,proto3,oneof" json:"rate,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1832,46 +1831,46 @@ func (*AdvancedRateMetrics) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{19}
 }
 
-func (x *AdvancedRateMetrics) GetExplosiveness() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Explosiveness
+func (x *AdvancedRateMetrics) GetExplosiveness() float64 {
+	if x != nil && x.Explosiveness != nil {
+		return *x.Explosiveness
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedRateMetrics) GetSuccessRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SuccessRate
+func (x *AdvancedRateMetrics) GetSuccessRate() float64 {
+	if x != nil && x.SuccessRate != nil {
+		return *x.SuccessRate
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedRateMetrics) GetTotal_PPA() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Total_PPA
+func (x *AdvancedRateMetrics) GetTotal_PPA() float64 {
+	if x != nil && x.Total_PPA != nil {
+		return *x.Total_PPA
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedRateMetrics) GetPpa() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Ppa
+func (x *AdvancedRateMetrics) GetPpa() float64 {
+	if x != nil && x.Ppa != nil {
+		return *x.Ppa
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedRateMetrics) GetRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rate
+func (x *AdvancedRateMetrics) GetRate() float64 {
+	if x != nil && x.Rate != nil {
+		return *x.Rate
 	}
-	return nil
+	return 0
 }
 
 type AdvancedHavoc struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Db            *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=db,proto3" json:"db,omitempty"`
-	FrontSeven    *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=front_seven,json=frontSeven,proto3" json:"front_seven,omitempty"`
-	Total         *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=total,proto3" json:"total,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Db            *float64               `protobuf:"fixed64,1,opt,name=db,proto3,oneof" json:"db,omitempty"`
+	FrontSeven    *float64               `protobuf:"fixed64,2,opt,name=front_seven,json=frontSeven,proto3,oneof" json:"front_seven,omitempty"`
+	Total         *float64               `protobuf:"fixed64,3,opt,name=total,proto3,oneof" json:"total,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1906,31 +1905,31 @@ func (*AdvancedHavoc) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{20}
 }
 
-func (x *AdvancedHavoc) GetDb() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Db
+func (x *AdvancedHavoc) GetDb() float64 {
+	if x != nil && x.Db != nil {
+		return *x.Db
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedHavoc) GetFrontSeven() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.FrontSeven
+func (x *AdvancedHavoc) GetFrontSeven() float64 {
+	if x != nil && x.FrontSeven != nil {
+		return *x.FrontSeven
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedHavoc) GetTotal() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Total
+func (x *AdvancedHavoc) GetTotal() float64 {
+	if x != nil && x.Total != nil {
+		return *x.Total
 	}
-	return nil
+	return 0
 }
 
 type AdvancedFieldPosition struct {
-	state                  protoimpl.MessageState  `protogen:"open.v1"`
-	AveragePredictedPoints *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=average_predicted_points,json=averagePredictedPoints,proto3" json:"average_predicted_points,omitempty"`
-	AverageStart           *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=average_start,json=averageStart,proto3" json:"average_start,omitempty"`
+	state                  protoimpl.MessageState `protogen:"open.v1"`
+	AveragePredictedPoints *float64               `protobuf:"fixed64,1,opt,name=average_predicted_points,json=averagePredictedPoints,proto3,oneof" json:"average_predicted_points,omitempty"`
+	AverageStart           *float64               `protobuf:"fixed64,2,opt,name=average_start,json=averageStart,proto3,oneof" json:"average_start,omitempty"`
 	unknownFields          protoimpl.UnknownFields
 	sizeCache              protoimpl.SizeCache
 }
@@ -1965,44 +1964,44 @@ func (*AdvancedFieldPosition) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{21}
 }
 
-func (x *AdvancedFieldPosition) GetAveragePredictedPoints() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.AveragePredictedPoints
+func (x *AdvancedFieldPosition) GetAveragePredictedPoints() float64 {
+	if x != nil && x.AveragePredictedPoints != nil {
+		return *x.AveragePredictedPoints
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedFieldPosition) GetAverageStart() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.AverageStart
+func (x *AdvancedFieldPosition) GetAverageStart() float64 {
+	if x != nil && x.AverageStart != nil {
+		return *x.AverageStart
 	}
-	return nil
+	return 0
 }
 
 type AdvancedSeasonStatSide struct {
-	state                 protoimpl.MessageState  `protogen:"open.v1"`
-	PassingPlays          *AdvancedRateMetrics    `protobuf:"bytes,1,opt,name=passing_plays,json=passingPlays,proto3" json:"passing_plays,omitempty"`
-	RushingPlays          *AdvancedRateMetrics    `protobuf:"bytes,2,opt,name=rushing_plays,json=rushingPlays,proto3" json:"rushing_plays,omitempty"`
-	PassingDowns          *AdvancedRateMetrics    `protobuf:"bytes,3,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
-	StandardDowns         *AdvancedRateMetrics    `protobuf:"bytes,4,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
-	Havoc                 *AdvancedHavoc          `protobuf:"bytes,5,opt,name=havoc,proto3" json:"havoc,omitempty"`
-	FieldPosition         *AdvancedFieldPosition  `protobuf:"bytes,6,opt,name=field_position,json=fieldPosition,proto3" json:"field_position,omitempty"`
-	PointsPerOpportunity  *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=points_per_opportunity,json=pointsPerOpportunity,proto3" json:"points_per_opportunity,omitempty"`
-	TotalOpportunies      *wrapperspb.Int32Value  `protobuf:"bytes,8,opt,name=total_opportunies,json=totalOpportunies,proto3" json:"total_opportunies,omitempty"` // typo in API: totalOpportunies
-	OpenFieldYardsTotal   *wrapperspb.Int32Value  `protobuf:"bytes,9,opt,name=open_field_yards_total,json=openFieldYardsTotal,proto3" json:"open_field_yards_total,omitempty"`
-	OpenFieldYards        *wrapperspb.DoubleValue `protobuf:"bytes,10,opt,name=open_field_yards,json=openFieldYards,proto3" json:"open_field_yards,omitempty"`
-	SecondLevelYardsTotal *wrapperspb.Int32Value  `protobuf:"bytes,11,opt,name=second_level_yards_total,json=secondLevelYardsTotal,proto3" json:"second_level_yards_total,omitempty"`
-	SecondLevelYards      *wrapperspb.DoubleValue `protobuf:"bytes,12,opt,name=second_level_yards,json=secondLevelYards,proto3" json:"second_level_yards,omitempty"`
-	LineYardsTotal        *wrapperspb.Int32Value  `protobuf:"bytes,13,opt,name=line_yards_total,json=lineYardsTotal,proto3" json:"line_yards_total,omitempty"`
-	LineYards             *wrapperspb.DoubleValue `protobuf:"bytes,14,opt,name=line_yards,json=lineYards,proto3" json:"line_yards,omitempty"`
-	StuffRate             *wrapperspb.DoubleValue `protobuf:"bytes,15,opt,name=stuff_rate,json=stuffRate,proto3" json:"stuff_rate,omitempty"`
-	PowerSuccess          *wrapperspb.DoubleValue `protobuf:"bytes,16,opt,name=power_success,json=powerSuccess,proto3" json:"power_success,omitempty"`
-	Explosiveness         *wrapperspb.DoubleValue `protobuf:"bytes,17,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	SuccessRate           *wrapperspb.DoubleValue `protobuf:"bytes,18,opt,name=success_rate,json=successRate,proto3" json:"success_rate,omitempty"`
-	Total_PPA             *wrapperspb.DoubleValue `protobuf:"bytes,19,opt,name=total_PPA,json=totalPPA,proto3" json:"total_PPA,omitempty"`
-	Ppa                   *wrapperspb.DoubleValue `protobuf:"bytes,20,opt,name=ppa,proto3" json:"ppa,omitempty"`
-	Drives                *wrapperspb.Int32Value  `protobuf:"bytes,21,opt,name=drives,proto3" json:"drives,omitempty"`
-	Plays                 *wrapperspb.Int32Value  `protobuf:"bytes,22,opt,name=plays,proto3" json:"plays,omitempty"`
+	state                 protoimpl.MessageState `protogen:"open.v1"`
+	PassingPlays          *AdvancedRateMetrics   `protobuf:"bytes,1,opt,name=passing_plays,json=passingPlays,proto3" json:"passing_plays,omitempty"`
+	RushingPlays          *AdvancedRateMetrics   `protobuf:"bytes,2,opt,name=rushing_plays,json=rushingPlays,proto3" json:"rushing_plays,omitempty"`
+	PassingDowns          *AdvancedRateMetrics   `protobuf:"bytes,3,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
+	StandardDowns         *AdvancedRateMetrics   `protobuf:"bytes,4,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
+	Havoc                 *AdvancedHavoc         `protobuf:"bytes,5,opt,name=havoc,proto3" json:"havoc,omitempty"`
+	FieldPosition         *AdvancedFieldPosition `protobuf:"bytes,6,opt,name=field_position,json=fieldPosition,proto3" json:"field_position,omitempty"`
+	PointsPerOpportunity  *float64               `protobuf:"fixed64,7,opt,name=points_per_opportunity,json=pointsPerOpportunity,proto3,oneof" json:"points_per_opportunity,omitempty"`
+	TotalOpportunies      *int32                 `protobuf:"varint,8,opt,name=total_opportunies,json=totalOpportunies,proto3,oneof" json:"total_opportunies,omitempty"` // typo in API: totalOpportunies
+	OpenFieldYardsTotal   *int32                 `protobuf:"varint,9,opt,name=open_field_yards_total,json=openFieldYardsTotal,proto3,oneof" json:"open_field_yards_total,omitempty"`
+	OpenFieldYards        *float64               `protobuf:"fixed64,10,opt,name=open_field_yards,json=openFieldYards,proto3,oneof" json:"open_field_yards,omitempty"`
+	SecondLevelYardsTotal *int32                 `protobuf:"varint,11,opt,name=second_level_yards_total,json=secondLevelYardsTotal,proto3,oneof" json:"second_level_yards_total,omitempty"`
+	SecondLevelYards      *float64               `protobuf:"fixed64,12,opt,name=second_level_yards,json=secondLevelYards,proto3,oneof" json:"second_level_yards,omitempty"`
+	LineYardsTotal        *int32                 `protobuf:"varint,13,opt,name=line_yards_total,json=lineYardsTotal,proto3,oneof" json:"line_yards_total,omitempty"`
+	LineYards             *float64               `protobuf:"fixed64,14,opt,name=line_yards,json=lineYards,proto3,oneof" json:"line_yards,omitempty"`
+	StuffRate             *float64               `protobuf:"fixed64,15,opt,name=stuff_rate,json=stuffRate,proto3,oneof" json:"stuff_rate,omitempty"`
+	PowerSuccess          *float64               `protobuf:"fixed64,16,opt,name=power_success,json=powerSuccess,proto3,oneof" json:"power_success,omitempty"`
+	Explosiveness         *float64               `protobuf:"fixed64,17,opt,name=explosiveness,proto3,oneof" json:"explosiveness,omitempty"`
+	SuccessRate           *float64               `protobuf:"fixed64,18,opt,name=success_rate,json=successRate,proto3,oneof" json:"success_rate,omitempty"`
+	Total_PPA             *float64               `protobuf:"fixed64,19,opt,name=total_PPA,json=totalPPA,proto3,oneof" json:"total_PPA,omitempty"`
+	Ppa                   *float64               `protobuf:"fixed64,20,opt,name=ppa,proto3,oneof" json:"ppa,omitempty"`
+	Drives                *int32                 `protobuf:"varint,21,opt,name=drives,proto3,oneof" json:"drives,omitempty"`
+	Plays                 *int32                 `protobuf:"varint,22,opt,name=plays,proto3,oneof" json:"plays,omitempty"`
 	unknownFields         protoimpl.UnknownFields
 	sizeCache             protoimpl.SizeCache
 }
@@ -2079,116 +2078,116 @@ func (x *AdvancedSeasonStatSide) GetFieldPosition() *AdvancedFieldPosition {
 	return nil
 }
 
-func (x *AdvancedSeasonStatSide) GetPointsPerOpportunity() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.PointsPerOpportunity
+func (x *AdvancedSeasonStatSide) GetPointsPerOpportunity() float64 {
+	if x != nil && x.PointsPerOpportunity != nil {
+		return *x.PointsPerOpportunity
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetTotalOpportunies() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.TotalOpportunies
+func (x *AdvancedSeasonStatSide) GetTotalOpportunies() int32 {
+	if x != nil && x.TotalOpportunies != nil {
+		return *x.TotalOpportunies
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetOpenFieldYardsTotal() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.OpenFieldYardsTotal
+func (x *AdvancedSeasonStatSide) GetOpenFieldYardsTotal() int32 {
+	if x != nil && x.OpenFieldYardsTotal != nil {
+		return *x.OpenFieldYardsTotal
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetOpenFieldYards() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.OpenFieldYards
+func (x *AdvancedSeasonStatSide) GetOpenFieldYards() float64 {
+	if x != nil && x.OpenFieldYards != nil {
+		return *x.OpenFieldYards
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetSecondLevelYardsTotal() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.SecondLevelYardsTotal
+func (x *AdvancedSeasonStatSide) GetSecondLevelYardsTotal() int32 {
+	if x != nil && x.SecondLevelYardsTotal != nil {
+		return *x.SecondLevelYardsTotal
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetSecondLevelYards() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SecondLevelYards
+func (x *AdvancedSeasonStatSide) GetSecondLevelYards() float64 {
+	if x != nil && x.SecondLevelYards != nil {
+		return *x.SecondLevelYards
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetLineYardsTotal() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.LineYardsTotal
+func (x *AdvancedSeasonStatSide) GetLineYardsTotal() int32 {
+	if x != nil && x.LineYardsTotal != nil {
+		return *x.LineYardsTotal
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetLineYards() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.LineYards
+func (x *AdvancedSeasonStatSide) GetLineYards() float64 {
+	if x != nil && x.LineYards != nil {
+		return *x.LineYards
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetStuffRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.StuffRate
+func (x *AdvancedSeasonStatSide) GetStuffRate() float64 {
+	if x != nil && x.StuffRate != nil {
+		return *x.StuffRate
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetPowerSuccess() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.PowerSuccess
+func (x *AdvancedSeasonStatSide) GetPowerSuccess() float64 {
+	if x != nil && x.PowerSuccess != nil {
+		return *x.PowerSuccess
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetExplosiveness() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Explosiveness
+func (x *AdvancedSeasonStatSide) GetExplosiveness() float64 {
+	if x != nil && x.Explosiveness != nil {
+		return *x.Explosiveness
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetSuccessRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SuccessRate
+func (x *AdvancedSeasonStatSide) GetSuccessRate() float64 {
+	if x != nil && x.SuccessRate != nil {
+		return *x.SuccessRate
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetTotal_PPA() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Total_PPA
+func (x *AdvancedSeasonStatSide) GetTotal_PPA() float64 {
+	if x != nil && x.Total_PPA != nil {
+		return *x.Total_PPA
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetPpa() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Ppa
+func (x *AdvancedSeasonStatSide) GetPpa() float64 {
+	if x != nil && x.Ppa != nil {
+		return *x.Ppa
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetDrives() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Drives
+func (x *AdvancedSeasonStatSide) GetDrives() int32 {
+	if x != nil && x.Drives != nil {
+		return *x.Drives
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedSeasonStatSide) GetPlays() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Plays
+func (x *AdvancedSeasonStatSide) GetPlays() int32 {
+	if x != nil && x.Plays != nil {
+		return *x.Plays
 	}
-	return nil
+	return 0
 }
 
 type AdvancedSeasonStat struct {
@@ -2268,11 +2267,11 @@ func (x *AdvancedSeasonStat) GetDefense() *AdvancedSeasonStatSide {
 }
 
 type AdvancedGameStatSidePlayMetrics struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Explosiveness *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	SuccessRate   *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=success_rate,json=successRate,proto3" json:"success_rate,omitempty"`
-	Total_PPA     *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=total_PPA,json=totalPPA,proto3" json:"total_PPA,omitempty"`
-	Ppa           *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=ppa,proto3" json:"ppa,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Explosiveness *float64               `protobuf:"fixed64,1,opt,name=explosiveness,proto3,oneof" json:"explosiveness,omitempty"`
+	SuccessRate   *float64               `protobuf:"fixed64,2,opt,name=success_rate,json=successRate,proto3,oneof" json:"success_rate,omitempty"`
+	Total_PPA     *float64               `protobuf:"fixed64,3,opt,name=total_PPA,json=totalPPA,proto3,oneof" json:"total_PPA,omitempty"`
+	Ppa           *float64               `protobuf:"fixed64,4,opt,name=ppa,proto3,oneof" json:"ppa,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2307,39 +2306,39 @@ func (*AdvancedGameStatSidePlayMetrics) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{24}
 }
 
-func (x *AdvancedGameStatSidePlayMetrics) GetExplosiveness() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Explosiveness
+func (x *AdvancedGameStatSidePlayMetrics) GetExplosiveness() float64 {
+	if x != nil && x.Explosiveness != nil {
+		return *x.Explosiveness
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSidePlayMetrics) GetSuccessRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SuccessRate
+func (x *AdvancedGameStatSidePlayMetrics) GetSuccessRate() float64 {
+	if x != nil && x.SuccessRate != nil {
+		return *x.SuccessRate
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSidePlayMetrics) GetTotal_PPA() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Total_PPA
+func (x *AdvancedGameStatSidePlayMetrics) GetTotal_PPA() float64 {
+	if x != nil && x.Total_PPA != nil {
+		return *x.Total_PPA
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSidePlayMetrics) GetPpa() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Ppa
+func (x *AdvancedGameStatSidePlayMetrics) GetPpa() float64 {
+	if x != nil && x.Ppa != nil {
+		return *x.Ppa
 	}
-	return nil
+	return 0
 }
 
 type AdvancedGameStatSideDownMetrics struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Explosiveness *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	SuccessRate   *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=success_rate,json=successRate,proto3" json:"success_rate,omitempty"`
-	Ppa           *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=ppa,proto3" json:"ppa,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Explosiveness *float64               `protobuf:"fixed64,1,opt,name=explosiveness,proto3,oneof" json:"explosiveness,omitempty"`
+	SuccessRate   *float64               `protobuf:"fixed64,2,opt,name=success_rate,json=successRate,proto3,oneof" json:"success_rate,omitempty"`
+	Ppa           *float64               `protobuf:"fixed64,3,opt,name=ppa,proto3,oneof" json:"ppa,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2374,25 +2373,25 @@ func (*AdvancedGameStatSideDownMetrics) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{25}
 }
 
-func (x *AdvancedGameStatSideDownMetrics) GetExplosiveness() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Explosiveness
+func (x *AdvancedGameStatSideDownMetrics) GetExplosiveness() float64 {
+	if x != nil && x.Explosiveness != nil {
+		return *x.Explosiveness
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSideDownMetrics) GetSuccessRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SuccessRate
+func (x *AdvancedGameStatSideDownMetrics) GetSuccessRate() float64 {
+	if x != nil && x.SuccessRate != nil {
+		return *x.SuccessRate
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSideDownMetrics) GetPpa() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Ppa
+func (x *AdvancedGameStatSideDownMetrics) GetPpa() float64 {
+	if x != nil && x.Ppa != nil {
+		return *x.Ppa
 	}
-	return nil
+	return 0
 }
 
 type AdvancedGameStatSide struct {
@@ -2401,20 +2400,20 @@ type AdvancedGameStatSide struct {
 	RushingPlays          *AdvancedGameStatSidePlayMetrics `protobuf:"bytes,2,opt,name=rushing_plays,json=rushingPlays,proto3" json:"rushing_plays,omitempty"`
 	PassingDowns          *AdvancedGameStatSideDownMetrics `protobuf:"bytes,3,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
 	StandardDowns         *AdvancedGameStatSideDownMetrics `protobuf:"bytes,4,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
-	OpenFieldYardsTotal   *wrapperspb.Int32Value           `protobuf:"bytes,5,opt,name=open_field_yards_total,json=openFieldYardsTotal,proto3" json:"open_field_yards_total,omitempty"`
-	OpenFieldYards        *wrapperspb.DoubleValue          `protobuf:"bytes,6,opt,name=open_field_yards,json=openFieldYards,proto3" json:"open_field_yards,omitempty"`
-	SecondLevelYardsTotal *wrapperspb.Int32Value           `protobuf:"bytes,7,opt,name=second_level_yards_total,json=secondLevelYardsTotal,proto3" json:"second_level_yards_total,omitempty"`
-	SecondLevelYards      *wrapperspb.DoubleValue          `protobuf:"bytes,8,opt,name=second_level_yards,json=secondLevelYards,proto3" json:"second_level_yards,omitempty"`
-	LineYardsTotal        *wrapperspb.Int32Value           `protobuf:"bytes,9,opt,name=line_yards_total,json=lineYardsTotal,proto3" json:"line_yards_total,omitempty"`
-	LineYards             *wrapperspb.DoubleValue          `protobuf:"bytes,10,opt,name=line_yards,json=lineYards,proto3" json:"line_yards,omitempty"`
-	StuffRate             *wrapperspb.DoubleValue          `protobuf:"bytes,11,opt,name=stuff_rate,json=stuffRate,proto3" json:"stuff_rate,omitempty"`
-	PowerSuccess          *wrapperspb.DoubleValue          `protobuf:"bytes,12,opt,name=power_success,json=powerSuccess,proto3" json:"power_success,omitempty"`
-	Explosiveness         *wrapperspb.DoubleValue          `protobuf:"bytes,13,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	SuccessRate           *wrapperspb.DoubleValue          `protobuf:"bytes,14,opt,name=success_rate,json=successRate,proto3" json:"success_rate,omitempty"`
-	Total_PPA             *wrapperspb.DoubleValue          `protobuf:"bytes,15,opt,name=total_PPA,json=totalPPA,proto3" json:"total_PPA,omitempty"`
-	Ppa                   *wrapperspb.DoubleValue          `protobuf:"bytes,16,opt,name=ppa,proto3" json:"ppa,omitempty"`
-	Drives                *wrapperspb.Int32Value           `protobuf:"bytes,17,opt,name=drives,proto3" json:"drives,omitempty"`
-	Plays                 *wrapperspb.Int32Value           `protobuf:"bytes,18,opt,name=plays,proto3" json:"plays,omitempty"`
+	OpenFieldYardsTotal   *int32                           `protobuf:"varint,5,opt,name=open_field_yards_total,json=openFieldYardsTotal,proto3,oneof" json:"open_field_yards_total,omitempty"`
+	OpenFieldYards        *float64                         `protobuf:"fixed64,6,opt,name=open_field_yards,json=openFieldYards,proto3,oneof" json:"open_field_yards,omitempty"`
+	SecondLevelYardsTotal *int32                           `protobuf:"varint,7,opt,name=second_level_yards_total,json=secondLevelYardsTotal,proto3,oneof" json:"second_level_yards_total,omitempty"`
+	SecondLevelYards      *float64                         `protobuf:"fixed64,8,opt,name=second_level_yards,json=secondLevelYards,proto3,oneof" json:"second_level_yards,omitempty"`
+	LineYardsTotal        *int32                           `protobuf:"varint,9,opt,name=line_yards_total,json=lineYardsTotal,proto3,oneof" json:"line_yards_total,omitempty"`
+	LineYards             *float64                         `protobuf:"fixed64,10,opt,name=line_yards,json=lineYards,proto3,oneof" json:"line_yards,omitempty"`
+	StuffRate             *float64                         `protobuf:"fixed64,11,opt,name=stuff_rate,json=stuffRate,proto3,oneof" json:"stuff_rate,omitempty"`
+	PowerSuccess          *float64                         `protobuf:"fixed64,12,opt,name=power_success,json=powerSuccess,proto3,oneof" json:"power_success,omitempty"`
+	Explosiveness         *float64                         `protobuf:"fixed64,13,opt,name=explosiveness,proto3,oneof" json:"explosiveness,omitempty"`
+	SuccessRate           *float64                         `protobuf:"fixed64,14,opt,name=success_rate,json=successRate,proto3,oneof" json:"success_rate,omitempty"`
+	Total_PPA             *float64                         `protobuf:"fixed64,15,opt,name=total_PPA,json=totalPPA,proto3,oneof" json:"total_PPA,omitempty"`
+	Ppa                   *float64                         `protobuf:"fixed64,16,opt,name=ppa,proto3,oneof" json:"ppa,omitempty"`
+	Drives                *int32                           `protobuf:"varint,17,opt,name=drives,proto3,oneof" json:"drives,omitempty"`
+	Plays                 *int32                           `protobuf:"varint,18,opt,name=plays,proto3,oneof" json:"plays,omitempty"`
 	unknownFields         protoimpl.UnknownFields
 	sizeCache             protoimpl.SizeCache
 }
@@ -2477,102 +2476,102 @@ func (x *AdvancedGameStatSide) GetStandardDowns() *AdvancedGameStatSideDownMetri
 	return nil
 }
 
-func (x *AdvancedGameStatSide) GetOpenFieldYardsTotal() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.OpenFieldYardsTotal
+func (x *AdvancedGameStatSide) GetOpenFieldYardsTotal() int32 {
+	if x != nil && x.OpenFieldYardsTotal != nil {
+		return *x.OpenFieldYardsTotal
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetOpenFieldYards() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.OpenFieldYards
+func (x *AdvancedGameStatSide) GetOpenFieldYards() float64 {
+	if x != nil && x.OpenFieldYards != nil {
+		return *x.OpenFieldYards
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetSecondLevelYardsTotal() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.SecondLevelYardsTotal
+func (x *AdvancedGameStatSide) GetSecondLevelYardsTotal() int32 {
+	if x != nil && x.SecondLevelYardsTotal != nil {
+		return *x.SecondLevelYardsTotal
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetSecondLevelYards() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SecondLevelYards
+func (x *AdvancedGameStatSide) GetSecondLevelYards() float64 {
+	if x != nil && x.SecondLevelYards != nil {
+		return *x.SecondLevelYards
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetLineYardsTotal() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.LineYardsTotal
+func (x *AdvancedGameStatSide) GetLineYardsTotal() int32 {
+	if x != nil && x.LineYardsTotal != nil {
+		return *x.LineYardsTotal
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetLineYards() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.LineYards
+func (x *AdvancedGameStatSide) GetLineYards() float64 {
+	if x != nil && x.LineYards != nil {
+		return *x.LineYards
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetStuffRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.StuffRate
+func (x *AdvancedGameStatSide) GetStuffRate() float64 {
+	if x != nil && x.StuffRate != nil {
+		return *x.StuffRate
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetPowerSuccess() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.PowerSuccess
+func (x *AdvancedGameStatSide) GetPowerSuccess() float64 {
+	if x != nil && x.PowerSuccess != nil {
+		return *x.PowerSuccess
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetExplosiveness() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Explosiveness
+func (x *AdvancedGameStatSide) GetExplosiveness() float64 {
+	if x != nil && x.Explosiveness != nil {
+		return *x.Explosiveness
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetSuccessRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SuccessRate
+func (x *AdvancedGameStatSide) GetSuccessRate() float64 {
+	if x != nil && x.SuccessRate != nil {
+		return *x.SuccessRate
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetTotal_PPA() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Total_PPA
+func (x *AdvancedGameStatSide) GetTotal_PPA() float64 {
+	if x != nil && x.Total_PPA != nil {
+		return *x.Total_PPA
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetPpa() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Ppa
+func (x *AdvancedGameStatSide) GetPpa() float64 {
+	if x != nil && x.Ppa != nil {
+		return *x.Ppa
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetDrives() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Drives
+func (x *AdvancedGameStatSide) GetDrives() int32 {
+	if x != nil && x.Drives != nil {
+		return *x.Drives
 	}
-	return nil
+	return 0
 }
 
-func (x *AdvancedGameStatSide) GetPlays() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Plays
+func (x *AdvancedGameStatSide) GetPlays() int32 {
+	if x != nil && x.Plays != nil {
+		return *x.Plays
 	}
-	return nil
+	return 0
 }
 
 type AdvancedGameStat struct {
@@ -2768,17 +2767,17 @@ func (x *GameHavocStatSide) GetTotalPlays() float64 {
 }
 
 type GameHavocStats struct {
-	state              protoimpl.MessageState  `protogen:"open.v1"`
-	GameId             int32                   `protobuf:"varint,1,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
-	Season             int32                   `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
-	SeasonType         string                  `protobuf:"bytes,3,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
-	Week               int32                   `protobuf:"varint,4,opt,name=week,proto3" json:"week,omitempty"`
-	Team               string                  `protobuf:"bytes,5,opt,name=team,proto3" json:"team,omitempty"`
-	Conference         *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=conference,proto3" json:"conference,omitempty"`
-	Opponent           string                  `protobuf:"bytes,7,opt,name=opponent,proto3" json:"opponent,omitempty"`
-	OpponentConference *wrapperspb.StringValue `protobuf:"bytes,8,opt,name=opponent_conference,json=opponentConference,proto3" json:"opponent_conference,omitempty"`
-	Offense            *GameHavocStatSide      `protobuf:"bytes,9,opt,name=offense,proto3" json:"offense,omitempty"`
-	Defense            *GameHavocStatSide      `protobuf:"bytes,10,opt,name=defense,proto3" json:"defense,omitempty"`
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	GameId             int32                  `protobuf:"varint,1,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	Season             int32                  `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
+	SeasonType         string                 `protobuf:"bytes,3,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
+	Week               int32                  `protobuf:"varint,4,opt,name=week,proto3" json:"week,omitempty"`
+	Team               string                 `protobuf:"bytes,5,opt,name=team,proto3" json:"team,omitempty"`
+	Conference         string                 `protobuf:"bytes,6,opt,name=conference,proto3" json:"conference,omitempty"`
+	Opponent           string                 `protobuf:"bytes,7,opt,name=opponent,proto3" json:"opponent,omitempty"`
+	OpponentConference string                 `protobuf:"bytes,8,opt,name=opponent_conference,json=opponentConference,proto3" json:"opponent_conference,omitempty"`
+	Offense            *GameHavocStatSide     `protobuf:"bytes,9,opt,name=offense,proto3" json:"offense,omitempty"`
+	Defense            *GameHavocStatSide     `protobuf:"bytes,10,opt,name=defense,proto3" json:"defense,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -2848,11 +2847,11 @@ func (x *GameHavocStats) GetTeam() string {
 	return ""
 }
 
-func (x *GameHavocStats) GetConference() *wrapperspb.StringValue {
+func (x *GameHavocStats) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
 func (x *GameHavocStats) GetOpponent() string {
@@ -2862,11 +2861,11 @@ func (x *GameHavocStats) GetOpponent() string {
 	return ""
 }
 
-func (x *GameHavocStats) GetOpponentConference() *wrapperspb.StringValue {
+func (x *GameHavocStats) GetOpponentConference() string {
 	if x != nil {
 		return x.OpponentConference
 	}
-	return nil
+	return ""
 }
 
 func (x *GameHavocStats) GetOffense() *GameHavocStatSide {
@@ -2884,10 +2883,10 @@ func (x *GameHavocStats) GetDefense() *GameHavocStatSide {
 }
 
 type RecruitHometownInfo struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	FipsCode      *wrapperspb.StringValue `protobuf:"bytes,1,opt,name=fips_code,json=fipsCode,proto3" json:"fips_code,omitempty"`
-	Longitude     *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	Latitude      *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	FipsCode      string                 `protobuf:"bytes,1,opt,name=fips_code,json=fipsCode,proto3" json:"fips_code,omitempty"`
+	Longitude     *float64               `protobuf:"fixed64,2,opt,name=longitude,proto3,oneof" json:"longitude,omitempty"`
+	Latitude      *float64               `protobuf:"fixed64,3,opt,name=latitude,proto3,oneof" json:"latitude,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2922,46 +2921,46 @@ func (*RecruitHometownInfo) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{30}
 }
 
-func (x *RecruitHometownInfo) GetFipsCode() *wrapperspb.StringValue {
+func (x *RecruitHometownInfo) GetFipsCode() string {
 	if x != nil {
 		return x.FipsCode
 	}
-	return nil
+	return ""
 }
 
-func (x *RecruitHometownInfo) GetLongitude() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Longitude
+func (x *RecruitHometownInfo) GetLongitude() float64 {
+	if x != nil && x.Longitude != nil {
+		return *x.Longitude
 	}
-	return nil
+	return 0
 }
 
-func (x *RecruitHometownInfo) GetLatitude() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Latitude
+func (x *RecruitHometownInfo) GetLatitude() float64 {
+	if x != nil && x.Latitude != nil {
+		return *x.Latitude
 	}
-	return nil
+	return 0
 }
 
 type Recruit struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Id            string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	AthleteId     *wrapperspb.StringValue `protobuf:"bytes,2,opt,name=athlete_id,json=athleteId,proto3" json:"athlete_id,omitempty"`
-	RecruitType   string                  `protobuf:"bytes,3,opt,name=recruit_type,json=recruitType,proto3" json:"recruit_type,omitempty"`
-	Year          int32                   `protobuf:"varint,4,opt,name=year,proto3" json:"year,omitempty"`
-	Ranking       *wrapperspb.Int32Value  `protobuf:"bytes,5,opt,name=ranking,proto3" json:"ranking,omitempty"`
-	Name          string                  `protobuf:"bytes,6,opt,name=name,proto3" json:"name,omitempty"`
-	School        *wrapperspb.StringValue `protobuf:"bytes,7,opt,name=school,proto3" json:"school,omitempty"`
-	CommittedTo   *wrapperspb.StringValue `protobuf:"bytes,8,opt,name=committed_to,json=committedTo,proto3" json:"committed_to,omitempty"`
-	Position      *wrapperspb.StringValue `protobuf:"bytes,9,opt,name=position,proto3" json:"position,omitempty"`
-	Height        *wrapperspb.DoubleValue `protobuf:"bytes,10,opt,name=height,proto3" json:"height,omitempty"`
-	Weight        *wrapperspb.Int32Value  `protobuf:"bytes,11,opt,name=weight,proto3" json:"weight,omitempty"`
-	Stars         int32                   `protobuf:"varint,12,opt,name=stars,proto3" json:"stars,omitempty"`
-	Rating        float64                 `protobuf:"fixed64,13,opt,name=rating,proto3" json:"rating,omitempty"`
-	City          *wrapperspb.StringValue `protobuf:"bytes,14,opt,name=city,proto3" json:"city,omitempty"`
-	StateProvince *wrapperspb.StringValue `protobuf:"bytes,15,opt,name=state_province,json=stateProvince,proto3" json:"state_province,omitempty"`
-	Country       *wrapperspb.StringValue `protobuf:"bytes,16,opt,name=country,proto3" json:"country,omitempty"`
-	HometownInfo  *RecruitHometownInfo    `protobuf:"bytes,17,opt,name=hometown_info,json=hometownInfo,proto3" json:"hometown_info,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	AthleteId     string                 `protobuf:"bytes,2,opt,name=athlete_id,json=athleteId,proto3" json:"athlete_id,omitempty"`
+	RecruitType   string                 `protobuf:"bytes,3,opt,name=recruit_type,json=recruitType,proto3" json:"recruit_type,omitempty"`
+	Year          int32                  `protobuf:"varint,4,opt,name=year,proto3" json:"year,omitempty"`
+	Ranking       *int32                 `protobuf:"varint,5,opt,name=ranking,proto3,oneof" json:"ranking,omitempty"`
+	Name          string                 `protobuf:"bytes,6,opt,name=name,proto3" json:"name,omitempty"`
+	School        string                 `protobuf:"bytes,7,opt,name=school,proto3" json:"school,omitempty"`
+	CommittedTo   string                 `protobuf:"bytes,8,opt,name=committed_to,json=committedTo,proto3" json:"committed_to,omitempty"`
+	Position      string                 `protobuf:"bytes,9,opt,name=position,proto3" json:"position,omitempty"`
+	Height        *float64               `protobuf:"fixed64,10,opt,name=height,proto3,oneof" json:"height,omitempty"`
+	Weight        *int32                 `protobuf:"varint,11,opt,name=weight,proto3,oneof" json:"weight,omitempty"`
+	Stars         int32                  `protobuf:"varint,12,opt,name=stars,proto3" json:"stars,omitempty"`
+	Rating        float64                `protobuf:"fixed64,13,opt,name=rating,proto3" json:"rating,omitempty"`
+	City          string                 `protobuf:"bytes,14,opt,name=city,proto3" json:"city,omitempty"`
+	StateProvince string                 `protobuf:"bytes,15,opt,name=state_province,json=stateProvince,proto3" json:"state_province,omitempty"`
+	Country       string                 `protobuf:"bytes,16,opt,name=country,proto3" json:"country,omitempty"`
+	HometownInfo  *RecruitHometownInfo   `protobuf:"bytes,17,opt,name=hometown_info,json=hometownInfo,proto3" json:"hometown_info,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3003,11 +3002,11 @@ func (x *Recruit) GetId() string {
 	return ""
 }
 
-func (x *Recruit) GetAthleteId() *wrapperspb.StringValue {
+func (x *Recruit) GetAthleteId() string {
 	if x != nil {
 		return x.AthleteId
 	}
-	return nil
+	return ""
 }
 
 func (x *Recruit) GetRecruitType() string {
@@ -3024,11 +3023,11 @@ func (x *Recruit) GetYear() int32 {
 	return 0
 }
 
-func (x *Recruit) GetRanking() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Ranking
+func (x *Recruit) GetRanking() int32 {
+	if x != nil && x.Ranking != nil {
+		return *x.Ranking
 	}
-	return nil
+	return 0
 }
 
 func (x *Recruit) GetName() string {
@@ -3038,39 +3037,39 @@ func (x *Recruit) GetName() string {
 	return ""
 }
 
-func (x *Recruit) GetSchool() *wrapperspb.StringValue {
+func (x *Recruit) GetSchool() string {
 	if x != nil {
 		return x.School
 	}
-	return nil
+	return ""
 }
 
-func (x *Recruit) GetCommittedTo() *wrapperspb.StringValue {
+func (x *Recruit) GetCommittedTo() string {
 	if x != nil {
 		return x.CommittedTo
 	}
-	return nil
+	return ""
 }
 
-func (x *Recruit) GetPosition() *wrapperspb.StringValue {
+func (x *Recruit) GetPosition() string {
 	if x != nil {
 		return x.Position
 	}
-	return nil
+	return ""
 }
 
-func (x *Recruit) GetHeight() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Height
+func (x *Recruit) GetHeight() float64 {
+	if x != nil && x.Height != nil {
+		return *x.Height
 	}
-	return nil
+	return 0
 }
 
-func (x *Recruit) GetWeight() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Weight
+func (x *Recruit) GetWeight() int32 {
+	if x != nil && x.Weight != nil {
+		return *x.Weight
 	}
-	return nil
+	return 0
 }
 
 func (x *Recruit) GetStars() int32 {
@@ -3087,25 +3086,25 @@ func (x *Recruit) GetRating() float64 {
 	return 0
 }
 
-func (x *Recruit) GetCity() *wrapperspb.StringValue {
+func (x *Recruit) GetCity() string {
 	if x != nil {
 		return x.City
 	}
-	return nil
+	return ""
 }
 
-func (x *Recruit) GetStateProvince() *wrapperspb.StringValue {
+func (x *Recruit) GetStateProvince() string {
 	if x != nil {
 		return x.StateProvince
 	}
-	return nil
+	return ""
 }
 
-func (x *Recruit) GetCountry() *wrapperspb.StringValue {
+func (x *Recruit) GetCountry() string {
 	if x != nil {
 		return x.Country
 	}
-	return nil
+	return ""
 }
 
 func (x *Recruit) GetHometownInfo() *RecruitHometownInfo {
@@ -3184,14 +3183,14 @@ func (x *TeamRecruitingRanking) GetPoints() float64 {
 }
 
 type AggregatedTeamRecruiting struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Team          string                  `protobuf:"bytes,1,opt,name=team,proto3" json:"team,omitempty"`
-	Conference    string                  `protobuf:"bytes,2,opt,name=conference,proto3" json:"conference,omitempty"`
-	PositionGroup *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=position_group,json=positionGroup,proto3" json:"position_group,omitempty"`
-	AverageRating float64                 `protobuf:"fixed64,4,opt,name=average_rating,json=averageRating,proto3" json:"average_rating,omitempty"`
-	TotalRating   float64                 `protobuf:"fixed64,5,opt,name=total_rating,json=totalRating,proto3" json:"total_rating,omitempty"`
-	Commits       int32                   `protobuf:"varint,6,opt,name=commits,proto3" json:"commits,omitempty"`
-	AverageStars  float64                 `protobuf:"fixed64,7,opt,name=average_stars,json=averageStars,proto3" json:"average_stars,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Team          string                 `protobuf:"bytes,1,opt,name=team,proto3" json:"team,omitempty"`
+	Conference    string                 `protobuf:"bytes,2,opt,name=conference,proto3" json:"conference,omitempty"`
+	PositionGroup *string                `protobuf:"bytes,3,opt,name=position_group,json=positionGroup,proto3,oneof" json:"position_group,omitempty"`
+	AverageRating float64                `protobuf:"fixed64,4,opt,name=average_rating,json=averageRating,proto3" json:"average_rating,omitempty"`
+	TotalRating   float64                `protobuf:"fixed64,5,opt,name=total_rating,json=totalRating,proto3" json:"total_rating,omitempty"`
+	Commits       int32                  `protobuf:"varint,6,opt,name=commits,proto3" json:"commits,omitempty"`
+	AverageStars  float64                `protobuf:"fixed64,7,opt,name=average_stars,json=averageStars,proto3" json:"average_stars,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3240,11 +3239,11 @@ func (x *AggregatedTeamRecruiting) GetConference() string {
 	return ""
 }
 
-func (x *AggregatedTeamRecruiting) GetPositionGroup() *wrapperspb.StringValue {
-	if x != nil {
-		return x.PositionGroup
+func (x *AggregatedTeamRecruiting) GetPositionGroup() string {
+	if x != nil && x.PositionGroup != nil {
+		return *x.PositionGroup
 	}
-	return nil
+	return ""
 }
 
 func (x *AggregatedTeamRecruiting) GetAverageRating() float64 {
@@ -3276,17 +3275,17 @@ func (x *AggregatedTeamRecruiting) GetAverageStars() float64 {
 }
 
 type SpTeamOffense struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Pace          *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=pace,proto3" json:"pace,omitempty"`
-	RunRate       *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=run_rate,json=runRate,proto3" json:"run_rate,omitempty"`
-	PassingDowns  *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
-	StandardDowns *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
-	Passing       *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=passing,proto3" json:"passing,omitempty"`
-	Rushing       *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=rushing,proto3" json:"rushing,omitempty"`
-	Explosiveness *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	Success       *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=success,proto3" json:"success,omitempty"`
-	Rating        *wrapperspb.DoubleValue `protobuf:"bytes,9,opt,name=rating,proto3" json:"rating,omitempty"`
-	Ranking       *wrapperspb.Int32Value  `protobuf:"bytes,10,opt,name=ranking,proto3" json:"ranking,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Pace          *float64               `protobuf:"fixed64,1,opt,name=pace,proto3,oneof" json:"pace,omitempty"`
+	RunRate       *float64               `protobuf:"fixed64,2,opt,name=run_rate,json=runRate,proto3,oneof" json:"run_rate,omitempty"`
+	PassingDowns  *float64               `protobuf:"fixed64,3,opt,name=passing_downs,json=passingDowns,proto3,oneof" json:"passing_downs,omitempty"`
+	StandardDowns *float64               `protobuf:"fixed64,4,opt,name=standard_downs,json=standardDowns,proto3,oneof" json:"standard_downs,omitempty"`
+	Passing       *float64               `protobuf:"fixed64,5,opt,name=passing,proto3,oneof" json:"passing,omitempty"`
+	Rushing       *float64               `protobuf:"fixed64,6,opt,name=rushing,proto3,oneof" json:"rushing,omitempty"`
+	Explosiveness *float64               `protobuf:"fixed64,7,opt,name=explosiveness,proto3,oneof" json:"explosiveness,omitempty"`
+	Success       *float64               `protobuf:"fixed64,8,opt,name=success,proto3,oneof" json:"success,omitempty"`
+	Rating        *float64               `protobuf:"fixed64,9,opt,name=rating,proto3,oneof" json:"rating,omitempty"`
+	Ranking       *int32                 `protobuf:"varint,10,opt,name=ranking,proto3,oneof" json:"ranking,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3321,87 +3320,87 @@ func (*SpTeamOffense) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{34}
 }
 
-func (x *SpTeamOffense) GetPace() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Pace
+func (x *SpTeamOffense) GetPace() float64 {
+	if x != nil && x.Pace != nil {
+		return *x.Pace
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamOffense) GetRunRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.RunRate
+func (x *SpTeamOffense) GetRunRate() float64 {
+	if x != nil && x.RunRate != nil {
+		return *x.RunRate
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamOffense) GetPassingDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.PassingDowns
+func (x *SpTeamOffense) GetPassingDowns() float64 {
+	if x != nil && x.PassingDowns != nil {
+		return *x.PassingDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamOffense) GetStandardDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.StandardDowns
+func (x *SpTeamOffense) GetStandardDowns() float64 {
+	if x != nil && x.StandardDowns != nil {
+		return *x.StandardDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamOffense) GetPassing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Passing
+func (x *SpTeamOffense) GetPassing() float64 {
+	if x != nil && x.Passing != nil {
+		return *x.Passing
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamOffense) GetRushing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rushing
+func (x *SpTeamOffense) GetRushing() float64 {
+	if x != nil && x.Rushing != nil {
+		return *x.Rushing
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamOffense) GetExplosiveness() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Explosiveness
+func (x *SpTeamOffense) GetExplosiveness() float64 {
+	if x != nil && x.Explosiveness != nil {
+		return *x.Explosiveness
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamOffense) GetSuccess() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Success
+func (x *SpTeamOffense) GetSuccess() float64 {
+	if x != nil && x.Success != nil {
+		return *x.Success
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamOffense) GetRating() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rating
+func (x *SpTeamOffense) GetRating() float64 {
+	if x != nil && x.Rating != nil {
+		return *x.Rating
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamOffense) GetRanking() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Ranking
+func (x *SpTeamOffense) GetRanking() int32 {
+	if x != nil && x.Ranking != nil {
+		return *x.Ranking
 	}
-	return nil
+	return 0
 }
 
 type SpTeamDefense struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Havoc         *AdvancedHavoc          `protobuf:"bytes,1,opt,name=havoc,proto3" json:"havoc,omitempty"`
-	PassingDowns  *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
-	StandardDowns *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
-	Passing       *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=passing,proto3" json:"passing,omitempty"`
-	Rushing       *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=rushing,proto3" json:"rushing,omitempty"`
-	Explosiveness *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	Success       *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=success,proto3" json:"success,omitempty"`
-	Rating        *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=rating,proto3" json:"rating,omitempty"`
-	Ranking       *wrapperspb.Int32Value  `protobuf:"bytes,9,opt,name=ranking,proto3" json:"ranking,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Havoc         *AdvancedHavoc         `protobuf:"bytes,1,opt,name=havoc,proto3" json:"havoc,omitempty"`
+	PassingDowns  *float64               `protobuf:"fixed64,2,opt,name=passing_downs,json=passingDowns,proto3,oneof" json:"passing_downs,omitempty"`
+	StandardDowns *float64               `protobuf:"fixed64,3,opt,name=standard_downs,json=standardDowns,proto3,oneof" json:"standard_downs,omitempty"`
+	Passing       *float64               `protobuf:"fixed64,4,opt,name=passing,proto3,oneof" json:"passing,omitempty"`
+	Rushing       *float64               `protobuf:"fixed64,5,opt,name=rushing,proto3,oneof" json:"rushing,omitempty"`
+	Explosiveness *float64               `protobuf:"fixed64,6,opt,name=explosiveness,proto3,oneof" json:"explosiveness,omitempty"`
+	Success       *float64               `protobuf:"fixed64,7,opt,name=success,proto3,oneof" json:"success,omitempty"`
+	Rating        *float64               `protobuf:"fixed64,8,opt,name=rating,proto3,oneof" json:"rating,omitempty"`
+	Ranking       *int32                 `protobuf:"varint,9,opt,name=ranking,proto3,oneof" json:"ranking,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3443,65 +3442,65 @@ func (x *SpTeamDefense) GetHavoc() *AdvancedHavoc {
 	return nil
 }
 
-func (x *SpTeamDefense) GetPassingDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.PassingDowns
+func (x *SpTeamDefense) GetPassingDowns() float64 {
+	if x != nil && x.PassingDowns != nil {
+		return *x.PassingDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamDefense) GetStandardDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.StandardDowns
+func (x *SpTeamDefense) GetStandardDowns() float64 {
+	if x != nil && x.StandardDowns != nil {
+		return *x.StandardDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamDefense) GetPassing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Passing
+func (x *SpTeamDefense) GetPassing() float64 {
+	if x != nil && x.Passing != nil {
+		return *x.Passing
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamDefense) GetRushing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rushing
+func (x *SpTeamDefense) GetRushing() float64 {
+	if x != nil && x.Rushing != nil {
+		return *x.Rushing
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamDefense) GetExplosiveness() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Explosiveness
+func (x *SpTeamDefense) GetExplosiveness() float64 {
+	if x != nil && x.Explosiveness != nil {
+		return *x.Explosiveness
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamDefense) GetSuccess() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Success
+func (x *SpTeamDefense) GetSuccess() float64 {
+	if x != nil && x.Success != nil {
+		return *x.Success
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamDefense) GetRating() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rating
+func (x *SpTeamDefense) GetRating() float64 {
+	if x != nil && x.Rating != nil {
+		return *x.Rating
 	}
-	return nil
+	return 0
 }
 
-func (x *SpTeamDefense) GetRanking() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Ranking
+func (x *SpTeamDefense) GetRanking() int32 {
+	if x != nil && x.Ranking != nil {
+		return *x.Ranking
 	}
-	return nil
+	return 0
 }
 
 type SpSpecialTeams struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Rating        *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=rating,proto3" json:"rating,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Rating        *float64               `protobuf:"fixed64,1,opt,name=rating,proto3,oneof" json:"rating,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3536,25 +3535,25 @@ func (*SpSpecialTeams) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{36}
 }
 
-func (x *SpSpecialTeams) GetRating() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rating
+func (x *SpSpecialTeams) GetRating() float64 {
+	if x != nil && x.Rating != nil {
+		return *x.Rating
 	}
-	return nil
+	return 0
 }
 
 type TeamSP struct {
-	state           protoimpl.MessageState  `protogen:"open.v1"`
-	Year            int32                   `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
-	Team            string                  `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
-	Conference      *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
-	Rating          *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=rating,proto3" json:"rating,omitempty"`
-	Ranking         *wrapperspb.Int32Value  `protobuf:"bytes,5,opt,name=ranking,proto3" json:"ranking,omitempty"`
-	SecondOrderWins *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=second_order_wins,json=secondOrderWins,proto3" json:"second_order_wins,omitempty"`
-	Sos             *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=sos,proto3" json:"sos,omitempty"`
-	Offense         *SpTeamOffense          `protobuf:"bytes,8,opt,name=offense,proto3" json:"offense,omitempty"`
-	Defense         *SpTeamDefense          `protobuf:"bytes,9,opt,name=defense,proto3" json:"defense,omitempty"`
-	SpecialTeams    *SpSpecialTeams         `protobuf:"bytes,10,opt,name=special_teams,json=specialTeams,proto3" json:"special_teams,omitempty"`
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Year            int32                  `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
+	Team            string                 `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
+	Conference      string                 `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
+	Rating          *float64               `protobuf:"fixed64,4,opt,name=rating,proto3,oneof" json:"rating,omitempty"`
+	Ranking         *int32                 `protobuf:"varint,5,opt,name=ranking,proto3,oneof" json:"ranking,omitempty"`
+	SecondOrderWins *float64               `protobuf:"fixed64,6,opt,name=second_order_wins,json=secondOrderWins,proto3,oneof" json:"second_order_wins,omitempty"`
+	Sos             *float64               `protobuf:"fixed64,7,opt,name=sos,proto3,oneof" json:"sos,omitempty"`
+	Offense         *SpTeamOffense         `protobuf:"bytes,8,opt,name=offense,proto3" json:"offense,omitempty"`
+	Defense         *SpTeamDefense         `protobuf:"bytes,9,opt,name=defense,proto3" json:"defense,omitempty"`
+	SpecialTeams    *SpSpecialTeams        `protobuf:"bytes,10,opt,name=special_teams,json=specialTeams,proto3" json:"special_teams,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -3603,39 +3602,39 @@ func (x *TeamSP) GetTeam() string {
 	return ""
 }
 
-func (x *TeamSP) GetConference() *wrapperspb.StringValue {
+func (x *TeamSP) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
-func (x *TeamSP) GetRating() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rating
+func (x *TeamSP) GetRating() float64 {
+	if x != nil && x.Rating != nil {
+		return *x.Rating
 	}
-	return nil
+	return 0
 }
 
-func (x *TeamSP) GetRanking() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Ranking
+func (x *TeamSP) GetRanking() int32 {
+	if x != nil && x.Ranking != nil {
+		return *x.Ranking
 	}
-	return nil
+	return 0
 }
 
-func (x *TeamSP) GetSecondOrderWins() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SecondOrderWins
+func (x *TeamSP) GetSecondOrderWins() float64 {
+	if x != nil && x.SecondOrderWins != nil {
+		return *x.SecondOrderWins
 	}
-	return nil
+	return 0
 }
 
-func (x *TeamSP) GetSos() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Sos
+func (x *TeamSP) GetSos() float64 {
+	if x != nil && x.Sos != nil {
+		return *x.Sos
 	}
-	return nil
+	return 0
 }
 
 func (x *TeamSP) GetOffense() *SpTeamOffense {
@@ -3660,16 +3659,16 @@ func (x *TeamSP) GetSpecialTeams() *SpSpecialTeams {
 }
 
 type ConferenceSpOffense struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Pace          *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=pace,proto3" json:"pace,omitempty"`
-	RunRate       *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=run_rate,json=runRate,proto3" json:"run_rate,omitempty"`
-	PassingDowns  *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
-	StandardDowns *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
-	Passing       *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=passing,proto3" json:"passing,omitempty"`
-	Rushing       *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=rushing,proto3" json:"rushing,omitempty"`
-	Explosiveness *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	Success       *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=success,proto3" json:"success,omitempty"`
-	Rating        *wrapperspb.DoubleValue `protobuf:"bytes,9,opt,name=rating,proto3" json:"rating,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Pace          *float64               `protobuf:"fixed64,1,opt,name=pace,proto3,oneof" json:"pace,omitempty"`
+	RunRate       *float64               `protobuf:"fixed64,2,opt,name=run_rate,json=runRate,proto3,oneof" json:"run_rate,omitempty"`
+	PassingDowns  *float64               `protobuf:"fixed64,3,opt,name=passing_downs,json=passingDowns,proto3,oneof" json:"passing_downs,omitempty"`
+	StandardDowns *float64               `protobuf:"fixed64,4,opt,name=standard_downs,json=standardDowns,proto3,oneof" json:"standard_downs,omitempty"`
+	Passing       *float64               `protobuf:"fixed64,5,opt,name=passing,proto3,oneof" json:"passing,omitempty"`
+	Rushing       *float64               `protobuf:"fixed64,6,opt,name=rushing,proto3,oneof" json:"rushing,omitempty"`
+	Explosiveness *float64               `protobuf:"fixed64,7,opt,name=explosiveness,proto3,oneof" json:"explosiveness,omitempty"`
+	Success       *float64               `protobuf:"fixed64,8,opt,name=success,proto3,oneof" json:"success,omitempty"`
+	Rating        *float64               `protobuf:"fixed64,9,opt,name=rating,proto3,oneof" json:"rating,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3704,79 +3703,79 @@ func (*ConferenceSpOffense) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{38}
 }
 
-func (x *ConferenceSpOffense) GetPace() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Pace
+func (x *ConferenceSpOffense) GetPace() float64 {
+	if x != nil && x.Pace != nil {
+		return *x.Pace
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpOffense) GetRunRate() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.RunRate
+func (x *ConferenceSpOffense) GetRunRate() float64 {
+	if x != nil && x.RunRate != nil {
+		return *x.RunRate
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpOffense) GetPassingDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.PassingDowns
+func (x *ConferenceSpOffense) GetPassingDowns() float64 {
+	if x != nil && x.PassingDowns != nil {
+		return *x.PassingDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpOffense) GetStandardDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.StandardDowns
+func (x *ConferenceSpOffense) GetStandardDowns() float64 {
+	if x != nil && x.StandardDowns != nil {
+		return *x.StandardDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpOffense) GetPassing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Passing
+func (x *ConferenceSpOffense) GetPassing() float64 {
+	if x != nil && x.Passing != nil {
+		return *x.Passing
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpOffense) GetRushing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rushing
+func (x *ConferenceSpOffense) GetRushing() float64 {
+	if x != nil && x.Rushing != nil {
+		return *x.Rushing
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpOffense) GetExplosiveness() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Explosiveness
+func (x *ConferenceSpOffense) GetExplosiveness() float64 {
+	if x != nil && x.Explosiveness != nil {
+		return *x.Explosiveness
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpOffense) GetSuccess() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Success
+func (x *ConferenceSpOffense) GetSuccess() float64 {
+	if x != nil && x.Success != nil {
+		return *x.Success
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpOffense) GetRating() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rating
+func (x *ConferenceSpOffense) GetRating() float64 {
+	if x != nil && x.Rating != nil {
+		return *x.Rating
 	}
-	return nil
+	return 0
 }
 
 type ConferenceSpDefense struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Havoc         *AdvancedHavoc          `protobuf:"bytes,1,opt,name=havoc,proto3" json:"havoc,omitempty"`
-	PassingDowns  *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
-	StandardDowns *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
-	Passing       *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=passing,proto3" json:"passing,omitempty"`
-	Rushing       *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=rushing,proto3" json:"rushing,omitempty"`
-	Explosiveness *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	Success       *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=success,proto3" json:"success,omitempty"`
-	Rating        *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=rating,proto3" json:"rating,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Havoc         *AdvancedHavoc         `protobuf:"bytes,1,opt,name=havoc,proto3" json:"havoc,omitempty"`
+	PassingDowns  *float64               `protobuf:"fixed64,2,opt,name=passing_downs,json=passingDowns,proto3,oneof" json:"passing_downs,omitempty"`
+	StandardDowns *float64               `protobuf:"fixed64,3,opt,name=standard_downs,json=standardDowns,proto3,oneof" json:"standard_downs,omitempty"`
+	Passing       *float64               `protobuf:"fixed64,4,opt,name=passing,proto3,oneof" json:"passing,omitempty"`
+	Rushing       *float64               `protobuf:"fixed64,5,opt,name=rushing,proto3,oneof" json:"rushing,omitempty"`
+	Explosiveness *float64               `protobuf:"fixed64,6,opt,name=explosiveness,proto3,oneof" json:"explosiveness,omitempty"`
+	Success       *float64               `protobuf:"fixed64,7,opt,name=success,proto3,oneof" json:"success,omitempty"`
+	Rating        *float64               `protobuf:"fixed64,8,opt,name=rating,proto3,oneof" json:"rating,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -3818,65 +3817,65 @@ func (x *ConferenceSpDefense) GetHavoc() *AdvancedHavoc {
 	return nil
 }
 
-func (x *ConferenceSpDefense) GetPassingDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.PassingDowns
+func (x *ConferenceSpDefense) GetPassingDowns() float64 {
+	if x != nil && x.PassingDowns != nil {
+		return *x.PassingDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpDefense) GetStandardDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.StandardDowns
+func (x *ConferenceSpDefense) GetStandardDowns() float64 {
+	if x != nil && x.StandardDowns != nil {
+		return *x.StandardDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpDefense) GetPassing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Passing
+func (x *ConferenceSpDefense) GetPassing() float64 {
+	if x != nil && x.Passing != nil {
+		return *x.Passing
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpDefense) GetRushing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rushing
+func (x *ConferenceSpDefense) GetRushing() float64 {
+	if x != nil && x.Rushing != nil {
+		return *x.Rushing
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpDefense) GetExplosiveness() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Explosiveness
+func (x *ConferenceSpDefense) GetExplosiveness() float64 {
+	if x != nil && x.Explosiveness != nil {
+		return *x.Explosiveness
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpDefense) GetSuccess() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Success
+func (x *ConferenceSpDefense) GetSuccess() float64 {
+	if x != nil && x.Success != nil {
+		return *x.Success
 	}
-	return nil
+	return 0
 }
 
-func (x *ConferenceSpDefense) GetRating() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rating
+func (x *ConferenceSpDefense) GetRating() float64 {
+	if x != nil && x.Rating != nil {
+		return *x.Rating
 	}
-	return nil
+	return 0
 }
 
 type ConferenceSP struct {
-	state           protoimpl.MessageState  `protogen:"open.v1"`
-	Year            int32                   `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
-	Conference      string                  `protobuf:"bytes,2,opt,name=conference,proto3" json:"conference,omitempty"`
-	Rating          float64                 `protobuf:"fixed64,3,opt,name=rating,proto3" json:"rating,omitempty"`
-	SecondOrderWins float64                 `protobuf:"fixed64,4,opt,name=second_order_wins,json=secondOrderWins,proto3" json:"second_order_wins,omitempty"`
-	Sos             *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=sos,proto3" json:"sos,omitempty"`
-	Offense         *ConferenceSpOffense    `protobuf:"bytes,6,opt,name=offense,proto3" json:"offense,omitempty"`
-	Defense         *ConferenceSpDefense    `protobuf:"bytes,7,opt,name=defense,proto3" json:"defense,omitempty"`
-	SpecialTeams    *SpSpecialTeams         `protobuf:"bytes,8,opt,name=special_teams,json=specialTeams,proto3" json:"special_teams,omitempty"`
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Year            int32                  `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
+	Conference      string                 `protobuf:"bytes,2,opt,name=conference,proto3" json:"conference,omitempty"`
+	Rating          float64                `protobuf:"fixed64,3,opt,name=rating,proto3" json:"rating,omitempty"`
+	SecondOrderWins float64                `protobuf:"fixed64,4,opt,name=second_order_wins,json=secondOrderWins,proto3" json:"second_order_wins,omitempty"`
+	Sos             *float64               `protobuf:"fixed64,5,opt,name=sos,proto3,oneof" json:"sos,omitempty"`
+	Offense         *ConferenceSpOffense   `protobuf:"bytes,6,opt,name=offense,proto3" json:"offense,omitempty"`
+	Defense         *ConferenceSpDefense   `protobuf:"bytes,7,opt,name=defense,proto3" json:"defense,omitempty"`
+	SpecialTeams    *SpSpecialTeams        `protobuf:"bytes,8,opt,name=special_teams,json=specialTeams,proto3" json:"special_teams,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -3939,11 +3938,11 @@ func (x *ConferenceSP) GetSecondOrderWins() float64 {
 	return 0
 }
 
-func (x *ConferenceSP) GetSos() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Sos
+func (x *ConferenceSP) GetSos() float64 {
+	if x != nil && x.Sos != nil {
+		return *x.Sos
 	}
-	return nil
+	return 0
 }
 
 func (x *ConferenceSP) GetOffense() *ConferenceSpOffense {
@@ -3968,13 +3967,13 @@ func (x *ConferenceSP) GetSpecialTeams() *SpSpecialTeams {
 }
 
 type TeamSRS struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Year          int32                   `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
-	Team          string                  `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
-	Conference    *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
-	Division      *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=division,proto3" json:"division,omitempty"`
-	Rating        float64                 `protobuf:"fixed64,5,opt,name=rating,proto3" json:"rating,omitempty"`
-	Ranking       *wrapperspb.Int32Value  `protobuf:"bytes,6,opt,name=ranking,proto3" json:"ranking,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Year          int32                  `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
+	Team          string                 `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
+	Conference    string                 `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
+	Division      string                 `protobuf:"bytes,4,opt,name=division,proto3" json:"division,omitempty"`
+	Rating        float64                `protobuf:"fixed64,5,opt,name=rating,proto3" json:"rating,omitempty"`
+	Ranking       *int32                 `protobuf:"varint,6,opt,name=ranking,proto3,oneof" json:"ranking,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4023,18 +4022,18 @@ func (x *TeamSRS) GetTeam() string {
 	return ""
 }
 
-func (x *TeamSRS) GetConference() *wrapperspb.StringValue {
+func (x *TeamSRS) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
-func (x *TeamSRS) GetDivision() *wrapperspb.StringValue {
+func (x *TeamSRS) GetDivision() string {
 	if x != nil {
 		return x.Division
 	}
-	return nil
+	return ""
 }
 
 func (x *TeamSRS) GetRating() float64 {
@@ -4044,19 +4043,19 @@ func (x *TeamSRS) GetRating() float64 {
 	return 0
 }
 
-func (x *TeamSRS) GetRanking() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Ranking
+func (x *TeamSRS) GetRanking() int32 {
+	if x != nil && x.Ranking != nil {
+		return *x.Ranking
 	}
-	return nil
+	return 0
 }
 
 type TeamElo struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Year          int32                   `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
-	Team          string                  `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
-	Conference    *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
-	Elo           *wrapperspb.Int32Value  `protobuf:"bytes,4,opt,name=elo,proto3" json:"elo,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Year          int32                  `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
+	Team          string                 `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
+	Conference    string                 `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
+	Elo           *int32                 `protobuf:"varint,4,opt,name=elo,proto3,oneof" json:"elo,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4105,28 +4104,28 @@ func (x *TeamElo) GetTeam() string {
 	return ""
 }
 
-func (x *TeamElo) GetConference() *wrapperspb.StringValue {
+func (x *TeamElo) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
-func (x *TeamElo) GetElo() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Elo
+func (x *TeamElo) GetElo() int32 {
+	if x != nil && x.Elo != nil {
+		return *x.Elo
 	}
-	return nil
+	return 0
 }
 
 type FpiResumeRanks struct {
 	state                       protoimpl.MessageState `protogen:"open.v1"`
-	GameControl                 *wrapperspb.Int32Value `protobuf:"bytes,1,opt,name=game_control,json=gameControl,proto3" json:"game_control,omitempty"`
-	RemainingStrengthOfSchedule *wrapperspb.Int32Value `protobuf:"bytes,2,opt,name=remaining_strength_of_schedule,json=remainingStrengthOfSchedule,proto3" json:"remaining_strength_of_schedule,omitempty"`
-	StrengthOfSchedule          *wrapperspb.Int32Value `protobuf:"bytes,3,opt,name=strength_of_schedule,json=strengthOfSchedule,proto3" json:"strength_of_schedule,omitempty"`
-	AverageWinProbability       *wrapperspb.Int32Value `protobuf:"bytes,4,opt,name=average_win_probability,json=averageWinProbability,proto3" json:"average_win_probability,omitempty"`
-	Fpi                         *wrapperspb.Int32Value `protobuf:"bytes,5,opt,name=fpi,proto3" json:"fpi,omitempty"`
-	StrengthOfRecord            *wrapperspb.Int32Value `protobuf:"bytes,6,opt,name=strength_of_record,json=strengthOfRecord,proto3" json:"strength_of_record,omitempty"`
+	GameControl                 *int32                 `protobuf:"varint,1,opt,name=game_control,json=gameControl,proto3,oneof" json:"game_control,omitempty"`
+	RemainingStrengthOfSchedule *int32                 `protobuf:"varint,2,opt,name=remaining_strength_of_schedule,json=remainingStrengthOfSchedule,proto3,oneof" json:"remaining_strength_of_schedule,omitempty"`
+	StrengthOfSchedule          *int32                 `protobuf:"varint,3,opt,name=strength_of_schedule,json=strengthOfSchedule,proto3,oneof" json:"strength_of_schedule,omitempty"`
+	AverageWinProbability       *int32                 `protobuf:"varint,4,opt,name=average_win_probability,json=averageWinProbability,proto3,oneof" json:"average_win_probability,omitempty"`
+	Fpi                         *int32                 `protobuf:"varint,5,opt,name=fpi,proto3,oneof" json:"fpi,omitempty"`
+	StrengthOfRecord            *int32                 `protobuf:"varint,6,opt,name=strength_of_record,json=strengthOfRecord,proto3,oneof" json:"strength_of_record,omitempty"`
 	unknownFields               protoimpl.UnknownFields
 	sizeCache                   protoimpl.SizeCache
 }
@@ -4161,54 +4160,54 @@ func (*FpiResumeRanks) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{43}
 }
 
-func (x *FpiResumeRanks) GetGameControl() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.GameControl
+func (x *FpiResumeRanks) GetGameControl() int32 {
+	if x != nil && x.GameControl != nil {
+		return *x.GameControl
 	}
-	return nil
+	return 0
 }
 
-func (x *FpiResumeRanks) GetRemainingStrengthOfSchedule() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.RemainingStrengthOfSchedule
+func (x *FpiResumeRanks) GetRemainingStrengthOfSchedule() int32 {
+	if x != nil && x.RemainingStrengthOfSchedule != nil {
+		return *x.RemainingStrengthOfSchedule
 	}
-	return nil
+	return 0
 }
 
-func (x *FpiResumeRanks) GetStrengthOfSchedule() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.StrengthOfSchedule
+func (x *FpiResumeRanks) GetStrengthOfSchedule() int32 {
+	if x != nil && x.StrengthOfSchedule != nil {
+		return *x.StrengthOfSchedule
 	}
-	return nil
+	return 0
 }
 
-func (x *FpiResumeRanks) GetAverageWinProbability() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.AverageWinProbability
+func (x *FpiResumeRanks) GetAverageWinProbability() int32 {
+	if x != nil && x.AverageWinProbability != nil {
+		return *x.AverageWinProbability
 	}
-	return nil
+	return 0
 }
 
-func (x *FpiResumeRanks) GetFpi() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Fpi
+func (x *FpiResumeRanks) GetFpi() int32 {
+	if x != nil && x.Fpi != nil {
+		return *x.Fpi
 	}
-	return nil
+	return 0
 }
 
-func (x *FpiResumeRanks) GetStrengthOfRecord() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.StrengthOfRecord
+func (x *FpiResumeRanks) GetStrengthOfRecord() int32 {
+	if x != nil && x.StrengthOfRecord != nil {
+		return *x.StrengthOfRecord
 	}
-	return nil
+	return 0
 }
 
 type FpiEfficiencies struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	SpecialTeams  *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=special_teams,json=specialTeams,proto3" json:"special_teams,omitempty"`
-	Defense       *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=defense,proto3" json:"defense,omitempty"`
-	Offense       *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=offense,proto3" json:"offense,omitempty"`
-	Overall       *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=overall,proto3" json:"overall,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SpecialTeams  *float64               `protobuf:"fixed64,1,opt,name=special_teams,json=specialTeams,proto3,oneof" json:"special_teams,omitempty"`
+	Defense       *float64               `protobuf:"fixed64,2,opt,name=defense,proto3,oneof" json:"defense,omitempty"`
+	Offense       *float64               `protobuf:"fixed64,3,opt,name=offense,proto3,oneof" json:"offense,omitempty"`
+	Overall       *float64               `protobuf:"fixed64,4,opt,name=overall,proto3,oneof" json:"overall,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4243,42 +4242,42 @@ func (*FpiEfficiencies) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{44}
 }
 
-func (x *FpiEfficiencies) GetSpecialTeams() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SpecialTeams
+func (x *FpiEfficiencies) GetSpecialTeams() float64 {
+	if x != nil && x.SpecialTeams != nil {
+		return *x.SpecialTeams
 	}
-	return nil
+	return 0
 }
 
-func (x *FpiEfficiencies) GetDefense() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Defense
+func (x *FpiEfficiencies) GetDefense() float64 {
+	if x != nil && x.Defense != nil {
+		return *x.Defense
 	}
-	return nil
+	return 0
 }
 
-func (x *FpiEfficiencies) GetOffense() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Offense
+func (x *FpiEfficiencies) GetOffense() float64 {
+	if x != nil && x.Offense != nil {
+		return *x.Offense
 	}
-	return nil
+	return 0
 }
 
-func (x *FpiEfficiencies) GetOverall() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Overall
+func (x *FpiEfficiencies) GetOverall() float64 {
+	if x != nil && x.Overall != nil {
+		return *x.Overall
 	}
-	return nil
+	return 0
 }
 
 type TeamFPI struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Year          int32                   `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
-	Team          string                  `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
-	Conference    *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
-	Fpi           *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=fpi,proto3" json:"fpi,omitempty"`
-	ResumeRanks   *FpiResumeRanks         `protobuf:"bytes,5,opt,name=resume_ranks,json=resumeRanks,proto3" json:"resume_ranks,omitempty"`
-	Efficiencies  *FpiEfficiencies        `protobuf:"bytes,6,opt,name=efficiencies,proto3" json:"efficiencies,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Year          int32                  `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
+	Team          string                 `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
+	Conference    string                 `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
+	Fpi           *float64               `protobuf:"fixed64,4,opt,name=fpi,proto3,oneof" json:"fpi,omitempty"`
+	ResumeRanks   *FpiResumeRanks        `protobuf:"bytes,5,opt,name=resume_ranks,json=resumeRanks,proto3" json:"resume_ranks,omitempty"`
+	Efficiencies  *FpiEfficiencies       `protobuf:"bytes,6,opt,name=efficiencies,proto3" json:"efficiencies,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4327,18 +4326,18 @@ func (x *TeamFPI) GetTeam() string {
 	return ""
 }
 
-func (x *TeamFPI) GetConference() *wrapperspb.StringValue {
+func (x *TeamFPI) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
-func (x *TeamFPI) GetFpi() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Fpi
+func (x *TeamFPI) GetFpi() float64 {
+	if x != nil && x.Fpi != nil {
+		return *x.Fpi
 	}
-	return nil
+	return 0
 }
 
 func (x *TeamFPI) GetResumeRanks() *FpiResumeRanks {
@@ -4356,13 +4355,13 @@ func (x *TeamFPI) GetEfficiencies() *FpiEfficiencies {
 }
 
 type PollRank struct {
-	state           protoimpl.MessageState  `protogen:"open.v1"`
-	Rank            *wrapperspb.Int32Value  `protobuf:"bytes,1,opt,name=rank,proto3" json:"rank,omitempty"`
-	TeamId          *wrapperspb.Int32Value  `protobuf:"bytes,2,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
-	School          string                  `protobuf:"bytes,3,opt,name=school,proto3" json:"school,omitempty"`
-	Conference      *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=conference,proto3" json:"conference,omitempty"`
-	FirstPlaceVotes *wrapperspb.Int32Value  `protobuf:"bytes,5,opt,name=first_place_votes,json=firstPlaceVotes,proto3" json:"first_place_votes,omitempty"`
-	Points          *wrapperspb.Int32Value  `protobuf:"bytes,6,opt,name=points,proto3" json:"points,omitempty"`
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Rank            *int32                 `protobuf:"varint,1,opt,name=rank,proto3,oneof" json:"rank,omitempty"`
+	TeamId          *int32                 `protobuf:"varint,2,opt,name=team_id,json=teamId,proto3,oneof" json:"team_id,omitempty"`
+	School          string                 `protobuf:"bytes,3,opt,name=school,proto3" json:"school,omitempty"`
+	Conference      string                 `protobuf:"bytes,4,opt,name=conference,proto3" json:"conference,omitempty"`
+	FirstPlaceVotes *int32                 `protobuf:"varint,5,opt,name=first_place_votes,json=firstPlaceVotes,proto3,oneof" json:"first_place_votes,omitempty"`
+	Points          *int32                 `protobuf:"varint,6,opt,name=points,proto3,oneof" json:"points,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -4397,18 +4396,18 @@ func (*PollRank) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{46}
 }
 
-func (x *PollRank) GetRank() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Rank
+func (x *PollRank) GetRank() int32 {
+	if x != nil && x.Rank != nil {
+		return *x.Rank
 	}
-	return nil
+	return 0
 }
 
-func (x *PollRank) GetTeamId() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.TeamId
+func (x *PollRank) GetTeamId() int32 {
+	if x != nil && x.TeamId != nil {
+		return *x.TeamId
 	}
-	return nil
+	return 0
 }
 
 func (x *PollRank) GetSchool() string {
@@ -4418,25 +4417,25 @@ func (x *PollRank) GetSchool() string {
 	return ""
 }
 
-func (x *PollRank) GetConference() *wrapperspb.StringValue {
+func (x *PollRank) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
-func (x *PollRank) GetFirstPlaceVotes() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.FirstPlaceVotes
+func (x *PollRank) GetFirstPlaceVotes() int32 {
+	if x != nil && x.FirstPlaceVotes != nil {
+		return *x.FirstPlaceVotes
 	}
-	return nil
+	return 0
 }
 
-func (x *PollRank) GetPoints() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Points
+func (x *PollRank) GetPoints() int32 {
+	if x != nil && x.Points != nil {
+		return *x.Points
 	}
-	return nil
+	return 0
 }
 
 type Poll struct {
@@ -4560,34 +4559,34 @@ func (x *PollWeek) GetPolls() []*Poll {
 }
 
 type Play struct {
-	state             protoimpl.MessageState  `protogen:"open.v1"`
-	Id                string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	DriveId           string                  `protobuf:"bytes,2,opt,name=drive_id,json=driveId,proto3" json:"drive_id,omitempty"`
-	GameId            int32                   `protobuf:"varint,3,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
-	DriveNumber       *wrapperspb.Int32Value  `protobuf:"bytes,4,opt,name=drive_number,json=driveNumber,proto3" json:"drive_number,omitempty"`
-	PlayNumber        *wrapperspb.Int32Value  `protobuf:"bytes,5,opt,name=play_number,json=playNumber,proto3" json:"play_number,omitempty"`
-	Offense           string                  `protobuf:"bytes,6,opt,name=offense,proto3" json:"offense,omitempty"`
-	OffenseConference *wrapperspb.StringValue `protobuf:"bytes,7,opt,name=offense_conference,json=offenseConference,proto3" json:"offense_conference,omitempty"`
-	OffenseScore      int32                   `protobuf:"varint,8,opt,name=offense_score,json=offenseScore,proto3" json:"offense_score,omitempty"`
-	Defense           string                  `protobuf:"bytes,9,opt,name=defense,proto3" json:"defense,omitempty"`
-	Home              string                  `protobuf:"bytes,10,opt,name=home,proto3" json:"home,omitempty"`
-	Away              string                  `protobuf:"bytes,11,opt,name=away,proto3" json:"away,omitempty"`
-	DefenseConference *wrapperspb.StringValue `protobuf:"bytes,12,opt,name=defense_conference,json=defenseConference,proto3" json:"defense_conference,omitempty"`
-	DefenseScore      int32                   `protobuf:"varint,13,opt,name=defense_score,json=defenseScore,proto3" json:"defense_score,omitempty"`
-	Period            int32                   `protobuf:"varint,14,opt,name=period,proto3" json:"period,omitempty"`
-	Clock             *ClockInt32             `protobuf:"bytes,15,opt,name=clock,proto3" json:"clock,omitempty"`
-	OffenseTimeouts   *wrapperspb.Int32Value  `protobuf:"bytes,16,opt,name=offense_timeouts,json=offenseTimeouts,proto3" json:"offense_timeouts,omitempty"`
-	DefenseTimeouts   *wrapperspb.Int32Value  `protobuf:"bytes,17,opt,name=defense_timeouts,json=defenseTimeouts,proto3" json:"defense_timeouts,omitempty"`
-	Yardline          int32                   `protobuf:"varint,18,opt,name=yardline,proto3" json:"yardline,omitempty"`
-	YardsToGoal       int32                   `protobuf:"varint,19,opt,name=yards_to_goal,json=yardsToGoal,proto3" json:"yards_to_goal,omitempty"`
-	Down              int32                   `protobuf:"varint,20,opt,name=down,proto3" json:"down,omitempty"`
-	Distance          int32                   `protobuf:"varint,21,opt,name=distance,proto3" json:"distance,omitempty"`
-	YardsGained       int32                   `protobuf:"varint,22,opt,name=yards_gained,json=yardsGained,proto3" json:"yards_gained,omitempty"`
-	Scoring           bool                    `protobuf:"varint,23,opt,name=scoring,proto3" json:"scoring,omitempty"`
-	PlayType          string                  `protobuf:"bytes,24,opt,name=play_type,json=playType,proto3" json:"play_type,omitempty"`
-	PlayText          *wrapperspb.StringValue `protobuf:"bytes,25,opt,name=play_text,json=playText,proto3" json:"play_text,omitempty"`
-	Ppa               *wrapperspb.DoubleValue `protobuf:"bytes,26,opt,name=ppa,proto3" json:"ppa,omitempty"`
-	Wallclock         *wrapperspb.StringValue `protobuf:"bytes,27,opt,name=wallclock,proto3" json:"wallclock,omitempty"`
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Id                string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	DriveId           string                 `protobuf:"bytes,2,opt,name=drive_id,json=driveId,proto3" json:"drive_id,omitempty"`
+	GameId            int32                  `protobuf:"varint,3,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	DriveNumber       *int32                 `protobuf:"varint,4,opt,name=drive_number,json=driveNumber,proto3,oneof" json:"drive_number,omitempty"`
+	PlayNumber        *int32                 `protobuf:"varint,5,opt,name=play_number,json=playNumber,proto3,oneof" json:"play_number,omitempty"`
+	Offense           string                 `protobuf:"bytes,6,opt,name=offense,proto3" json:"offense,omitempty"`
+	OffenseConference string                 `protobuf:"bytes,7,opt,name=offense_conference,json=offenseConference,proto3" json:"offense_conference,omitempty"`
+	OffenseScore      int32                  `protobuf:"varint,8,opt,name=offense_score,json=offenseScore,proto3" json:"offense_score,omitempty"`
+	Defense           string                 `protobuf:"bytes,9,opt,name=defense,proto3" json:"defense,omitempty"`
+	Home              string                 `protobuf:"bytes,10,opt,name=home,proto3" json:"home,omitempty"`
+	Away              string                 `protobuf:"bytes,11,opt,name=away,proto3" json:"away,omitempty"`
+	DefenseConference string                 `protobuf:"bytes,12,opt,name=defense_conference,json=defenseConference,proto3" json:"defense_conference,omitempty"`
+	DefenseScore      int32                  `protobuf:"varint,13,opt,name=defense_score,json=defenseScore,proto3" json:"defense_score,omitempty"`
+	Period            int32                  `protobuf:"varint,14,opt,name=period,proto3" json:"period,omitempty"`
+	Clock             *ClockInt32            `protobuf:"bytes,15,opt,name=clock,proto3" json:"clock,omitempty"`
+	OffenseTimeouts   *int32                 `protobuf:"varint,16,opt,name=offense_timeouts,json=offenseTimeouts,proto3,oneof" json:"offense_timeouts,omitempty"`
+	DefenseTimeouts   *int32                 `protobuf:"varint,17,opt,name=defense_timeouts,json=defenseTimeouts,proto3,oneof" json:"defense_timeouts,omitempty"`
+	Yardline          int32                  `protobuf:"varint,18,opt,name=yardline,proto3" json:"yardline,omitempty"`
+	YardsToGoal       int32                  `protobuf:"varint,19,opt,name=yards_to_goal,json=yardsToGoal,proto3" json:"yards_to_goal,omitempty"`
+	Down              int32                  `protobuf:"varint,20,opt,name=down,proto3" json:"down,omitempty"`
+	Distance          int32                  `protobuf:"varint,21,opt,name=distance,proto3" json:"distance,omitempty"`
+	YardsGained       int32                  `protobuf:"varint,22,opt,name=yards_gained,json=yardsGained,proto3" json:"yards_gained,omitempty"`
+	Scoring           bool                   `protobuf:"varint,23,opt,name=scoring,proto3" json:"scoring,omitempty"`
+	PlayType          string                 `protobuf:"bytes,24,opt,name=play_type,json=playType,proto3" json:"play_type,omitempty"`
+	PlayText          string                 `protobuf:"bytes,25,opt,name=play_text,json=playText,proto3" json:"play_text,omitempty"`
+	Ppa               *float64               `protobuf:"fixed64,26,opt,name=ppa,proto3,oneof" json:"ppa,omitempty"`
+	Wallclock         string                 `protobuf:"bytes,27,opt,name=wallclock,proto3" json:"wallclock,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -4643,18 +4642,18 @@ func (x *Play) GetGameId() int32 {
 	return 0
 }
 
-func (x *Play) GetDriveNumber() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.DriveNumber
+func (x *Play) GetDriveNumber() int32 {
+	if x != nil && x.DriveNumber != nil {
+		return *x.DriveNumber
 	}
-	return nil
+	return 0
 }
 
-func (x *Play) GetPlayNumber() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.PlayNumber
+func (x *Play) GetPlayNumber() int32 {
+	if x != nil && x.PlayNumber != nil {
+		return *x.PlayNumber
 	}
-	return nil
+	return 0
 }
 
 func (x *Play) GetOffense() string {
@@ -4664,11 +4663,11 @@ func (x *Play) GetOffense() string {
 	return ""
 }
 
-func (x *Play) GetOffenseConference() *wrapperspb.StringValue {
+func (x *Play) GetOffenseConference() string {
 	if x != nil {
 		return x.OffenseConference
 	}
-	return nil
+	return ""
 }
 
 func (x *Play) GetOffenseScore() int32 {
@@ -4699,11 +4698,11 @@ func (x *Play) GetAway() string {
 	return ""
 }
 
-func (x *Play) GetDefenseConference() *wrapperspb.StringValue {
+func (x *Play) GetDefenseConference() string {
 	if x != nil {
 		return x.DefenseConference
 	}
-	return nil
+	return ""
 }
 
 func (x *Play) GetDefenseScore() int32 {
@@ -4727,18 +4726,18 @@ func (x *Play) GetClock() *ClockInt32 {
 	return nil
 }
 
-func (x *Play) GetOffenseTimeouts() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.OffenseTimeouts
+func (x *Play) GetOffenseTimeouts() int32 {
+	if x != nil && x.OffenseTimeouts != nil {
+		return *x.OffenseTimeouts
 	}
-	return nil
+	return 0
 }
 
-func (x *Play) GetDefenseTimeouts() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.DefenseTimeouts
+func (x *Play) GetDefenseTimeouts() int32 {
+	if x != nil && x.DefenseTimeouts != nil {
+		return *x.DefenseTimeouts
 	}
-	return nil
+	return 0
 }
 
 func (x *Play) GetYardline() int32 {
@@ -4790,32 +4789,32 @@ func (x *Play) GetPlayType() string {
 	return ""
 }
 
-func (x *Play) GetPlayText() *wrapperspb.StringValue {
+func (x *Play) GetPlayText() string {
 	if x != nil {
 		return x.PlayText
 	}
-	return nil
+	return ""
 }
 
-func (x *Play) GetPpa() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Ppa
+func (x *Play) GetPpa() float64 {
+	if x != nil && x.Ppa != nil {
+		return *x.Ppa
 	}
-	return nil
+	return 0
 }
 
-func (x *Play) GetWallclock() *wrapperspb.StringValue {
+func (x *Play) GetWallclock() string {
 	if x != nil {
 		return x.Wallclock
 	}
-	return nil
+	return ""
 }
 
 type PlayType struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Id            int32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Text          string                  `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
-	Abbreviation  *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=abbreviation,proto3" json:"abbreviation,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Text          string                 `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
+	Abbreviation  string                 `protobuf:"bytes,3,opt,name=abbreviation,proto3" json:"abbreviation,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -4864,11 +4863,11 @@ func (x *PlayType) GetText() string {
 	return ""
 }
 
-func (x *PlayType) GetAbbreviation() *wrapperspb.StringValue {
+func (x *PlayType) GetAbbreviation() string {
 	if x != nil {
 		return x.Abbreviation
 	}
-	return nil
+	return ""
 }
 
 type PlayStat struct {
@@ -5112,19 +5111,19 @@ func (x *PlayStatType) GetName() string {
 }
 
 type PlayerSearchResult struct {
-	state              protoimpl.MessageState  `protogen:"open.v1"`
-	Id                 string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Team               string                  `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
-	Name               string                  `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	FirstName          *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName           *wrapperspb.StringValue `protobuf:"bytes,5,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	Weight             *wrapperspb.Int32Value  `protobuf:"bytes,6,opt,name=weight,proto3" json:"weight,omitempty"`
-	Height             *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=height,proto3" json:"height,omitempty"`
-	Jersey             *wrapperspb.Int32Value  `protobuf:"bytes,8,opt,name=jersey,proto3" json:"jersey,omitempty"`
-	Position           string                  `protobuf:"bytes,9,opt,name=position,proto3" json:"position,omitempty"`
-	Hometown           string                  `protobuf:"bytes,10,opt,name=hometown,proto3" json:"hometown,omitempty"`
-	TeamColor          string                  `protobuf:"bytes,11,opt,name=team_color,json=teamColor,proto3" json:"team_color,omitempty"`
-	TeamColorSecondary string                  `protobuf:"bytes,12,opt,name=team_color_secondary,json=teamColorSecondary,proto3" json:"team_color_secondary,omitempty"`
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Id                 string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Team               string                 `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
+	Name               string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	FirstName          string                 `protobuf:"bytes,4,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName           string                 `protobuf:"bytes,5,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	Weight             *int32                 `protobuf:"varint,6,opt,name=weight,proto3,oneof" json:"weight,omitempty"`
+	Height             *float64               `protobuf:"fixed64,7,opt,name=height,proto3,oneof" json:"height,omitempty"`
+	Jersey             *int32                 `protobuf:"varint,8,opt,name=jersey,proto3,oneof" json:"jersey,omitempty"`
+	Position           string                 `protobuf:"bytes,9,opt,name=position,proto3" json:"position,omitempty"`
+	Hometown           string                 `protobuf:"bytes,10,opt,name=hometown,proto3" json:"hometown,omitempty"`
+	TeamColor          string                 `protobuf:"bytes,11,opt,name=team_color,json=teamColor,proto3" json:"team_color,omitempty"`
+	TeamColorSecondary string                 `protobuf:"bytes,12,opt,name=team_color_secondary,json=teamColorSecondary,proto3" json:"team_color_secondary,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -5180,39 +5179,39 @@ func (x *PlayerSearchResult) GetName() string {
 	return ""
 }
 
-func (x *PlayerSearchResult) GetFirstName() *wrapperspb.StringValue {
+func (x *PlayerSearchResult) GetFirstName() string {
 	if x != nil {
 		return x.FirstName
 	}
-	return nil
+	return ""
 }
 
-func (x *PlayerSearchResult) GetLastName() *wrapperspb.StringValue {
+func (x *PlayerSearchResult) GetLastName() string {
 	if x != nil {
 		return x.LastName
 	}
-	return nil
+	return ""
 }
 
-func (x *PlayerSearchResult) GetWeight() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Weight
+func (x *PlayerSearchResult) GetWeight() int32 {
+	if x != nil && x.Weight != nil {
+		return *x.Weight
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerSearchResult) GetHeight() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Height
+func (x *PlayerSearchResult) GetHeight() float64 {
+	if x != nil && x.Height != nil {
+		return *x.Height
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerSearchResult) GetJersey() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Jersey
+func (x *PlayerSearchResult) GetJersey() int32 {
+	if x != nil && x.Jersey != nil {
+		return *x.Jersey
 	}
-	return nil
+	return 0
 }
 
 func (x *PlayerSearchResult) GetPosition() string {
@@ -5296,15 +5295,15 @@ func (x *PlayerPPAChartItem) GetAvg_PPA() float64 {
 }
 
 type PlayerUsageSplits struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	PassingDowns  *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
-	StandardDowns *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
-	ThirdDown     *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=third_down,json=thirdDown,proto3" json:"third_down,omitempty"`
-	SecondDown    *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=second_down,json=secondDown,proto3" json:"second_down,omitempty"`
-	FirstDown     *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=first_down,json=firstDown,proto3" json:"first_down,omitempty"`
-	Rush          *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=rush,proto3" json:"rush,omitempty"`
-	Pass          *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=pass,proto3" json:"pass,omitempty"`
-	Overall       *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=overall,proto3" json:"overall,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PassingDowns  *float64               `protobuf:"fixed64,1,opt,name=passing_downs,json=passingDowns,proto3,oneof" json:"passing_downs,omitempty"`
+	StandardDowns *float64               `protobuf:"fixed64,2,opt,name=standard_downs,json=standardDowns,proto3,oneof" json:"standard_downs,omitempty"`
+	ThirdDown     *float64               `protobuf:"fixed64,3,opt,name=third_down,json=thirdDown,proto3,oneof" json:"third_down,omitempty"`
+	SecondDown    *float64               `protobuf:"fixed64,4,opt,name=second_down,json=secondDown,proto3,oneof" json:"second_down,omitempty"`
+	FirstDown     *float64               `protobuf:"fixed64,5,opt,name=first_down,json=firstDown,proto3,oneof" json:"first_down,omitempty"`
+	Rush          *float64               `protobuf:"fixed64,6,opt,name=rush,proto3,oneof" json:"rush,omitempty"`
+	Pass          *float64               `protobuf:"fixed64,7,opt,name=pass,proto3,oneof" json:"pass,omitempty"`
+	Overall       *float64               `protobuf:"fixed64,8,opt,name=overall,proto3,oneof" json:"overall,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -5339,60 +5338,60 @@ func (*PlayerUsageSplits) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{55}
 }
 
-func (x *PlayerUsageSplits) GetPassingDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.PassingDowns
+func (x *PlayerUsageSplits) GetPassingDowns() float64 {
+	if x != nil && x.PassingDowns != nil {
+		return *x.PassingDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerUsageSplits) GetStandardDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.StandardDowns
+func (x *PlayerUsageSplits) GetStandardDowns() float64 {
+	if x != nil && x.StandardDowns != nil {
+		return *x.StandardDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerUsageSplits) GetThirdDown() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.ThirdDown
+func (x *PlayerUsageSplits) GetThirdDown() float64 {
+	if x != nil && x.ThirdDown != nil {
+		return *x.ThirdDown
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerUsageSplits) GetSecondDown() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SecondDown
+func (x *PlayerUsageSplits) GetSecondDown() float64 {
+	if x != nil && x.SecondDown != nil {
+		return *x.SecondDown
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerUsageSplits) GetFirstDown() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.FirstDown
+func (x *PlayerUsageSplits) GetFirstDown() float64 {
+	if x != nil && x.FirstDown != nil {
+		return *x.FirstDown
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerUsageSplits) GetRush() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rush
+func (x *PlayerUsageSplits) GetRush() float64 {
+	if x != nil && x.Rush != nil {
+		return *x.Rush
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerUsageSplits) GetPass() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Pass
+func (x *PlayerUsageSplits) GetPass() float64 {
+	if x != nil && x.Pass != nil {
+		return *x.Pass
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerUsageSplits) GetOverall() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Overall
+func (x *PlayerUsageSplits) GetOverall() float64 {
+	if x != nil && x.Overall != nil {
+		return *x.Overall
 	}
-	return nil
+	return 0
 }
 
 type PlayerUsage struct {
@@ -5644,17 +5643,17 @@ func (x *ReturningProduction) GetRushingUsage() float64 {
 }
 
 type PlayerTransfer struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Season        int32                   `protobuf:"varint,1,opt,name=season,proto3" json:"season,omitempty"`
-	FirstName     string                  `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
-	LastName      string                  `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
-	Position      string                  `protobuf:"bytes,4,opt,name=position,proto3" json:"position,omitempty"`
-	Origin        string                  `protobuf:"bytes,5,opt,name=origin,proto3" json:"origin,omitempty"`
-	Destination   *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=destination,proto3" json:"destination,omitempty"`
-	TransferDate  *timestamppb.Timestamp  `protobuf:"bytes,7,opt,name=transfer_date,json=transferDate,proto3" json:"transfer_date,omitempty"`
-	Rating        *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=rating,proto3" json:"rating,omitempty"`
-	Stars         *wrapperspb.Int32Value  `protobuf:"bytes,9,opt,name=stars,proto3" json:"stars,omitempty"`
-	Eligibility   *wrapperspb.StringValue `protobuf:"bytes,10,opt,name=eligibility,proto3" json:"eligibility,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Season        int32                  `protobuf:"varint,1,opt,name=season,proto3" json:"season,omitempty"`
+	FirstName     string                 `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName      string                 `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	Position      string                 `protobuf:"bytes,4,opt,name=position,proto3" json:"position,omitempty"`
+	Origin        string                 `protobuf:"bytes,5,opt,name=origin,proto3" json:"origin,omitempty"`
+	Destination   string                 `protobuf:"bytes,6,opt,name=destination,proto3" json:"destination,omitempty"`
+	TransferDate  *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=transfer_date,json=transferDate,proto3" json:"transfer_date,omitempty"`
+	Rating        *float64               `protobuf:"fixed64,8,opt,name=rating,proto3,oneof" json:"rating,omitempty"`
+	Stars         *int32                 `protobuf:"varint,9,opt,name=stars,proto3,oneof" json:"stars,omitempty"`
+	Eligibility   string                 `protobuf:"bytes,10,opt,name=eligibility,proto3" json:"eligibility,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -5724,11 +5723,11 @@ func (x *PlayerTransfer) GetOrigin() string {
 	return ""
 }
 
-func (x *PlayerTransfer) GetDestination() *wrapperspb.StringValue {
+func (x *PlayerTransfer) GetDestination() string {
 	if x != nil {
 		return x.Destination
 	}
-	return nil
+	return ""
 }
 
 func (x *PlayerTransfer) GetTransferDate() *timestamppb.Timestamp {
@@ -5738,25 +5737,25 @@ func (x *PlayerTransfer) GetTransferDate() *timestamppb.Timestamp {
 	return nil
 }
 
-func (x *PlayerTransfer) GetRating() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rating
+func (x *PlayerTransfer) GetRating() float64 {
+	if x != nil && x.Rating != nil {
+		return *x.Rating
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerTransfer) GetStars() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Stars
+func (x *PlayerTransfer) GetStars() int32 {
+	if x != nil && x.Stars != nil {
+		return *x.Stars
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerTransfer) GetEligibility() *wrapperspb.StringValue {
+func (x *PlayerTransfer) GetEligibility() string {
 	if x != nil {
 		return x.Eligibility
 	}
-	return nil
+	return ""
 }
 
 type PredictedPointsValue struct {
@@ -5984,12 +5983,12 @@ func (x *PredictedPointsAddedTotalsForGames) GetOverall() float64 {
 type TeamSeasonPredictedPointsAddedUnit struct {
 	state         protoimpl.MessageState      `protogen:"open.v1"`
 	Cumulative    *PredictedPointsAddedTotals `protobuf:"bytes,1,opt,name=cumulative,proto3" json:"cumulative,omitempty"`
-	ThirdDown     *wrapperspb.DoubleValue     `protobuf:"bytes,2,opt,name=third_down,json=thirdDown,proto3" json:"third_down,omitempty"`
-	SecondDown    *wrapperspb.DoubleValue     `protobuf:"bytes,3,opt,name=second_down,json=secondDown,proto3" json:"second_down,omitempty"`
-	FirstDown     *wrapperspb.DoubleValue     `protobuf:"bytes,4,opt,name=first_down,json=firstDown,proto3" json:"first_down,omitempty"`
-	Rushing       *wrapperspb.DoubleValue     `protobuf:"bytes,5,opt,name=rushing,proto3" json:"rushing,omitempty"`
-	Passing       *wrapperspb.DoubleValue     `protobuf:"bytes,6,opt,name=passing,proto3" json:"passing,omitempty"`
-	Overall       *wrapperspb.DoubleValue     `protobuf:"bytes,7,opt,name=overall,proto3" json:"overall,omitempty"`
+	ThirdDown     *float64                    `protobuf:"fixed64,2,opt,name=third_down,json=thirdDown,proto3,oneof" json:"third_down,omitempty"`
+	SecondDown    *float64                    `protobuf:"fixed64,3,opt,name=second_down,json=secondDown,proto3,oneof" json:"second_down,omitempty"`
+	FirstDown     *float64                    `protobuf:"fixed64,4,opt,name=first_down,json=firstDown,proto3,oneof" json:"first_down,omitempty"`
+	Rushing       *float64                    `protobuf:"fixed64,5,opt,name=rushing,proto3,oneof" json:"rushing,omitempty"`
+	Passing       *float64                    `protobuf:"fixed64,6,opt,name=passing,proto3,oneof" json:"passing,omitempty"`
+	Overall       *float64                    `protobuf:"fixed64,7,opt,name=overall,proto3,oneof" json:"overall,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -6031,46 +6030,46 @@ func (x *TeamSeasonPredictedPointsAddedUnit) GetCumulative() *PredictedPointsAdd
 	return nil
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetThirdDown() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.ThirdDown
+func (x *TeamSeasonPredictedPointsAddedUnit) GetThirdDown() float64 {
+	if x != nil && x.ThirdDown != nil {
+		return *x.ThirdDown
 	}
-	return nil
+	return 0
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetSecondDown() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SecondDown
+func (x *TeamSeasonPredictedPointsAddedUnit) GetSecondDown() float64 {
+	if x != nil && x.SecondDown != nil {
+		return *x.SecondDown
 	}
-	return nil
+	return 0
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetFirstDown() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.FirstDown
+func (x *TeamSeasonPredictedPointsAddedUnit) GetFirstDown() float64 {
+	if x != nil && x.FirstDown != nil {
+		return *x.FirstDown
 	}
-	return nil
+	return 0
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetRushing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rushing
+func (x *TeamSeasonPredictedPointsAddedUnit) GetRushing() float64 {
+	if x != nil && x.Rushing != nil {
+		return *x.Rushing
 	}
-	return nil
+	return 0
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetPassing() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Passing
+func (x *TeamSeasonPredictedPointsAddedUnit) GetPassing() float64 {
+	if x != nil && x.Passing != nil {
+		return *x.Passing
 	}
-	return nil
+	return 0
 }
 
-func (x *TeamSeasonPredictedPointsAddedUnit) GetOverall() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Overall
+func (x *TeamSeasonPredictedPointsAddedUnit) GetOverall() float64 {
+	if x != nil && x.Overall != nil {
+		return *x.Overall
 	}
-	return nil
+	return 0
 }
 
 type TeamSeasonPredictedPointsAdded struct {
@@ -6426,15 +6425,15 @@ func (x *PlayerGamePredictedPointsAdded) GetAverage_PPA() *AveragePpa {
 }
 
 type PlayerSeasonPpaSplits struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	PassingDowns  *wrapperspb.DoubleValue `protobuf:"bytes,1,opt,name=passing_downs,json=passingDowns,proto3" json:"passing_downs,omitempty"`
-	StandardDowns *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=standard_downs,json=standardDowns,proto3" json:"standard_downs,omitempty"`
-	ThirdDown     *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=third_down,json=thirdDown,proto3" json:"third_down,omitempty"`
-	SecondDown    *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=second_down,json=secondDown,proto3" json:"second_down,omitempty"`
-	FirstDown     *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=first_down,json=firstDown,proto3" json:"first_down,omitempty"`
-	Rush          *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=rush,proto3" json:"rush,omitempty"`
-	Pass          *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=pass,proto3" json:"pass,omitempty"`
-	All           *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=all,proto3" json:"all,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PassingDowns  *float64               `protobuf:"fixed64,1,opt,name=passing_downs,json=passingDowns,proto3,oneof" json:"passing_downs,omitempty"`
+	StandardDowns *float64               `protobuf:"fixed64,2,opt,name=standard_downs,json=standardDowns,proto3,oneof" json:"standard_downs,omitempty"`
+	ThirdDown     *float64               `protobuf:"fixed64,3,opt,name=third_down,json=thirdDown,proto3,oneof" json:"third_down,omitempty"`
+	SecondDown    *float64               `protobuf:"fixed64,4,opt,name=second_down,json=secondDown,proto3,oneof" json:"second_down,omitempty"`
+	FirstDown     *float64               `protobuf:"fixed64,5,opt,name=first_down,json=firstDown,proto3,oneof" json:"first_down,omitempty"`
+	Rush          *float64               `protobuf:"fixed64,6,opt,name=rush,proto3,oneof" json:"rush,omitempty"`
+	Pass          *float64               `protobuf:"fixed64,7,opt,name=pass,proto3,oneof" json:"pass,omitempty"`
+	All           *float64               `protobuf:"fixed64,8,opt,name=all,proto3,oneof" json:"all,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -6469,60 +6468,60 @@ func (*PlayerSeasonPpaSplits) Descriptor() ([]byte, []int) {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{67}
 }
 
-func (x *PlayerSeasonPpaSplits) GetPassingDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.PassingDowns
+func (x *PlayerSeasonPpaSplits) GetPassingDowns() float64 {
+	if x != nil && x.PassingDowns != nil {
+		return *x.PassingDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerSeasonPpaSplits) GetStandardDowns() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.StandardDowns
+func (x *PlayerSeasonPpaSplits) GetStandardDowns() float64 {
+	if x != nil && x.StandardDowns != nil {
+		return *x.StandardDowns
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerSeasonPpaSplits) GetThirdDown() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.ThirdDown
+func (x *PlayerSeasonPpaSplits) GetThirdDown() float64 {
+	if x != nil && x.ThirdDown != nil {
+		return *x.ThirdDown
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerSeasonPpaSplits) GetSecondDown() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SecondDown
+func (x *PlayerSeasonPpaSplits) GetSecondDown() float64 {
+	if x != nil && x.SecondDown != nil {
+		return *x.SecondDown
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerSeasonPpaSplits) GetFirstDown() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.FirstDown
+func (x *PlayerSeasonPpaSplits) GetFirstDown() float64 {
+	if x != nil && x.FirstDown != nil {
+		return *x.FirstDown
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerSeasonPpaSplits) GetRush() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Rush
+func (x *PlayerSeasonPpaSplits) GetRush() float64 {
+	if x != nil && x.Rush != nil {
+		return *x.Rush
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerSeasonPpaSplits) GetPass() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Pass
+func (x *PlayerSeasonPpaSplits) GetPass() float64 {
+	if x != nil && x.Pass != nil {
+		return *x.Pass
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerSeasonPpaSplits) GetAll() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.All
+func (x *PlayerSeasonPpaSplits) GetAll() float64 {
+	if x != nil && x.All != nil {
+		return *x.All
 	}
-	return nil
+	return 0
 }
 
 type PlayerSeasonPredictedPointsAdded struct {
@@ -6950,34 +6949,34 @@ func (x *FieldGoalEP) GetExpectedPoints() float64 {
 }
 
 type LiveGameTeam struct {
-	state                   protoimpl.MessageState  `protogen:"open.v1"`
-	TeamId                  int32                   `protobuf:"varint,1,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
-	Team                    string                  `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
-	HomeAway                string                  `protobuf:"bytes,3,opt,name=home_away,json=homeAway,proto3" json:"home_away,omitempty"`
-	LineScores              []int32                 `protobuf:"varint,4,rep,packed,name=line_scores,json=lineScores,proto3" json:"line_scores,omitempty"`
-	Points                  int32                   `protobuf:"varint,5,opt,name=points,proto3" json:"points,omitempty"`
-	Drives                  int32                   `protobuf:"varint,6,opt,name=drives,proto3" json:"drives,omitempty"`
-	ScoringOpportunities    int32                   `protobuf:"varint,7,opt,name=scoring_opportunities,json=scoringOpportunities,proto3" json:"scoring_opportunities,omitempty"`
-	PointsPerOpportunity    float64                 `protobuf:"fixed64,8,opt,name=points_per_opportunity,json=pointsPerOpportunity,proto3" json:"points_per_opportunity,omitempty"`
-	AverageStartYardLine    *wrapperspb.DoubleValue `protobuf:"bytes,9,opt,name=average_start_yard_line,json=averageStartYardLine,proto3" json:"average_start_yard_line,omitempty"`
-	Plays                   int32                   `protobuf:"varint,10,opt,name=plays,proto3" json:"plays,omitempty"`
-	LineYards               float64                 `protobuf:"fixed64,11,opt,name=line_yards,json=lineYards,proto3" json:"line_yards,omitempty"`
-	LineYardsPerRush        float64                 `protobuf:"fixed64,12,opt,name=line_yards_per_rush,json=lineYardsPerRush,proto3" json:"line_yards_per_rush,omitempty"`
-	SecondLevelYards        float64                 `protobuf:"fixed64,13,opt,name=second_level_yards,json=secondLevelYards,proto3" json:"second_level_yards,omitempty"`
-	SecondLevelYardsPerRush float64                 `protobuf:"fixed64,14,opt,name=second_level_yards_per_rush,json=secondLevelYardsPerRush,proto3" json:"second_level_yards_per_rush,omitempty"`
-	OpenFieldYards          float64                 `protobuf:"fixed64,15,opt,name=open_field_yards,json=openFieldYards,proto3" json:"open_field_yards,omitempty"`
-	OpenFieldYardsPerRush   float64                 `protobuf:"fixed64,16,opt,name=open_field_yards_per_rush,json=openFieldYardsPerRush,proto3" json:"open_field_yards_per_rush,omitempty"`
-	EpaPerPlay              float64                 `protobuf:"fixed64,17,opt,name=epa_per_play,json=epaPerPlay,proto3" json:"epa_per_play,omitempty"`
-	TotalEpa                float64                 `protobuf:"fixed64,18,opt,name=total_epa,json=totalEpa,proto3" json:"total_epa,omitempty"`
-	PassingEpa              float64                 `protobuf:"fixed64,19,opt,name=passing_epa,json=passingEpa,proto3" json:"passing_epa,omitempty"`
-	EpaPerPass              float64                 `protobuf:"fixed64,20,opt,name=epa_per_pass,json=epaPerPass,proto3" json:"epa_per_pass,omitempty"`
-	RushingEpa              float64                 `protobuf:"fixed64,21,opt,name=rushing_epa,json=rushingEpa,proto3" json:"rushing_epa,omitempty"`
-	EpaPerRush              float64                 `protobuf:"fixed64,22,opt,name=epa_per_rush,json=epaPerRush,proto3" json:"epa_per_rush,omitempty"`
-	SuccessRate             float64                 `protobuf:"fixed64,23,opt,name=success_rate,json=successRate,proto3" json:"success_rate,omitempty"`
-	StandardDownSuccessRate float64                 `protobuf:"fixed64,24,opt,name=standard_down_success_rate,json=standardDownSuccessRate,proto3" json:"standard_down_success_rate,omitempty"`
-	PassingDownSuccessRate  float64                 `protobuf:"fixed64,25,opt,name=passing_down_success_rate,json=passingDownSuccessRate,proto3" json:"passing_down_success_rate,omitempty"`
-	Explosiveness           float64                 `protobuf:"fixed64,26,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
-	DeserveToWin            *wrapperspb.DoubleValue `protobuf:"bytes,27,opt,name=deserve_to_win,json=deserveToWin,proto3" json:"deserve_to_win,omitempty"`
+	state                   protoimpl.MessageState `protogen:"open.v1"`
+	TeamId                  int32                  `protobuf:"varint,1,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
+	Team                    string                 `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
+	HomeAway                string                 `protobuf:"bytes,3,opt,name=home_away,json=homeAway,proto3" json:"home_away,omitempty"`
+	LineScores              []int32                `protobuf:"varint,4,rep,packed,name=line_scores,json=lineScores,proto3" json:"line_scores,omitempty"`
+	Points                  int32                  `protobuf:"varint,5,opt,name=points,proto3" json:"points,omitempty"`
+	Drives                  int32                  `protobuf:"varint,6,opt,name=drives,proto3" json:"drives,omitempty"`
+	ScoringOpportunities    int32                  `protobuf:"varint,7,opt,name=scoring_opportunities,json=scoringOpportunities,proto3" json:"scoring_opportunities,omitempty"`
+	PointsPerOpportunity    float64                `protobuf:"fixed64,8,opt,name=points_per_opportunity,json=pointsPerOpportunity,proto3" json:"points_per_opportunity,omitempty"`
+	AverageStartYardLine    *float64               `protobuf:"fixed64,9,opt,name=average_start_yard_line,json=averageStartYardLine,proto3,oneof" json:"average_start_yard_line,omitempty"`
+	Plays                   int32                  `protobuf:"varint,10,opt,name=plays,proto3" json:"plays,omitempty"`
+	LineYards               float64                `protobuf:"fixed64,11,opt,name=line_yards,json=lineYards,proto3" json:"line_yards,omitempty"`
+	LineYardsPerRush        float64                `protobuf:"fixed64,12,opt,name=line_yards_per_rush,json=lineYardsPerRush,proto3" json:"line_yards_per_rush,omitempty"`
+	SecondLevelYards        float64                `protobuf:"fixed64,13,opt,name=second_level_yards,json=secondLevelYards,proto3" json:"second_level_yards,omitempty"`
+	SecondLevelYardsPerRush float64                `protobuf:"fixed64,14,opt,name=second_level_yards_per_rush,json=secondLevelYardsPerRush,proto3" json:"second_level_yards_per_rush,omitempty"`
+	OpenFieldYards          float64                `protobuf:"fixed64,15,opt,name=open_field_yards,json=openFieldYards,proto3" json:"open_field_yards,omitempty"`
+	OpenFieldYardsPerRush   float64                `protobuf:"fixed64,16,opt,name=open_field_yards_per_rush,json=openFieldYardsPerRush,proto3" json:"open_field_yards_per_rush,omitempty"`
+	EpaPerPlay              float64                `protobuf:"fixed64,17,opt,name=epa_per_play,json=epaPerPlay,proto3" json:"epa_per_play,omitempty"`
+	TotalEpa                float64                `protobuf:"fixed64,18,opt,name=total_epa,json=totalEpa,proto3" json:"total_epa,omitempty"`
+	PassingEpa              float64                `protobuf:"fixed64,19,opt,name=passing_epa,json=passingEpa,proto3" json:"passing_epa,omitempty"`
+	EpaPerPass              float64                `protobuf:"fixed64,20,opt,name=epa_per_pass,json=epaPerPass,proto3" json:"epa_per_pass,omitempty"`
+	RushingEpa              float64                `protobuf:"fixed64,21,opt,name=rushing_epa,json=rushingEpa,proto3" json:"rushing_epa,omitempty"`
+	EpaPerRush              float64                `protobuf:"fixed64,22,opt,name=epa_per_rush,json=epaPerRush,proto3" json:"epa_per_rush,omitempty"`
+	SuccessRate             float64                `protobuf:"fixed64,23,opt,name=success_rate,json=successRate,proto3" json:"success_rate,omitempty"`
+	StandardDownSuccessRate float64                `protobuf:"fixed64,24,opt,name=standard_down_success_rate,json=standardDownSuccessRate,proto3" json:"standard_down_success_rate,omitempty"`
+	PassingDownSuccessRate  float64                `protobuf:"fixed64,25,opt,name=passing_down_success_rate,json=passingDownSuccessRate,proto3" json:"passing_down_success_rate,omitempty"`
+	Explosiveness           float64                `protobuf:"fixed64,26,opt,name=explosiveness,proto3" json:"explosiveness,omitempty"`
+	DeserveToWin            *float64               `protobuf:"fixed64,27,opt,name=deserve_to_win,json=deserveToWin,proto3,oneof" json:"deserve_to_win,omitempty"`
 	unknownFields           protoimpl.UnknownFields
 	sizeCache               protoimpl.SizeCache
 }
@@ -7068,11 +7067,11 @@ func (x *LiveGameTeam) GetPointsPerOpportunity() float64 {
 	return 0
 }
 
-func (x *LiveGameTeam) GetAverageStartYardLine() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.AverageStartYardLine
+func (x *LiveGameTeam) GetAverageStartYardLine() float64 {
+	if x != nil && x.AverageStartYardLine != nil {
+		return *x.AverageStartYardLine
 	}
-	return nil
+	return 0
 }
 
 func (x *LiveGameTeam) GetPlays() int32 {
@@ -7194,35 +7193,35 @@ func (x *LiveGameTeam) GetExplosiveness() float64 {
 	return 0
 }
 
-func (x *LiveGameTeam) GetDeserveToWin() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.DeserveToWin
+func (x *LiveGameTeam) GetDeserveToWin() float64 {
+	if x != nil && x.DeserveToWin != nil {
+		return *x.DeserveToWin
 	}
-	return nil
+	return 0
 }
 
 type LiveGamePlay struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Id            string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	HomeScore     int32                   `protobuf:"varint,2,opt,name=home_score,json=homeScore,proto3" json:"home_score,omitempty"`
-	AwayScore     int32                   `protobuf:"varint,3,opt,name=away_score,json=awayScore,proto3" json:"away_score,omitempty"`
-	Period        int32                   `protobuf:"varint,4,opt,name=period,proto3" json:"period,omitempty"`
-	Clock         string                  `protobuf:"bytes,5,opt,name=clock,proto3" json:"clock,omitempty"`
-	WallClock     *timestamppb.Timestamp  `protobuf:"bytes,6,opt,name=wall_clock,json=wallClock,proto3" json:"wall_clock,omitempty"`
-	TeamId        int32                   `protobuf:"varint,7,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
-	Team          string                  `protobuf:"bytes,8,opt,name=team,proto3" json:"team,omitempty"`
-	Down          int32                   `protobuf:"varint,9,opt,name=down,proto3" json:"down,omitempty"`
-	Distance      int32                   `protobuf:"varint,10,opt,name=distance,proto3" json:"distance,omitempty"`
-	YardsToGoal   int32                   `protobuf:"varint,11,opt,name=yards_to_goal,json=yardsToGoal,proto3" json:"yards_to_goal,omitempty"`
-	YardsGained   int32                   `protobuf:"varint,12,opt,name=yards_gained,json=yardsGained,proto3" json:"yards_gained,omitempty"`
-	PlayTypeId    int32                   `protobuf:"varint,13,opt,name=play_type_id,json=playTypeId,proto3" json:"play_type_id,omitempty"`
-	PlayType      string                  `protobuf:"bytes,14,opt,name=play_type,json=playType,proto3" json:"play_type,omitempty"`
-	Epa           *wrapperspb.DoubleValue `protobuf:"bytes,15,opt,name=epa,proto3" json:"epa,omitempty"`
-	GarbageTime   bool                    `protobuf:"varint,16,opt,name=garbage_time,json=garbageTime,proto3" json:"garbage_time,omitempty"`
-	Success       bool                    `protobuf:"varint,17,opt,name=success,proto3" json:"success,omitempty"`
-	RushPass      string                  `protobuf:"bytes,18,opt,name=rush_pass,json=rushPass,proto3" json:"rush_pass,omitempty"`
-	DownType      string                  `protobuf:"bytes,19,opt,name=down_type,json=downType,proto3" json:"down_type,omitempty"`
-	PlayText      string                  `protobuf:"bytes,20,opt,name=play_text,json=playText,proto3" json:"play_text,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	HomeScore     int32                  `protobuf:"varint,2,opt,name=home_score,json=homeScore,proto3" json:"home_score,omitempty"`
+	AwayScore     int32                  `protobuf:"varint,3,opt,name=away_score,json=awayScore,proto3" json:"away_score,omitempty"`
+	Period        int32                  `protobuf:"varint,4,opt,name=period,proto3" json:"period,omitempty"`
+	Clock         string                 `protobuf:"bytes,5,opt,name=clock,proto3" json:"clock,omitempty"`
+	WallClock     *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=wall_clock,json=wallClock,proto3" json:"wall_clock,omitempty"`
+	TeamId        int32                  `protobuf:"varint,7,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
+	Team          string                 `protobuf:"bytes,8,opt,name=team,proto3" json:"team,omitempty"`
+	Down          int32                  `protobuf:"varint,9,opt,name=down,proto3" json:"down,omitempty"`
+	Distance      int32                  `protobuf:"varint,10,opt,name=distance,proto3" json:"distance,omitempty"`
+	YardsToGoal   int32                  `protobuf:"varint,11,opt,name=yards_to_goal,json=yardsToGoal,proto3" json:"yards_to_goal,omitempty"`
+	YardsGained   int32                  `protobuf:"varint,12,opt,name=yards_gained,json=yardsGained,proto3" json:"yards_gained,omitempty"`
+	PlayTypeId    int32                  `protobuf:"varint,13,opt,name=play_type_id,json=playTypeId,proto3" json:"play_type_id,omitempty"`
+	PlayType      string                 `protobuf:"bytes,14,opt,name=play_type,json=playType,proto3" json:"play_type,omitempty"`
+	Epa           *float64               `protobuf:"fixed64,15,opt,name=epa,proto3,oneof" json:"epa,omitempty"`
+	GarbageTime   bool                   `protobuf:"varint,16,opt,name=garbage_time,json=garbageTime,proto3" json:"garbage_time,omitempty"`
+	Success       bool                   `protobuf:"varint,17,opt,name=success,proto3" json:"success,omitempty"`
+	RushPass      string                 `protobuf:"bytes,18,opt,name=rush_pass,json=rushPass,proto3" json:"rush_pass,omitempty"`
+	DownType      string                 `protobuf:"bytes,19,opt,name=down_type,json=downType,proto3" json:"down_type,omitempty"`
+	PlayText      string                 `protobuf:"bytes,20,opt,name=play_text,json=playText,proto3" json:"play_text,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -7355,11 +7354,11 @@ func (x *LiveGamePlay) GetPlayType() string {
 	return ""
 }
 
-func (x *LiveGamePlay) GetEpa() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Epa
+func (x *LiveGamePlay) GetEpa() float64 {
+	if x != nil && x.Epa != nil {
+		return *x.Epa
 	}
-	return nil
+	return 0
 }
 
 func (x *LiveGamePlay) GetGarbageTime() bool {
@@ -7398,25 +7397,25 @@ func (x *LiveGamePlay) GetPlayText() string {
 }
 
 type LiveGameDrive struct {
-	state              protoimpl.MessageState  `protogen:"open.v1"`
-	Id                 string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	OffenseId          int32                   `protobuf:"varint,2,opt,name=offense_id,json=offenseId,proto3" json:"offense_id,omitempty"`
-	Offense            string                  `protobuf:"bytes,3,opt,name=offense,proto3" json:"offense,omitempty"`
-	DefenseId          int32                   `protobuf:"varint,4,opt,name=defense_id,json=defenseId,proto3" json:"defense_id,omitempty"`
-	Defense            string                  `protobuf:"bytes,5,opt,name=defense,proto3" json:"defense,omitempty"`
-	PlayCount          int32                   `protobuf:"varint,6,opt,name=play_count,json=playCount,proto3" json:"play_count,omitempty"`
-	Yards              int32                   `protobuf:"varint,7,opt,name=yards,proto3" json:"yards,omitempty"`
-	StartPeriod        int32                   `protobuf:"varint,8,opt,name=start_period,json=startPeriod,proto3" json:"start_period,omitempty"`
-	StartClock         *wrapperspb.StringValue `protobuf:"bytes,9,opt,name=start_clock,json=startClock,proto3" json:"start_clock,omitempty"`
-	StartYardsToGoal   int32                   `protobuf:"varint,10,opt,name=start_yards_to_goal,json=startYardsToGoal,proto3" json:"start_yards_to_goal,omitempty"`
-	EndPeriod          *wrapperspb.Int32Value  `protobuf:"bytes,11,opt,name=end_period,json=endPeriod,proto3" json:"end_period,omitempty"`
-	EndClock           *wrapperspb.StringValue `protobuf:"bytes,12,opt,name=end_clock,json=endClock,proto3" json:"end_clock,omitempty"`
-	EndYardsToGoal     *wrapperspb.Int32Value  `protobuf:"bytes,13,opt,name=end_yards_to_goal,json=endYardsToGoal,proto3" json:"end_yards_to_goal,omitempty"`
-	Duration           *wrapperspb.StringValue `protobuf:"bytes,14,opt,name=duration,proto3" json:"duration,omitempty"`
-	ScoringOpportunity bool                    `protobuf:"varint,15,opt,name=scoring_opportunity,json=scoringOpportunity,proto3" json:"scoring_opportunity,omitempty"`
-	Result             string                  `protobuf:"bytes,16,opt,name=result,proto3" json:"result,omitempty"`
-	PointsGained       int32                   `protobuf:"varint,17,opt,name=points_gained,json=pointsGained,proto3" json:"points_gained,omitempty"`
-	Plays              []*LiveGamePlay         `protobuf:"bytes,18,rep,name=plays,proto3" json:"plays,omitempty"`
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Id                 string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	OffenseId          int32                  `protobuf:"varint,2,opt,name=offense_id,json=offenseId,proto3" json:"offense_id,omitempty"`
+	Offense            string                 `protobuf:"bytes,3,opt,name=offense,proto3" json:"offense,omitempty"`
+	DefenseId          int32                  `protobuf:"varint,4,opt,name=defense_id,json=defenseId,proto3" json:"defense_id,omitempty"`
+	Defense            string                 `protobuf:"bytes,5,opt,name=defense,proto3" json:"defense,omitempty"`
+	PlayCount          int32                  `protobuf:"varint,6,opt,name=play_count,json=playCount,proto3" json:"play_count,omitempty"`
+	Yards              int32                  `protobuf:"varint,7,opt,name=yards,proto3" json:"yards,omitempty"`
+	StartPeriod        int32                  `protobuf:"varint,8,opt,name=start_period,json=startPeriod,proto3" json:"start_period,omitempty"`
+	StartClock         string                 `protobuf:"bytes,9,opt,name=start_clock,json=startClock,proto3" json:"start_clock,omitempty"`
+	StartYardsToGoal   int32                  `protobuf:"varint,10,opt,name=start_yards_to_goal,json=startYardsToGoal,proto3" json:"start_yards_to_goal,omitempty"`
+	EndPeriod          *int32                 `protobuf:"varint,11,opt,name=end_period,json=endPeriod,proto3,oneof" json:"end_period,omitempty"`
+	EndClock           string                 `protobuf:"bytes,12,opt,name=end_clock,json=endClock,proto3" json:"end_clock,omitempty"`
+	EndYardsToGoal     *int32                 `protobuf:"varint,13,opt,name=end_yards_to_goal,json=endYardsToGoal,proto3,oneof" json:"end_yards_to_goal,omitempty"`
+	Duration           string                 `protobuf:"bytes,14,opt,name=duration,proto3" json:"duration,omitempty"`
+	ScoringOpportunity bool                   `protobuf:"varint,15,opt,name=scoring_opportunity,json=scoringOpportunity,proto3" json:"scoring_opportunity,omitempty"`
+	Result             string                 `protobuf:"bytes,16,opt,name=result,proto3" json:"result,omitempty"`
+	PointsGained       int32                  `protobuf:"varint,17,opt,name=points_gained,json=pointsGained,proto3" json:"points_gained,omitempty"`
+	Plays              []*LiveGamePlay        `protobuf:"bytes,18,rep,name=plays,proto3" json:"plays,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -7507,11 +7506,11 @@ func (x *LiveGameDrive) GetStartPeriod() int32 {
 	return 0
 }
 
-func (x *LiveGameDrive) GetStartClock() *wrapperspb.StringValue {
+func (x *LiveGameDrive) GetStartClock() string {
 	if x != nil {
 		return x.StartClock
 	}
-	return nil
+	return ""
 }
 
 func (x *LiveGameDrive) GetStartYardsToGoal() int32 {
@@ -7521,32 +7520,32 @@ func (x *LiveGameDrive) GetStartYardsToGoal() int32 {
 	return 0
 }
 
-func (x *LiveGameDrive) GetEndPeriod() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.EndPeriod
+func (x *LiveGameDrive) GetEndPeriod() int32 {
+	if x != nil && x.EndPeriod != nil {
+		return *x.EndPeriod
 	}
-	return nil
+	return 0
 }
 
-func (x *LiveGameDrive) GetEndClock() *wrapperspb.StringValue {
+func (x *LiveGameDrive) GetEndClock() string {
 	if x != nil {
 		return x.EndClock
 	}
-	return nil
+	return ""
 }
 
-func (x *LiveGameDrive) GetEndYardsToGoal() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.EndYardsToGoal
+func (x *LiveGameDrive) GetEndYardsToGoal() int32 {
+	if x != nil && x.EndYardsToGoal != nil {
+		return *x.EndYardsToGoal
 	}
-	return nil
+	return 0
 }
 
-func (x *LiveGameDrive) GetDuration() *wrapperspb.StringValue {
+func (x *LiveGameDrive) GetDuration() string {
 	if x != nil {
 		return x.Duration
 	}
-	return nil
+	return ""
 }
 
 func (x *LiveGameDrive) GetScoringOpportunity() bool {
@@ -7581,12 +7580,12 @@ type LiveGame struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
-	Period        *wrapperspb.Int32Value `protobuf:"bytes,3,opt,name=period,proto3" json:"period,omitempty"`
+	Period        *int32                 `protobuf:"varint,3,opt,name=period,proto3,oneof" json:"period,omitempty"`
 	Clock         string                 `protobuf:"bytes,4,opt,name=clock,proto3" json:"clock,omitempty"`
 	Possession    string                 `protobuf:"bytes,5,opt,name=possession,proto3" json:"possession,omitempty"`
-	Down          *wrapperspb.Int32Value `protobuf:"bytes,6,opt,name=down,proto3" json:"down,omitempty"`
-	Distance      *wrapperspb.Int32Value `protobuf:"bytes,7,opt,name=distance,proto3" json:"distance,omitempty"`
-	YardsToGoal   *wrapperspb.Int32Value `protobuf:"bytes,8,opt,name=yards_to_goal,json=yardsToGoal,proto3" json:"yards_to_goal,omitempty"`
+	Down          *int32                 `protobuf:"varint,6,opt,name=down,proto3,oneof" json:"down,omitempty"`
+	Distance      *int32                 `protobuf:"varint,7,opt,name=distance,proto3,oneof" json:"distance,omitempty"`
+	YardsToGoal   *int32                 `protobuf:"varint,8,opt,name=yards_to_goal,json=yardsToGoal,proto3,oneof" json:"yards_to_goal,omitempty"`
 	Teams         []*LiveGameTeam        `protobuf:"bytes,9,rep,name=teams,proto3" json:"teams,omitempty"`
 	Drives        []*LiveGameDrive       `protobuf:"bytes,10,rep,name=drives,proto3" json:"drives,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -7637,11 +7636,11 @@ func (x *LiveGame) GetStatus() string {
 	return ""
 }
 
-func (x *LiveGame) GetPeriod() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Period
+func (x *LiveGame) GetPeriod() int32 {
+	if x != nil && x.Period != nil {
+		return *x.Period
 	}
-	return nil
+	return 0
 }
 
 func (x *LiveGame) GetClock() string {
@@ -7658,25 +7657,25 @@ func (x *LiveGame) GetPossession() string {
 	return ""
 }
 
-func (x *LiveGame) GetDown() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Down
+func (x *LiveGame) GetDown() int32 {
+	if x != nil && x.Down != nil {
+		return *x.Down
 	}
-	return nil
+	return 0
 }
 
-func (x *LiveGame) GetDistance() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Distance
+func (x *LiveGame) GetDistance() int32 {
+	if x != nil && x.Distance != nil {
+		return *x.Distance
 	}
-	return nil
+	return 0
 }
 
-func (x *LiveGame) GetYardsToGoal() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.YardsToGoal
+func (x *LiveGame) GetYardsToGoal() int32 {
+	if x != nil && x.YardsToGoal != nil {
+		return *x.YardsToGoal
 	}
-	return nil
+	return 0
 }
 
 func (x *LiveGame) GetTeams() []*LiveGameTeam {
@@ -7694,15 +7693,15 @@ func (x *LiveGame) GetDrives() []*LiveGameDrive {
 }
 
 type GameLine struct {
-	state           protoimpl.MessageState  `protogen:"open.v1"`
-	Provider        string                  `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
-	Spread          *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=spread,proto3" json:"spread,omitempty"`
-	FormattedSpread *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=formatted_spread,json=formattedSpread,proto3" json:"formatted_spread,omitempty"`
-	SpreadOpen      *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=spread_open,json=spreadOpen,proto3" json:"spread_open,omitempty"`
-	OverUnder       *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=over_under,json=overUnder,proto3" json:"over_under,omitempty"`
-	OverUnderOpen   *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=over_under_open,json=overUnderOpen,proto3" json:"over_under_open,omitempty"`
-	HomeMoneyline   *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=home_moneyline,json=homeMoneyline,proto3" json:"home_moneyline,omitempty"`
-	AwayMoneyline   *wrapperspb.DoubleValue `protobuf:"bytes,8,opt,name=away_moneyline,json=awayMoneyline,proto3" json:"away_moneyline,omitempty"`
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Provider        string                 `protobuf:"bytes,1,opt,name=provider,proto3" json:"provider,omitempty"`
+	Spread          *float64               `protobuf:"fixed64,2,opt,name=spread,proto3,oneof" json:"spread,omitempty"`
+	FormattedSpread string                 `protobuf:"bytes,3,opt,name=formatted_spread,json=formattedSpread,proto3" json:"formatted_spread,omitempty"`
+	SpreadOpen      *float64               `protobuf:"fixed64,4,opt,name=spread_open,json=spreadOpen,proto3,oneof" json:"spread_open,omitempty"`
+	OverUnder       *float64               `protobuf:"fixed64,5,opt,name=over_under,json=overUnder,proto3,oneof" json:"over_under,omitempty"`
+	OverUnderOpen   *float64               `protobuf:"fixed64,6,opt,name=over_under_open,json=overUnderOpen,proto3,oneof" json:"over_under_open,omitempty"`
+	HomeMoneyline   *float64               `protobuf:"fixed64,7,opt,name=home_moneyline,json=homeMoneyline,proto3,oneof" json:"home_moneyline,omitempty"`
+	AwayMoneyline   *float64               `protobuf:"fixed64,8,opt,name=away_moneyline,json=awayMoneyline,proto3,oneof" json:"away_moneyline,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -7744,73 +7743,73 @@ func (x *GameLine) GetProvider() string {
 	return ""
 }
 
-func (x *GameLine) GetSpread() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Spread
+func (x *GameLine) GetSpread() float64 {
+	if x != nil && x.Spread != nil {
+		return *x.Spread
 	}
-	return nil
+	return 0
 }
 
-func (x *GameLine) GetFormattedSpread() *wrapperspb.StringValue {
+func (x *GameLine) GetFormattedSpread() string {
 	if x != nil {
 		return x.FormattedSpread
 	}
-	return nil
+	return ""
 }
 
-func (x *GameLine) GetSpreadOpen() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SpreadOpen
+func (x *GameLine) GetSpreadOpen() float64 {
+	if x != nil && x.SpreadOpen != nil {
+		return *x.SpreadOpen
 	}
-	return nil
+	return 0
 }
 
-func (x *GameLine) GetOverUnder() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.OverUnder
+func (x *GameLine) GetOverUnder() float64 {
+	if x != nil && x.OverUnder != nil {
+		return *x.OverUnder
 	}
-	return nil
+	return 0
 }
 
-func (x *GameLine) GetOverUnderOpen() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.OverUnderOpen
+func (x *GameLine) GetOverUnderOpen() float64 {
+	if x != nil && x.OverUnderOpen != nil {
+		return *x.OverUnderOpen
 	}
-	return nil
+	return 0
 }
 
-func (x *GameLine) GetHomeMoneyline() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.HomeMoneyline
+func (x *GameLine) GetHomeMoneyline() float64 {
+	if x != nil && x.HomeMoneyline != nil {
+		return *x.HomeMoneyline
 	}
-	return nil
+	return 0
 }
 
-func (x *GameLine) GetAwayMoneyline() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.AwayMoneyline
+func (x *GameLine) GetAwayMoneyline() float64 {
+	if x != nil && x.AwayMoneyline != nil {
+		return *x.AwayMoneyline
 	}
-	return nil
+	return 0
 }
 
 type BettingGame struct {
-	state              protoimpl.MessageState  `protogen:"open.v1"`
-	Id                 int32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Season             int32                   `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
-	SeasonType         string                  `protobuf:"bytes,3,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
-	Week               int32                   `protobuf:"varint,4,opt,name=week,proto3" json:"week,omitempty"`
-	StartDate          *timestamppb.Timestamp  `protobuf:"bytes,5,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
-	HomeTeamId         int32                   `protobuf:"varint,6,opt,name=home_team_id,json=homeTeamId,proto3" json:"home_team_id,omitempty"`
-	HomeTeam           string                  `protobuf:"bytes,7,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
-	HomeConference     *wrapperspb.StringValue `protobuf:"bytes,8,opt,name=home_conference,json=homeConference,proto3" json:"home_conference,omitempty"`
-	HomeClassification *wrapperspb.StringValue `protobuf:"bytes,9,opt,name=home_classification,json=homeClassification,proto3" json:"home_classification,omitempty"`
-	HomeScore          *wrapperspb.Int32Value  `protobuf:"bytes,10,opt,name=home_score,json=homeScore,proto3" json:"home_score,omitempty"`
-	AwayTeamId         int32                   `protobuf:"varint,11,opt,name=away_team_id,json=awayTeamId,proto3" json:"away_team_id,omitempty"`
-	AwayTeam           string                  `protobuf:"bytes,12,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
-	AwayConference     *wrapperspb.StringValue `protobuf:"bytes,13,opt,name=away_conference,json=awayConference,proto3" json:"away_conference,omitempty"`
-	AwayClassification *wrapperspb.StringValue `protobuf:"bytes,14,opt,name=away_classification,json=awayClassification,proto3" json:"away_classification,omitempty"`
-	AwayScore          *wrapperspb.Int32Value  `protobuf:"bytes,15,opt,name=away_score,json=awayScore,proto3" json:"away_score,omitempty"`
-	Lines              []*GameLine             `protobuf:"bytes,16,rep,name=lines,proto3" json:"lines,omitempty"`
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Id                 int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Season             int32                  `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
+	SeasonType         string                 `protobuf:"bytes,3,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
+	Week               int32                  `protobuf:"varint,4,opt,name=week,proto3" json:"week,omitempty"`
+	StartDate          *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
+	HomeTeamId         int32                  `protobuf:"varint,6,opt,name=home_team_id,json=homeTeamId,proto3" json:"home_team_id,omitempty"`
+	HomeTeam           string                 `protobuf:"bytes,7,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
+	HomeConference     string                 `protobuf:"bytes,8,opt,name=home_conference,json=homeConference,proto3" json:"home_conference,omitempty"`
+	HomeClassification string                 `protobuf:"bytes,9,opt,name=home_classification,json=homeClassification,proto3" json:"home_classification,omitempty"`
+	HomeScore          *int32                 `protobuf:"varint,10,opt,name=home_score,json=homeScore,proto3,oneof" json:"home_score,omitempty"`
+	AwayTeamId         int32                  `protobuf:"varint,11,opt,name=away_team_id,json=awayTeamId,proto3" json:"away_team_id,omitempty"`
+	AwayTeam           string                 `protobuf:"bytes,12,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
+	AwayConference     string                 `protobuf:"bytes,13,opt,name=away_conference,json=awayConference,proto3" json:"away_conference,omitempty"`
+	AwayClassification string                 `protobuf:"bytes,14,opt,name=away_classification,json=awayClassification,proto3" json:"away_classification,omitempty"`
+	AwayScore          *int32                 `protobuf:"varint,15,opt,name=away_score,json=awayScore,proto3,oneof" json:"away_score,omitempty"`
+	Lines              []*GameLine            `protobuf:"bytes,16,rep,name=lines,proto3" json:"lines,omitempty"`
 	unknownFields      protoimpl.UnknownFields
 	sizeCache          protoimpl.SizeCache
 }
@@ -7894,25 +7893,25 @@ func (x *BettingGame) GetHomeTeam() string {
 	return ""
 }
 
-func (x *BettingGame) GetHomeConference() *wrapperspb.StringValue {
+func (x *BettingGame) GetHomeConference() string {
 	if x != nil {
 		return x.HomeConference
 	}
-	return nil
+	return ""
 }
 
-func (x *BettingGame) GetHomeClassification() *wrapperspb.StringValue {
+func (x *BettingGame) GetHomeClassification() string {
 	if x != nil {
 		return x.HomeClassification
 	}
-	return nil
+	return ""
 }
 
-func (x *BettingGame) GetHomeScore() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.HomeScore
+func (x *BettingGame) GetHomeScore() int32 {
+	if x != nil && x.HomeScore != nil {
+		return *x.HomeScore
 	}
-	return nil
+	return 0
 }
 
 func (x *BettingGame) GetAwayTeamId() int32 {
@@ -7929,25 +7928,25 @@ func (x *BettingGame) GetAwayTeam() string {
 	return ""
 }
 
-func (x *BettingGame) GetAwayConference() *wrapperspb.StringValue {
+func (x *BettingGame) GetAwayConference() string {
 	if x != nil {
 		return x.AwayConference
 	}
-	return nil
+	return ""
 }
 
-func (x *BettingGame) GetAwayClassification() *wrapperspb.StringValue {
+func (x *BettingGame) GetAwayClassification() string {
 	if x != nil {
 		return x.AwayClassification
 	}
-	return nil
+	return ""
 }
 
-func (x *BettingGame) GetAwayScore() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.AwayScore
+func (x *BettingGame) GetAwayScore() int32 {
+	if x != nil && x.AwayScore != nil {
+		return *x.AwayScore
 	}
-	return nil
+	return 0
 }
 
 func (x *BettingGame) GetLines() []*GameLine {
@@ -8009,48 +8008,92 @@ func (x *UserInfo) GetRemainingCalls() float64 {
 	return 0
 }
 
+type Int32List struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Values        []int32                `protobuf:"varint,1,rep,packed,name=values,proto3" json:"values,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Int32List) Reset() {
+	*x = Int32List{}
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[79]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Int32List) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Int32List) ProtoMessage() {}
+
+func (x *Int32List) ProtoReflect() protoreflect.Message {
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[79]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Int32List.ProtoReflect.Descriptor instead.
+func (*Int32List) Descriptor() ([]byte, []int) {
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{79}
+}
+
+func (x *Int32List) GetValues() []int32 {
+	if x != nil {
+		return x.Values
+	}
+	return nil
+}
+
 type Game struct {
-	state                      protoimpl.MessageState  `protogen:"open.v1"`
-	Id                         int32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Season                     int32                   `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
-	Week                       int32                   `protobuf:"varint,3,opt,name=week,proto3" json:"week,omitempty"`
-	SeasonType                 string                  `protobuf:"bytes,4,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
-	StartDate                  *timestamppb.Timestamp  `protobuf:"bytes,5,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
-	StartTime_TBD              bool                    `protobuf:"varint,6,opt,name=start_time_TBD,json=startTimeTBD,proto3" json:"start_time_TBD,omitempty"`
-	Completed                  bool                    `protobuf:"varint,7,opt,name=completed,proto3" json:"completed,omitempty"`
-	NeutralSite                bool                    `protobuf:"varint,8,opt,name=neutral_site,json=neutralSite,proto3" json:"neutral_site,omitempty"`
-	ConferenceGame             bool                    `protobuf:"varint,9,opt,name=conference_game,json=conferenceGame,proto3" json:"conference_game,omitempty"`
-	Attendance                 *wrapperspb.Int32Value  `protobuf:"bytes,10,opt,name=attendance,proto3" json:"attendance,omitempty"`
-	VenueId                    *wrapperspb.Int32Value  `protobuf:"bytes,11,opt,name=venue_id,json=venueId,proto3" json:"venue_id,omitempty"`
-	Venue                      *wrapperspb.StringValue `protobuf:"bytes,12,opt,name=venue,proto3" json:"venue,omitempty"`
-	HomeId                     *wrapperspb.Int32Value  `protobuf:"bytes,13,opt,name=home_id,json=homeId,proto3" json:"home_id,omitempty"`
-	HomeTeam                   string                  `protobuf:"bytes,14,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
-	HomeConference             *wrapperspb.StringValue `protobuf:"bytes,15,opt,name=home_conference,json=homeConference,proto3" json:"home_conference,omitempty"`
-	HomeClassification         *wrapperspb.StringValue `protobuf:"bytes,16,opt,name=home_classification,json=homeClassification,proto3" json:"home_classification,omitempty"`
-	HomePoints                 *wrapperspb.Int32Value  `protobuf:"bytes,17,opt,name=home_points,json=homePoints,proto3" json:"home_points,omitempty"`
-	HomeLineScores             *structpb.ListValue     `protobuf:"bytes,18,opt,name=home_line_scores,json=homeLineScores,proto3" json:"home_line_scores,omitempty"`
-	HomePostgameWinProbability *wrapperspb.DoubleValue `protobuf:"bytes,19,opt,name=home_postgame_win_probability,json=homePostgameWinProbability,proto3" json:"home_postgame_win_probability,omitempty"`
-	HomePregameElo             *wrapperspb.Int32Value  `protobuf:"bytes,20,opt,name=home_pregame_elo,json=homePregameElo,proto3" json:"home_pregame_elo,omitempty"`
-	HomePostgameElo            *wrapperspb.Int32Value  `protobuf:"bytes,21,opt,name=home_postgame_elo,json=homePostgameElo,proto3" json:"home_postgame_elo,omitempty"`
-	AwayId                     *wrapperspb.Int32Value  `protobuf:"bytes,22,opt,name=away_id,json=awayId,proto3" json:"away_id,omitempty"`
-	AwayTeam                   string                  `protobuf:"bytes,23,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
-	AwayConference             *wrapperspb.StringValue `protobuf:"bytes,24,opt,name=away_conference,json=awayConference,proto3" json:"away_conference,omitempty"`
-	AwayClassification         *wrapperspb.StringValue `protobuf:"bytes,25,opt,name=away_classification,json=awayClassification,proto3" json:"away_classification,omitempty"`
-	AwayPoints                 *wrapperspb.Int32Value  `protobuf:"bytes,26,opt,name=away_points,json=awayPoints,proto3" json:"away_points,omitempty"`
-	AwayLineScores             *structpb.ListValue     `protobuf:"bytes,27,opt,name=away_line_scores,json=awayLineScores,proto3" json:"away_line_scores,omitempty"`
-	AwayPostgameWinProbability *wrapperspb.DoubleValue `protobuf:"bytes,28,opt,name=away_postgame_win_probability,json=awayPostgameWinProbability,proto3" json:"away_postgame_win_probability,omitempty"`
-	AwayPregameElo             *wrapperspb.Int32Value  `protobuf:"bytes,29,opt,name=away_pregame_elo,json=awayPregameElo,proto3" json:"away_pregame_elo,omitempty"`
-	AwayPostgameElo            *wrapperspb.Int32Value  `protobuf:"bytes,30,opt,name=away_postgame_elo,json=awayPostgameElo,proto3" json:"away_postgame_elo,omitempty"`
-	ExcitementIndex            *wrapperspb.DoubleValue `protobuf:"bytes,31,opt,name=excitement_index,json=excitementIndex,proto3" json:"excitement_index,omitempty"`
-	Highlights                 *wrapperspb.StringValue `protobuf:"bytes,32,opt,name=highlights,proto3" json:"highlights,omitempty"`
-	Notes                      *wrapperspb.StringValue `protobuf:"bytes,33,opt,name=notes,proto3" json:"notes,omitempty"`
+	state                      protoimpl.MessageState `protogen:"open.v1"`
+	Id                         int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Season                     int32                  `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
+	Week                       int32                  `protobuf:"varint,3,opt,name=week,proto3" json:"week,omitempty"`
+	SeasonType                 string                 `protobuf:"bytes,4,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
+	StartDate                  *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
+	StartTime_TBD              bool                   `protobuf:"varint,6,opt,name=start_time_TBD,json=startTimeTBD,proto3" json:"start_time_TBD,omitempty"`
+	Completed                  bool                   `protobuf:"varint,7,opt,name=completed,proto3" json:"completed,omitempty"`
+	NeutralSite                bool                   `protobuf:"varint,8,opt,name=neutral_site,json=neutralSite,proto3" json:"neutral_site,omitempty"`
+	ConferenceGame             bool                   `protobuf:"varint,9,opt,name=conference_game,json=conferenceGame,proto3" json:"conference_game,omitempty"`
+	Attendance                 *int32                 `protobuf:"varint,10,opt,name=attendance,proto3,oneof" json:"attendance,omitempty"`
+	VenueId                    *int32                 `protobuf:"varint,11,opt,name=venue_id,json=venueId,proto3,oneof" json:"venue_id,omitempty"`
+	Venue                      string                 `protobuf:"bytes,12,opt,name=venue,proto3" json:"venue,omitempty"`
+	HomeId                     *int32                 `protobuf:"varint,13,opt,name=home_id,json=homeId,proto3,oneof" json:"home_id,omitempty"`
+	HomeTeam                   string                 `protobuf:"bytes,14,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
+	HomeConference             string                 `protobuf:"bytes,15,opt,name=home_conference,json=homeConference,proto3" json:"home_conference,omitempty"`
+	HomeClassification         string                 `protobuf:"bytes,16,opt,name=home_classification,json=homeClassification,proto3" json:"home_classification,omitempty"`
+	HomePoints                 *int32                 `protobuf:"varint,17,opt,name=home_points,json=homePoints,proto3,oneof" json:"home_points,omitempty"`
+	HomeLineScores             []int32                `protobuf:"varint,18,rep,packed,name=home_line_scores,json=homeLineScores,proto3" json:"home_line_scores,omitempty"`
+	HomePostgameWinProbability *float64               `protobuf:"fixed64,19,opt,name=home_postgame_win_probability,json=homePostgameWinProbability,proto3,oneof" json:"home_postgame_win_probability,omitempty"`
+	HomePregameElo             *int32                 `protobuf:"varint,20,opt,name=home_pregame_elo,json=homePregameElo,proto3,oneof" json:"home_pregame_elo,omitempty"`
+	HomePostgameElo            *int32                 `protobuf:"varint,21,opt,name=home_postgame_elo,json=homePostgameElo,proto3,oneof" json:"home_postgame_elo,omitempty"`
+	AwayId                     *int32                 `protobuf:"varint,22,opt,name=away_id,json=awayId,proto3,oneof" json:"away_id,omitempty"`
+	AwayTeam                   string                 `protobuf:"bytes,23,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
+	AwayConference             string                 `protobuf:"bytes,24,opt,name=away_conference,json=awayConference,proto3" json:"away_conference,omitempty"`
+	AwayClassification         string                 `protobuf:"bytes,25,opt,name=away_classification,json=awayClassification,proto3" json:"away_classification,omitempty"`
+	AwayPoints                 *int32                 `protobuf:"varint,26,opt,name=away_points,json=awayPoints,proto3,oneof" json:"away_points,omitempty"`
+	AwayLineScores             []int32                `protobuf:"varint,27,rep,packed,name=away_line_scores,json=awayLineScores,proto3" json:"away_line_scores,omitempty"`
+	AwayPostgameWinProbability *float64               `protobuf:"fixed64,28,opt,name=away_postgame_win_probability,json=awayPostgameWinProbability,proto3,oneof" json:"away_postgame_win_probability,omitempty"`
+	AwayPregameElo             *int32                 `protobuf:"varint,29,opt,name=away_pregame_elo,json=awayPregameElo,proto3,oneof" json:"away_pregame_elo,omitempty"`
+	AwayPostgameElo            *int32                 `protobuf:"varint,30,opt,name=away_postgame_elo,json=awayPostgameElo,proto3,oneof" json:"away_postgame_elo,omitempty"`
+	ExcitementIndex            *float64               `protobuf:"fixed64,31,opt,name=excitement_index,json=excitementIndex,proto3,oneof" json:"excitement_index,omitempty"`
+	Highlights                 string                 `protobuf:"bytes,32,opt,name=highlights,proto3" json:"highlights,omitempty"`
+	Notes                      string                 `protobuf:"bytes,33,opt,name=notes,proto3" json:"notes,omitempty"`
 	unknownFields              protoimpl.UnknownFields
 	sizeCache                  protoimpl.SizeCache
 }
 
 func (x *Game) Reset() {
 	*x = Game{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[79]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[80]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8062,7 +8105,7 @@ func (x *Game) String() string {
 func (*Game) ProtoMessage() {}
 
 func (x *Game) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[79]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[80]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8075,7 +8118,7 @@ func (x *Game) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Game.ProtoReflect.Descriptor instead.
 func (*Game) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{79}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{80}
 }
 
 func (x *Game) GetId() int32 {
@@ -8141,32 +8184,32 @@ func (x *Game) GetConferenceGame() bool {
 	return false
 }
 
-func (x *Game) GetAttendance() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Attendance
+func (x *Game) GetAttendance() int32 {
+	if x != nil && x.Attendance != nil {
+		return *x.Attendance
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetVenueId() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.VenueId
+func (x *Game) GetVenueId() int32 {
+	if x != nil && x.VenueId != nil {
+		return *x.VenueId
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetVenue() *wrapperspb.StringValue {
+func (x *Game) GetVenue() string {
 	if x != nil {
 		return x.Venue
 	}
-	return nil
+	return ""
 }
 
-func (x *Game) GetHomeId() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.HomeId
+func (x *Game) GetHomeId() int32 {
+	if x != nil && x.HomeId != nil {
+		return *x.HomeId
 	}
-	return nil
+	return 0
 }
 
 func (x *Game) GetHomeTeam() string {
@@ -8176,60 +8219,60 @@ func (x *Game) GetHomeTeam() string {
 	return ""
 }
 
-func (x *Game) GetHomeConference() *wrapperspb.StringValue {
+func (x *Game) GetHomeConference() string {
 	if x != nil {
 		return x.HomeConference
 	}
-	return nil
+	return ""
 }
 
-func (x *Game) GetHomeClassification() *wrapperspb.StringValue {
+func (x *Game) GetHomeClassification() string {
 	if x != nil {
 		return x.HomeClassification
 	}
-	return nil
+	return ""
 }
 
-func (x *Game) GetHomePoints() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.HomePoints
+func (x *Game) GetHomePoints() int32 {
+	if x != nil && x.HomePoints != nil {
+		return *x.HomePoints
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetHomeLineScores() *structpb.ListValue {
+func (x *Game) GetHomeLineScores() []int32 {
 	if x != nil {
 		return x.HomeLineScores
 	}
 	return nil
 }
 
-func (x *Game) GetHomePostgameWinProbability() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.HomePostgameWinProbability
+func (x *Game) GetHomePostgameWinProbability() float64 {
+	if x != nil && x.HomePostgameWinProbability != nil {
+		return *x.HomePostgameWinProbability
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetHomePregameElo() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.HomePregameElo
+func (x *Game) GetHomePregameElo() int32 {
+	if x != nil && x.HomePregameElo != nil {
+		return *x.HomePregameElo
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetHomePostgameElo() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.HomePostgameElo
+func (x *Game) GetHomePostgameElo() int32 {
+	if x != nil && x.HomePostgameElo != nil {
+		return *x.HomePostgameElo
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetAwayId() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.AwayId
+func (x *Game) GetAwayId() int32 {
+	if x != nil && x.AwayId != nil {
+		return *x.AwayId
 	}
-	return nil
+	return 0
 }
 
 func (x *Game) GetAwayTeam() string {
@@ -8239,74 +8282,74 @@ func (x *Game) GetAwayTeam() string {
 	return ""
 }
 
-func (x *Game) GetAwayConference() *wrapperspb.StringValue {
+func (x *Game) GetAwayConference() string {
 	if x != nil {
 		return x.AwayConference
 	}
-	return nil
+	return ""
 }
 
-func (x *Game) GetAwayClassification() *wrapperspb.StringValue {
+func (x *Game) GetAwayClassification() string {
 	if x != nil {
 		return x.AwayClassification
 	}
-	return nil
+	return ""
 }
 
-func (x *Game) GetAwayPoints() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.AwayPoints
+func (x *Game) GetAwayPoints() int32 {
+	if x != nil && x.AwayPoints != nil {
+		return *x.AwayPoints
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetAwayLineScores() *structpb.ListValue {
+func (x *Game) GetAwayLineScores() []int32 {
 	if x != nil {
 		return x.AwayLineScores
 	}
 	return nil
 }
 
-func (x *Game) GetAwayPostgameWinProbability() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.AwayPostgameWinProbability
+func (x *Game) GetAwayPostgameWinProbability() float64 {
+	if x != nil && x.AwayPostgameWinProbability != nil {
+		return *x.AwayPostgameWinProbability
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetAwayPregameElo() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.AwayPregameElo
+func (x *Game) GetAwayPregameElo() int32 {
+	if x != nil && x.AwayPregameElo != nil {
+		return *x.AwayPregameElo
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetAwayPostgameElo() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.AwayPostgameElo
+func (x *Game) GetAwayPostgameElo() int32 {
+	if x != nil && x.AwayPostgameElo != nil {
+		return *x.AwayPostgameElo
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetExcitementIndex() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.ExcitementIndex
+func (x *Game) GetExcitementIndex() float64 {
+	if x != nil && x.ExcitementIndex != nil {
+		return *x.ExcitementIndex
 	}
-	return nil
+	return 0
 }
 
-func (x *Game) GetHighlights() *wrapperspb.StringValue {
+func (x *Game) GetHighlights() string {
 	if x != nil {
 		return x.Highlights
 	}
-	return nil
+	return ""
 }
 
-func (x *Game) GetNotes() *wrapperspb.StringValue {
+func (x *Game) GetNotes() string {
 	if x != nil {
 		return x.Notes
 	}
-	return nil
+	return ""
 }
 
 type GameTeamStatsTeamStat struct {
@@ -8319,7 +8362,7 @@ type GameTeamStatsTeamStat struct {
 
 func (x *GameTeamStatsTeamStat) Reset() {
 	*x = GameTeamStatsTeamStat{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[80]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[81]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8331,7 +8374,7 @@ func (x *GameTeamStatsTeamStat) String() string {
 func (*GameTeamStatsTeamStat) ProtoMessage() {}
 
 func (x *GameTeamStatsTeamStat) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[80]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[81]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8344,7 +8387,7 @@ func (x *GameTeamStatsTeamStat) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameTeamStatsTeamStat.ProtoReflect.Descriptor instead.
 func (*GameTeamStatsTeamStat) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{80}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{81}
 }
 
 func (x *GameTeamStatsTeamStat) GetCategory() string {
@@ -8365,9 +8408,9 @@ type GameTeamStatsTeam struct {
 	state         protoimpl.MessageState   `protogen:"open.v1"`
 	TeamId        int32                    `protobuf:"varint,1,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
 	Team          string                   `protobuf:"bytes,2,opt,name=team,proto3" json:"team,omitempty"`
-	Conference    *wrapperspb.StringValue  `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
+	Conference    string                   `protobuf:"bytes,3,opt,name=conference,proto3" json:"conference,omitempty"`
 	HomeAway      string                   `protobuf:"bytes,4,opt,name=home_away,json=homeAway,proto3" json:"home_away,omitempty"`
-	Points        *wrapperspb.Int32Value   `protobuf:"bytes,5,opt,name=points,proto3" json:"points,omitempty"`
+	Points        *int32                   `protobuf:"varint,5,opt,name=points,proto3,oneof" json:"points,omitempty"`
 	Stats         []*GameTeamStatsTeamStat `protobuf:"bytes,6,rep,name=stats,proto3" json:"stats,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -8375,7 +8418,7 @@ type GameTeamStatsTeam struct {
 
 func (x *GameTeamStatsTeam) Reset() {
 	*x = GameTeamStatsTeam{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[81]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[82]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8387,7 +8430,7 @@ func (x *GameTeamStatsTeam) String() string {
 func (*GameTeamStatsTeam) ProtoMessage() {}
 
 func (x *GameTeamStatsTeam) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[81]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[82]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8400,7 +8443,7 @@ func (x *GameTeamStatsTeam) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameTeamStatsTeam.ProtoReflect.Descriptor instead.
 func (*GameTeamStatsTeam) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{81}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{82}
 }
 
 func (x *GameTeamStatsTeam) GetTeamId() int32 {
@@ -8417,11 +8460,11 @@ func (x *GameTeamStatsTeam) GetTeam() string {
 	return ""
 }
 
-func (x *GameTeamStatsTeam) GetConference() *wrapperspb.StringValue {
+func (x *GameTeamStatsTeam) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
 func (x *GameTeamStatsTeam) GetHomeAway() string {
@@ -8431,11 +8474,11 @@ func (x *GameTeamStatsTeam) GetHomeAway() string {
 	return ""
 }
 
-func (x *GameTeamStatsTeam) GetPoints() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Points
+func (x *GameTeamStatsTeam) GetPoints() int32 {
+	if x != nil && x.Points != nil {
+		return *x.Points
 	}
-	return nil
+	return 0
 }
 
 func (x *GameTeamStatsTeam) GetStats() []*GameTeamStatsTeamStat {
@@ -8455,7 +8498,7 @@ type GameTeamStats struct {
 
 func (x *GameTeamStats) Reset() {
 	*x = GameTeamStats{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[82]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[83]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8467,7 +8510,7 @@ func (x *GameTeamStats) String() string {
 func (*GameTeamStats) ProtoMessage() {}
 
 func (x *GameTeamStats) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[82]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[83]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8480,7 +8523,7 @@ func (x *GameTeamStats) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameTeamStats.ProtoReflect.Descriptor instead.
 func (*GameTeamStats) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{82}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{83}
 }
 
 func (x *GameTeamStats) GetId() int32 {
@@ -8508,7 +8551,7 @@ type GamePlayerStatPlayer struct {
 
 func (x *GamePlayerStatPlayer) Reset() {
 	*x = GamePlayerStatPlayer{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[83]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[84]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8520,7 +8563,7 @@ func (x *GamePlayerStatPlayer) String() string {
 func (*GamePlayerStatPlayer) ProtoMessage() {}
 
 func (x *GamePlayerStatPlayer) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[83]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[84]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8533,7 +8576,7 @@ func (x *GamePlayerStatPlayer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStatPlayer.ProtoReflect.Descriptor instead.
 func (*GamePlayerStatPlayer) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{83}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{84}
 }
 
 func (x *GamePlayerStatPlayer) GetId() string {
@@ -8567,7 +8610,7 @@ type GamePlayerStatTypes struct {
 
 func (x *GamePlayerStatTypes) Reset() {
 	*x = GamePlayerStatTypes{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[84]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[85]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8579,7 +8622,7 @@ func (x *GamePlayerStatTypes) String() string {
 func (*GamePlayerStatTypes) ProtoMessage() {}
 
 func (x *GamePlayerStatTypes) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[84]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[85]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8592,7 +8635,7 @@ func (x *GamePlayerStatTypes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStatTypes.ProtoReflect.Descriptor instead.
 func (*GamePlayerStatTypes) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{84}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{85}
 }
 
 func (x *GamePlayerStatTypes) GetName() string {
@@ -8619,7 +8662,7 @@ type GamePlayerStatCategories struct {
 
 func (x *GamePlayerStatCategories) Reset() {
 	*x = GamePlayerStatCategories{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[85]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[86]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8631,7 +8674,7 @@ func (x *GamePlayerStatCategories) String() string {
 func (*GamePlayerStatCategories) ProtoMessage() {}
 
 func (x *GamePlayerStatCategories) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[85]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[86]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8644,7 +8687,7 @@ func (x *GamePlayerStatCategories) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStatCategories.ProtoReflect.Descriptor instead.
 func (*GamePlayerStatCategories) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{85}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{86}
 }
 
 func (x *GamePlayerStatCategories) GetName() string {
@@ -8664,9 +8707,9 @@ func (x *GamePlayerStatCategories) GetTypes() []*GamePlayerStatTypes {
 type GamePlayerStatsTeam struct {
 	state         protoimpl.MessageState      `protogen:"open.v1"`
 	Team          string                      `protobuf:"bytes,1,opt,name=team,proto3" json:"team,omitempty"`
-	Conference    *wrapperspb.StringValue     `protobuf:"bytes,2,opt,name=conference,proto3" json:"conference,omitempty"`
+	Conference    string                      `protobuf:"bytes,2,opt,name=conference,proto3" json:"conference,omitempty"`
 	HomeAway      string                      `protobuf:"bytes,3,opt,name=home_away,json=homeAway,proto3" json:"home_away,omitempty"`
-	Points        *wrapperspb.Int32Value      `protobuf:"bytes,4,opt,name=points,proto3" json:"points,omitempty"`
+	Points        *int32                      `protobuf:"varint,4,opt,name=points,proto3,oneof" json:"points,omitempty"`
 	Categories    []*GamePlayerStatCategories `protobuf:"bytes,5,rep,name=categories,proto3" json:"categories,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -8674,7 +8717,7 @@ type GamePlayerStatsTeam struct {
 
 func (x *GamePlayerStatsTeam) Reset() {
 	*x = GamePlayerStatsTeam{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[86]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[87]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8686,7 +8729,7 @@ func (x *GamePlayerStatsTeam) String() string {
 func (*GamePlayerStatsTeam) ProtoMessage() {}
 
 func (x *GamePlayerStatsTeam) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[86]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[87]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8699,7 +8742,7 @@ func (x *GamePlayerStatsTeam) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStatsTeam.ProtoReflect.Descriptor instead.
 func (*GamePlayerStatsTeam) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{86}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{87}
 }
 
 func (x *GamePlayerStatsTeam) GetTeam() string {
@@ -8709,11 +8752,11 @@ func (x *GamePlayerStatsTeam) GetTeam() string {
 	return ""
 }
 
-func (x *GamePlayerStatsTeam) GetConference() *wrapperspb.StringValue {
+func (x *GamePlayerStatsTeam) GetConference() string {
 	if x != nil {
 		return x.Conference
 	}
-	return nil
+	return ""
 }
 
 func (x *GamePlayerStatsTeam) GetHomeAway() string {
@@ -8723,11 +8766,11 @@ func (x *GamePlayerStatsTeam) GetHomeAway() string {
 	return ""
 }
 
-func (x *GamePlayerStatsTeam) GetPoints() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Points
+func (x *GamePlayerStatsTeam) GetPoints() int32 {
+	if x != nil && x.Points != nil {
+		return *x.Points
 	}
-	return nil
+	return 0
 }
 
 func (x *GamePlayerStatsTeam) GetCategories() []*GamePlayerStatCategories {
@@ -8747,7 +8790,7 @@ type GamePlayerStats struct {
 
 func (x *GamePlayerStats) Reset() {
 	*x = GamePlayerStats{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[87]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[88]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8759,7 +8802,7 @@ func (x *GamePlayerStats) String() string {
 func (*GamePlayerStats) ProtoMessage() {}
 
 func (x *GamePlayerStats) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[87]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[88]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8772,7 +8815,7 @@ func (x *GamePlayerStats) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GamePlayerStats.ProtoReflect.Descriptor instead.
 func (*GamePlayerStats) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{87}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{88}
 }
 
 func (x *GamePlayerStats) GetId() int32 {
@@ -8790,26 +8833,26 @@ func (x *GamePlayerStats) GetTeams() []*GamePlayerStatsTeam {
 }
 
 type GameMedia struct {
-	state           protoimpl.MessageState  `protogen:"open.v1"`
-	Id              int32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Season          int32                   `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
-	Week            int32                   `protobuf:"varint,3,opt,name=week,proto3" json:"week,omitempty"`
-	SeasonType      string                  `protobuf:"bytes,4,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
-	StartTime       *timestamppb.Timestamp  `protobuf:"bytes,5,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
-	IsStartTime_TBD bool                    `protobuf:"varint,6,opt,name=is_start_time_TBD,json=isStartTimeTBD,proto3" json:"is_start_time_TBD,omitempty"`
-	HomeTeam        string                  `protobuf:"bytes,7,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
-	HomeConference  *wrapperspb.StringValue `protobuf:"bytes,8,opt,name=home_conference,json=homeConference,proto3" json:"home_conference,omitempty"`
-	AwayTeam        string                  `protobuf:"bytes,9,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
-	AwayConference  *wrapperspb.StringValue `protobuf:"bytes,10,opt,name=away_conference,json=awayConference,proto3" json:"away_conference,omitempty"`
-	MediaType       string                  `protobuf:"bytes,11,opt,name=media_type,json=mediaType,proto3" json:"media_type,omitempty"`
-	Outlet          string                  `protobuf:"bytes,12,opt,name=outlet,proto3" json:"outlet,omitempty"`
+	state           protoimpl.MessageState `protogen:"open.v1"`
+	Id              int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Season          int32                  `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
+	Week            int32                  `protobuf:"varint,3,opt,name=week,proto3" json:"week,omitempty"`
+	SeasonType      string                 `protobuf:"bytes,4,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
+	StartTime       *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	IsStartTime_TBD bool                   `protobuf:"varint,6,opt,name=is_start_time_TBD,json=isStartTimeTBD,proto3" json:"is_start_time_TBD,omitempty"`
+	HomeTeam        string                 `protobuf:"bytes,7,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
+	HomeConference  string                 `protobuf:"bytes,8,opt,name=home_conference,json=homeConference,proto3" json:"home_conference,omitempty"`
+	AwayTeam        string                 `protobuf:"bytes,9,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
+	AwayConference  string                 `protobuf:"bytes,10,opt,name=away_conference,json=awayConference,proto3" json:"away_conference,omitempty"`
+	MediaType       string                 `protobuf:"bytes,11,opt,name=media_type,json=mediaType,proto3" json:"media_type,omitempty"`
+	Outlet          string                 `protobuf:"bytes,12,opt,name=outlet,proto3" json:"outlet,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
 
 func (x *GameMedia) Reset() {
 	*x = GameMedia{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[88]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[89]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8821,7 +8864,7 @@ func (x *GameMedia) String() string {
 func (*GameMedia) ProtoMessage() {}
 
 func (x *GameMedia) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[88]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[89]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8834,7 +8877,7 @@ func (x *GameMedia) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameMedia.ProtoReflect.Descriptor instead.
 func (*GameMedia) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{88}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{89}
 }
 
 func (x *GameMedia) GetId() int32 {
@@ -8886,11 +8929,11 @@ func (x *GameMedia) GetHomeTeam() string {
 	return ""
 }
 
-func (x *GameMedia) GetHomeConference() *wrapperspb.StringValue {
+func (x *GameMedia) GetHomeConference() string {
 	if x != nil {
 		return x.HomeConference
 	}
-	return nil
+	return ""
 }
 
 func (x *GameMedia) GetAwayTeam() string {
@@ -8900,11 +8943,11 @@ func (x *GameMedia) GetAwayTeam() string {
 	return ""
 }
 
-func (x *GameMedia) GetAwayConference() *wrapperspb.StringValue {
+func (x *GameMedia) GetAwayConference() string {
 	if x != nil {
 		return x.AwayConference
 	}
-	return nil
+	return ""
 }
 
 func (x *GameMedia) GetMediaType() string {
@@ -8922,36 +8965,36 @@ func (x *GameMedia) GetOutlet() string {
 }
 
 type GameWeather struct {
-	state                protoimpl.MessageState  `protogen:"open.v1"`
-	Id                   int32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Season               int32                   `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
-	Week                 int32                   `protobuf:"varint,3,opt,name=week,proto3" json:"week,omitempty"`
-	SeasonType           string                  `protobuf:"bytes,4,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
-	StartTime            *timestamppb.Timestamp  `protobuf:"bytes,5,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
-	GameIndoors          bool                    `protobuf:"varint,6,opt,name=game_indoors,json=gameIndoors,proto3" json:"game_indoors,omitempty"`
-	HomeTeam             string                  `protobuf:"bytes,7,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
-	HomeConference       *wrapperspb.StringValue `protobuf:"bytes,8,opt,name=home_conference,json=homeConference,proto3" json:"home_conference,omitempty"`
-	AwayTeam             string                  `protobuf:"bytes,9,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
-	AwayConference       *wrapperspb.StringValue `protobuf:"bytes,10,opt,name=away_conference,json=awayConference,proto3" json:"away_conference,omitempty"`
-	VenueId              *wrapperspb.Int32Value  `protobuf:"bytes,11,opt,name=venue_id,json=venueId,proto3" json:"venue_id,omitempty"`
-	Venue                *wrapperspb.StringValue `protobuf:"bytes,12,opt,name=venue,proto3" json:"venue,omitempty"`
-	Temperature          *wrapperspb.DoubleValue `protobuf:"bytes,13,opt,name=temperature,proto3" json:"temperature,omitempty"`
-	DewPoint             *wrapperspb.DoubleValue `protobuf:"bytes,14,opt,name=dew_point,json=dewPoint,proto3" json:"dew_point,omitempty"`
-	Humidity             *wrapperspb.DoubleValue `protobuf:"bytes,15,opt,name=humidity,proto3" json:"humidity,omitempty"`
-	Precipitation        *wrapperspb.DoubleValue `protobuf:"bytes,16,opt,name=precipitation,proto3" json:"precipitation,omitempty"`
-	Snowfall             *wrapperspb.DoubleValue `protobuf:"bytes,17,opt,name=snowfall,proto3" json:"snowfall,omitempty"`
-	WindDirection        *wrapperspb.DoubleValue `protobuf:"bytes,18,opt,name=wind_direction,json=windDirection,proto3" json:"wind_direction,omitempty"`
-	WindSpeed            *wrapperspb.DoubleValue `protobuf:"bytes,19,opt,name=wind_speed,json=windSpeed,proto3" json:"wind_speed,omitempty"`
-	Pressure             *wrapperspb.DoubleValue `protobuf:"bytes,20,opt,name=pressure,proto3" json:"pressure,omitempty"`
-	WeatherConditionCode *wrapperspb.DoubleValue `protobuf:"bytes,21,opt,name=weather_condition_code,json=weatherConditionCode,proto3" json:"weather_condition_code,omitempty"`
-	WeatherCondition     *wrapperspb.StringValue `protobuf:"bytes,22,opt,name=weather_condition,json=weatherCondition,proto3" json:"weather_condition,omitempty"`
+	state                protoimpl.MessageState `protogen:"open.v1"`
+	Id                   int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Season               int32                  `protobuf:"varint,2,opt,name=season,proto3" json:"season,omitempty"`
+	Week                 int32                  `protobuf:"varint,3,opt,name=week,proto3" json:"week,omitempty"`
+	SeasonType           string                 `protobuf:"bytes,4,opt,name=season_type,json=seasonType,proto3" json:"season_type,omitempty"`
+	StartTime            *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	GameIndoors          bool                   `protobuf:"varint,6,opt,name=game_indoors,json=gameIndoors,proto3" json:"game_indoors,omitempty"`
+	HomeTeam             string                 `protobuf:"bytes,7,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
+	HomeConference       string                 `protobuf:"bytes,8,opt,name=home_conference,json=homeConference,proto3" json:"home_conference,omitempty"`
+	AwayTeam             string                 `protobuf:"bytes,9,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
+	AwayConference       string                 `protobuf:"bytes,10,opt,name=away_conference,json=awayConference,proto3" json:"away_conference,omitempty"`
+	VenueId              *int32                 `protobuf:"varint,11,opt,name=venue_id,json=venueId,proto3,oneof" json:"venue_id,omitempty"`
+	Venue                string                 `protobuf:"bytes,12,opt,name=venue,proto3" json:"venue,omitempty"`
+	Temperature          *float64               `protobuf:"fixed64,13,opt,name=temperature,proto3,oneof" json:"temperature,omitempty"`
+	DewPoint             *float64               `protobuf:"fixed64,14,opt,name=dew_point,json=dewPoint,proto3,oneof" json:"dew_point,omitempty"`
+	Humidity             *float64               `protobuf:"fixed64,15,opt,name=humidity,proto3,oneof" json:"humidity,omitempty"`
+	Precipitation        *float64               `protobuf:"fixed64,16,opt,name=precipitation,proto3,oneof" json:"precipitation,omitempty"`
+	Snowfall             *float64               `protobuf:"fixed64,17,opt,name=snowfall,proto3,oneof" json:"snowfall,omitempty"`
+	WindDirection        *float64               `protobuf:"fixed64,18,opt,name=wind_direction,json=windDirection,proto3,oneof" json:"wind_direction,omitempty"`
+	WindSpeed            *float64               `protobuf:"fixed64,19,opt,name=wind_speed,json=windSpeed,proto3,oneof" json:"wind_speed,omitempty"`
+	Pressure             *float64               `protobuf:"fixed64,20,opt,name=pressure,proto3,oneof" json:"pressure,omitempty"`
+	WeatherConditionCode *float64               `protobuf:"fixed64,21,opt,name=weather_condition_code,json=weatherConditionCode,proto3,oneof" json:"weather_condition_code,omitempty"`
+	WeatherCondition     string                 `protobuf:"bytes,22,opt,name=weather_condition,json=weatherCondition,proto3" json:"weather_condition,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
 }
 
 func (x *GameWeather) Reset() {
 	*x = GameWeather{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[89]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[90]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -8963,7 +9006,7 @@ func (x *GameWeather) String() string {
 func (*GameWeather) ProtoMessage() {}
 
 func (x *GameWeather) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[89]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[90]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -8976,7 +9019,7 @@ func (x *GameWeather) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GameWeather.ProtoReflect.Descriptor instead.
 func (*GameWeather) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{89}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{90}
 }
 
 func (x *GameWeather) GetId() int32 {
@@ -9028,11 +9071,11 @@ func (x *GameWeather) GetHomeTeam() string {
 	return ""
 }
 
-func (x *GameWeather) GetHomeConference() *wrapperspb.StringValue {
+func (x *GameWeather) GetHomeConference() string {
 	if x != nil {
 		return x.HomeConference
 	}
-	return nil
+	return ""
 }
 
 func (x *GameWeather) GetAwayTeam() string {
@@ -9042,95 +9085,95 @@ func (x *GameWeather) GetAwayTeam() string {
 	return ""
 }
 
-func (x *GameWeather) GetAwayConference() *wrapperspb.StringValue {
+func (x *GameWeather) GetAwayConference() string {
 	if x != nil {
 		return x.AwayConference
 	}
-	return nil
+	return ""
 }
 
-func (x *GameWeather) GetVenueId() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.VenueId
+func (x *GameWeather) GetVenueId() int32 {
+	if x != nil && x.VenueId != nil {
+		return *x.VenueId
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetVenue() *wrapperspb.StringValue {
+func (x *GameWeather) GetVenue() string {
 	if x != nil {
 		return x.Venue
 	}
-	return nil
+	return ""
 }
 
-func (x *GameWeather) GetTemperature() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Temperature
+func (x *GameWeather) GetTemperature() float64 {
+	if x != nil && x.Temperature != nil {
+		return *x.Temperature
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetDewPoint() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.DewPoint
+func (x *GameWeather) GetDewPoint() float64 {
+	if x != nil && x.DewPoint != nil {
+		return *x.DewPoint
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetHumidity() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Humidity
+func (x *GameWeather) GetHumidity() float64 {
+	if x != nil && x.Humidity != nil {
+		return *x.Humidity
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetPrecipitation() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Precipitation
+func (x *GameWeather) GetPrecipitation() float64 {
+	if x != nil && x.Precipitation != nil {
+		return *x.Precipitation
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetSnowfall() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Snowfall
+func (x *GameWeather) GetSnowfall() float64 {
+	if x != nil && x.Snowfall != nil {
+		return *x.Snowfall
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetWindDirection() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.WindDirection
+func (x *GameWeather) GetWindDirection() float64 {
+	if x != nil && x.WindDirection != nil {
+		return *x.WindDirection
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetWindSpeed() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.WindSpeed
+func (x *GameWeather) GetWindSpeed() float64 {
+	if x != nil && x.WindSpeed != nil {
+		return *x.WindSpeed
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetPressure() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Pressure
+func (x *GameWeather) GetPressure() float64 {
+	if x != nil && x.Pressure != nil {
+		return *x.Pressure
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetWeatherConditionCode() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.WeatherConditionCode
+func (x *GameWeather) GetWeatherConditionCode() float64 {
+	if x != nil && x.WeatherConditionCode != nil {
+		return *x.WeatherConditionCode
 	}
-	return nil
+	return 0
 }
 
-func (x *GameWeather) GetWeatherCondition() *wrapperspb.StringValue {
+func (x *GameWeather) GetWeatherCondition() string {
 	if x != nil {
 		return x.WeatherCondition
 	}
-	return nil
+	return ""
 }
 
 type TeamRecord struct {
@@ -9145,7 +9188,7 @@ type TeamRecord struct {
 
 func (x *TeamRecord) Reset() {
 	*x = TeamRecord{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[90]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[91]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9157,7 +9200,7 @@ func (x *TeamRecord) String() string {
 func (*TeamRecord) ProtoMessage() {}
 
 func (x *TeamRecord) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[90]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[91]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9170,7 +9213,7 @@ func (x *TeamRecord) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamRecord.ProtoReflect.Descriptor instead.
 func (*TeamRecord) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{90}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{91}
 }
 
 func (x *TeamRecord) GetGames() int32 {
@@ -9202,28 +9245,28 @@ func (x *TeamRecord) GetTies() int32 {
 }
 
 type TeamRecords struct {
-	state            protoimpl.MessageState  `protogen:"open.v1"`
-	Year             int32                   `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
-	TeamId           *wrapperspb.Int32Value  `protobuf:"bytes,2,opt,name=team_id,json=teamId,proto3" json:"team_id,omitempty"`
-	Team             string                  `protobuf:"bytes,3,opt,name=team,proto3" json:"team,omitempty"`
-	Classification   *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=classification,proto3" json:"classification,omitempty"`
-	Conference       string                  `protobuf:"bytes,5,opt,name=conference,proto3" json:"conference,omitempty"`
-	Division         string                  `protobuf:"bytes,6,opt,name=division,proto3" json:"division,omitempty"`
-	ExpectedWins     *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=expected_wins,json=expectedWins,proto3" json:"expected_wins,omitempty"`
-	Total            *TeamRecord             `protobuf:"bytes,8,opt,name=total,proto3" json:"total,omitempty"`
-	ConferenceGames  *TeamRecord             `protobuf:"bytes,9,opt,name=conference_games,json=conferenceGames,proto3" json:"conference_games,omitempty"`
-	HomeGames        *TeamRecord             `protobuf:"bytes,10,opt,name=home_games,json=homeGames,proto3" json:"home_games,omitempty"`
-	AwayGames        *TeamRecord             `protobuf:"bytes,11,opt,name=away_games,json=awayGames,proto3" json:"away_games,omitempty"`
-	NeutralSiteGames *TeamRecord             `protobuf:"bytes,12,opt,name=neutral_site_games,json=neutralSiteGames,proto3" json:"neutral_site_games,omitempty"`
-	RegularSeason    *TeamRecord             `protobuf:"bytes,13,opt,name=regular_season,json=regularSeason,proto3" json:"regular_season,omitempty"`
-	Postseason       *TeamRecord             `protobuf:"bytes,14,opt,name=postseason,proto3" json:"postseason,omitempty"`
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Year             int32                  `protobuf:"varint,1,opt,name=year,proto3" json:"year,omitempty"`
+	TeamId           *int32                 `protobuf:"varint,2,opt,name=team_id,json=teamId,proto3,oneof" json:"team_id,omitempty"`
+	Team             string                 `protobuf:"bytes,3,opt,name=team,proto3" json:"team,omitempty"`
+	Classification   string                 `protobuf:"bytes,4,opt,name=classification,proto3" json:"classification,omitempty"`
+	Conference       string                 `protobuf:"bytes,5,opt,name=conference,proto3" json:"conference,omitempty"`
+	Division         string                 `protobuf:"bytes,6,opt,name=division,proto3" json:"division,omitempty"`
+	ExpectedWins     *float64               `protobuf:"fixed64,7,opt,name=expected_wins,json=expectedWins,proto3,oneof" json:"expected_wins,omitempty"`
+	Total            *TeamRecord            `protobuf:"bytes,8,opt,name=total,proto3" json:"total,omitempty"`
+	ConferenceGames  *TeamRecord            `protobuf:"bytes,9,opt,name=conference_games,json=conferenceGames,proto3" json:"conference_games,omitempty"`
+	HomeGames        *TeamRecord            `protobuf:"bytes,10,opt,name=home_games,json=homeGames,proto3" json:"home_games,omitempty"`
+	AwayGames        *TeamRecord            `protobuf:"bytes,11,opt,name=away_games,json=awayGames,proto3" json:"away_games,omitempty"`
+	NeutralSiteGames *TeamRecord            `protobuf:"bytes,12,opt,name=neutral_site_games,json=neutralSiteGames,proto3" json:"neutral_site_games,omitempty"`
+	RegularSeason    *TeamRecord            `protobuf:"bytes,13,opt,name=regular_season,json=regularSeason,proto3" json:"regular_season,omitempty"`
+	Postseason       *TeamRecord            `protobuf:"bytes,14,opt,name=postseason,proto3" json:"postseason,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
 
 func (x *TeamRecords) Reset() {
 	*x = TeamRecords{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[91]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[92]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9235,7 +9278,7 @@ func (x *TeamRecords) String() string {
 func (*TeamRecords) ProtoMessage() {}
 
 func (x *TeamRecords) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[91]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[92]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9248,7 +9291,7 @@ func (x *TeamRecords) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamRecords.ProtoReflect.Descriptor instead.
 func (*TeamRecords) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{91}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{92}
 }
 
 func (x *TeamRecords) GetYear() int32 {
@@ -9258,11 +9301,11 @@ func (x *TeamRecords) GetYear() int32 {
 	return 0
 }
 
-func (x *TeamRecords) GetTeamId() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.TeamId
+func (x *TeamRecords) GetTeamId() int32 {
+	if x != nil && x.TeamId != nil {
+		return *x.TeamId
 	}
-	return nil
+	return 0
 }
 
 func (x *TeamRecords) GetTeam() string {
@@ -9272,11 +9315,11 @@ func (x *TeamRecords) GetTeam() string {
 	return ""
 }
 
-func (x *TeamRecords) GetClassification() *wrapperspb.StringValue {
+func (x *TeamRecords) GetClassification() string {
 	if x != nil {
 		return x.Classification
 	}
-	return nil
+	return ""
 }
 
 func (x *TeamRecords) GetConference() string {
@@ -9293,11 +9336,11 @@ func (x *TeamRecords) GetDivision() string {
 	return ""
 }
 
-func (x *TeamRecords) GetExpectedWins() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.ExpectedWins
+func (x *TeamRecords) GetExpectedWins() float64 {
+	if x != nil && x.ExpectedWins != nil {
+		return *x.ExpectedWins
 	}
-	return nil
+	return 0
 }
 
 func (x *TeamRecords) GetTotal() *TeamRecord {
@@ -9366,7 +9409,7 @@ type CalendarWeek struct {
 
 func (x *CalendarWeek) Reset() {
 	*x = CalendarWeek{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[92]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[93]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9378,7 +9421,7 @@ func (x *CalendarWeek) String() string {
 func (*CalendarWeek) ProtoMessage() {}
 
 func (x *CalendarWeek) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[92]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[93]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9391,7 +9434,7 @@ func (x *CalendarWeek) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CalendarWeek.ProtoReflect.Descriptor instead.
 func (*CalendarWeek) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{92}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{93}
 }
 
 func (x *CalendarWeek) GetSeason() int32 {
@@ -9446,31 +9489,31 @@ func (x *CalendarWeek) GetLastGameStart() *timestamppb.Timestamp {
 }
 
 type Scoreboard struct {
-	state          protoimpl.MessageState  `protogen:"open.v1"`
-	Id             int32                   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	StartDate      *timestamppb.Timestamp  `protobuf:"bytes,2,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
-	StartTime_TBD  bool                    `protobuf:"varint,3,opt,name=start_time_TBD,json=startTimeTBD,proto3" json:"start_time_TBD,omitempty"`
-	Tv             *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=tv,proto3" json:"tv,omitempty"`
-	NeutralSite    bool                    `protobuf:"varint,5,opt,name=neutral_site,json=neutralSite,proto3" json:"neutral_site,omitempty"`
-	ConferenceGame bool                    `protobuf:"varint,6,opt,name=conference_game,json=conferenceGame,proto3" json:"conference_game,omitempty"`
-	Status         string                  `protobuf:"bytes,7,opt,name=status,proto3" json:"status,omitempty"`
-	Period         *wrapperspb.Int32Value  `protobuf:"bytes,8,opt,name=period,proto3" json:"period,omitempty"`
-	Clock          *wrapperspb.StringValue `protobuf:"bytes,9,opt,name=clock,proto3" json:"clock,omitempty"`
-	Situation      *wrapperspb.StringValue `protobuf:"bytes,10,opt,name=situation,proto3" json:"situation,omitempty"`
-	Possession     *wrapperspb.StringValue `protobuf:"bytes,11,opt,name=possession,proto3" json:"possession,omitempty"`
-	LastPlay       *wrapperspb.StringValue `protobuf:"bytes,12,opt,name=last_play,json=lastPlay,proto3" json:"last_play,omitempty"`
-	Venue          *structpb.Struct        `protobuf:"bytes,13,opt,name=venue,proto3" json:"venue,omitempty"`
-	HomeTeam       *structpb.Struct        `protobuf:"bytes,14,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
-	AwayTeam       *structpb.Struct        `protobuf:"bytes,15,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
-	Weather        *structpb.Struct        `protobuf:"bytes,16,opt,name=weather,proto3" json:"weather,omitempty"`
-	Betting        *structpb.Struct        `protobuf:"bytes,17,opt,name=betting,proto3" json:"betting,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Id             int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	StartDate      *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
+	StartTime_TBD  bool                   `protobuf:"varint,3,opt,name=start_time_TBD,json=startTimeTBD,proto3" json:"start_time_TBD,omitempty"`
+	Tv             string                 `protobuf:"bytes,4,opt,name=tv,proto3" json:"tv,omitempty"`
+	NeutralSite    bool                   `protobuf:"varint,5,opt,name=neutral_site,json=neutralSite,proto3" json:"neutral_site,omitempty"`
+	ConferenceGame bool                   `protobuf:"varint,6,opt,name=conference_game,json=conferenceGame,proto3" json:"conference_game,omitempty"`
+	Status         string                 `protobuf:"bytes,7,opt,name=status,proto3" json:"status,omitempty"`
+	Period         *int32                 `protobuf:"varint,8,opt,name=period,proto3,oneof" json:"period,omitempty"`
+	Clock          string                 `protobuf:"bytes,9,opt,name=clock,proto3" json:"clock,omitempty"`
+	Situation      string                 `protobuf:"bytes,10,opt,name=situation,proto3" json:"situation,omitempty"`
+	Possession     string                 `protobuf:"bytes,11,opt,name=possession,proto3" json:"possession,omitempty"`
+	LastPlay       string                 `protobuf:"bytes,12,opt,name=last_play,json=lastPlay,proto3" json:"last_play,omitempty"`
+	Venue          *structpb.Struct       `protobuf:"bytes,13,opt,name=venue,proto3" json:"venue,omitempty"`
+	HomeTeam       *structpb.Struct       `protobuf:"bytes,14,opt,name=home_team,json=homeTeam,proto3" json:"home_team,omitempty"`
+	AwayTeam       *structpb.Struct       `protobuf:"bytes,15,opt,name=away_team,json=awayTeam,proto3" json:"away_team,omitempty"`
+	Weather        *structpb.Struct       `protobuf:"bytes,16,opt,name=weather,proto3" json:"weather,omitempty"`
+	Betting        *structpb.Struct       `protobuf:"bytes,17,opt,name=betting,proto3" json:"betting,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
 
 func (x *Scoreboard) Reset() {
 	*x = Scoreboard{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[93]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[94]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9482,7 +9525,7 @@ func (x *Scoreboard) String() string {
 func (*Scoreboard) ProtoMessage() {}
 
 func (x *Scoreboard) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[93]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[94]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9495,7 +9538,7 @@ func (x *Scoreboard) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Scoreboard.ProtoReflect.Descriptor instead.
 func (*Scoreboard) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{93}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{94}
 }
 
 func (x *Scoreboard) GetId() int32 {
@@ -9519,11 +9562,11 @@ func (x *Scoreboard) GetStartTime_TBD() bool {
 	return false
 }
 
-func (x *Scoreboard) GetTv() *wrapperspb.StringValue {
+func (x *Scoreboard) GetTv() string {
 	if x != nil {
 		return x.Tv
 	}
-	return nil
+	return ""
 }
 
 func (x *Scoreboard) GetNeutralSite() bool {
@@ -9547,39 +9590,39 @@ func (x *Scoreboard) GetStatus() string {
 	return ""
 }
 
-func (x *Scoreboard) GetPeriod() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Period
+func (x *Scoreboard) GetPeriod() int32 {
+	if x != nil && x.Period != nil {
+		return *x.Period
 	}
-	return nil
+	return 0
 }
 
-func (x *Scoreboard) GetClock() *wrapperspb.StringValue {
+func (x *Scoreboard) GetClock() string {
 	if x != nil {
 		return x.Clock
 	}
-	return nil
+	return ""
 }
 
-func (x *Scoreboard) GetSituation() *wrapperspb.StringValue {
+func (x *Scoreboard) GetSituation() string {
 	if x != nil {
 		return x.Situation
 	}
-	return nil
+	return ""
 }
 
-func (x *Scoreboard) GetPossession() *wrapperspb.StringValue {
+func (x *Scoreboard) GetPossession() string {
 	if x != nil {
 		return x.Possession
 	}
-	return nil
+	return ""
 }
 
-func (x *Scoreboard) GetLastPlay() *wrapperspb.StringValue {
+func (x *Scoreboard) GetLastPlay() string {
 	if x != nil {
 		return x.LastPlay
 	}
-	return nil
+	return ""
 }
 
 func (x *Scoreboard) GetVenue() *structpb.Struct {
@@ -9618,39 +9661,39 @@ func (x *Scoreboard) GetBetting() *structpb.Struct {
 }
 
 type Drive struct {
-	state             protoimpl.MessageState  `protogen:"open.v1"`
-	Offense           string                  `protobuf:"bytes,1,opt,name=offense,proto3" json:"offense,omitempty"`
-	OffenseConference *wrapperspb.StringValue `protobuf:"bytes,2,opt,name=offense_conference,json=offenseConference,proto3" json:"offense_conference,omitempty"`
-	Defense           string                  `protobuf:"bytes,3,opt,name=defense,proto3" json:"defense,omitempty"`
-	DefenseConference *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=defense_conference,json=defenseConference,proto3" json:"defense_conference,omitempty"`
-	GameId            int32                   `protobuf:"varint,5,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
-	Id                string                  `protobuf:"bytes,6,opt,name=id,proto3" json:"id,omitempty"`
-	DriveNumber       *wrapperspb.Int32Value  `protobuf:"bytes,7,opt,name=drive_number,json=driveNumber,proto3" json:"drive_number,omitempty"`
-	Scoring           bool                    `protobuf:"varint,8,opt,name=scoring,proto3" json:"scoring,omitempty"`
-	StartPeriod       int32                   `protobuf:"varint,9,opt,name=start_period,json=startPeriod,proto3" json:"start_period,omitempty"`
-	StartYardline     int32                   `protobuf:"varint,10,opt,name=start_yardline,json=startYardline,proto3" json:"start_yardline,omitempty"`
-	StartYardsToGoal  int32                   `protobuf:"varint,11,opt,name=start_yards_to_goal,json=startYardsToGoal,proto3" json:"start_yards_to_goal,omitempty"`
-	StartTime         *ClockInt32             `protobuf:"bytes,12,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
-	EndPeriod         int32                   `protobuf:"varint,13,opt,name=end_period,json=endPeriod,proto3" json:"end_period,omitempty"`
-	EndYardline       int32                   `protobuf:"varint,14,opt,name=end_yardline,json=endYardline,proto3" json:"end_yardline,omitempty"`
-	EndYardsToGoal    int32                   `protobuf:"varint,15,opt,name=end_yards_to_goal,json=endYardsToGoal,proto3" json:"end_yards_to_goal,omitempty"`
-	EndTime           *ClockInt32             `protobuf:"bytes,16,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
-	Elapsed           *ClockInt32             `protobuf:"bytes,17,opt,name=elapsed,proto3" json:"elapsed,omitempty"`
-	Plays             int32                   `protobuf:"varint,18,opt,name=plays,proto3" json:"plays,omitempty"`
-	Yards             int32                   `protobuf:"varint,19,opt,name=yards,proto3" json:"yards,omitempty"`
-	DriveResult       string                  `protobuf:"bytes,20,opt,name=drive_result,json=driveResult,proto3" json:"drive_result,omitempty"`
-	IsHomeOffense     bool                    `protobuf:"varint,21,opt,name=is_home_offense,json=isHomeOffense,proto3" json:"is_home_offense,omitempty"`
-	StartOffenseScore int32                   `protobuf:"varint,22,opt,name=start_offense_score,json=startOffenseScore,proto3" json:"start_offense_score,omitempty"`
-	StartDefenseScore int32                   `protobuf:"varint,23,opt,name=start_defense_score,json=startDefenseScore,proto3" json:"start_defense_score,omitempty"`
-	EndOffenseScore   int32                   `protobuf:"varint,24,opt,name=end_offense_score,json=endOffenseScore,proto3" json:"end_offense_score,omitempty"`
-	EndDefenseScore   int32                   `protobuf:"varint,25,opt,name=end_defense_score,json=endDefenseScore,proto3" json:"end_defense_score,omitempty"`
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Offense           string                 `protobuf:"bytes,1,opt,name=offense,proto3" json:"offense,omitempty"`
+	OffenseConference string                 `protobuf:"bytes,2,opt,name=offense_conference,json=offenseConference,proto3" json:"offense_conference,omitempty"`
+	Defense           string                 `protobuf:"bytes,3,opt,name=defense,proto3" json:"defense,omitempty"`
+	DefenseConference string                 `protobuf:"bytes,4,opt,name=defense_conference,json=defenseConference,proto3" json:"defense_conference,omitempty"`
+	GameId            int32                  `protobuf:"varint,5,opt,name=game_id,json=gameId,proto3" json:"game_id,omitempty"`
+	Id                string                 `protobuf:"bytes,6,opt,name=id,proto3" json:"id,omitempty"`
+	DriveNumber       *int32                 `protobuf:"varint,7,opt,name=drive_number,json=driveNumber,proto3,oneof" json:"drive_number,omitempty"`
+	Scoring           bool                   `protobuf:"varint,8,opt,name=scoring,proto3" json:"scoring,omitempty"`
+	StartPeriod       int32                  `protobuf:"varint,9,opt,name=start_period,json=startPeriod,proto3" json:"start_period,omitempty"`
+	StartYardline     int32                  `protobuf:"varint,10,opt,name=start_yardline,json=startYardline,proto3" json:"start_yardline,omitempty"`
+	StartYardsToGoal  int32                  `protobuf:"varint,11,opt,name=start_yards_to_goal,json=startYardsToGoal,proto3" json:"start_yards_to_goal,omitempty"`
+	StartTime         *ClockInt32            `protobuf:"bytes,12,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	EndPeriod         int32                  `protobuf:"varint,13,opt,name=end_period,json=endPeriod,proto3" json:"end_period,omitempty"`
+	EndYardline       int32                  `protobuf:"varint,14,opt,name=end_yardline,json=endYardline,proto3" json:"end_yardline,omitempty"`
+	EndYardsToGoal    int32                  `protobuf:"varint,15,opt,name=end_yards_to_goal,json=endYardsToGoal,proto3" json:"end_yards_to_goal,omitempty"`
+	EndTime           *ClockInt32            `protobuf:"bytes,16,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
+	Elapsed           *ClockInt32            `protobuf:"bytes,17,opt,name=elapsed,proto3" json:"elapsed,omitempty"`
+	Plays             int32                  `protobuf:"varint,18,opt,name=plays,proto3" json:"plays,omitempty"`
+	Yards             int32                  `protobuf:"varint,19,opt,name=yards,proto3" json:"yards,omitempty"`
+	DriveResult       string                 `protobuf:"bytes,20,opt,name=drive_result,json=driveResult,proto3" json:"drive_result,omitempty"`
+	IsHomeOffense     bool                   `protobuf:"varint,21,opt,name=is_home_offense,json=isHomeOffense,proto3" json:"is_home_offense,omitempty"`
+	StartOffenseScore int32                  `protobuf:"varint,22,opt,name=start_offense_score,json=startOffenseScore,proto3" json:"start_offense_score,omitempty"`
+	StartDefenseScore int32                  `protobuf:"varint,23,opt,name=start_defense_score,json=startDefenseScore,proto3" json:"start_defense_score,omitempty"`
+	EndOffenseScore   int32                  `protobuf:"varint,24,opt,name=end_offense_score,json=endOffenseScore,proto3" json:"end_offense_score,omitempty"`
+	EndDefenseScore   int32                  `protobuf:"varint,25,opt,name=end_defense_score,json=endDefenseScore,proto3" json:"end_defense_score,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
 
 func (x *Drive) Reset() {
 	*x = Drive{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[94]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[95]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9662,7 +9705,7 @@ func (x *Drive) String() string {
 func (*Drive) ProtoMessage() {}
 
 func (x *Drive) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[94]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[95]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9675,7 +9718,7 @@ func (x *Drive) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Drive.ProtoReflect.Descriptor instead.
 func (*Drive) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{94}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{95}
 }
 
 func (x *Drive) GetOffense() string {
@@ -9685,11 +9728,11 @@ func (x *Drive) GetOffense() string {
 	return ""
 }
 
-func (x *Drive) GetOffenseConference() *wrapperspb.StringValue {
+func (x *Drive) GetOffenseConference() string {
 	if x != nil {
 		return x.OffenseConference
 	}
-	return nil
+	return ""
 }
 
 func (x *Drive) GetDefense() string {
@@ -9699,11 +9742,11 @@ func (x *Drive) GetDefense() string {
 	return ""
 }
 
-func (x *Drive) GetDefenseConference() *wrapperspb.StringValue {
+func (x *Drive) GetDefenseConference() string {
 	if x != nil {
 		return x.DefenseConference
 	}
-	return nil
+	return ""
 }
 
 func (x *Drive) GetGameId() int32 {
@@ -9720,11 +9763,11 @@ func (x *Drive) GetId() string {
 	return ""
 }
 
-func (x *Drive) GetDriveNumber() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.DriveNumber
+func (x *Drive) GetDriveNumber() int32 {
+	if x != nil && x.DriveNumber != nil {
+		return *x.DriveNumber
 	}
-	return nil
+	return 0
 }
 
 func (x *Drive) GetScoring() bool {
@@ -9854,18 +9897,18 @@ func (x *Drive) GetEndDefenseScore() int32 {
 }
 
 type DraftTeam struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Location      string                  `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
-	Nickname      *wrapperspb.StringValue `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	DisplayName   *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
-	Logo          *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Location      string                 `protobuf:"bytes,1,opt,name=location,proto3" json:"location,omitempty"`
+	Nickname      string                 `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	DisplayName   string                 `protobuf:"bytes,3,opt,name=display_name,json=displayName,proto3" json:"display_name,omitempty"`
+	Logo          string                 `protobuf:"bytes,4,opt,name=logo,proto3" json:"logo,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DraftTeam) Reset() {
 	*x = DraftTeam{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[95]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[96]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9877,7 +9920,7 @@ func (x *DraftTeam) String() string {
 func (*DraftTeam) ProtoMessage() {}
 
 func (x *DraftTeam) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[95]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[96]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9890,7 +9933,7 @@ func (x *DraftTeam) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DraftTeam.ProtoReflect.Descriptor instead.
 func (*DraftTeam) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{95}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{96}
 }
 
 func (x *DraftTeam) GetLocation() string {
@@ -9900,25 +9943,25 @@ func (x *DraftTeam) GetLocation() string {
 	return ""
 }
 
-func (x *DraftTeam) GetNickname() *wrapperspb.StringValue {
+func (x *DraftTeam) GetNickname() string {
 	if x != nil {
 		return x.Nickname
 	}
-	return nil
+	return ""
 }
 
-func (x *DraftTeam) GetDisplayName() *wrapperspb.StringValue {
+func (x *DraftTeam) GetDisplayName() string {
 	if x != nil {
 		return x.DisplayName
 	}
-	return nil
+	return ""
 }
 
-func (x *DraftTeam) GetLogo() *wrapperspb.StringValue {
+func (x *DraftTeam) GetLogo() string {
 	if x != nil {
 		return x.Logo
 	}
-	return nil
+	return ""
 }
 
 type DraftPosition struct {
@@ -9931,7 +9974,7 @@ type DraftPosition struct {
 
 func (x *DraftPosition) Reset() {
 	*x = DraftPosition{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[96]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[97]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9943,7 +9986,7 @@ func (x *DraftPosition) String() string {
 func (*DraftPosition) ProtoMessage() {}
 
 func (x *DraftPosition) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[96]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[97]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -9956,7 +9999,7 @@ func (x *DraftPosition) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DraftPosition.ProtoReflect.Descriptor instead.
 func (*DraftPosition) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{96}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{97}
 }
 
 func (x *DraftPosition) GetName() string {
@@ -9974,20 +10017,20 @@ func (x *DraftPosition) GetAbbreviation() string {
 }
 
 type DraftPickHometownInfo struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	CountyFips    *wrapperspb.StringValue `protobuf:"bytes,1,opt,name=county_fips,json=countyFips,proto3" json:"county_fips,omitempty"`
-	Longitude     *wrapperspb.StringValue `protobuf:"bytes,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
-	Latitude      *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=latitude,proto3" json:"latitude,omitempty"`
-	Country       *wrapperspb.StringValue `protobuf:"bytes,4,opt,name=country,proto3" json:"country,omitempty"`
-	State         *wrapperspb.StringValue `protobuf:"bytes,5,opt,name=state,proto3" json:"state,omitempty"`
-	City          *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=city,proto3" json:"city,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CountyFips    string                 `protobuf:"bytes,1,opt,name=county_fips,json=countyFips,proto3" json:"county_fips,omitempty"`
+	Longitude     string                 `protobuf:"bytes,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	Latitude      string                 `protobuf:"bytes,3,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Country       string                 `protobuf:"bytes,4,opt,name=country,proto3" json:"country,omitempty"`
+	State         string                 `protobuf:"bytes,5,opt,name=state,proto3" json:"state,omitempty"`
+	City          string                 `protobuf:"bytes,6,opt,name=city,proto3" json:"city,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DraftPickHometownInfo) Reset() {
 	*x = DraftPickHometownInfo{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[97]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[98]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -9999,7 +10042,7 @@ func (x *DraftPickHometownInfo) String() string {
 func (*DraftPickHometownInfo) ProtoMessage() {}
 
 func (x *DraftPickHometownInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[97]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[98]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10012,79 +10055,79 @@ func (x *DraftPickHometownInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DraftPickHometownInfo.ProtoReflect.Descriptor instead.
 func (*DraftPickHometownInfo) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{97}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{98}
 }
 
-func (x *DraftPickHometownInfo) GetCountyFips() *wrapperspb.StringValue {
+func (x *DraftPickHometownInfo) GetCountyFips() string {
 	if x != nil {
 		return x.CountyFips
 	}
-	return nil
+	return ""
 }
 
-func (x *DraftPickHometownInfo) GetLongitude() *wrapperspb.StringValue {
+func (x *DraftPickHometownInfo) GetLongitude() string {
 	if x != nil {
 		return x.Longitude
 	}
-	return nil
+	return ""
 }
 
-func (x *DraftPickHometownInfo) GetLatitude() *wrapperspb.StringValue {
+func (x *DraftPickHometownInfo) GetLatitude() string {
 	if x != nil {
 		return x.Latitude
 	}
-	return nil
+	return ""
 }
 
-func (x *DraftPickHometownInfo) GetCountry() *wrapperspb.StringValue {
+func (x *DraftPickHometownInfo) GetCountry() string {
 	if x != nil {
 		return x.Country
 	}
-	return nil
+	return ""
 }
 
-func (x *DraftPickHometownInfo) GetState() *wrapperspb.StringValue {
+func (x *DraftPickHometownInfo) GetState() string {
 	if x != nil {
 		return x.State
 	}
-	return nil
+	return ""
 }
 
-func (x *DraftPickHometownInfo) GetCity() *wrapperspb.StringValue {
+func (x *DraftPickHometownInfo) GetCity() string {
 	if x != nil {
 		return x.City
 	}
-	return nil
+	return ""
 }
 
 type DraftPick struct {
-	state                   protoimpl.MessageState  `protogen:"open.v1"`
-	CollegeAthleteId        *wrapperspb.Int32Value  `protobuf:"bytes,1,opt,name=college_athlete_id,json=collegeAthleteId,proto3" json:"college_athlete_id,omitempty"`
-	NflAthleteId            *wrapperspb.Int32Value  `protobuf:"bytes,2,opt,name=nfl_athlete_id,json=nflAthleteId,proto3" json:"nfl_athlete_id,omitempty"`
-	CollegeId               int32                   `protobuf:"varint,3,opt,name=college_id,json=collegeId,proto3" json:"college_id,omitempty"`
-	CollegeTeam             string                  `protobuf:"bytes,4,opt,name=college_team,json=collegeTeam,proto3" json:"college_team,omitempty"`
-	CollegeConference       *wrapperspb.StringValue `protobuf:"bytes,5,opt,name=college_conference,json=collegeConference,proto3" json:"college_conference,omitempty"`
-	NflTeamId               int32                   `protobuf:"varint,6,opt,name=nfl_team_id,json=nflTeamId,proto3" json:"nfl_team_id,omitempty"`
-	NflTeam                 string                  `protobuf:"bytes,7,opt,name=nfl_team,json=nflTeam,proto3" json:"nfl_team,omitempty"`
-	Year                    int32                   `protobuf:"varint,8,opt,name=year,proto3" json:"year,omitempty"`
-	Overall                 int32                   `protobuf:"varint,9,opt,name=overall,proto3" json:"overall,omitempty"`
-	Round                   int32                   `protobuf:"varint,10,opt,name=round,proto3" json:"round,omitempty"`
-	Pick                    int32                   `protobuf:"varint,11,opt,name=pick,proto3" json:"pick,omitempty"`
-	Name                    string                  `protobuf:"bytes,12,opt,name=name,proto3" json:"name,omitempty"`
-	Position                string                  `protobuf:"bytes,13,opt,name=position,proto3" json:"position,omitempty"`
-	Height                  *wrapperspb.DoubleValue `protobuf:"bytes,14,opt,name=height,proto3" json:"height,omitempty"`
-	Weight                  *wrapperspb.Int32Value  `protobuf:"bytes,15,opt,name=weight,proto3" json:"weight,omitempty"`
-	PreDraftRanking         *wrapperspb.Int32Value  `protobuf:"bytes,16,opt,name=pre_draft_ranking,json=preDraftRanking,proto3" json:"pre_draft_ranking,omitempty"`
-	PreDraftPositionRanking *wrapperspb.Int32Value  `protobuf:"bytes,17,opt,name=pre_draft_position_ranking,json=preDraftPositionRanking,proto3" json:"pre_draft_position_ranking,omitempty"`
-	PreDraftGrade           *wrapperspb.Int32Value  `protobuf:"bytes,18,opt,name=pre_draft_grade,json=preDraftGrade,proto3" json:"pre_draft_grade,omitempty"`
-	HometownInfo            *DraftPickHometownInfo  `protobuf:"bytes,19,opt,name=hometown_info,json=hometownInfo,proto3" json:"hometown_info,omitempty"`
+	state                   protoimpl.MessageState `protogen:"open.v1"`
+	CollegeAthleteId        *int32                 `protobuf:"varint,1,opt,name=college_athlete_id,json=collegeAthleteId,proto3,oneof" json:"college_athlete_id,omitempty"`
+	NflAthleteId            *int32                 `protobuf:"varint,2,opt,name=nfl_athlete_id,json=nflAthleteId,proto3,oneof" json:"nfl_athlete_id,omitempty"`
+	CollegeId               int32                  `protobuf:"varint,3,opt,name=college_id,json=collegeId,proto3" json:"college_id,omitempty"`
+	CollegeTeam             string                 `protobuf:"bytes,4,opt,name=college_team,json=collegeTeam,proto3" json:"college_team,omitempty"`
+	CollegeConference       string                 `protobuf:"bytes,5,opt,name=college_conference,json=collegeConference,proto3" json:"college_conference,omitempty"`
+	NflTeamId               int32                  `protobuf:"varint,6,opt,name=nfl_team_id,json=nflTeamId,proto3" json:"nfl_team_id,omitempty"`
+	NflTeam                 string                 `protobuf:"bytes,7,opt,name=nfl_team,json=nflTeam,proto3" json:"nfl_team,omitempty"`
+	Year                    int32                  `protobuf:"varint,8,opt,name=year,proto3" json:"year,omitempty"`
+	Overall                 int32                  `protobuf:"varint,9,opt,name=overall,proto3" json:"overall,omitempty"`
+	Round                   int32                  `protobuf:"varint,10,opt,name=round,proto3" json:"round,omitempty"`
+	Pick                    int32                  `protobuf:"varint,11,opt,name=pick,proto3" json:"pick,omitempty"`
+	Name                    string                 `protobuf:"bytes,12,opt,name=name,proto3" json:"name,omitempty"`
+	Position                string                 `protobuf:"bytes,13,opt,name=position,proto3" json:"position,omitempty"`
+	Height                  *float64               `protobuf:"fixed64,14,opt,name=height,proto3,oneof" json:"height,omitempty"`
+	Weight                  *int32                 `protobuf:"varint,15,opt,name=weight,proto3,oneof" json:"weight,omitempty"`
+	PreDraftRanking         *int32                 `protobuf:"varint,16,opt,name=pre_draft_ranking,json=preDraftRanking,proto3,oneof" json:"pre_draft_ranking,omitempty"`
+	PreDraftPositionRanking *int32                 `protobuf:"varint,17,opt,name=pre_draft_position_ranking,json=preDraftPositionRanking,proto3,oneof" json:"pre_draft_position_ranking,omitempty"`
+	PreDraftGrade           *int32                 `protobuf:"varint,18,opt,name=pre_draft_grade,json=preDraftGrade,proto3,oneof" json:"pre_draft_grade,omitempty"`
+	HometownInfo            *DraftPickHometownInfo `protobuf:"bytes,19,opt,name=hometown_info,json=hometownInfo,proto3" json:"hometown_info,omitempty"`
 	unknownFields           protoimpl.UnknownFields
 	sizeCache               protoimpl.SizeCache
 }
 
 func (x *DraftPick) Reset() {
 	*x = DraftPick{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[98]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[99]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10096,7 +10139,7 @@ func (x *DraftPick) String() string {
 func (*DraftPick) ProtoMessage() {}
 
 func (x *DraftPick) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[98]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[99]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10109,21 +10152,21 @@ func (x *DraftPick) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DraftPick.ProtoReflect.Descriptor instead.
 func (*DraftPick) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{98}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{99}
 }
 
-func (x *DraftPick) GetCollegeAthleteId() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.CollegeAthleteId
+func (x *DraftPick) GetCollegeAthleteId() int32 {
+	if x != nil && x.CollegeAthleteId != nil {
+		return *x.CollegeAthleteId
 	}
-	return nil
+	return 0
 }
 
-func (x *DraftPick) GetNflAthleteId() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.NflAthleteId
+func (x *DraftPick) GetNflAthleteId() int32 {
+	if x != nil && x.NflAthleteId != nil {
+		return *x.NflAthleteId
 	}
-	return nil
+	return 0
 }
 
 func (x *DraftPick) GetCollegeId() int32 {
@@ -10140,11 +10183,11 @@ func (x *DraftPick) GetCollegeTeam() string {
 	return ""
 }
 
-func (x *DraftPick) GetCollegeConference() *wrapperspb.StringValue {
+func (x *DraftPick) GetCollegeConference() string {
 	if x != nil {
 		return x.CollegeConference
 	}
-	return nil
+	return ""
 }
 
 func (x *DraftPick) GetNflTeamId() int32 {
@@ -10203,39 +10246,39 @@ func (x *DraftPick) GetPosition() string {
 	return ""
 }
 
-func (x *DraftPick) GetHeight() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Height
+func (x *DraftPick) GetHeight() float64 {
+	if x != nil && x.Height != nil {
+		return *x.Height
 	}
-	return nil
+	return 0
 }
 
-func (x *DraftPick) GetWeight() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.Weight
+func (x *DraftPick) GetWeight() int32 {
+	if x != nil && x.Weight != nil {
+		return *x.Weight
 	}
-	return nil
+	return 0
 }
 
-func (x *DraftPick) GetPreDraftRanking() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.PreDraftRanking
+func (x *DraftPick) GetPreDraftRanking() int32 {
+	if x != nil && x.PreDraftRanking != nil {
+		return *x.PreDraftRanking
 	}
-	return nil
+	return 0
 }
 
-func (x *DraftPick) GetPreDraftPositionRanking() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.PreDraftPositionRanking
+func (x *DraftPick) GetPreDraftPositionRanking() int32 {
+	if x != nil && x.PreDraftPositionRanking != nil {
+		return *x.PreDraftPositionRanking
 	}
-	return nil
+	return 0
 }
 
-func (x *DraftPick) GetPreDraftGrade() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.PreDraftGrade
+func (x *DraftPick) GetPreDraftGrade() int32 {
+	if x != nil && x.PreDraftGrade != nil {
+		return *x.PreDraftGrade
 	}
-	return nil
+	return 0
 }
 
 func (x *DraftPick) GetHometownInfo() *DraftPickHometownInfo {
@@ -10246,26 +10289,26 @@ func (x *DraftPick) GetHometownInfo() *DraftPickHometownInfo {
 }
 
 type CoachSeason struct {
-	state          protoimpl.MessageState  `protogen:"open.v1"`
-	School         string                  `protobuf:"bytes,1,opt,name=school,proto3" json:"school,omitempty"`
-	Year           int32                   `protobuf:"varint,2,opt,name=year,proto3" json:"year,omitempty"`
-	Games          int32                   `protobuf:"varint,3,opt,name=games,proto3" json:"games,omitempty"`
-	Wins           int32                   `protobuf:"varint,4,opt,name=wins,proto3" json:"wins,omitempty"`
-	Losses         int32                   `protobuf:"varint,5,opt,name=losses,proto3" json:"losses,omitempty"`
-	Ties           int32                   `protobuf:"varint,6,opt,name=ties,proto3" json:"ties,omitempty"`
-	PreseasonRank  *wrapperspb.Int32Value  `protobuf:"bytes,7,opt,name=preseason_rank,json=preseasonRank,proto3" json:"preseason_rank,omitempty"`
-	PostseasonRank *wrapperspb.Int32Value  `protobuf:"bytes,8,opt,name=postseason_rank,json=postseasonRank,proto3" json:"postseason_rank,omitempty"`
-	Srs            *wrapperspb.DoubleValue `protobuf:"bytes,9,opt,name=srs,proto3" json:"srs,omitempty"`
-	SpOverall      *wrapperspb.DoubleValue `protobuf:"bytes,10,opt,name=sp_overall,json=spOverall,proto3" json:"sp_overall,omitempty"`
-	SpOffense      *wrapperspb.DoubleValue `protobuf:"bytes,11,opt,name=sp_offense,json=spOffense,proto3" json:"sp_offense,omitempty"`
-	SpDefense      *wrapperspb.DoubleValue `protobuf:"bytes,12,opt,name=sp_defense,json=spDefense,proto3" json:"sp_defense,omitempty"`
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	School         string                 `protobuf:"bytes,1,opt,name=school,proto3" json:"school,omitempty"`
+	Year           int32                  `protobuf:"varint,2,opt,name=year,proto3" json:"year,omitempty"`
+	Games          int32                  `protobuf:"varint,3,opt,name=games,proto3" json:"games,omitempty"`
+	Wins           int32                  `protobuf:"varint,4,opt,name=wins,proto3" json:"wins,omitempty"`
+	Losses         int32                  `protobuf:"varint,5,opt,name=losses,proto3" json:"losses,omitempty"`
+	Ties           int32                  `protobuf:"varint,6,opt,name=ties,proto3" json:"ties,omitempty"`
+	PreseasonRank  *int32                 `protobuf:"varint,7,opt,name=preseason_rank,json=preseasonRank,proto3,oneof" json:"preseason_rank,omitempty"`
+	PostseasonRank *int32                 `protobuf:"varint,8,opt,name=postseason_rank,json=postseasonRank,proto3,oneof" json:"postseason_rank,omitempty"`
+	Srs            *float64               `protobuf:"fixed64,9,opt,name=srs,proto3,oneof" json:"srs,omitempty"`
+	SpOverall      *float64               `protobuf:"fixed64,10,opt,name=sp_overall,json=spOverall,proto3,oneof" json:"sp_overall,omitempty"`
+	SpOffense      *float64               `protobuf:"fixed64,11,opt,name=sp_offense,json=spOffense,proto3,oneof" json:"sp_offense,omitempty"`
+	SpDefense      *float64               `protobuf:"fixed64,12,opt,name=sp_defense,json=spDefense,proto3,oneof" json:"sp_defense,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
 
 func (x *CoachSeason) Reset() {
 	*x = CoachSeason{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[99]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[100]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10277,7 +10320,7 @@ func (x *CoachSeason) String() string {
 func (*CoachSeason) ProtoMessage() {}
 
 func (x *CoachSeason) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[99]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[100]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10290,7 +10333,7 @@ func (x *CoachSeason) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CoachSeason.ProtoReflect.Descriptor instead.
 func (*CoachSeason) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{99}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{100}
 }
 
 func (x *CoachSeason) GetSchool() string {
@@ -10335,46 +10378,46 @@ func (x *CoachSeason) GetTies() int32 {
 	return 0
 }
 
-func (x *CoachSeason) GetPreseasonRank() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.PreseasonRank
+func (x *CoachSeason) GetPreseasonRank() int32 {
+	if x != nil && x.PreseasonRank != nil {
+		return *x.PreseasonRank
 	}
-	return nil
+	return 0
 }
 
-func (x *CoachSeason) GetPostseasonRank() *wrapperspb.Int32Value {
-	if x != nil {
-		return x.PostseasonRank
+func (x *CoachSeason) GetPostseasonRank() int32 {
+	if x != nil && x.PostseasonRank != nil {
+		return *x.PostseasonRank
 	}
-	return nil
+	return 0
 }
 
-func (x *CoachSeason) GetSrs() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Srs
+func (x *CoachSeason) GetSrs() float64 {
+	if x != nil && x.Srs != nil {
+		return *x.Srs
 	}
-	return nil
+	return 0
 }
 
-func (x *CoachSeason) GetSpOverall() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SpOverall
+func (x *CoachSeason) GetSpOverall() float64 {
+	if x != nil && x.SpOverall != nil {
+		return *x.SpOverall
 	}
-	return nil
+	return 0
 }
 
-func (x *CoachSeason) GetSpOffense() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SpOffense
+func (x *CoachSeason) GetSpOffense() float64 {
+	if x != nil && x.SpOffense != nil {
+		return *x.SpOffense
 	}
-	return nil
+	return 0
 }
 
-func (x *CoachSeason) GetSpDefense() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.SpDefense
+func (x *CoachSeason) GetSpDefense() float64 {
+	if x != nil && x.SpDefense != nil {
+		return *x.SpDefense
 	}
-	return nil
+	return 0
 }
 
 type Coach struct {
@@ -10389,7 +10432,7 @@ type Coach struct {
 
 func (x *Coach) Reset() {
 	*x = Coach{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[100]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[101]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10401,7 +10444,7 @@ func (x *Coach) String() string {
 func (*Coach) ProtoMessage() {}
 
 func (x *Coach) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[100]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[101]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10414,7 +10457,7 @@ func (x *Coach) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Coach.ProtoReflect.Descriptor instead.
 func (*Coach) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{100}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{101}
 }
 
 func (x *Coach) GetFirstName() string {
@@ -10446,19 +10489,19 @@ func (x *Coach) GetSeasons() []*CoachSeason {
 }
 
 type StatsByQuarter struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Total         float64                 `protobuf:"fixed64,1,opt,name=total,proto3" json:"total,omitempty"`
-	Quarter1      *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=quarter1,proto3" json:"quarter1,omitempty"`
-	Quarter2      *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=quarter2,proto3" json:"quarter2,omitempty"`
-	Quarter3      *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=quarter3,proto3" json:"quarter3,omitempty"`
-	Quarter4      *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=quarter4,proto3" json:"quarter4,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Total         float64                `protobuf:"fixed64,1,opt,name=total,proto3" json:"total,omitempty"`
+	Quarter1      *float64               `protobuf:"fixed64,2,opt,name=quarter1,proto3,oneof" json:"quarter1,omitempty"`
+	Quarter2      *float64               `protobuf:"fixed64,3,opt,name=quarter2,proto3,oneof" json:"quarter2,omitempty"`
+	Quarter3      *float64               `protobuf:"fixed64,4,opt,name=quarter3,proto3,oneof" json:"quarter3,omitempty"`
+	Quarter4      *float64               `protobuf:"fixed64,5,opt,name=quarter4,proto3,oneof" json:"quarter4,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *StatsByQuarter) Reset() {
 	*x = StatsByQuarter{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[101]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[102]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10470,7 +10513,7 @@ func (x *StatsByQuarter) String() string {
 func (*StatsByQuarter) ProtoMessage() {}
 
 func (x *StatsByQuarter) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[101]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[102]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10483,7 +10526,7 @@ func (x *StatsByQuarter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StatsByQuarter.ProtoReflect.Descriptor instead.
 func (*StatsByQuarter) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{101}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{102}
 }
 
 func (x *StatsByQuarter) GetTotal() float64 {
@@ -10493,32 +10536,32 @@ func (x *StatsByQuarter) GetTotal() float64 {
 	return 0
 }
 
-func (x *StatsByQuarter) GetQuarter1() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter1
+func (x *StatsByQuarter) GetQuarter1() float64 {
+	if x != nil && x.Quarter1 != nil {
+		return *x.Quarter1
 	}
-	return nil
+	return 0
 }
 
-func (x *StatsByQuarter) GetQuarter2() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter2
+func (x *StatsByQuarter) GetQuarter2() float64 {
+	if x != nil && x.Quarter2 != nil {
+		return *x.Quarter2
 	}
-	return nil
+	return 0
 }
 
-func (x *StatsByQuarter) GetQuarter3() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter3
+func (x *StatsByQuarter) GetQuarter3() float64 {
+	if x != nil && x.Quarter3 != nil {
+		return *x.Quarter3
 	}
-	return nil
+	return 0
 }
 
-func (x *StatsByQuarter) GetQuarter4() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter4
+func (x *StatsByQuarter) GetQuarter4() float64 {
+	if x != nil && x.Quarter4 != nil {
+		return *x.Quarter4
 	}
-	return nil
+	return 0
 }
 
 type TeamPPA struct {
@@ -10534,7 +10577,7 @@ type TeamPPA struct {
 
 func (x *TeamPPA) Reset() {
 	*x = TeamPPA{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[102]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[103]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10546,7 +10589,7 @@ func (x *TeamPPA) String() string {
 func (*TeamPPA) ProtoMessage() {}
 
 func (x *TeamPPA) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[102]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[103]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10559,7 +10602,7 @@ func (x *TeamPPA) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamPPA.ProtoReflect.Descriptor instead.
 func (*TeamPPA) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{102}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{103}
 }
 
 func (x *TeamPPA) GetTeam() string {
@@ -10609,7 +10652,7 @@ type TeamSuccessRates struct {
 
 func (x *TeamSuccessRates) Reset() {
 	*x = TeamSuccessRates{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[103]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[104]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10621,7 +10664,7 @@ func (x *TeamSuccessRates) String() string {
 func (*TeamSuccessRates) ProtoMessage() {}
 
 func (x *TeamSuccessRates) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[103]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[104]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10634,7 +10677,7 @@ func (x *TeamSuccessRates) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamSuccessRates.ProtoReflect.Descriptor instead.
 func (*TeamSuccessRates) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{103}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{104}
 }
 
 func (x *TeamSuccessRates) GetTeam() string {
@@ -10675,7 +10718,7 @@ type TeamExplosiveness struct {
 
 func (x *TeamExplosiveness) Reset() {
 	*x = TeamExplosiveness{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[104]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[105]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10687,7 +10730,7 @@ func (x *TeamExplosiveness) String() string {
 func (*TeamExplosiveness) ProtoMessage() {}
 
 func (x *TeamExplosiveness) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[104]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[105]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10700,7 +10743,7 @@ func (x *TeamExplosiveness) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamExplosiveness.ProtoReflect.Descriptor instead.
 func (*TeamExplosiveness) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{104}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{105}
 }
 
 func (x *TeamExplosiveness) GetTeam() string {
@@ -10734,7 +10777,7 @@ type TeamRushingStats struct {
 
 func (x *TeamRushingStats) Reset() {
 	*x = TeamRushingStats{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[105]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[106]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10746,7 +10789,7 @@ func (x *TeamRushingStats) String() string {
 func (*TeamRushingStats) ProtoMessage() {}
 
 func (x *TeamRushingStats) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[105]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[106]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10759,7 +10802,7 @@ func (x *TeamRushingStats) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamRushingStats.ProtoReflect.Descriptor instead.
 func (*TeamRushingStats) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{105}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{106}
 }
 
 func (x *TeamRushingStats) GetTeam() string {
@@ -10837,7 +10880,7 @@ type TeamHavoc struct {
 
 func (x *TeamHavoc) Reset() {
 	*x = TeamHavoc{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[106]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[107]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10849,7 +10892,7 @@ func (x *TeamHavoc) String() string {
 func (*TeamHavoc) ProtoMessage() {}
 
 func (x *TeamHavoc) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[106]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[107]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10862,7 +10905,7 @@ func (x *TeamHavoc) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamHavoc.ProtoReflect.Descriptor instead.
 func (*TeamHavoc) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{106}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{107}
 }
 
 func (x *TeamHavoc) GetTeam() string {
@@ -10905,7 +10948,7 @@ type TeamScoringOpportunities struct {
 
 func (x *TeamScoringOpportunities) Reset() {
 	*x = TeamScoringOpportunities{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[107]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[108]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10917,7 +10960,7 @@ func (x *TeamScoringOpportunities) String() string {
 func (*TeamScoringOpportunities) ProtoMessage() {}
 
 func (x *TeamScoringOpportunities) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[107]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[108]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10930,7 +10973,7 @@ func (x *TeamScoringOpportunities) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamScoringOpportunities.ProtoReflect.Descriptor instead.
 func (*TeamScoringOpportunities) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{107}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{108}
 }
 
 func (x *TeamScoringOpportunities) GetTeam() string {
@@ -10972,7 +11015,7 @@ type TeamFieldPosition struct {
 
 func (x *TeamFieldPosition) Reset() {
 	*x = TeamFieldPosition{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[108]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[109]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -10984,7 +11027,7 @@ func (x *TeamFieldPosition) String() string {
 func (*TeamFieldPosition) ProtoMessage() {}
 
 func (x *TeamFieldPosition) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[108]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[109]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -10997,7 +11040,7 @@ func (x *TeamFieldPosition) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamFieldPosition.ProtoReflect.Descriptor instead.
 func (*TeamFieldPosition) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{108}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{109}
 }
 
 func (x *TeamFieldPosition) GetTeam() string {
@@ -11022,24 +11065,24 @@ func (x *TeamFieldPosition) GetAverageStartingPredictedPoints() float64 {
 }
 
 type PlayerGameUsage struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Total         float64                 `protobuf:"fixed64,1,opt,name=total,proto3" json:"total,omitempty"`
-	Quarter1      *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=quarter1,proto3" json:"quarter1,omitempty"`
-	Quarter2      *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=quarter2,proto3" json:"quarter2,omitempty"`
-	Quarter3      *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=quarter3,proto3" json:"quarter3,omitempty"`
-	Quarter4      *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=quarter4,proto3" json:"quarter4,omitempty"`
-	Rushing       float64                 `protobuf:"fixed64,6,opt,name=rushing,proto3" json:"rushing,omitempty"`
-	Passing       float64                 `protobuf:"fixed64,7,opt,name=passing,proto3" json:"passing,omitempty"`
-	Player        string                  `protobuf:"bytes,8,opt,name=player,proto3" json:"player,omitempty"`
-	Team          string                  `protobuf:"bytes,9,opt,name=team,proto3" json:"team,omitempty"`
-	Position      string                  `protobuf:"bytes,10,opt,name=position,proto3" json:"position,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Total         float64                `protobuf:"fixed64,1,opt,name=total,proto3" json:"total,omitempty"`
+	Quarter1      *float64               `protobuf:"fixed64,2,opt,name=quarter1,proto3,oneof" json:"quarter1,omitempty"`
+	Quarter2      *float64               `protobuf:"fixed64,3,opt,name=quarter2,proto3,oneof" json:"quarter2,omitempty"`
+	Quarter3      *float64               `protobuf:"fixed64,4,opt,name=quarter3,proto3,oneof" json:"quarter3,omitempty"`
+	Quarter4      *float64               `protobuf:"fixed64,5,opt,name=quarter4,proto3,oneof" json:"quarter4,omitempty"`
+	Rushing       float64                `protobuf:"fixed64,6,opt,name=rushing,proto3" json:"rushing,omitempty"`
+	Passing       float64                `protobuf:"fixed64,7,opt,name=passing,proto3" json:"passing,omitempty"`
+	Player        string                 `protobuf:"bytes,8,opt,name=player,proto3" json:"player,omitempty"`
+	Team          string                 `protobuf:"bytes,9,opt,name=team,proto3" json:"team,omitempty"`
+	Position      string                 `protobuf:"bytes,10,opt,name=position,proto3" json:"position,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PlayerGameUsage) Reset() {
 	*x = PlayerGameUsage{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[109]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[110]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11051,7 +11094,7 @@ func (x *PlayerGameUsage) String() string {
 func (*PlayerGameUsage) ProtoMessage() {}
 
 func (x *PlayerGameUsage) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[109]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[110]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11064,7 +11107,7 @@ func (x *PlayerGameUsage) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerGameUsage.ProtoReflect.Descriptor instead.
 func (*PlayerGameUsage) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{109}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{110}
 }
 
 func (x *PlayerGameUsage) GetTotal() float64 {
@@ -11074,32 +11117,32 @@ func (x *PlayerGameUsage) GetTotal() float64 {
 	return 0
 }
 
-func (x *PlayerGameUsage) GetQuarter1() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter1
+func (x *PlayerGameUsage) GetQuarter1() float64 {
+	if x != nil && x.Quarter1 != nil {
+		return *x.Quarter1
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerGameUsage) GetQuarter2() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter2
+func (x *PlayerGameUsage) GetQuarter2() float64 {
+	if x != nil && x.Quarter2 != nil {
+		return *x.Quarter2
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerGameUsage) GetQuarter3() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter3
+func (x *PlayerGameUsage) GetQuarter3() float64 {
+	if x != nil && x.Quarter3 != nil {
+		return *x.Quarter3
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerGameUsage) GetQuarter4() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter4
+func (x *PlayerGameUsage) GetQuarter4() float64 {
+	if x != nil && x.Quarter4 != nil {
+		return *x.Quarter4
 	}
-	return nil
+	return 0
 }
 
 func (x *PlayerGameUsage) GetRushing() float64 {
@@ -11138,21 +11181,21 @@ func (x *PlayerGameUsage) GetPosition() string {
 }
 
 type PlayerStatsByQuarter struct {
-	state         protoimpl.MessageState  `protogen:"open.v1"`
-	Total         float64                 `protobuf:"fixed64,1,opt,name=total,proto3" json:"total,omitempty"`
-	Quarter1      *wrapperspb.DoubleValue `protobuf:"bytes,2,opt,name=quarter1,proto3" json:"quarter1,omitempty"`
-	Quarter2      *wrapperspb.DoubleValue `protobuf:"bytes,3,opt,name=quarter2,proto3" json:"quarter2,omitempty"`
-	Quarter3      *wrapperspb.DoubleValue `protobuf:"bytes,4,opt,name=quarter3,proto3" json:"quarter3,omitempty"`
-	Quarter4      *wrapperspb.DoubleValue `protobuf:"bytes,5,opt,name=quarter4,proto3" json:"quarter4,omitempty"`
-	Rushing       float64                 `protobuf:"fixed64,6,opt,name=rushing,proto3" json:"rushing,omitempty"`
-	Passing       float64                 `protobuf:"fixed64,7,opt,name=passing,proto3" json:"passing,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Total         float64                `protobuf:"fixed64,1,opt,name=total,proto3" json:"total,omitempty"`
+	Quarter1      *float64               `protobuf:"fixed64,2,opt,name=quarter1,proto3,oneof" json:"quarter1,omitempty"`
+	Quarter2      *float64               `protobuf:"fixed64,3,opt,name=quarter2,proto3,oneof" json:"quarter2,omitempty"`
+	Quarter3      *float64               `protobuf:"fixed64,4,opt,name=quarter3,proto3,oneof" json:"quarter3,omitempty"`
+	Quarter4      *float64               `protobuf:"fixed64,5,opt,name=quarter4,proto3,oneof" json:"quarter4,omitempty"`
+	Rushing       float64                `protobuf:"fixed64,6,opt,name=rushing,proto3" json:"rushing,omitempty"`
+	Passing       float64                `protobuf:"fixed64,7,opt,name=passing,proto3" json:"passing,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PlayerStatsByQuarter) Reset() {
 	*x = PlayerStatsByQuarter{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[110]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[111]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11164,7 +11207,7 @@ func (x *PlayerStatsByQuarter) String() string {
 func (*PlayerStatsByQuarter) ProtoMessage() {}
 
 func (x *PlayerStatsByQuarter) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[110]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[111]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11177,7 +11220,7 @@ func (x *PlayerStatsByQuarter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerStatsByQuarter.ProtoReflect.Descriptor instead.
 func (*PlayerStatsByQuarter) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{110}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{111}
 }
 
 func (x *PlayerStatsByQuarter) GetTotal() float64 {
@@ -11187,32 +11230,32 @@ func (x *PlayerStatsByQuarter) GetTotal() float64 {
 	return 0
 }
 
-func (x *PlayerStatsByQuarter) GetQuarter1() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter1
+func (x *PlayerStatsByQuarter) GetQuarter1() float64 {
+	if x != nil && x.Quarter1 != nil {
+		return *x.Quarter1
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerStatsByQuarter) GetQuarter2() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter2
+func (x *PlayerStatsByQuarter) GetQuarter2() float64 {
+	if x != nil && x.Quarter2 != nil {
+		return *x.Quarter2
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerStatsByQuarter) GetQuarter3() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter3
+func (x *PlayerStatsByQuarter) GetQuarter3() float64 {
+	if x != nil && x.Quarter3 != nil {
+		return *x.Quarter3
 	}
-	return nil
+	return 0
 }
 
-func (x *PlayerStatsByQuarter) GetQuarter4() *wrapperspb.DoubleValue {
-	if x != nil {
-		return x.Quarter4
+func (x *PlayerStatsByQuarter) GetQuarter4() float64 {
+	if x != nil && x.Quarter4 != nil {
+		return *x.Quarter4
 	}
-	return nil
+	return 0
 }
 
 func (x *PlayerStatsByQuarter) GetRushing() float64 {
@@ -11242,7 +11285,7 @@ type PlayerPPA struct {
 
 func (x *PlayerPPA) Reset() {
 	*x = PlayerPPA{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[111]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[112]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11254,7 +11297,7 @@ func (x *PlayerPPA) String() string {
 func (*PlayerPPA) ProtoMessage() {}
 
 func (x *PlayerPPA) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[111]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[112]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11267,7 +11310,7 @@ func (x *PlayerPPA) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PlayerPPA.ProtoReflect.Descriptor instead.
 func (*PlayerPPA) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{111}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{112}
 }
 
 func (x *PlayerPPA) GetPlayer() string {
@@ -11321,7 +11364,7 @@ type AdvancedBoxScoreGameInfo struct {
 
 func (x *AdvancedBoxScoreGameInfo) Reset() {
 	*x = AdvancedBoxScoreGameInfo{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[112]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[113]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11333,7 +11376,7 @@ func (x *AdvancedBoxScoreGameInfo) String() string {
 func (*AdvancedBoxScoreGameInfo) ProtoMessage() {}
 
 func (x *AdvancedBoxScoreGameInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[112]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[113]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11346,7 +11389,7 @@ func (x *AdvancedBoxScoreGameInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdvancedBoxScoreGameInfo.ProtoReflect.Descriptor instead.
 func (*AdvancedBoxScoreGameInfo) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{112}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{113}
 }
 
 func (x *AdvancedBoxScoreGameInfo) GetExcitement() float64 {
@@ -11421,7 +11464,7 @@ type AdvancedBoxScoreTeams struct {
 
 func (x *AdvancedBoxScoreTeams) Reset() {
 	*x = AdvancedBoxScoreTeams{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[113]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[114]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11433,7 +11476,7 @@ func (x *AdvancedBoxScoreTeams) String() string {
 func (*AdvancedBoxScoreTeams) ProtoMessage() {}
 
 func (x *AdvancedBoxScoreTeams) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[113]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[114]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11446,7 +11489,7 @@ func (x *AdvancedBoxScoreTeams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdvancedBoxScoreTeams.ProtoReflect.Descriptor instead.
 func (*AdvancedBoxScoreTeams) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{113}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{114}
 }
 
 func (x *AdvancedBoxScoreTeams) GetFieldPosition() []*TeamFieldPosition {
@@ -11515,7 +11558,7 @@ type AdvancedBoxScorePlayers struct {
 
 func (x *AdvancedBoxScorePlayers) Reset() {
 	*x = AdvancedBoxScorePlayers{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[114]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[115]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11527,7 +11570,7 @@ func (x *AdvancedBoxScorePlayers) String() string {
 func (*AdvancedBoxScorePlayers) ProtoMessage() {}
 
 func (x *AdvancedBoxScorePlayers) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[114]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[115]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11540,7 +11583,7 @@ func (x *AdvancedBoxScorePlayers) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdvancedBoxScorePlayers.ProtoReflect.Descriptor instead.
 func (*AdvancedBoxScorePlayers) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{114}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{115}
 }
 
 func (x *AdvancedBoxScorePlayers) GetPpa() []*PlayerPPA {
@@ -11568,7 +11611,7 @@ type AdvancedBoxScore struct {
 
 func (x *AdvancedBoxScore) Reset() {
 	*x = AdvancedBoxScore{}
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[115]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[116]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -11580,7 +11623,7 @@ func (x *AdvancedBoxScore) String() string {
 func (*AdvancedBoxScore) ProtoMessage() {}
 
 func (x *AdvancedBoxScore) ProtoReflect() protoreflect.Message {
-	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[115]
+	mi := &file_cfbd_internal_proto_cfbd_proto_msgTypes[116]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -11593,7 +11636,7 @@ func (x *AdvancedBoxScore) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AdvancedBoxScore.ProtoReflect.Descriptor instead.
 func (*AdvancedBoxScore) Descriptor() ([]byte, []int) {
-	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{115}
+	return file_cfbd_internal_proto_cfbd_proto_rawDescGZIP(), []int{116}
 }
 
 func (x *AdvancedBoxScore) GetGameInfo() *AdvancedBoxScoreGameInfo {
@@ -11621,7 +11664,7 @@ var File_cfbd_internal_proto_cfbd_proto protoreflect.FileDescriptor
 
 const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\n" +
-	"\x1ecfbd/internal/proto/cfbd.proto\x12\acfbd.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1egoogle/protobuf/wrappers.proto\"T\n" +
+	"\x1ecfbd/internal/proto/cfbd.proto\x12\acfbd.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1cgoogle/protobuf/struct.proto\"T\n" +
 	"\bEpaSplit\x12\x18\n" +
 	"\arushing\x18\x01 \x01(\x01R\arushing\x12\x18\n" +
 	"\apassing\x18\x02 \x01(\x01R\apassing\x12\x14\n" +
@@ -11635,14 +11678,22 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x10open_field_yards\x18\x02 \x01(\x01R\x0eopenFieldYards\x12,\n" +
 	"\x12second_level_yards\x18\x03 \x01(\x01R\x10secondLevelYards\x12\x1d\n" +
 	"\n" +
-	"line_yards\x18\x04 \x01(\x01R\tlineYards\"z\n" +
+	"line_yards\x18\x04 \x01(\x01R\tlineYards\"b\n" +
 	"\n" +
-	"ClockInt32\x125\n" +
-	"\aseconds\x18\x01 \x01(\v2\x1b.google.protobuf.Int32ValueR\aseconds\x125\n" +
-	"\aminutes\x18\x02 \x01(\v2\x1b.google.protobuf.Int32ValueR\aminutes\"}\n" +
-	"\vClockDouble\x126\n" +
-	"\aseconds\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\aseconds\x126\n" +
-	"\aminutes\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\aminutes\"9\n" +
+	"ClockInt32\x12\x1d\n" +
+	"\aseconds\x18\x01 \x01(\x05H\x00R\aseconds\x88\x01\x01\x12\x1d\n" +
+	"\aminutes\x18\x02 \x01(\x05H\x01R\aminutes\x88\x01\x01B\n" +
+	"\n" +
+	"\b_secondsB\n" +
+	"\n" +
+	"\b_minutes\"c\n" +
+	"\vClockDouble\x12\x1d\n" +
+	"\aseconds\x18\x01 \x01(\x01H\x00R\aseconds\x88\x01\x01\x12\x1d\n" +
+	"\aminutes\x18\x02 \x01(\x01H\x01R\aminutes\x88\x01\x01B\n" +
+	"\n" +
+	"\b_secondsB\n" +
+	"\n" +
+	"\b_minutes\"9\n" +
 	"\tStatValue\x12,\n" +
 	"\x05value\x18\x01 \x01(\v2\x16.google.protobuf.ValueR\x05value\"\xb0\x04\n" +
 	"\x13AdjustedTeamMetrics\x12\x12\n" +
@@ -11685,111 +11736,131 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"conference\x18\x05 \x01(\tR\n" +
 	"conference\x12\x12\n" +
 	"\x04paar\x18\x06 \x01(\x01R\x04paar\x12\x1a\n" +
-	"\battempts\x18\a \x01(\x05R\battempts\"\x8e\x06\n" +
-	"\x05Venue\x12+\n" +
-	"\x02id\x18\x01 \x01(\v2\x1b.google.protobuf.Int32ValueR\x02id\x120\n" +
-	"\x04name\x18\x02 \x01(\v2\x1c.google.protobuf.StringValueR\x04name\x120\n" +
-	"\x04city\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\x04city\x122\n" +
-	"\x05state\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\x05state\x12.\n" +
-	"\x03zip\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueR\x03zip\x12?\n" +
-	"\fcountry_code\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\vcountryCode\x128\n" +
-	"\btimezone\x18\a \x01(\v2\x1c.google.protobuf.StringValueR\btimezone\x128\n" +
-	"\blatitude\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\blatitude\x12:\n" +
-	"\tlongitude\x18\t \x01(\v2\x1c.google.protobuf.DoubleValueR\tlongitude\x12:\n" +
+	"\battempts\x18\a \x01(\x05R\battempts\"\xec\x03\n" +
+	"\x05Venue\x12\x13\n" +
+	"\x02id\x18\x01 \x01(\x05H\x00R\x02id\x88\x01\x01\x12\x12\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
+	"\x04city\x18\x03 \x01(\tR\x04city\x12\x14\n" +
+	"\x05state\x18\x04 \x01(\tR\x05state\x12\x10\n" +
+	"\x03zip\x18\x05 \x01(\tR\x03zip\x12!\n" +
+	"\fcountry_code\x18\x06 \x01(\tR\vcountryCode\x12\x1a\n" +
+	"\btimezone\x18\a \x01(\tR\btimezone\x12\x1f\n" +
+	"\blatitude\x18\b \x01(\x01H\x01R\blatitude\x88\x01\x01\x12!\n" +
+	"\tlongitude\x18\t \x01(\x01H\x02R\tlongitude\x88\x01\x01\x12\x1c\n" +
 	"\televation\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.StringValueR\televation\x127\n" +
-	"\bcapacity\x18\v \x01(\v2\x1b.google.protobuf.Int32ValueR\bcapacity\x12H\n" +
-	"\x11construction_year\x18\f \x01(\v2\x1b.google.protobuf.Int32ValueR\x10constructionYear\x120\n" +
-	"\x05grass\x18\r \x01(\v2\x1a.google.protobuf.BoolValueR\x05grass\x12.\n" +
-	"\x04dome\x18\x0e \x01(\v2\x1a.google.protobuf.BoolValueR\x04dome\"\x9c\x05\n" +
+	" \x01(\tR\televation\x12\x1f\n" +
+	"\bcapacity\x18\v \x01(\x05H\x03R\bcapacity\x88\x01\x01\x120\n" +
+	"\x11construction_year\x18\f \x01(\x05H\x04R\x10constructionYear\x88\x01\x01\x12\x19\n" +
+	"\x05grass\x18\r \x01(\bH\x05R\x05grass\x88\x01\x01\x12\x17\n" +
+	"\x04dome\x18\x0e \x01(\bH\x06R\x04dome\x88\x01\x01B\x05\n" +
+	"\x03_idB\v\n" +
+	"\t_latitudeB\f\n" +
+	"\n" +
+	"_longitudeB\v\n" +
+	"\t_capacityB\x14\n" +
+	"\x12_construction_yearB\b\n" +
+	"\x06_grassB\a\n" +
+	"\x05_dome\"\x92\x03\n" +
 	"\x04Team\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x16\n" +
-	"\x06school\x18\x02 \x01(\tR\x06school\x124\n" +
-	"\x06mascot\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\x06mascot\x12@\n" +
-	"\fabbreviation\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\fabbreviation\x12C\n" +
-	"\x0falternate_names\x18\x05 \x01(\v2\x1a.google.protobuf.ListValueR\x0ealternateNames\x12<\n" +
+	"\x06school\x18\x02 \x01(\tR\x06school\x12\x16\n" +
+	"\x06mascot\x18\x03 \x01(\tR\x06mascot\x12\"\n" +
+	"\fabbreviation\x18\x04 \x01(\tR\fabbreviation\x12'\n" +
+	"\x0falternate_names\x18\x05 \x03(\tR\x0ealternateNames\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"conference\x128\n" +
-	"\bdivision\x18\a \x01(\v2\x1c.google.protobuf.StringValueR\bdivision\x12D\n" +
-	"\x0eclassification\x18\b \x01(\v2\x1c.google.protobuf.StringValueR\x0eclassification\x122\n" +
-	"\x05color\x18\t \x01(\v2\x1c.google.protobuf.StringValueR\x05color\x12E\n" +
+	"conference\x18\x06 \x01(\tR\n" +
+	"conference\x12\x1a\n" +
+	"\bdivision\x18\a \x01(\tR\bdivision\x12&\n" +
+	"\x0eclassification\x18\b \x01(\tR\x0eclassification\x12\x14\n" +
+	"\x05color\x18\t \x01(\tR\x05color\x12'\n" +
 	"\x0falternate_color\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.StringValueR\x0ealternateColor\x120\n" +
-	"\x05logos\x18\v \x01(\v2\x1a.google.protobuf.ListValueR\x05logos\x12\x18\n" +
+	" \x01(\tR\x0ealternateColor\x12\x14\n" +
+	"\x05logos\x18\v \x03(\tR\x05logos\x12\x18\n" +
 	"\atwitter\x18\f \x01(\tR\atwitter\x12*\n" +
-	"\blocation\x18\r \x01(\v2\x0e.cfbd.v1.VenueR\blocation\"\xad\x03\n" +
+	"\blocation\x18\r \x01(\v2\x0e.cfbd.v1.VenueR\blocation\"\xdf\x02\n" +
 	"\vMatchupGame\x12\x16\n" +
 	"\x06season\x18\x01 \x01(\x05R\x06season\x12\x12\n" +
 	"\x04week\x18\x02 \x01(\x05R\x04week\x12\x1f\n" +
 	"\vseason_type\x18\x03 \x01(\tR\n" +
 	"seasonType\x12\x12\n" +
 	"\x04date\x18\x04 \x01(\tR\x04date\x12!\n" +
-	"\fneutral_site\x18\x05 \x01(\bR\vneutralSite\x122\n" +
-	"\x05venue\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\x05venue\x12\x1b\n" +
-	"\thome_team\x18\a \x01(\tR\bhomeTeam\x12:\n" +
+	"\fneutral_site\x18\x05 \x01(\bR\vneutralSite\x12\x14\n" +
+	"\x05venue\x18\x06 \x01(\tR\x05venue\x12\x1b\n" +
+	"\thome_team\x18\a \x01(\tR\bhomeTeam\x12\"\n" +
 	"\n" +
-	"home_score\x18\b \x01(\v2\x1b.google.protobuf.Int32ValueR\thomeScore\x12\x1b\n" +
-	"\taway_team\x18\t \x01(\tR\bawayTeam\x12:\n" +
+	"home_score\x18\b \x01(\x05H\x00R\thomeScore\x88\x01\x01\x12\x1b\n" +
+	"\taway_team\x18\t \x01(\tR\bawayTeam\x12\"\n" +
 	"\n" +
 	"away_score\x18\n" +
-	" \x01(\v2\x1b.google.protobuf.Int32ValueR\tawayScore\x124\n" +
-	"\x06winner\x18\v \x01(\v2\x1c.google.protobuf.StringValueR\x06winner\"\xa7\x02\n" +
+	" \x01(\x05H\x01R\tawayScore\x88\x01\x01\x12\x16\n" +
+	"\x06winner\x18\v \x01(\tR\x06winnerB\r\n" +
+	"\v_home_scoreB\r\n" +
+	"\v_away_score\"\x93\x02\n" +
 	"\aMatchup\x12\x14\n" +
 	"\x05team1\x18\x01 \x01(\tR\x05team1\x12\x14\n" +
-	"\x05team2\x18\x02 \x01(\tR\x05team2\x12:\n" +
+	"\x05team2\x18\x02 \x01(\tR\x05team2\x12\"\n" +
 	"\n" +
-	"start_year\x18\x03 \x01(\v2\x1b.google.protobuf.Int32ValueR\tstartYear\x126\n" +
-	"\bend_year\x18\x04 \x01(\v2\x1b.google.protobuf.Int32ValueR\aendYear\x12\x1d\n" +
+	"start_year\x18\x03 \x01(\x05H\x00R\tstartYear\x88\x01\x01\x12\x1e\n" +
+	"\bend_year\x18\x04 \x01(\x05H\x01R\aendYear\x88\x01\x01\x12\x1d\n" +
 	"\n" +
 	"team1_wins\x18\x05 \x01(\x05R\tteam1Wins\x12\x1d\n" +
 	"\n" +
 	"team2_wins\x18\x06 \x01(\x05R\tteam2Wins\x12\x12\n" +
 	"\x04ties\x18\a \x01(\x05R\x04ties\x12*\n" +
-	"\x05games\x18\b \x03(\v2\x14.cfbd.v1.MatchupGameR\x05games\"\xdc\x02\n" +
+	"\x05games\x18\b \x03(\v2\x14.cfbd.v1.MatchupGameR\x05gamesB\r\n" +
+	"\v_start_yearB\v\n" +
+	"\t_end_year\"\xac\x02\n" +
 	"\aTeamATS\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x17\n" +
 	"\ateam_id\x18\x02 \x01(\x05R\x06teamId\x12\x12\n" +
-	"\x04team\x18\x03 \x01(\tR\x04team\x12<\n" +
+	"\x04team\x18\x03 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"conference\x121\n" +
-	"\x05games\x18\x05 \x01(\v2\x1b.google.protobuf.Int32ValueR\x05games\x12\x19\n" +
+	"conference\x18\x04 \x01(\tR\n" +
+	"conference\x12\x19\n" +
+	"\x05games\x18\x05 \x01(\x05H\x00R\x05games\x88\x01\x01\x12\x19\n" +
 	"\bats_wins\x18\x06 \x01(\x05R\aatsWins\x12\x1d\n" +
 	"\n" +
 	"ats_losses\x18\a \x01(\x05R\tatsLosses\x12\x1d\n" +
 	"\n" +
-	"ats_pushes\x18\b \x01(\x05R\tatsPushes\x12F\n" +
-	"\x10avg_cover_margin\x18\t \x01(\v2\x1c.google.protobuf.DoubleValueR\x0eavgCoverMargin\"\xc3\x06\n" +
+	"ats_pushes\x18\b \x01(\x05R\tatsPushes\x12-\n" +
+	"\x10avg_cover_margin\x18\t \x01(\x01H\x01R\x0eavgCoverMargin\x88\x01\x01B\b\n" +
+	"\x06_gamesB\x13\n" +
+	"\x11_avg_cover_margin\"\xcd\x04\n" +
 	"\fRosterPlayer\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
 	"\n" +
 	"first_name\x18\x02 \x01(\tR\tfirstName\x12\x1b\n" +
 	"\tlast_name\x18\x03 \x01(\tR\blastName\x12\x12\n" +
-	"\x04team\x18\x04 \x01(\tR\x04team\x124\n" +
-	"\x06height\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\x06height\x123\n" +
-	"\x06weight\x18\x06 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06weight\x123\n" +
-	"\x06jersey\x18\a \x01(\v2\x1b.google.protobuf.Int32ValueR\x06jersey\x123\n" +
-	"\x04year\x18\b \x01(\v2\x1b.google.protobuf.Int32ValueB\x02\x18\x01R\x04year\x128\n" +
-	"\bposition\x18\t \x01(\v2\x1c.google.protobuf.StringValueR\bposition\x129\n" +
+	"\x04team\x18\x04 \x01(\tR\x04team\x12\x1b\n" +
+	"\x06height\x18\x05 \x01(\x01H\x00R\x06height\x88\x01\x01\x12\x1b\n" +
+	"\x06weight\x18\x06 \x01(\x05H\x01R\x06weight\x88\x01\x01\x12\x1b\n" +
+	"\x06jersey\x18\a \x01(\x05H\x02R\x06jersey\x88\x01\x01\x12\x1b\n" +
+	"\x04year\x18\b \x01(\x05B\x02\x18\x01H\x03R\x04year\x88\x01\x01\x12\x1a\n" +
+	"\bposition\x18\t \x01(\tR\bposition\x12\x1b\n" +
 	"\thome_city\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.StringValueR\bhomeCity\x12;\n" +
+	" \x01(\tR\bhomeCity\x12\x1d\n" +
 	"\n" +
-	"home_state\x18\v \x01(\v2\x1c.google.protobuf.StringValueR\thomeState\x12?\n" +
-	"\fhome_country\x18\f \x01(\v2\x1c.google.protobuf.StringValueR\vhomeCountry\x12A\n" +
-	"\rhome_latitude\x18\r \x01(\v2\x1c.google.protobuf.DoubleValueR\fhomeLatitude\x12C\n" +
-	"\x0ehome_longitude\x18\x0e \x01(\v2\x1c.google.protobuf.DoubleValueR\rhomeLongitude\x12F\n" +
-	"\x10home_county_FIPS\x18\x0f \x01(\v2\x1c.google.protobuf.StringValueR\x0ehomeCountyFIPS\x12;\n" +
-	"\vrecruit_ids\x18\x10 \x01(\v2\x1a.google.protobuf.ListValueR\n" +
-	"recruitIds\"\xf5\x01\n" +
+	"home_state\x18\v \x01(\tR\thomeState\x12!\n" +
+	"\fhome_country\x18\f \x01(\tR\vhomeCountry\x12(\n" +
+	"\rhome_latitude\x18\r \x01(\x01H\x04R\fhomeLatitude\x88\x01\x01\x12*\n" +
+	"\x0ehome_longitude\x18\x0e \x01(\x01H\x05R\rhomeLongitude\x88\x01\x01\x12(\n" +
+	"\x10home_county_FIPS\x18\x0f \x01(\tR\x0ehomeCountyFIPS\x12\x1f\n" +
+	"\vrecruit_ids\x18\x10 \x03(\tR\n" +
+	"recruitIdsB\t\n" +
+	"\a_heightB\t\n" +
+	"\a_weightB\t\n" +
+	"\a_jerseyB\a\n" +
+	"\x05_yearB\x10\n" +
+	"\x0e_home_latitudeB\x11\n" +
+	"\x0f_home_longitude\"\x9b\x01\n" +
 	"\n" +
 	"Conference\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12;\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1d\n" +
 	"\n" +
-	"short_name\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\tshortName\x12@\n" +
-	"\fabbreviation\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\fabbreviation\x12D\n" +
-	"\x0eclassification\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueR\x0eclassification\"L\n" +
+	"short_name\x18\x03 \x01(\tR\tshortName\x12\"\n" +
+	"\fabbreviation\x18\x04 \x01(\tR\fabbreviation\x12&\n" +
+	"\x0eclassification\x18\x05 \x01(\tR\x0eclassification\"L\n" +
 	"\n" +
 	"TeamTalent\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x12\n" +
@@ -11816,47 +11887,77 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"conference\x12\x1b\n" +
 	"\tstat_name\x18\x04 \x01(\tR\bstatName\x125\n" +
 	"\n" +
-	"stat_value\x18\x05 \x01(\v2\x16.google.protobuf.ValueR\tstatValue\"\xb7\x02\n" +
-	"\x13AdvancedRateMetrics\x12B\n" +
-	"\rexplosiveness\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\rexplosiveness\x12?\n" +
-	"\fsuccess_rate\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\vsuccessRate\x129\n" +
-	"\ttotal_PPA\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\btotalPPA\x12.\n" +
-	"\x03ppa\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\x03ppa\x120\n" +
-	"\x04rate\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\x04rate\"\xb0\x01\n" +
-	"\rAdvancedHavoc\x12,\n" +
-	"\x02db\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\x02db\x12=\n" +
-	"\vfront_seven\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\n" +
-	"frontSeven\x122\n" +
-	"\x05total\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\x05total\"\xb2\x01\n" +
-	"\x15AdvancedFieldPosition\x12V\n" +
-	"\x18average_predicted_points\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\x16averagePredictedPoints\x12A\n" +
-	"\raverage_start\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\faverageStart\"\xd1\v\n" +
+	"stat_value\x18\x05 \x01(\v2\x16.google.protobuf.ValueR\tstatValue\"\xfc\x01\n" +
+	"\x13AdvancedRateMetrics\x12)\n" +
+	"\rexplosiveness\x18\x01 \x01(\x01H\x00R\rexplosiveness\x88\x01\x01\x12&\n" +
+	"\fsuccess_rate\x18\x02 \x01(\x01H\x01R\vsuccessRate\x88\x01\x01\x12 \n" +
+	"\ttotal_PPA\x18\x03 \x01(\x01H\x02R\btotalPPA\x88\x01\x01\x12\x15\n" +
+	"\x03ppa\x18\x04 \x01(\x01H\x03R\x03ppa\x88\x01\x01\x12\x17\n" +
+	"\x04rate\x18\x05 \x01(\x01H\x04R\x04rate\x88\x01\x01B\x10\n" +
+	"\x0e_explosivenessB\x0f\n" +
+	"\r_success_rateB\f\n" +
+	"\n" +
+	"_total_PPAB\x06\n" +
+	"\x04_ppaB\a\n" +
+	"\x05_rate\"\x86\x01\n" +
+	"\rAdvancedHavoc\x12\x13\n" +
+	"\x02db\x18\x01 \x01(\x01H\x00R\x02db\x88\x01\x01\x12$\n" +
+	"\vfront_seven\x18\x02 \x01(\x01H\x01R\n" +
+	"frontSeven\x88\x01\x01\x12\x19\n" +
+	"\x05total\x18\x03 \x01(\x01H\x02R\x05total\x88\x01\x01B\x05\n" +
+	"\x03_dbB\x0e\n" +
+	"\f_front_sevenB\b\n" +
+	"\x06_total\"\xaf\x01\n" +
+	"\x15AdvancedFieldPosition\x12=\n" +
+	"\x18average_predicted_points\x18\x01 \x01(\x01H\x00R\x16averagePredictedPoints\x88\x01\x01\x12(\n" +
+	"\raverage_start\x18\x02 \x01(\x01H\x01R\faverageStart\x88\x01\x01B\x1b\n" +
+	"\x19_average_predicted_pointsB\x10\n" +
+	"\x0e_average_start\"\xef\n" +
+	"\n" +
 	"\x16AdvancedSeasonStatSide\x12A\n" +
 	"\rpassing_plays\x18\x01 \x01(\v2\x1c.cfbd.v1.AdvancedRateMetricsR\fpassingPlays\x12A\n" +
 	"\rrushing_plays\x18\x02 \x01(\v2\x1c.cfbd.v1.AdvancedRateMetricsR\frushingPlays\x12A\n" +
 	"\rpassing_downs\x18\x03 \x01(\v2\x1c.cfbd.v1.AdvancedRateMetricsR\fpassingDowns\x12C\n" +
 	"\x0estandard_downs\x18\x04 \x01(\v2\x1c.cfbd.v1.AdvancedRateMetricsR\rstandardDowns\x12,\n" +
 	"\x05havoc\x18\x05 \x01(\v2\x16.cfbd.v1.AdvancedHavocR\x05havoc\x12E\n" +
-	"\x0efield_position\x18\x06 \x01(\v2\x1e.cfbd.v1.AdvancedFieldPositionR\rfieldPosition\x12R\n" +
-	"\x16points_per_opportunity\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\x14pointsPerOpportunity\x12H\n" +
-	"\x11total_opportunies\x18\b \x01(\v2\x1b.google.protobuf.Int32ValueR\x10totalOpportunies\x12P\n" +
-	"\x16open_field_yards_total\x18\t \x01(\v2\x1b.google.protobuf.Int32ValueR\x13openFieldYardsTotal\x12F\n" +
+	"\x0efield_position\x18\x06 \x01(\v2\x1e.cfbd.v1.AdvancedFieldPositionR\rfieldPosition\x129\n" +
+	"\x16points_per_opportunity\x18\a \x01(\x01H\x00R\x14pointsPerOpportunity\x88\x01\x01\x120\n" +
+	"\x11total_opportunies\x18\b \x01(\x05H\x01R\x10totalOpportunies\x88\x01\x01\x128\n" +
+	"\x16open_field_yards_total\x18\t \x01(\x05H\x02R\x13openFieldYardsTotal\x88\x01\x01\x12-\n" +
 	"\x10open_field_yards\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.DoubleValueR\x0eopenFieldYards\x12T\n" +
-	"\x18second_level_yards_total\x18\v \x01(\v2\x1b.google.protobuf.Int32ValueR\x15secondLevelYardsTotal\x12J\n" +
-	"\x12second_level_yards\x18\f \x01(\v2\x1c.google.protobuf.DoubleValueR\x10secondLevelYards\x12E\n" +
-	"\x10line_yards_total\x18\r \x01(\v2\x1b.google.protobuf.Int32ValueR\x0elineYardsTotal\x12;\n" +
+	" \x01(\x01H\x03R\x0eopenFieldYards\x88\x01\x01\x12<\n" +
+	"\x18second_level_yards_total\x18\v \x01(\x05H\x04R\x15secondLevelYardsTotal\x88\x01\x01\x121\n" +
+	"\x12second_level_yards\x18\f \x01(\x01H\x05R\x10secondLevelYards\x88\x01\x01\x12-\n" +
+	"\x10line_yards_total\x18\r \x01(\x05H\x06R\x0elineYardsTotal\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"line_yards\x18\x0e \x01(\v2\x1c.google.protobuf.DoubleValueR\tlineYards\x12;\n" +
+	"line_yards\x18\x0e \x01(\x01H\aR\tlineYards\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"stuff_rate\x18\x0f \x01(\v2\x1c.google.protobuf.DoubleValueR\tstuffRate\x12A\n" +
-	"\rpower_success\x18\x10 \x01(\v2\x1c.google.protobuf.DoubleValueR\fpowerSuccess\x12B\n" +
-	"\rexplosiveness\x18\x11 \x01(\v2\x1c.google.protobuf.DoubleValueR\rexplosiveness\x12?\n" +
-	"\fsuccess_rate\x18\x12 \x01(\v2\x1c.google.protobuf.DoubleValueR\vsuccessRate\x129\n" +
-	"\ttotal_PPA\x18\x13 \x01(\v2\x1c.google.protobuf.DoubleValueR\btotalPPA\x12.\n" +
-	"\x03ppa\x18\x14 \x01(\v2\x1c.google.protobuf.DoubleValueR\x03ppa\x123\n" +
-	"\x06drives\x18\x15 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06drives\x121\n" +
-	"\x05plays\x18\x16 \x01(\v2\x1b.google.protobuf.Int32ValueR\x05plays\"\xd6\x01\n" +
+	"stuff_rate\x18\x0f \x01(\x01H\bR\tstuffRate\x88\x01\x01\x12(\n" +
+	"\rpower_success\x18\x10 \x01(\x01H\tR\fpowerSuccess\x88\x01\x01\x12)\n" +
+	"\rexplosiveness\x18\x11 \x01(\x01H\n" +
+	"R\rexplosiveness\x88\x01\x01\x12&\n" +
+	"\fsuccess_rate\x18\x12 \x01(\x01H\vR\vsuccessRate\x88\x01\x01\x12 \n" +
+	"\ttotal_PPA\x18\x13 \x01(\x01H\fR\btotalPPA\x88\x01\x01\x12\x15\n" +
+	"\x03ppa\x18\x14 \x01(\x01H\rR\x03ppa\x88\x01\x01\x12\x1b\n" +
+	"\x06drives\x18\x15 \x01(\x05H\x0eR\x06drives\x88\x01\x01\x12\x19\n" +
+	"\x05plays\x18\x16 \x01(\x05H\x0fR\x05plays\x88\x01\x01B\x19\n" +
+	"\x17_points_per_opportunityB\x14\n" +
+	"\x12_total_opportuniesB\x19\n" +
+	"\x17_open_field_yards_totalB\x13\n" +
+	"\x11_open_field_yardsB\x1b\n" +
+	"\x19_second_level_yards_totalB\x15\n" +
+	"\x13_second_level_yardsB\x13\n" +
+	"\x11_line_yards_totalB\r\n" +
+	"\v_line_yardsB\r\n" +
+	"\v_stuff_rateB\x10\n" +
+	"\x0e_power_successB\x10\n" +
+	"\x0e_explosivenessB\x0f\n" +
+	"\r_success_rateB\f\n" +
+	"\n" +
+	"_total_PPAB\x06\n" +
+	"\x04_ppaB\t\n" +
+	"\a_drivesB\b\n" +
+	"\x06_plays\"\xd6\x01\n" +
 	"\x12AdvancedSeasonStat\x12\x16\n" +
 	"\x06season\x18\x01 \x01(\x05R\x06season\x12\x12\n" +
 	"\x04team\x18\x02 \x01(\tR\x04team\x12\x1e\n" +
@@ -11864,38 +11965,62 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"conference\x18\x03 \x01(\tR\n" +
 	"conference\x129\n" +
 	"\aoffense\x18\x04 \x01(\v2\x1f.cfbd.v1.AdvancedSeasonStatSideR\aoffense\x129\n" +
-	"\adefense\x18\x05 \x01(\v2\x1f.cfbd.v1.AdvancedSeasonStatSideR\adefense\"\x91\x02\n" +
-	"\x1fAdvancedGameStatSidePlayMetrics\x12B\n" +
-	"\rexplosiveness\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\rexplosiveness\x12?\n" +
-	"\fsuccess_rate\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\vsuccessRate\x129\n" +
-	"\ttotal_PPA\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\btotalPPA\x12.\n" +
-	"\x03ppa\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\x03ppa\"\xd6\x01\n" +
-	"\x1fAdvancedGameStatSideDownMetrics\x12B\n" +
-	"\rexplosiveness\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\rexplosiveness\x12?\n" +
-	"\fsuccess_rate\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\vsuccessRate\x12.\n" +
-	"\x03ppa\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\x03ppa\"\xec\t\n" +
+	"\adefense\x18\x05 \x01(\v2\x1f.cfbd.v1.AdvancedSeasonStatSideR\adefense\"\xe6\x01\n" +
+	"\x1fAdvancedGameStatSidePlayMetrics\x12)\n" +
+	"\rexplosiveness\x18\x01 \x01(\x01H\x00R\rexplosiveness\x88\x01\x01\x12&\n" +
+	"\fsuccess_rate\x18\x02 \x01(\x01H\x01R\vsuccessRate\x88\x01\x01\x12 \n" +
+	"\ttotal_PPA\x18\x03 \x01(\x01H\x02R\btotalPPA\x88\x01\x01\x12\x15\n" +
+	"\x03ppa\x18\x04 \x01(\x01H\x03R\x03ppa\x88\x01\x01B\x10\n" +
+	"\x0e_explosivenessB\x0f\n" +
+	"\r_success_rateB\f\n" +
+	"\n" +
+	"_total_PPAB\x06\n" +
+	"\x04_ppa\"\xb6\x01\n" +
+	"\x1fAdvancedGameStatSideDownMetrics\x12)\n" +
+	"\rexplosiveness\x18\x01 \x01(\x01H\x00R\rexplosiveness\x88\x01\x01\x12&\n" +
+	"\fsuccess_rate\x18\x02 \x01(\x01H\x01R\vsuccessRate\x88\x01\x01\x12\x15\n" +
+	"\x03ppa\x18\x03 \x01(\x01H\x02R\x03ppa\x88\x01\x01B\x10\n" +
+	"\x0e_explosivenessB\x0f\n" +
+	"\r_success_rateB\x06\n" +
+	"\x04_ppa\"\x8a\t\n" +
 	"\x14AdvancedGameStatSide\x12M\n" +
 	"\rpassing_plays\x18\x01 \x01(\v2(.cfbd.v1.AdvancedGameStatSidePlayMetricsR\fpassingPlays\x12M\n" +
 	"\rrushing_plays\x18\x02 \x01(\v2(.cfbd.v1.AdvancedGameStatSidePlayMetricsR\frushingPlays\x12M\n" +
 	"\rpassing_downs\x18\x03 \x01(\v2(.cfbd.v1.AdvancedGameStatSideDownMetricsR\fpassingDowns\x12O\n" +
-	"\x0estandard_downs\x18\x04 \x01(\v2(.cfbd.v1.AdvancedGameStatSideDownMetricsR\rstandardDowns\x12P\n" +
-	"\x16open_field_yards_total\x18\x05 \x01(\v2\x1b.google.protobuf.Int32ValueR\x13openFieldYardsTotal\x12F\n" +
-	"\x10open_field_yards\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\x0eopenFieldYards\x12T\n" +
-	"\x18second_level_yards_total\x18\a \x01(\v2\x1b.google.protobuf.Int32ValueR\x15secondLevelYardsTotal\x12J\n" +
-	"\x12second_level_yards\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\x10secondLevelYards\x12E\n" +
-	"\x10line_yards_total\x18\t \x01(\v2\x1b.google.protobuf.Int32ValueR\x0elineYardsTotal\x12;\n" +
+	"\x0estandard_downs\x18\x04 \x01(\v2(.cfbd.v1.AdvancedGameStatSideDownMetricsR\rstandardDowns\x128\n" +
+	"\x16open_field_yards_total\x18\x05 \x01(\x05H\x00R\x13openFieldYardsTotal\x88\x01\x01\x12-\n" +
+	"\x10open_field_yards\x18\x06 \x01(\x01H\x01R\x0eopenFieldYards\x88\x01\x01\x12<\n" +
+	"\x18second_level_yards_total\x18\a \x01(\x05H\x02R\x15secondLevelYardsTotal\x88\x01\x01\x121\n" +
+	"\x12second_level_yards\x18\b \x01(\x01H\x03R\x10secondLevelYards\x88\x01\x01\x12-\n" +
+	"\x10line_yards_total\x18\t \x01(\x05H\x04R\x0elineYardsTotal\x88\x01\x01\x12\"\n" +
 	"\n" +
 	"line_yards\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.DoubleValueR\tlineYards\x12;\n" +
+	" \x01(\x01H\x05R\tlineYards\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"stuff_rate\x18\v \x01(\v2\x1c.google.protobuf.DoubleValueR\tstuffRate\x12A\n" +
-	"\rpower_success\x18\f \x01(\v2\x1c.google.protobuf.DoubleValueR\fpowerSuccess\x12B\n" +
-	"\rexplosiveness\x18\r \x01(\v2\x1c.google.protobuf.DoubleValueR\rexplosiveness\x12?\n" +
-	"\fsuccess_rate\x18\x0e \x01(\v2\x1c.google.protobuf.DoubleValueR\vsuccessRate\x129\n" +
-	"\ttotal_PPA\x18\x0f \x01(\v2\x1c.google.protobuf.DoubleValueR\btotalPPA\x12.\n" +
-	"\x03ppa\x18\x10 \x01(\v2\x1c.google.protobuf.DoubleValueR\x03ppa\x123\n" +
-	"\x06drives\x18\x11 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06drives\x121\n" +
-	"\x05plays\x18\x12 \x01(\v2\x1b.google.protobuf.Int32ValueR\x05plays\"\x9a\x02\n" +
+	"stuff_rate\x18\v \x01(\x01H\x06R\tstuffRate\x88\x01\x01\x12(\n" +
+	"\rpower_success\x18\f \x01(\x01H\aR\fpowerSuccess\x88\x01\x01\x12)\n" +
+	"\rexplosiveness\x18\r \x01(\x01H\bR\rexplosiveness\x88\x01\x01\x12&\n" +
+	"\fsuccess_rate\x18\x0e \x01(\x01H\tR\vsuccessRate\x88\x01\x01\x12 \n" +
+	"\ttotal_PPA\x18\x0f \x01(\x01H\n" +
+	"R\btotalPPA\x88\x01\x01\x12\x15\n" +
+	"\x03ppa\x18\x10 \x01(\x01H\vR\x03ppa\x88\x01\x01\x12\x1b\n" +
+	"\x06drives\x18\x11 \x01(\x05H\fR\x06drives\x88\x01\x01\x12\x19\n" +
+	"\x05plays\x18\x12 \x01(\x05H\rR\x05plays\x88\x01\x01B\x19\n" +
+	"\x17_open_field_yards_totalB\x13\n" +
+	"\x11_open_field_yardsB\x1b\n" +
+	"\x19_second_level_yards_totalB\x15\n" +
+	"\x13_second_level_yardsB\x13\n" +
+	"\x11_line_yards_totalB\r\n" +
+	"\v_line_yardsB\r\n" +
+	"\v_stuff_rateB\x10\n" +
+	"\x0e_power_successB\x10\n" +
+	"\x0e_explosivenessB\x0f\n" +
+	"\r_success_rateB\f\n" +
+	"\n" +
+	"_total_PPAB\x06\n" +
+	"\x04_ppaB\t\n" +
+	"\a_drivesB\b\n" +
+	"\x06_plays\"\x9a\x02\n" +
 	"\x10AdvancedGameStat\x12\x17\n" +
 	"\agame_id\x18\x01 \x01(\x05R\x06gameId\x12\x16\n" +
 	"\x06season\x18\x02 \x01(\x05R\x06season\x12\x1f\n" +
@@ -11915,175 +12040,260 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x18front_seven_havoc_events\x18\x05 \x01(\x01R\x15frontSevenHavocEvents\x12,\n" +
 	"\x12total_havoc_events\x18\x06 \x01(\x01R\x10totalHavocEvents\x12\x1f\n" +
 	"\vtotal_plays\x18\a \x01(\x01R\n" +
-	"totalPlays\"\x9f\x03\n" +
+	"totalPlays\"\xe3\x02\n" +
 	"\x0eGameHavocStats\x12\x17\n" +
 	"\agame_id\x18\x01 \x01(\x05R\x06gameId\x12\x16\n" +
 	"\x06season\x18\x02 \x01(\x05R\x06season\x12\x1f\n" +
 	"\vseason_type\x18\x03 \x01(\tR\n" +
 	"seasonType\x12\x12\n" +
 	"\x04week\x18\x04 \x01(\x05R\x04week\x12\x12\n" +
-	"\x04team\x18\x05 \x01(\tR\x04team\x12<\n" +
+	"\x04team\x18\x05 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
+	"conference\x18\x06 \x01(\tR\n" +
 	"conference\x12\x1a\n" +
-	"\bopponent\x18\a \x01(\tR\bopponent\x12M\n" +
-	"\x13opponent_conference\x18\b \x01(\v2\x1c.google.protobuf.StringValueR\x12opponentConference\x124\n" +
+	"\bopponent\x18\a \x01(\tR\bopponent\x12/\n" +
+	"\x13opponent_conference\x18\b \x01(\tR\x12opponentConference\x124\n" +
 	"\aoffense\x18\t \x01(\v2\x1a.cfbd.v1.GameHavocStatSideR\aoffense\x124\n" +
 	"\adefense\x18\n" +
-	" \x01(\v2\x1a.cfbd.v1.GameHavocStatSideR\adefense\"\xc6\x01\n" +
-	"\x13RecruitHometownInfo\x129\n" +
-	"\tfips_code\x18\x01 \x01(\v2\x1c.google.protobuf.StringValueR\bfipsCode\x12:\n" +
-	"\tlongitude\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\tlongitude\x128\n" +
-	"\blatitude\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\blatitude\"\x94\x06\n" +
-	"\aRecruit\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12;\n" +
+	" \x01(\v2\x1a.cfbd.v1.GameHavocStatSideR\adefense\"\x91\x01\n" +
+	"\x13RecruitHometownInfo\x12\x1b\n" +
+	"\tfips_code\x18\x01 \x01(\tR\bfipsCode\x12!\n" +
+	"\tlongitude\x18\x02 \x01(\x01H\x00R\tlongitude\x88\x01\x01\x12\x1f\n" +
+	"\blatitude\x18\x03 \x01(\x01H\x01R\blatitude\x88\x01\x01B\f\n" +
 	"\n" +
-	"athlete_id\x18\x02 \x01(\v2\x1c.google.protobuf.StringValueR\tathleteId\x12!\n" +
+	"_longitudeB\v\n" +
+	"\t_latitude\"\x9b\x04\n" +
+	"\aRecruit\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
+	"\n" +
+	"athlete_id\x18\x02 \x01(\tR\tathleteId\x12!\n" +
 	"\frecruit_type\x18\x03 \x01(\tR\vrecruitType\x12\x12\n" +
-	"\x04year\x18\x04 \x01(\x05R\x04year\x125\n" +
-	"\aranking\x18\x05 \x01(\v2\x1b.google.protobuf.Int32ValueR\aranking\x12\x12\n" +
-	"\x04name\x18\x06 \x01(\tR\x04name\x124\n" +
-	"\x06school\x18\a \x01(\v2\x1c.google.protobuf.StringValueR\x06school\x12?\n" +
-	"\fcommitted_to\x18\b \x01(\v2\x1c.google.protobuf.StringValueR\vcommittedTo\x128\n" +
-	"\bposition\x18\t \x01(\v2\x1c.google.protobuf.StringValueR\bposition\x124\n" +
+	"\x04year\x18\x04 \x01(\x05R\x04year\x12\x1d\n" +
+	"\aranking\x18\x05 \x01(\x05H\x00R\aranking\x88\x01\x01\x12\x12\n" +
+	"\x04name\x18\x06 \x01(\tR\x04name\x12\x16\n" +
+	"\x06school\x18\a \x01(\tR\x06school\x12!\n" +
+	"\fcommitted_to\x18\b \x01(\tR\vcommittedTo\x12\x1a\n" +
+	"\bposition\x18\t \x01(\tR\bposition\x12\x1b\n" +
 	"\x06height\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.DoubleValueR\x06height\x123\n" +
-	"\x06weight\x18\v \x01(\v2\x1b.google.protobuf.Int32ValueR\x06weight\x12\x14\n" +
+	" \x01(\x01H\x01R\x06height\x88\x01\x01\x12\x1b\n" +
+	"\x06weight\x18\v \x01(\x05H\x02R\x06weight\x88\x01\x01\x12\x14\n" +
 	"\x05stars\x18\f \x01(\x05R\x05stars\x12\x16\n" +
-	"\x06rating\x18\r \x01(\x01R\x06rating\x120\n" +
-	"\x04city\x18\x0e \x01(\v2\x1c.google.protobuf.StringValueR\x04city\x12C\n" +
-	"\x0estate_province\x18\x0f \x01(\v2\x1c.google.protobuf.StringValueR\rstateProvince\x126\n" +
-	"\acountry\x18\x10 \x01(\v2\x1c.google.protobuf.StringValueR\acountry\x12A\n" +
-	"\rhometown_info\x18\x11 \x01(\v2\x1c.cfbd.v1.RecruitHometownInfoR\fhometownInfo\"k\n" +
+	"\x06rating\x18\r \x01(\x01R\x06rating\x12\x12\n" +
+	"\x04city\x18\x0e \x01(\tR\x04city\x12%\n" +
+	"\x0estate_province\x18\x0f \x01(\tR\rstateProvince\x12\x18\n" +
+	"\acountry\x18\x10 \x01(\tR\acountry\x12A\n" +
+	"\rhometown_info\x18\x11 \x01(\v2\x1c.cfbd.v1.RecruitHometownInfoR\fhometownInfoB\n" +
+	"\n" +
+	"\b_rankingB\t\n" +
+	"\a_heightB\t\n" +
+	"\a_weight\"k\n" +
 	"\x15TeamRecruitingRanking\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x12\n" +
 	"\x04rank\x18\x02 \x01(\x05R\x04rank\x12\x12\n" +
 	"\x04team\x18\x03 \x01(\tR\x04team\x12\x16\n" +
-	"\x06points\x18\x04 \x01(\x01R\x06points\"\x9c\x02\n" +
+	"\x06points\x18\x04 \x01(\x01R\x06points\"\x96\x02\n" +
 	"\x18AggregatedTeamRecruiting\x12\x12\n" +
 	"\x04team\x18\x01 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
 	"conference\x18\x02 \x01(\tR\n" +
-	"conference\x12C\n" +
-	"\x0eposition_group\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\rpositionGroup\x12%\n" +
+	"conference\x12*\n" +
+	"\x0eposition_group\x18\x03 \x01(\tH\x00R\rpositionGroup\x88\x01\x01\x12%\n" +
 	"\x0eaverage_rating\x18\x04 \x01(\x01R\raverageRating\x12!\n" +
 	"\ftotal_rating\x18\x05 \x01(\x01R\vtotalRating\x12\x18\n" +
 	"\acommits\x18\x06 \x01(\x05R\acommits\x12#\n" +
-	"\raverage_stars\x18\a \x01(\x01R\faverageStars\"\xdb\x04\n" +
-	"\rSpTeamOffense\x120\n" +
-	"\x04pace\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\x04pace\x127\n" +
-	"\brun_rate\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\arunRate\x12A\n" +
-	"\rpassing_downs\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\fpassingDowns\x12C\n" +
-	"\x0estandard_downs\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\rstandardDowns\x126\n" +
-	"\apassing\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\apassing\x126\n" +
-	"\arushing\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\arushing\x12B\n" +
-	"\rexplosiveness\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\rexplosiveness\x126\n" +
-	"\asuccess\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\asuccess\x124\n" +
-	"\x06rating\x18\t \x01(\v2\x1c.google.protobuf.DoubleValueR\x06rating\x125\n" +
+	"\raverage_stars\x18\a \x01(\x01R\faverageStarsB\x11\n" +
+	"\x0f_position_group\"\xea\x03\n" +
+	"\rSpTeamOffense\x12\x17\n" +
+	"\x04pace\x18\x01 \x01(\x01H\x00R\x04pace\x88\x01\x01\x12\x1e\n" +
+	"\brun_rate\x18\x02 \x01(\x01H\x01R\arunRate\x88\x01\x01\x12(\n" +
+	"\rpassing_downs\x18\x03 \x01(\x01H\x02R\fpassingDowns\x88\x01\x01\x12*\n" +
+	"\x0estandard_downs\x18\x04 \x01(\x01H\x03R\rstandardDowns\x88\x01\x01\x12\x1d\n" +
+	"\apassing\x18\x05 \x01(\x01H\x04R\apassing\x88\x01\x01\x12\x1d\n" +
+	"\arushing\x18\x06 \x01(\x01H\x05R\arushing\x88\x01\x01\x12)\n" +
+	"\rexplosiveness\x18\a \x01(\x01H\x06R\rexplosiveness\x88\x01\x01\x12\x1d\n" +
+	"\asuccess\x18\b \x01(\x01H\aR\asuccess\x88\x01\x01\x12\x1b\n" +
+	"\x06rating\x18\t \x01(\x01H\bR\x06rating\x88\x01\x01\x12\x1d\n" +
 	"\aranking\x18\n" +
-	" \x01(\v2\x1b.google.protobuf.Int32ValueR\aranking\"\x9e\x04\n" +
+	" \x01(\x05H\tR\aranking\x88\x01\x01B\a\n" +
+	"\x05_paceB\v\n" +
+	"\t_run_rateB\x10\n" +
+	"\x0e_passing_downsB\x11\n" +
+	"\x0f_standard_downsB\n" +
+	"\n" +
+	"\b_passingB\n" +
+	"\n" +
+	"\b_rushingB\x10\n" +
+	"\x0e_explosivenessB\n" +
+	"\n" +
+	"\b_successB\t\n" +
+	"\a_ratingB\n" +
+	"\n" +
+	"\b_ranking\"\xc9\x03\n" +
 	"\rSpTeamDefense\x12,\n" +
-	"\x05havoc\x18\x01 \x01(\v2\x16.cfbd.v1.AdvancedHavocR\x05havoc\x12A\n" +
-	"\rpassing_downs\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\fpassingDowns\x12C\n" +
-	"\x0estandard_downs\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\rstandardDowns\x126\n" +
-	"\apassing\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\apassing\x126\n" +
-	"\arushing\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\arushing\x12B\n" +
-	"\rexplosiveness\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\rexplosiveness\x126\n" +
-	"\asuccess\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\asuccess\x124\n" +
-	"\x06rating\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\x06rating\x125\n" +
-	"\aranking\x18\t \x01(\v2\x1b.google.protobuf.Int32ValueR\aranking\"F\n" +
-	"\x0eSpSpecialTeams\x124\n" +
-	"\x06rating\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\x06rating\"\xf7\x03\n" +
+	"\x05havoc\x18\x01 \x01(\v2\x16.cfbd.v1.AdvancedHavocR\x05havoc\x12(\n" +
+	"\rpassing_downs\x18\x02 \x01(\x01H\x00R\fpassingDowns\x88\x01\x01\x12*\n" +
+	"\x0estandard_downs\x18\x03 \x01(\x01H\x01R\rstandardDowns\x88\x01\x01\x12\x1d\n" +
+	"\apassing\x18\x04 \x01(\x01H\x02R\apassing\x88\x01\x01\x12\x1d\n" +
+	"\arushing\x18\x05 \x01(\x01H\x03R\arushing\x88\x01\x01\x12)\n" +
+	"\rexplosiveness\x18\x06 \x01(\x01H\x04R\rexplosiveness\x88\x01\x01\x12\x1d\n" +
+	"\asuccess\x18\a \x01(\x01H\x05R\asuccess\x88\x01\x01\x12\x1b\n" +
+	"\x06rating\x18\b \x01(\x01H\x06R\x06rating\x88\x01\x01\x12\x1d\n" +
+	"\aranking\x18\t \x01(\x05H\aR\aranking\x88\x01\x01B\x10\n" +
+	"\x0e_passing_downsB\x11\n" +
+	"\x0f_standard_downsB\n" +
+	"\n" +
+	"\b_passingB\n" +
+	"\n" +
+	"\b_rushingB\x10\n" +
+	"\x0e_explosivenessB\n" +
+	"\n" +
+	"\b_successB\t\n" +
+	"\a_ratingB\n" +
+	"\n" +
+	"\b_ranking\"8\n" +
+	"\x0eSpSpecialTeams\x12\x1b\n" +
+	"\x06rating\x18\x01 \x01(\x01H\x00R\x06rating\x88\x01\x01B\t\n" +
+	"\a_rating\"\xab\x03\n" +
 	"\x06TeamSP\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x12\n" +
-	"\x04team\x18\x02 \x01(\tR\x04team\x12<\n" +
+	"\x04team\x18\x02 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"conference\x124\n" +
-	"\x06rating\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\x06rating\x125\n" +
-	"\aranking\x18\x05 \x01(\v2\x1b.google.protobuf.Int32ValueR\aranking\x12H\n" +
-	"\x11second_order_wins\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\x0fsecondOrderWins\x12.\n" +
-	"\x03sos\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\x03sos\x120\n" +
+	"conference\x18\x03 \x01(\tR\n" +
+	"conference\x12\x1b\n" +
+	"\x06rating\x18\x04 \x01(\x01H\x00R\x06rating\x88\x01\x01\x12\x1d\n" +
+	"\aranking\x18\x05 \x01(\x05H\x01R\aranking\x88\x01\x01\x12/\n" +
+	"\x11second_order_wins\x18\x06 \x01(\x01H\x02R\x0fsecondOrderWins\x88\x01\x01\x12\x15\n" +
+	"\x03sos\x18\a \x01(\x01H\x03R\x03sos\x88\x01\x01\x120\n" +
 	"\aoffense\x18\b \x01(\v2\x16.cfbd.v1.SpTeamOffenseR\aoffense\x120\n" +
 	"\adefense\x18\t \x01(\v2\x16.cfbd.v1.SpTeamDefenseR\adefense\x12<\n" +
 	"\rspecial_teams\x18\n" +
-	" \x01(\v2\x17.cfbd.v1.SpSpecialTeamsR\fspecialTeams\"\xaa\x04\n" +
-	"\x13ConferenceSpOffense\x120\n" +
-	"\x04pace\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\x04pace\x127\n" +
-	"\brun_rate\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\arunRate\x12A\n" +
-	"\rpassing_downs\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\fpassingDowns\x12C\n" +
-	"\x0estandard_downs\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\rstandardDowns\x126\n" +
-	"\apassing\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\apassing\x126\n" +
-	"\arushing\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\arushing\x12B\n" +
-	"\rexplosiveness\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\rexplosiveness\x126\n" +
-	"\asuccess\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\asuccess\x124\n" +
-	"\x06rating\x18\t \x01(\v2\x1c.google.protobuf.DoubleValueR\x06rating\"\xed\x03\n" +
+	" \x01(\v2\x17.cfbd.v1.SpSpecialTeamsR\fspecialTeamsB\t\n" +
+	"\a_ratingB\n" +
+	"\n" +
+	"\b_rankingB\x14\n" +
+	"\x12_second_order_winsB\x06\n" +
+	"\x04_sos\"\xc5\x03\n" +
+	"\x13ConferenceSpOffense\x12\x17\n" +
+	"\x04pace\x18\x01 \x01(\x01H\x00R\x04pace\x88\x01\x01\x12\x1e\n" +
+	"\brun_rate\x18\x02 \x01(\x01H\x01R\arunRate\x88\x01\x01\x12(\n" +
+	"\rpassing_downs\x18\x03 \x01(\x01H\x02R\fpassingDowns\x88\x01\x01\x12*\n" +
+	"\x0estandard_downs\x18\x04 \x01(\x01H\x03R\rstandardDowns\x88\x01\x01\x12\x1d\n" +
+	"\apassing\x18\x05 \x01(\x01H\x04R\apassing\x88\x01\x01\x12\x1d\n" +
+	"\arushing\x18\x06 \x01(\x01H\x05R\arushing\x88\x01\x01\x12)\n" +
+	"\rexplosiveness\x18\a \x01(\x01H\x06R\rexplosiveness\x88\x01\x01\x12\x1d\n" +
+	"\asuccess\x18\b \x01(\x01H\aR\asuccess\x88\x01\x01\x12\x1b\n" +
+	"\x06rating\x18\t \x01(\x01H\bR\x06rating\x88\x01\x01B\a\n" +
+	"\x05_paceB\v\n" +
+	"\t_run_rateB\x10\n" +
+	"\x0e_passing_downsB\x11\n" +
+	"\x0f_standard_downsB\n" +
+	"\n" +
+	"\b_passingB\n" +
+	"\n" +
+	"\b_rushingB\x10\n" +
+	"\x0e_explosivenessB\n" +
+	"\n" +
+	"\b_successB\t\n" +
+	"\a_rating\"\xa4\x03\n" +
 	"\x13ConferenceSpDefense\x12,\n" +
-	"\x05havoc\x18\x01 \x01(\v2\x16.cfbd.v1.AdvancedHavocR\x05havoc\x12A\n" +
-	"\rpassing_downs\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\fpassingDowns\x12C\n" +
-	"\x0estandard_downs\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\rstandardDowns\x126\n" +
-	"\apassing\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\apassing\x126\n" +
-	"\arushing\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\arushing\x12B\n" +
-	"\rexplosiveness\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\rexplosiveness\x126\n" +
-	"\asuccess\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\asuccess\x124\n" +
-	"\x06rating\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\x06rating\"\xe4\x02\n" +
+	"\x05havoc\x18\x01 \x01(\v2\x16.cfbd.v1.AdvancedHavocR\x05havoc\x12(\n" +
+	"\rpassing_downs\x18\x02 \x01(\x01H\x00R\fpassingDowns\x88\x01\x01\x12*\n" +
+	"\x0estandard_downs\x18\x03 \x01(\x01H\x01R\rstandardDowns\x88\x01\x01\x12\x1d\n" +
+	"\apassing\x18\x04 \x01(\x01H\x02R\apassing\x88\x01\x01\x12\x1d\n" +
+	"\arushing\x18\x05 \x01(\x01H\x03R\arushing\x88\x01\x01\x12)\n" +
+	"\rexplosiveness\x18\x06 \x01(\x01H\x04R\rexplosiveness\x88\x01\x01\x12\x1d\n" +
+	"\asuccess\x18\a \x01(\x01H\x05R\asuccess\x88\x01\x01\x12\x1b\n" +
+	"\x06rating\x18\b \x01(\x01H\x06R\x06rating\x88\x01\x01B\x10\n" +
+	"\x0e_passing_downsB\x11\n" +
+	"\x0f_standard_downsB\n" +
+	"\n" +
+	"\b_passingB\n" +
+	"\n" +
+	"\b_rushingB\x10\n" +
+	"\x0e_explosivenessB\n" +
+	"\n" +
+	"\b_successB\t\n" +
+	"\a_rating\"\xd3\x02\n" +
 	"\fConferenceSP\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x1e\n" +
 	"\n" +
 	"conference\x18\x02 \x01(\tR\n" +
 	"conference\x12\x16\n" +
 	"\x06rating\x18\x03 \x01(\x01R\x06rating\x12*\n" +
-	"\x11second_order_wins\x18\x04 \x01(\x01R\x0fsecondOrderWins\x12.\n" +
-	"\x03sos\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\x03sos\x126\n" +
+	"\x11second_order_wins\x18\x04 \x01(\x01R\x0fsecondOrderWins\x12\x15\n" +
+	"\x03sos\x18\x05 \x01(\x01H\x00R\x03sos\x88\x01\x01\x126\n" +
 	"\aoffense\x18\x06 \x01(\v2\x1c.cfbd.v1.ConferenceSpOffenseR\aoffense\x126\n" +
 	"\adefense\x18\a \x01(\v2\x1c.cfbd.v1.ConferenceSpDefenseR\adefense\x12<\n" +
-	"\rspecial_teams\x18\b \x01(\v2\x17.cfbd.v1.SpSpecialTeamsR\fspecialTeams\"\xf8\x01\n" +
+	"\rspecial_teams\x18\b \x01(\v2\x17.cfbd.v1.SpSpecialTeamsR\fspecialTeamsB\x06\n" +
+	"\x04_sos\"\xb0\x01\n" +
 	"\aTeamSRS\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x12\n" +
-	"\x04team\x18\x02 \x01(\tR\x04team\x12<\n" +
+	"\x04team\x18\x02 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"conference\x128\n" +
-	"\bdivision\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\bdivision\x12\x16\n" +
-	"\x06rating\x18\x05 \x01(\x01R\x06rating\x125\n" +
-	"\aranking\x18\x06 \x01(\v2\x1b.google.protobuf.Int32ValueR\aranking\"\x9e\x01\n" +
+	"conference\x18\x03 \x01(\tR\n" +
+	"conference\x12\x1a\n" +
+	"\bdivision\x18\x04 \x01(\tR\bdivision\x12\x16\n" +
+	"\x06rating\x18\x05 \x01(\x01R\x06rating\x12\x1d\n" +
+	"\aranking\x18\x06 \x01(\x05H\x00R\aranking\x88\x01\x01B\n" +
+	"\n" +
+	"\b_ranking\"p\n" +
 	"\aTeamElo\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x12\n" +
-	"\x04team\x18\x02 \x01(\tR\x04team\x12<\n" +
+	"\x04team\x18\x02 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"conference\x12-\n" +
-	"\x03elo\x18\x04 \x01(\v2\x1b.google.protobuf.Int32ValueR\x03elo\"\xd0\x03\n" +
-	"\x0eFpiResumeRanks\x12>\n" +
-	"\fgame_control\x18\x01 \x01(\v2\x1b.google.protobuf.Int32ValueR\vgameControl\x12`\n" +
-	"\x1eremaining_strength_of_schedule\x18\x02 \x01(\v2\x1b.google.protobuf.Int32ValueR\x1bremainingStrengthOfSchedule\x12M\n" +
-	"\x14strength_of_schedule\x18\x03 \x01(\v2\x1b.google.protobuf.Int32ValueR\x12strengthOfSchedule\x12S\n" +
-	"\x17average_win_probability\x18\x04 \x01(\v2\x1b.google.protobuf.Int32ValueR\x15averageWinProbability\x12-\n" +
-	"\x03fpi\x18\x05 \x01(\v2\x1b.google.protobuf.Int32ValueR\x03fpi\x12I\n" +
-	"\x12strength_of_record\x18\x06 \x01(\v2\x1b.google.protobuf.Int32ValueR\x10strengthOfRecord\"\xfc\x01\n" +
-	"\x0fFpiEfficiencies\x12A\n" +
-	"\rspecial_teams\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\fspecialTeams\x126\n" +
-	"\adefense\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\adefense\x126\n" +
-	"\aoffense\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\aoffense\x126\n" +
-	"\aoverall\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\aoverall\"\x99\x02\n" +
+	"conference\x18\x03 \x01(\tR\n" +
+	"conference\x12\x15\n" +
+	"\x03elo\x18\x04 \x01(\x05H\x00R\x03elo\x88\x01\x01B\x06\n" +
+	"\x04_elo\"\xc8\x03\n" +
+	"\x0eFpiResumeRanks\x12&\n" +
+	"\fgame_control\x18\x01 \x01(\x05H\x00R\vgameControl\x88\x01\x01\x12H\n" +
+	"\x1eremaining_strength_of_schedule\x18\x02 \x01(\x05H\x01R\x1bremainingStrengthOfSchedule\x88\x01\x01\x125\n" +
+	"\x14strength_of_schedule\x18\x03 \x01(\x05H\x02R\x12strengthOfSchedule\x88\x01\x01\x12;\n" +
+	"\x17average_win_probability\x18\x04 \x01(\x05H\x03R\x15averageWinProbability\x88\x01\x01\x12\x15\n" +
+	"\x03fpi\x18\x05 \x01(\x05H\x04R\x03fpi\x88\x01\x01\x121\n" +
+	"\x12strength_of_record\x18\x06 \x01(\x05H\x05R\x10strengthOfRecord\x88\x01\x01B\x0f\n" +
+	"\r_game_controlB!\n" +
+	"\x1f_remaining_strength_of_scheduleB\x17\n" +
+	"\x15_strength_of_scheduleB\x1a\n" +
+	"\x18_average_win_probabilityB\x06\n" +
+	"\x04_fpiB\x15\n" +
+	"\x13_strength_of_record\"\xce\x01\n" +
+	"\x0fFpiEfficiencies\x12(\n" +
+	"\rspecial_teams\x18\x01 \x01(\x01H\x00R\fspecialTeams\x88\x01\x01\x12\x1d\n" +
+	"\adefense\x18\x02 \x01(\x01H\x01R\adefense\x88\x01\x01\x12\x1d\n" +
+	"\aoffense\x18\x03 \x01(\x01H\x02R\aoffense\x88\x01\x01\x12\x1d\n" +
+	"\aoverall\x18\x04 \x01(\x01H\x03R\aoverall\x88\x01\x01B\x10\n" +
+	"\x0e_special_teamsB\n" +
+	"\n" +
+	"\b_defenseB\n" +
+	"\n" +
+	"\b_offenseB\n" +
+	"\n" +
+	"\b_overall\"\xea\x01\n" +
 	"\aTeamFPI\x12\x12\n" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x12\n" +
-	"\x04team\x18\x02 \x01(\tR\x04team\x12<\n" +
+	"\x04team\x18\x02 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"conference\x12.\n" +
-	"\x03fpi\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\x03fpi\x12:\n" +
+	"conference\x18\x03 \x01(\tR\n" +
+	"conference\x12\x15\n" +
+	"\x03fpi\x18\x04 \x01(\x01H\x00R\x03fpi\x88\x01\x01\x12:\n" +
 	"\fresume_ranks\x18\x05 \x01(\v2\x17.cfbd.v1.FpiResumeRanksR\vresumeRanks\x12<\n" +
-	"\fefficiencies\x18\x06 \x01(\v2\x18.cfbd.v1.FpiEfficienciesR\fefficiencies\"\xc5\x02\n" +
-	"\bPollRank\x12/\n" +
-	"\x04rank\x18\x01 \x01(\v2\x1b.google.protobuf.Int32ValueR\x04rank\x124\n" +
-	"\ateam_id\x18\x02 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06teamId\x12\x16\n" +
-	"\x06school\x18\x03 \x01(\tR\x06school\x12<\n" +
+	"\fefficiencies\x18\x06 \x01(\v2\x18.cfbd.v1.FpiEfficienciesR\fefficienciesB\x06\n" +
+	"\x04_fpi\"\xfd\x01\n" +
+	"\bPollRank\x12\x17\n" +
+	"\x04rank\x18\x01 \x01(\x05H\x00R\x04rank\x88\x01\x01\x12\x1c\n" +
+	"\ateam_id\x18\x02 \x01(\x05H\x01R\x06teamId\x88\x01\x01\x12\x16\n" +
+	"\x06school\x18\x03 \x01(\tR\x06school\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"conference\x12G\n" +
-	"\x11first_place_votes\x18\x05 \x01(\v2\x1b.google.protobuf.Int32ValueR\x0ffirstPlaceVotes\x123\n" +
-	"\x06points\x18\x06 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06points\"C\n" +
+	"conference\x18\x04 \x01(\tR\n" +
+	"conference\x12/\n" +
+	"\x11first_place_votes\x18\x05 \x01(\x05H\x02R\x0ffirstPlaceVotes\x88\x01\x01\x12\x1b\n" +
+	"\x06points\x18\x06 \x01(\x05H\x03R\x06points\x88\x01\x01B\a\n" +
+	"\x05_rankB\n" +
+	"\n" +
+	"\b_team_idB\x14\n" +
+	"\x12_first_place_votesB\t\n" +
+	"\a_points\"C\n" +
 	"\x04Poll\x12\x12\n" +
 	"\x04poll\x18\x01 \x01(\tR\x04poll\x12'\n" +
 	"\x05ranks\x18\x02 \x03(\v2\x11.cfbd.v1.PollRankR\x05ranks\"|\n" +
@@ -12092,41 +12302,46 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\vseason_type\x18\x02 \x01(\tR\n" +
 	"seasonType\x12\x12\n" +
 	"\x04week\x18\x03 \x01(\x05R\x04week\x12#\n" +
-	"\x05polls\x18\x04 \x03(\v2\r.cfbd.v1.PollR\x05polls\"\xcc\b\n" +
+	"\x05polls\x18\x04 \x03(\v2\r.cfbd.v1.PollR\x05polls\"\xae\a\n" +
 	"\x04Play\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x19\n" +
 	"\bdrive_id\x18\x02 \x01(\tR\adriveId\x12\x17\n" +
-	"\agame_id\x18\x03 \x01(\x05R\x06gameId\x12>\n" +
-	"\fdrive_number\x18\x04 \x01(\v2\x1b.google.protobuf.Int32ValueR\vdriveNumber\x12<\n" +
-	"\vplay_number\x18\x05 \x01(\v2\x1b.google.protobuf.Int32ValueR\n" +
-	"playNumber\x12\x18\n" +
-	"\aoffense\x18\x06 \x01(\tR\aoffense\x12K\n" +
-	"\x12offense_conference\x18\a \x01(\v2\x1c.google.protobuf.StringValueR\x11offenseConference\x12#\n" +
+	"\agame_id\x18\x03 \x01(\x05R\x06gameId\x12&\n" +
+	"\fdrive_number\x18\x04 \x01(\x05H\x00R\vdriveNumber\x88\x01\x01\x12$\n" +
+	"\vplay_number\x18\x05 \x01(\x05H\x01R\n" +
+	"playNumber\x88\x01\x01\x12\x18\n" +
+	"\aoffense\x18\x06 \x01(\tR\aoffense\x12-\n" +
+	"\x12offense_conference\x18\a \x01(\tR\x11offenseConference\x12#\n" +
 	"\roffense_score\x18\b \x01(\x05R\foffenseScore\x12\x18\n" +
 	"\adefense\x18\t \x01(\tR\adefense\x12\x12\n" +
 	"\x04home\x18\n" +
 	" \x01(\tR\x04home\x12\x12\n" +
-	"\x04away\x18\v \x01(\tR\x04away\x12K\n" +
-	"\x12defense_conference\x18\f \x01(\v2\x1c.google.protobuf.StringValueR\x11defenseConference\x12#\n" +
+	"\x04away\x18\v \x01(\tR\x04away\x12-\n" +
+	"\x12defense_conference\x18\f \x01(\tR\x11defenseConference\x12#\n" +
 	"\rdefense_score\x18\r \x01(\x05R\fdefenseScore\x12\x16\n" +
 	"\x06period\x18\x0e \x01(\x05R\x06period\x12)\n" +
-	"\x05clock\x18\x0f \x01(\v2\x13.cfbd.v1.ClockInt32R\x05clock\x12F\n" +
-	"\x10offense_timeouts\x18\x10 \x01(\v2\x1b.google.protobuf.Int32ValueR\x0foffenseTimeouts\x12F\n" +
-	"\x10defense_timeouts\x18\x11 \x01(\v2\x1b.google.protobuf.Int32ValueR\x0fdefenseTimeouts\x12\x1a\n" +
+	"\x05clock\x18\x0f \x01(\v2\x13.cfbd.v1.ClockInt32R\x05clock\x12.\n" +
+	"\x10offense_timeouts\x18\x10 \x01(\x05H\x02R\x0foffenseTimeouts\x88\x01\x01\x12.\n" +
+	"\x10defense_timeouts\x18\x11 \x01(\x05H\x03R\x0fdefenseTimeouts\x88\x01\x01\x12\x1a\n" +
 	"\byardline\x18\x12 \x01(\x05R\byardline\x12\"\n" +
 	"\ryards_to_goal\x18\x13 \x01(\x05R\vyardsToGoal\x12\x12\n" +
 	"\x04down\x18\x14 \x01(\x05R\x04down\x12\x1a\n" +
 	"\bdistance\x18\x15 \x01(\x05R\bdistance\x12!\n" +
 	"\fyards_gained\x18\x16 \x01(\x05R\vyardsGained\x12\x18\n" +
 	"\ascoring\x18\x17 \x01(\bR\ascoring\x12\x1b\n" +
-	"\tplay_type\x18\x18 \x01(\tR\bplayType\x129\n" +
-	"\tplay_text\x18\x19 \x01(\v2\x1c.google.protobuf.StringValueR\bplayText\x12.\n" +
-	"\x03ppa\x18\x1a \x01(\v2\x1c.google.protobuf.DoubleValueR\x03ppa\x12:\n" +
-	"\twallclock\x18\x1b \x01(\v2\x1c.google.protobuf.StringValueR\twallclock\"p\n" +
+	"\tplay_type\x18\x18 \x01(\tR\bplayType\x12\x1b\n" +
+	"\tplay_text\x18\x19 \x01(\tR\bplayText\x12\x15\n" +
+	"\x03ppa\x18\x1a \x01(\x01H\x04R\x03ppa\x88\x01\x01\x12\x1c\n" +
+	"\twallclock\x18\x1b \x01(\tR\twallclockB\x0f\n" +
+	"\r_drive_numberB\x0e\n" +
+	"\f_play_numberB\x13\n" +
+	"\x11_offense_timeoutsB\x13\n" +
+	"\x11_defense_timeoutsB\x06\n" +
+	"\x04_ppa\"R\n" +
 	"\bPlayType\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
-	"\x04text\x18\x02 \x01(\tR\x04text\x12@\n" +
-	"\fabbreviation\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\fabbreviation\"\xa4\x04\n" +
+	"\x04text\x18\x02 \x01(\tR\x04text\x12\"\n" +
+	"\fabbreviation\x18\x03 \x01(\tR\fabbreviation\"\xa4\x04\n" +
 	"\bPlayStat\x12\x17\n" +
 	"\agame_id\x18\x01 \x01(\x01R\x06gameId\x12\x16\n" +
 	"\x06season\x18\x02 \x01(\x01R\x06season\x12\x12\n" +
@@ -12154,39 +12369,51 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x04stat\x18\x13 \x01(\x01R\x04stat\"2\n" +
 	"\fPlayStatType\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\"\xed\x03\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\"\x89\x03\n" +
 	"\x12PlayerSearchResult\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04team\x18\x02 \x01(\tR\x04team\x12\x12\n" +
-	"\x04name\x18\x03 \x01(\tR\x04name\x12;\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12\x1d\n" +
 	"\n" +
-	"first_name\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\tfirstName\x129\n" +
-	"\tlast_name\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueR\blastName\x123\n" +
-	"\x06weight\x18\x06 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06weight\x124\n" +
-	"\x06height\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\x06height\x123\n" +
-	"\x06jersey\x18\b \x01(\v2\x1b.google.protobuf.Int32ValueR\x06jersey\x12\x1a\n" +
+	"first_name\x18\x04 \x01(\tR\tfirstName\x12\x1b\n" +
+	"\tlast_name\x18\x05 \x01(\tR\blastName\x12\x1b\n" +
+	"\x06weight\x18\x06 \x01(\x05H\x00R\x06weight\x88\x01\x01\x12\x1b\n" +
+	"\x06height\x18\a \x01(\x01H\x01R\x06height\x88\x01\x01\x12\x1b\n" +
+	"\x06jersey\x18\b \x01(\x05H\x02R\x06jersey\x88\x01\x01\x12\x1a\n" +
 	"\bposition\x18\t \x01(\tR\bposition\x12\x1a\n" +
 	"\bhometown\x18\n" +
 	" \x01(\tR\bhometown\x12\x1d\n" +
 	"\n" +
 	"team_color\x18\v \x01(\tR\tteamColor\x120\n" +
-	"\x14team_color_secondary\x18\f \x01(\tR\x12teamColorSecondary\"N\n" +
+	"\x14team_color_secondary\x18\f \x01(\tR\x12teamColorSecondaryB\t\n" +
+	"\a_weightB\t\n" +
+	"\a_heightB\t\n" +
+	"\a_jersey\"N\n" +
 	"\x12PlayerPPAChartItem\x12\x1f\n" +
 	"\vplay_number\x18\x01 \x01(\x05R\n" +
 	"playNumber\x12\x17\n" +
-	"\aavg_PPA\x18\x02 \x01(\x01R\x06avgPPA\"\xf0\x03\n" +
-	"\x11PlayerUsageSplits\x12A\n" +
-	"\rpassing_downs\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\fpassingDowns\x12C\n" +
-	"\x0estandard_downs\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\rstandardDowns\x12;\n" +
+	"\aavg_PPA\x18\x02 \x01(\x01R\x06avgPPA\"\x99\x03\n" +
+	"\x11PlayerUsageSplits\x12(\n" +
+	"\rpassing_downs\x18\x01 \x01(\x01H\x00R\fpassingDowns\x88\x01\x01\x12*\n" +
+	"\x0estandard_downs\x18\x02 \x01(\x01H\x01R\rstandardDowns\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"third_down\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\tthirdDown\x12=\n" +
-	"\vsecond_down\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\n" +
-	"secondDown\x12;\n" +
+	"third_down\x18\x03 \x01(\x01H\x02R\tthirdDown\x88\x01\x01\x12$\n" +
+	"\vsecond_down\x18\x04 \x01(\x01H\x03R\n" +
+	"secondDown\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"first_down\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\tfirstDown\x120\n" +
-	"\x04rush\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\x04rush\x120\n" +
-	"\x04pass\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\x04pass\x126\n" +
-	"\aoverall\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\aoverall\"\xcb\x01\n" +
+	"first_down\x18\x05 \x01(\x01H\x04R\tfirstDown\x88\x01\x01\x12\x17\n" +
+	"\x04rush\x18\x06 \x01(\x01H\x05R\x04rush\x88\x01\x01\x12\x17\n" +
+	"\x04pass\x18\a \x01(\x01H\x06R\x04pass\x88\x01\x01\x12\x1d\n" +
+	"\aoverall\x18\b \x01(\x01H\aR\aoverall\x88\x01\x01B\x10\n" +
+	"\x0e_passing_downsB\x11\n" +
+	"\x0f_standard_downsB\r\n" +
+	"\v_third_downB\x0e\n" +
+	"\f_second_downB\r\n" +
+	"\v_first_downB\a\n" +
+	"\x05_rushB\a\n" +
+	"\x05_passB\n" +
+	"\n" +
+	"\b_overall\"\xcb\x01\n" +
 	"\vPlayerUsage\x12\x16\n" +
 	"\x06season\x18\x01 \x01(\x05R\x06season\x12\x0e\n" +
 	"\x02id\x18\x02 \x01(\tR\x02id\x12\x12\n" +
@@ -12216,20 +12443,22 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x05usage\x18\f \x01(\x01R\x05usage\x12#\n" +
 	"\rpassing_usage\x18\r \x01(\x01R\fpassingUsage\x12'\n" +
 	"\x0freceiving_usage\x18\x0e \x01(\x01R\x0ereceivingUsage\x12#\n" +
-	"\rrushing_usage\x18\x0f \x01(\x01R\frushingUsage\"\xc2\x03\n" +
+	"\rrushing_usage\x18\x0f \x01(\x01R\frushingUsage\"\xea\x02\n" +
 	"\x0ePlayerTransfer\x12\x16\n" +
 	"\x06season\x18\x01 \x01(\x05R\x06season\x12\x1d\n" +
 	"\n" +
 	"first_name\x18\x02 \x01(\tR\tfirstName\x12\x1b\n" +
 	"\tlast_name\x18\x03 \x01(\tR\blastName\x12\x1a\n" +
 	"\bposition\x18\x04 \x01(\tR\bposition\x12\x16\n" +
-	"\x06origin\x18\x05 \x01(\tR\x06origin\x12>\n" +
-	"\vdestination\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\vdestination\x12?\n" +
-	"\rtransfer_date\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\ftransferDate\x124\n" +
-	"\x06rating\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\x06rating\x121\n" +
-	"\x05stars\x18\t \x01(\v2\x1b.google.protobuf.Int32ValueR\x05stars\x12>\n" +
+	"\x06origin\x18\x05 \x01(\tR\x06origin\x12 \n" +
+	"\vdestination\x18\x06 \x01(\tR\vdestination\x12?\n" +
+	"\rtransfer_date\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\ftransferDate\x12\x1b\n" +
+	"\x06rating\x18\b \x01(\x01H\x00R\x06rating\x88\x01\x01\x12\x19\n" +
+	"\x05stars\x18\t \x01(\x05H\x01R\x05stars\x88\x01\x01\x12 \n" +
 	"\veligibility\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.StringValueR\veligibility\"^\n" +
+	" \x01(\tR\veligibilityB\t\n" +
+	"\a_ratingB\b\n" +
+	"\x06_stars\"^\n" +
 	"\x14PredictedPointsValue\x12\x1b\n" +
 	"\tyard_line\x18\x01 \x01(\x05R\byardLine\x12)\n" +
 	"\x10predicted_points\x18\x02 \x01(\x01R\x0fpredictedPoints\"\xc5\x01\n" +
@@ -12252,20 +12481,29 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"first_down\x18\x03 \x01(\x01R\tfirstDown\x12\x18\n" +
 	"\arushing\x18\x04 \x01(\x01R\arushing\x12\x18\n" +
 	"\apassing\x18\x05 \x01(\x01R\apassing\x12\x18\n" +
-	"\aoverall\x18\x06 \x01(\x01R\aoverall\"\xca\x03\n" +
+	"\aoverall\x18\x06 \x01(\x01R\aoverall\"\x86\x03\n" +
 	"\"TeamSeasonPredictedPointsAddedUnit\x12C\n" +
 	"\n" +
 	"cumulative\x18\x01 \x01(\v2#.cfbd.v1.PredictedPointsAddedTotalsR\n" +
-	"cumulative\x12;\n" +
+	"cumulative\x12\"\n" +
 	"\n" +
-	"third_down\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\tthirdDown\x12=\n" +
-	"\vsecond_down\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\n" +
-	"secondDown\x12;\n" +
+	"third_down\x18\x02 \x01(\x01H\x00R\tthirdDown\x88\x01\x01\x12$\n" +
+	"\vsecond_down\x18\x03 \x01(\x01H\x01R\n" +
+	"secondDown\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"first_down\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\tfirstDown\x126\n" +
-	"\arushing\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\arushing\x126\n" +
-	"\apassing\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\apassing\x126\n" +
-	"\aoverall\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\aoverall\"\xfa\x01\n" +
+	"first_down\x18\x04 \x01(\x01H\x02R\tfirstDown\x88\x01\x01\x12\x1d\n" +
+	"\arushing\x18\x05 \x01(\x01H\x03R\arushing\x88\x01\x01\x12\x1d\n" +
+	"\apassing\x18\x06 \x01(\x01H\x04R\apassing\x88\x01\x01\x12\x1d\n" +
+	"\aoverall\x18\a \x01(\x01H\x05R\aoverall\x88\x01\x01B\r\n" +
+	"\v_third_downB\x0e\n" +
+	"\f_second_downB\r\n" +
+	"\v_first_downB\n" +
+	"\n" +
+	"\b_rushingB\n" +
+	"\n" +
+	"\b_passingB\n" +
+	"\n" +
+	"\b_overall\"\xfa\x01\n" +
 	"\x1eTeamSeasonPredictedPointsAdded\x12\x16\n" +
 	"\x06season\x18\x01 \x01(\x05R\x06season\x12\x1e\n" +
 	"\n" +
@@ -12303,19 +12541,27 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x04team\x18\a \x01(\tR\x04team\x12\x1a\n" +
 	"\bopponent\x18\b \x01(\tR\bopponent\x124\n" +
 	"\vaverage_PPA\x18\t \x01(\v2\x13.cfbd.v1.AveragePpaR\n" +
-	"averagePPA\"\xec\x03\n" +
-	"\x15PlayerSeasonPpaSplits\x12A\n" +
-	"\rpassing_downs\x18\x01 \x01(\v2\x1c.google.protobuf.DoubleValueR\fpassingDowns\x12C\n" +
-	"\x0estandard_downs\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\rstandardDowns\x12;\n" +
+	"averagePPA\"\x91\x03\n" +
+	"\x15PlayerSeasonPpaSplits\x12(\n" +
+	"\rpassing_downs\x18\x01 \x01(\x01H\x00R\fpassingDowns\x88\x01\x01\x12*\n" +
+	"\x0estandard_downs\x18\x02 \x01(\x01H\x01R\rstandardDowns\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"third_down\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\tthirdDown\x12=\n" +
-	"\vsecond_down\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\n" +
-	"secondDown\x12;\n" +
+	"third_down\x18\x03 \x01(\x01H\x02R\tthirdDown\x88\x01\x01\x12$\n" +
+	"\vsecond_down\x18\x04 \x01(\x01H\x03R\n" +
+	"secondDown\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"first_down\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\tfirstDown\x120\n" +
-	"\x04rush\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\x04rush\x120\n" +
-	"\x04pass\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\x04pass\x12.\n" +
-	"\x03all\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\x03all\"\xac\x02\n" +
+	"first_down\x18\x05 \x01(\x01H\x04R\tfirstDown\x88\x01\x01\x12\x17\n" +
+	"\x04rush\x18\x06 \x01(\x01H\x05R\x04rush\x88\x01\x01\x12\x17\n" +
+	"\x04pass\x18\a \x01(\x01H\x06R\x04pass\x88\x01\x01\x12\x15\n" +
+	"\x03all\x18\b \x01(\x01H\aR\x03all\x88\x01\x01B\x10\n" +
+	"\x0e_passing_downsB\x11\n" +
+	"\x0f_standard_downsB\r\n" +
+	"\v_third_downB\x0e\n" +
+	"\f_second_downB\r\n" +
+	"\v_first_downB\a\n" +
+	"\x05_rushB\a\n" +
+	"\x05_passB\x06\n" +
+	"\x04_all\"\xac\x02\n" +
 	" PlayerSeasonPredictedPointsAdded\x12\x16\n" +
 	"\x06season\x18\x01 \x01(\x05R\x06season\x12\x0e\n" +
 	"\x02id\x18\x02 \x01(\tR\x02id\x12\x12\n" +
@@ -12362,7 +12608,7 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\vFieldGoalEP\x12\"\n" +
 	"\ryards_to_goal\x18\x01 \x01(\x05R\vyardsToGoal\x12\x1a\n" +
 	"\bdistance\x18\x02 \x01(\x05R\bdistance\x12'\n" +
-	"\x0fexpected_points\x18\x03 \x01(\x01R\x0eexpectedPoints\"\xe7\b\n" +
+	"\x0fexpected_points\x18\x03 \x01(\x01R\x0eexpectedPoints\"\xe4\b\n" +
 	"\fLiveGameTeam\x12\x17\n" +
 	"\ateam_id\x18\x01 \x01(\x05R\x06teamId\x12\x12\n" +
 	"\x04team\x18\x02 \x01(\tR\x04team\x12\x1b\n" +
@@ -12372,8 +12618,8 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x06points\x18\x05 \x01(\x05R\x06points\x12\x16\n" +
 	"\x06drives\x18\x06 \x01(\x05R\x06drives\x123\n" +
 	"\x15scoring_opportunities\x18\a \x01(\x05R\x14scoringOpportunities\x124\n" +
-	"\x16points_per_opportunity\x18\b \x01(\x01R\x14pointsPerOpportunity\x12S\n" +
-	"\x17average_start_yard_line\x18\t \x01(\v2\x1c.google.protobuf.DoubleValueR\x14averageStartYardLine\x12\x14\n" +
+	"\x16points_per_opportunity\x18\b \x01(\x01R\x14pointsPerOpportunity\x12:\n" +
+	"\x17average_start_yard_line\x18\t \x01(\x01H\x00R\x14averageStartYardLine\x88\x01\x01\x12\x14\n" +
 	"\x05plays\x18\n" +
 	" \x01(\x05R\x05plays\x12\x1d\n" +
 	"\n" +
@@ -12397,8 +12643,10 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\fsuccess_rate\x18\x17 \x01(\x01R\vsuccessRate\x12;\n" +
 	"\x1astandard_down_success_rate\x18\x18 \x01(\x01R\x17standardDownSuccessRate\x129\n" +
 	"\x19passing_down_success_rate\x18\x19 \x01(\x01R\x16passingDownSuccessRate\x12$\n" +
-	"\rexplosiveness\x18\x1a \x01(\x01R\rexplosiveness\x12B\n" +
-	"\x0edeserve_to_win\x18\x1b \x01(\v2\x1c.google.protobuf.DoubleValueR\fdeserveToWin\"\xec\x04\n" +
+	"\rexplosiveness\x18\x1a \x01(\x01R\rexplosiveness\x12)\n" +
+	"\x0edeserve_to_win\x18\x1b \x01(\x01H\x01R\fdeserveToWin\x88\x01\x01B\x1a\n" +
+	"\x18_average_start_yard_lineB\x11\n" +
+	"\x0f_deserve_to_win\"\xdb\x04\n" +
 	"\fLiveGamePlay\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
 	"\n" +
@@ -12418,13 +12666,14 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\fyards_gained\x18\f \x01(\x05R\vyardsGained\x12 \n" +
 	"\fplay_type_id\x18\r \x01(\x05R\n" +
 	"playTypeId\x12\x1b\n" +
-	"\tplay_type\x18\x0e \x01(\tR\bplayType\x12.\n" +
-	"\x03epa\x18\x0f \x01(\v2\x1c.google.protobuf.DoubleValueR\x03epa\x12!\n" +
+	"\tplay_type\x18\x0e \x01(\tR\bplayType\x12\x15\n" +
+	"\x03epa\x18\x0f \x01(\x01H\x00R\x03epa\x88\x01\x01\x12!\n" +
 	"\fgarbage_time\x18\x10 \x01(\bR\vgarbageTime\x12\x18\n" +
 	"\asuccess\x18\x11 \x01(\bR\asuccess\x12\x1b\n" +
 	"\trush_pass\x18\x12 \x01(\tR\brushPass\x12\x1b\n" +
 	"\tdown_type\x18\x13 \x01(\tR\bdownType\x12\x1b\n" +
-	"\tplay_text\x18\x14 \x01(\tR\bplayText\"\xeb\x05\n" +
+	"\tplay_text\x18\x14 \x01(\tR\bplayTextB\x06\n" +
+	"\x04_epa\"\x86\x05\n" +
 	"\rLiveGameDrive\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1d\n" +
 	"\n" +
@@ -12436,45 +12685,57 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\n" +
 	"play_count\x18\x06 \x01(\x05R\tplayCount\x12\x14\n" +
 	"\x05yards\x18\a \x01(\x05R\x05yards\x12!\n" +
-	"\fstart_period\x18\b \x01(\x05R\vstartPeriod\x12=\n" +
-	"\vstart_clock\x18\t \x01(\v2\x1c.google.protobuf.StringValueR\n" +
+	"\fstart_period\x18\b \x01(\x05R\vstartPeriod\x12\x1f\n" +
+	"\vstart_clock\x18\t \x01(\tR\n" +
 	"startClock\x12-\n" +
 	"\x13start_yards_to_goal\x18\n" +
-	" \x01(\x05R\x10startYardsToGoal\x12:\n" +
+	" \x01(\x05R\x10startYardsToGoal\x12\"\n" +
 	"\n" +
-	"end_period\x18\v \x01(\v2\x1b.google.protobuf.Int32ValueR\tendPeriod\x129\n" +
-	"\tend_clock\x18\f \x01(\v2\x1c.google.protobuf.StringValueR\bendClock\x12F\n" +
-	"\x11end_yards_to_goal\x18\r \x01(\v2\x1b.google.protobuf.Int32ValueR\x0eendYardsToGoal\x128\n" +
-	"\bduration\x18\x0e \x01(\v2\x1c.google.protobuf.StringValueR\bduration\x12/\n" +
+	"end_period\x18\v \x01(\x05H\x00R\tendPeriod\x88\x01\x01\x12\x1b\n" +
+	"\tend_clock\x18\f \x01(\tR\bendClock\x12.\n" +
+	"\x11end_yards_to_goal\x18\r \x01(\x05H\x01R\x0eendYardsToGoal\x88\x01\x01\x12\x1a\n" +
+	"\bduration\x18\x0e \x01(\tR\bduration\x12/\n" +
 	"\x13scoring_opportunity\x18\x0f \x01(\bR\x12scoringOpportunity\x12\x16\n" +
 	"\x06result\x18\x10 \x01(\tR\x06result\x12#\n" +
 	"\rpoints_gained\x18\x11 \x01(\x05R\fpointsGained\x12+\n" +
-	"\x05plays\x18\x12 \x03(\v2\x15.cfbd.v1.LiveGamePlayR\x05plays\"\xa5\x03\n" +
+	"\x05plays\x18\x12 \x03(\v2\x15.cfbd.v1.LiveGamePlayR\x05playsB\r\n" +
+	"\v_end_periodB\x14\n" +
+	"\x12_end_yards_to_goal\"\xf8\x02\n" +
 	"\bLiveGame\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x16\n" +
-	"\x06status\x18\x02 \x01(\tR\x06status\x123\n" +
-	"\x06period\x18\x03 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06period\x12\x14\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\x12\x1b\n" +
+	"\x06period\x18\x03 \x01(\x05H\x00R\x06period\x88\x01\x01\x12\x14\n" +
 	"\x05clock\x18\x04 \x01(\tR\x05clock\x12\x1e\n" +
 	"\n" +
 	"possession\x18\x05 \x01(\tR\n" +
-	"possession\x12/\n" +
-	"\x04down\x18\x06 \x01(\v2\x1b.google.protobuf.Int32ValueR\x04down\x127\n" +
-	"\bdistance\x18\a \x01(\v2\x1b.google.protobuf.Int32ValueR\bdistance\x12?\n" +
-	"\ryards_to_goal\x18\b \x01(\v2\x1b.google.protobuf.Int32ValueR\vyardsToGoal\x12+\n" +
+	"possession\x12\x17\n" +
+	"\x04down\x18\x06 \x01(\x05H\x01R\x04down\x88\x01\x01\x12\x1f\n" +
+	"\bdistance\x18\a \x01(\x05H\x02R\bdistance\x88\x01\x01\x12'\n" +
+	"\ryards_to_goal\x18\b \x01(\x05H\x03R\vyardsToGoal\x88\x01\x01\x12+\n" +
 	"\x05teams\x18\t \x03(\v2\x15.cfbd.v1.LiveGameTeamR\x05teams\x12.\n" +
 	"\x06drives\x18\n" +
-	" \x03(\v2\x16.cfbd.v1.LiveGameDriveR\x06drives\"\xf1\x03\n" +
+	" \x03(\v2\x16.cfbd.v1.LiveGameDriveR\x06drivesB\t\n" +
+	"\a_periodB\a\n" +
+	"\x05_downB\v\n" +
+	"\t_distanceB\x10\n" +
+	"\x0e_yards_to_goal\"\xa1\x03\n" +
 	"\bGameLine\x12\x1a\n" +
-	"\bprovider\x18\x01 \x01(\tR\bprovider\x124\n" +
-	"\x06spread\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\x06spread\x12G\n" +
-	"\x10formatted_spread\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\x0fformattedSpread\x12=\n" +
-	"\vspread_open\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\n" +
-	"spreadOpen\x12;\n" +
+	"\bprovider\x18\x01 \x01(\tR\bprovider\x12\x1b\n" +
+	"\x06spread\x18\x02 \x01(\x01H\x00R\x06spread\x88\x01\x01\x12)\n" +
+	"\x10formatted_spread\x18\x03 \x01(\tR\x0fformattedSpread\x12$\n" +
+	"\vspread_open\x18\x04 \x01(\x01H\x01R\n" +
+	"spreadOpen\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"over_under\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\toverUnder\x12D\n" +
-	"\x0fover_under_open\x18\x06 \x01(\v2\x1c.google.protobuf.DoubleValueR\roverUnderOpen\x12C\n" +
-	"\x0ehome_moneyline\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\rhomeMoneyline\x12C\n" +
-	"\x0eaway_moneyline\x18\b \x01(\v2\x1c.google.protobuf.DoubleValueR\rawayMoneyline\"\xf0\x05\n" +
+	"over_under\x18\x05 \x01(\x01H\x02R\toverUnder\x88\x01\x01\x12+\n" +
+	"\x0fover_under_open\x18\x06 \x01(\x01H\x03R\roverUnderOpen\x88\x01\x01\x12*\n" +
+	"\x0ehome_moneyline\x18\a \x01(\x01H\x04R\rhomeMoneyline\x88\x01\x01\x12*\n" +
+	"\x0eaway_moneyline\x18\b \x01(\x01H\x05R\rawayMoneyline\x88\x01\x01B\t\n" +
+	"\a_spreadB\x0e\n" +
+	"\f_spread_openB\r\n" +
+	"\v_over_underB\x12\n" +
+	"\x10_over_under_openB\x11\n" +
+	"\x0f_home_moneylineB\x11\n" +
+	"\x0f_away_moneyline\"\xe6\x04\n" +
 	"\vBettingGame\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x16\n" +
 	"\x06season\x18\x02 \x01(\x05R\x06season\x12\x1f\n" +
@@ -12485,23 +12746,27 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"start_date\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tstartDate\x12 \n" +
 	"\fhome_team_id\x18\x06 \x01(\x05R\n" +
 	"homeTeamId\x12\x1b\n" +
-	"\thome_team\x18\a \x01(\tR\bhomeTeam\x12E\n" +
-	"\x0fhome_conference\x18\b \x01(\v2\x1c.google.protobuf.StringValueR\x0ehomeConference\x12M\n" +
-	"\x13home_classification\x18\t \x01(\v2\x1c.google.protobuf.StringValueR\x12homeClassification\x12:\n" +
+	"\thome_team\x18\a \x01(\tR\bhomeTeam\x12'\n" +
+	"\x0fhome_conference\x18\b \x01(\tR\x0ehomeConference\x12/\n" +
+	"\x13home_classification\x18\t \x01(\tR\x12homeClassification\x12\"\n" +
 	"\n" +
 	"home_score\x18\n" +
-	" \x01(\v2\x1b.google.protobuf.Int32ValueR\thomeScore\x12 \n" +
+	" \x01(\x05H\x00R\thomeScore\x88\x01\x01\x12 \n" +
 	"\faway_team_id\x18\v \x01(\x05R\n" +
 	"awayTeamId\x12\x1b\n" +
-	"\taway_team\x18\f \x01(\tR\bawayTeam\x12E\n" +
-	"\x0faway_conference\x18\r \x01(\v2\x1c.google.protobuf.StringValueR\x0eawayConference\x12M\n" +
-	"\x13away_classification\x18\x0e \x01(\v2\x1c.google.protobuf.StringValueR\x12awayClassification\x12:\n" +
+	"\taway_team\x18\f \x01(\tR\bawayTeam\x12'\n" +
+	"\x0faway_conference\x18\r \x01(\tR\x0eawayConference\x12/\n" +
+	"\x13away_classification\x18\x0e \x01(\tR\x12awayClassification\x12\"\n" +
 	"\n" +
-	"away_score\x18\x0f \x01(\v2\x1b.google.protobuf.Int32ValueR\tawayScore\x12'\n" +
-	"\x05lines\x18\x10 \x03(\v2\x11.cfbd.v1.GameLineR\x05lines\"V\n" +
+	"away_score\x18\x0f \x01(\x05H\x01R\tawayScore\x88\x01\x01\x12'\n" +
+	"\x05lines\x18\x10 \x03(\v2\x11.cfbd.v1.GameLineR\x05linesB\r\n" +
+	"\v_home_scoreB\r\n" +
+	"\v_away_score\"V\n" +
 	"\bUserInfo\x12!\n" +
 	"\fpatron_level\x18\x01 \x01(\x01R\vpatronLevel\x12'\n" +
-	"\x0fremaining_calls\x18\x02 \x01(\x01R\x0eremainingCalls\"\xce\x0e\n" +
+	"\x0fremaining_calls\x18\x02 \x01(\x01R\x0eremainingCalls\"#\n" +
+	"\tInt32List\x12\x16\n" +
+	"\x06values\x18\x01 \x03(\x05R\x06values\"\x8c\f\n" +
 	"\x04Game\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x16\n" +
 	"\x06season\x18\x02 \x01(\x05R\x06season\x12\x12\n" +
@@ -12513,50 +12778,67 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x0estart_time_TBD\x18\x06 \x01(\bR\fstartTimeTBD\x12\x1c\n" +
 	"\tcompleted\x18\a \x01(\bR\tcompleted\x12!\n" +
 	"\fneutral_site\x18\b \x01(\bR\vneutralSite\x12'\n" +
-	"\x0fconference_game\x18\t \x01(\bR\x0econferenceGame\x12;\n" +
+	"\x0fconference_game\x18\t \x01(\bR\x0econferenceGame\x12#\n" +
 	"\n" +
 	"attendance\x18\n" +
-	" \x01(\v2\x1b.google.protobuf.Int32ValueR\n" +
-	"attendance\x126\n" +
-	"\bvenue_id\x18\v \x01(\v2\x1b.google.protobuf.Int32ValueR\avenueId\x122\n" +
-	"\x05venue\x18\f \x01(\v2\x1c.google.protobuf.StringValueR\x05venue\x124\n" +
-	"\ahome_id\x18\r \x01(\v2\x1b.google.protobuf.Int32ValueR\x06homeId\x12\x1b\n" +
-	"\thome_team\x18\x0e \x01(\tR\bhomeTeam\x12E\n" +
-	"\x0fhome_conference\x18\x0f \x01(\v2\x1c.google.protobuf.StringValueR\x0ehomeConference\x12M\n" +
-	"\x13home_classification\x18\x10 \x01(\v2\x1c.google.protobuf.StringValueR\x12homeClassification\x12<\n" +
-	"\vhome_points\x18\x11 \x01(\v2\x1b.google.protobuf.Int32ValueR\n" +
-	"homePoints\x12D\n" +
-	"\x10home_line_scores\x18\x12 \x01(\v2\x1a.google.protobuf.ListValueR\x0ehomeLineScores\x12_\n" +
-	"\x1dhome_postgame_win_probability\x18\x13 \x01(\v2\x1c.google.protobuf.DoubleValueR\x1ahomePostgameWinProbability\x12E\n" +
-	"\x10home_pregame_elo\x18\x14 \x01(\v2\x1b.google.protobuf.Int32ValueR\x0ehomePregameElo\x12G\n" +
-	"\x11home_postgame_elo\x18\x15 \x01(\v2\x1b.google.protobuf.Int32ValueR\x0fhomePostgameElo\x124\n" +
-	"\aaway_id\x18\x16 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06awayId\x12\x1b\n" +
-	"\taway_team\x18\x17 \x01(\tR\bawayTeam\x12E\n" +
-	"\x0faway_conference\x18\x18 \x01(\v2\x1c.google.protobuf.StringValueR\x0eawayConference\x12M\n" +
-	"\x13away_classification\x18\x19 \x01(\v2\x1c.google.protobuf.StringValueR\x12awayClassification\x12<\n" +
-	"\vaway_points\x18\x1a \x01(\v2\x1b.google.protobuf.Int32ValueR\n" +
-	"awayPoints\x12D\n" +
-	"\x10away_line_scores\x18\x1b \x01(\v2\x1a.google.protobuf.ListValueR\x0eawayLineScores\x12_\n" +
-	"\x1daway_postgame_win_probability\x18\x1c \x01(\v2\x1c.google.protobuf.DoubleValueR\x1aawayPostgameWinProbability\x12E\n" +
-	"\x10away_pregame_elo\x18\x1d \x01(\v2\x1b.google.protobuf.Int32ValueR\x0eawayPregameElo\x12G\n" +
-	"\x11away_postgame_elo\x18\x1e \x01(\v2\x1b.google.protobuf.Int32ValueR\x0fawayPostgameElo\x12G\n" +
-	"\x10excitement_index\x18\x1f \x01(\v2\x1c.google.protobuf.DoubleValueR\x0fexcitementIndex\x12<\n" +
+	" \x01(\x05H\x00R\n" +
+	"attendance\x88\x01\x01\x12\x1e\n" +
+	"\bvenue_id\x18\v \x01(\x05H\x01R\avenueId\x88\x01\x01\x12\x14\n" +
+	"\x05venue\x18\f \x01(\tR\x05venue\x12\x1c\n" +
+	"\ahome_id\x18\r \x01(\x05H\x02R\x06homeId\x88\x01\x01\x12\x1b\n" +
+	"\thome_team\x18\x0e \x01(\tR\bhomeTeam\x12'\n" +
+	"\x0fhome_conference\x18\x0f \x01(\tR\x0ehomeConference\x12/\n" +
+	"\x13home_classification\x18\x10 \x01(\tR\x12homeClassification\x12$\n" +
+	"\vhome_points\x18\x11 \x01(\x05H\x03R\n" +
+	"homePoints\x88\x01\x01\x12(\n" +
+	"\x10home_line_scores\x18\x12 \x03(\x05R\x0ehomeLineScores\x12F\n" +
+	"\x1dhome_postgame_win_probability\x18\x13 \x01(\x01H\x04R\x1ahomePostgameWinProbability\x88\x01\x01\x12-\n" +
+	"\x10home_pregame_elo\x18\x14 \x01(\x05H\x05R\x0ehomePregameElo\x88\x01\x01\x12/\n" +
+	"\x11home_postgame_elo\x18\x15 \x01(\x05H\x06R\x0fhomePostgameElo\x88\x01\x01\x12\x1c\n" +
+	"\aaway_id\x18\x16 \x01(\x05H\aR\x06awayId\x88\x01\x01\x12\x1b\n" +
+	"\taway_team\x18\x17 \x01(\tR\bawayTeam\x12'\n" +
+	"\x0faway_conference\x18\x18 \x01(\tR\x0eawayConference\x12/\n" +
+	"\x13away_classification\x18\x19 \x01(\tR\x12awayClassification\x12$\n" +
+	"\vaway_points\x18\x1a \x01(\x05H\bR\n" +
+	"awayPoints\x88\x01\x01\x12(\n" +
+	"\x10away_line_scores\x18\x1b \x03(\x05R\x0eawayLineScores\x12F\n" +
+	"\x1daway_postgame_win_probability\x18\x1c \x01(\x01H\tR\x1aawayPostgameWinProbability\x88\x01\x01\x12-\n" +
+	"\x10away_pregame_elo\x18\x1d \x01(\x05H\n" +
+	"R\x0eawayPregameElo\x88\x01\x01\x12/\n" +
+	"\x11away_postgame_elo\x18\x1e \x01(\x05H\vR\x0fawayPostgameElo\x88\x01\x01\x12.\n" +
+	"\x10excitement_index\x18\x1f \x01(\x01H\fR\x0fexcitementIndex\x88\x01\x01\x12\x1e\n" +
 	"\n" +
-	"highlights\x18  \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"highlights\x122\n" +
-	"\x05notes\x18! \x01(\v2\x1c.google.protobuf.StringValueR\x05notes\"G\n" +
+	"highlights\x18  \x01(\tR\n" +
+	"highlights\x12\x14\n" +
+	"\x05notes\x18! \x01(\tR\x05notesB\r\n" +
+	"\v_attendanceB\v\n" +
+	"\t_venue_idB\n" +
+	"\n" +
+	"\b_home_idB\x0e\n" +
+	"\f_home_pointsB \n" +
+	"\x1e_home_postgame_win_probabilityB\x13\n" +
+	"\x11_home_pregame_eloB\x14\n" +
+	"\x12_home_postgame_eloB\n" +
+	"\n" +
+	"\b_away_idB\x0e\n" +
+	"\f_away_pointsB \n" +
+	"\x1e_away_postgame_win_probabilityB\x13\n" +
+	"\x11_away_pregame_eloB\x14\n" +
+	"\x12_away_postgame_eloB\x13\n" +
+	"\x11_excitement_index\"G\n" +
 	"\x15GameTeamStatsTeamStat\x12\x1a\n" +
 	"\bcategory\x18\x01 \x01(\tR\bcategory\x12\x12\n" +
-	"\x04stat\x18\x02 \x01(\tR\x04stat\"\x86\x02\n" +
+	"\x04stat\x18\x02 \x01(\tR\x04stat\"\xdb\x01\n" +
 	"\x11GameTeamStatsTeam\x12\x17\n" +
 	"\ateam_id\x18\x01 \x01(\x05R\x06teamId\x12\x12\n" +
-	"\x04team\x18\x02 \x01(\tR\x04team\x12<\n" +
+	"\x04team\x18\x02 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
+	"conference\x18\x03 \x01(\tR\n" +
 	"conference\x12\x1b\n" +
-	"\thome_away\x18\x04 \x01(\tR\bhomeAway\x123\n" +
-	"\x06points\x18\x05 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06points\x124\n" +
-	"\x05stats\x18\x06 \x03(\v2\x1e.cfbd.v1.GameTeamStatsTeamStatR\x05stats\"Q\n" +
+	"\thome_away\x18\x04 \x01(\tR\bhomeAway\x12\x1b\n" +
+	"\x06points\x18\x05 \x01(\x05H\x00R\x06points\x88\x01\x01\x124\n" +
+	"\x05stats\x18\x06 \x03(\v2\x1e.cfbd.v1.GameTeamStatsTeamStatR\x05statsB\t\n" +
+	"\a_points\"Q\n" +
 	"\rGameTeamStats\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x120\n" +
 	"\x05teams\x18\x02 \x03(\v2\x1a.cfbd.v1.GameTeamStatsTeamR\x05teams\"N\n" +
@@ -12569,20 +12851,21 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\bathletes\x18\x02 \x03(\v2\x1d.cfbd.v1.GamePlayerStatPlayerR\bathletes\"b\n" +
 	"\x18GamePlayerStatCategories\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x122\n" +
-	"\x05types\x18\x02 \x03(\v2\x1c.cfbd.v1.GamePlayerStatTypesR\x05types\"\xfc\x01\n" +
+	"\x05types\x18\x02 \x03(\v2\x1c.cfbd.v1.GamePlayerStatTypesR\x05types\"\xd1\x01\n" +
 	"\x13GamePlayerStatsTeam\x12\x12\n" +
-	"\x04team\x18\x01 \x01(\tR\x04team\x12<\n" +
+	"\x04team\x18\x01 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
-	"conference\x18\x02 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
+	"conference\x18\x02 \x01(\tR\n" +
 	"conference\x12\x1b\n" +
-	"\thome_away\x18\x03 \x01(\tR\bhomeAway\x123\n" +
-	"\x06points\x18\x04 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06points\x12A\n" +
+	"\thome_away\x18\x03 \x01(\tR\bhomeAway\x12\x1b\n" +
+	"\x06points\x18\x04 \x01(\x05H\x00R\x06points\x88\x01\x01\x12A\n" +
 	"\n" +
 	"categories\x18\x05 \x03(\v2!.cfbd.v1.GamePlayerStatCategoriesR\n" +
-	"categories\"U\n" +
+	"categoriesB\t\n" +
+	"\a_points\"U\n" +
 	"\x0fGamePlayerStats\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x122\n" +
-	"\x05teams\x18\x02 \x03(\v2\x1c.cfbd.v1.GamePlayerStatsTeamR\x05teams\"\xcd\x03\n" +
+	"\x05teams\x18\x02 \x03(\v2\x1c.cfbd.v1.GamePlayerStatsTeamR\x05teams\"\x91\x03\n" +
 	"\tGameMedia\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x16\n" +
 	"\x06season\x18\x02 \x01(\x05R\x06season\x12\x12\n" +
@@ -12592,14 +12875,14 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\n" +
 	"start_time\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tstartTime\x12)\n" +
 	"\x11is_start_time_TBD\x18\x06 \x01(\bR\x0eisStartTimeTBD\x12\x1b\n" +
-	"\thome_team\x18\a \x01(\tR\bhomeTeam\x12E\n" +
-	"\x0fhome_conference\x18\b \x01(\v2\x1c.google.protobuf.StringValueR\x0ehomeConference\x12\x1b\n" +
-	"\taway_team\x18\t \x01(\tR\bawayTeam\x12E\n" +
+	"\thome_team\x18\a \x01(\tR\bhomeTeam\x12'\n" +
+	"\x0fhome_conference\x18\b \x01(\tR\x0ehomeConference\x12\x1b\n" +
+	"\taway_team\x18\t \x01(\tR\bawayTeam\x12'\n" +
 	"\x0faway_conference\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.StringValueR\x0eawayConference\x12\x1d\n" +
+	" \x01(\tR\x0eawayConference\x12\x1d\n" +
 	"\n" +
 	"media_type\x18\v \x01(\tR\tmediaType\x12\x16\n" +
-	"\x06outlet\x18\f \x01(\tR\x06outlet\"\x8a\t\n" +
+	"\x06outlet\x18\f \x01(\tR\x06outlet\"\xba\a\n" +
 	"\vGameWeather\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x16\n" +
 	"\x06season\x18\x02 \x01(\x05R\x06season\x12\x12\n" +
@@ -12609,40 +12892,51 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\n" +
 	"start_time\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tstartTime\x12!\n" +
 	"\fgame_indoors\x18\x06 \x01(\bR\vgameIndoors\x12\x1b\n" +
-	"\thome_team\x18\a \x01(\tR\bhomeTeam\x12E\n" +
-	"\x0fhome_conference\x18\b \x01(\v2\x1c.google.protobuf.StringValueR\x0ehomeConference\x12\x1b\n" +
-	"\taway_team\x18\t \x01(\tR\bawayTeam\x12E\n" +
+	"\thome_team\x18\a \x01(\tR\bhomeTeam\x12'\n" +
+	"\x0fhome_conference\x18\b \x01(\tR\x0ehomeConference\x12\x1b\n" +
+	"\taway_team\x18\t \x01(\tR\bawayTeam\x12'\n" +
 	"\x0faway_conference\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.StringValueR\x0eawayConference\x126\n" +
-	"\bvenue_id\x18\v \x01(\v2\x1b.google.protobuf.Int32ValueR\avenueId\x122\n" +
-	"\x05venue\x18\f \x01(\v2\x1c.google.protobuf.StringValueR\x05venue\x12>\n" +
-	"\vtemperature\x18\r \x01(\v2\x1c.google.protobuf.DoubleValueR\vtemperature\x129\n" +
-	"\tdew_point\x18\x0e \x01(\v2\x1c.google.protobuf.DoubleValueR\bdewPoint\x128\n" +
-	"\bhumidity\x18\x0f \x01(\v2\x1c.google.protobuf.DoubleValueR\bhumidity\x12B\n" +
-	"\rprecipitation\x18\x10 \x01(\v2\x1c.google.protobuf.DoubleValueR\rprecipitation\x128\n" +
-	"\bsnowfall\x18\x11 \x01(\v2\x1c.google.protobuf.DoubleValueR\bsnowfall\x12C\n" +
-	"\x0ewind_direction\x18\x12 \x01(\v2\x1c.google.protobuf.DoubleValueR\rwindDirection\x12;\n" +
+	" \x01(\tR\x0eawayConference\x12\x1e\n" +
+	"\bvenue_id\x18\v \x01(\x05H\x00R\avenueId\x88\x01\x01\x12\x14\n" +
+	"\x05venue\x18\f \x01(\tR\x05venue\x12%\n" +
+	"\vtemperature\x18\r \x01(\x01H\x01R\vtemperature\x88\x01\x01\x12 \n" +
+	"\tdew_point\x18\x0e \x01(\x01H\x02R\bdewPoint\x88\x01\x01\x12\x1f\n" +
+	"\bhumidity\x18\x0f \x01(\x01H\x03R\bhumidity\x88\x01\x01\x12)\n" +
+	"\rprecipitation\x18\x10 \x01(\x01H\x04R\rprecipitation\x88\x01\x01\x12\x1f\n" +
+	"\bsnowfall\x18\x11 \x01(\x01H\x05R\bsnowfall\x88\x01\x01\x12*\n" +
+	"\x0ewind_direction\x18\x12 \x01(\x01H\x06R\rwindDirection\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"wind_speed\x18\x13 \x01(\v2\x1c.google.protobuf.DoubleValueR\twindSpeed\x128\n" +
-	"\bpressure\x18\x14 \x01(\v2\x1c.google.protobuf.DoubleValueR\bpressure\x12R\n" +
-	"\x16weather_condition_code\x18\x15 \x01(\v2\x1c.google.protobuf.DoubleValueR\x14weatherConditionCode\x12I\n" +
-	"\x11weather_condition\x18\x16 \x01(\v2\x1c.google.protobuf.StringValueR\x10weatherCondition\"b\n" +
+	"wind_speed\x18\x13 \x01(\x01H\aR\twindSpeed\x88\x01\x01\x12\x1f\n" +
+	"\bpressure\x18\x14 \x01(\x01H\bR\bpressure\x88\x01\x01\x129\n" +
+	"\x16weather_condition_code\x18\x15 \x01(\x01H\tR\x14weatherConditionCode\x88\x01\x01\x12+\n" +
+	"\x11weather_condition\x18\x16 \x01(\tR\x10weatherConditionB\v\n" +
+	"\t_venue_idB\x0e\n" +
+	"\f_temperatureB\f\n" +
+	"\n" +
+	"_dew_pointB\v\n" +
+	"\t_humidityB\x10\n" +
+	"\x0e_precipitationB\v\n" +
+	"\t_snowfallB\x11\n" +
+	"\x0f_wind_directionB\r\n" +
+	"\v_wind_speedB\v\n" +
+	"\t_pressureB\x19\n" +
+	"\x17_weather_condition_code\"b\n" +
 	"\n" +
 	"TeamRecord\x12\x14\n" +
 	"\x05games\x18\x01 \x01(\x05R\x05games\x12\x12\n" +
 	"\x04wins\x18\x02 \x01(\x05R\x04wins\x12\x16\n" +
 	"\x06losses\x18\x03 \x01(\x05R\x06losses\x12\x12\n" +
-	"\x04ties\x18\x04 \x01(\x05R\x04ties\"\xb7\x05\n" +
+	"\x04ties\x18\x04 \x01(\x05R\x04ties\"\x86\x05\n" +
 	"\vTeamRecords\x12\x12\n" +
-	"\x04year\x18\x01 \x01(\x05R\x04year\x124\n" +
-	"\ateam_id\x18\x02 \x01(\v2\x1b.google.protobuf.Int32ValueR\x06teamId\x12\x12\n" +
-	"\x04team\x18\x03 \x01(\tR\x04team\x12D\n" +
-	"\x0eclassification\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\x0eclassification\x12\x1e\n" +
+	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x1c\n" +
+	"\ateam_id\x18\x02 \x01(\x05H\x00R\x06teamId\x88\x01\x01\x12\x12\n" +
+	"\x04team\x18\x03 \x01(\tR\x04team\x12&\n" +
+	"\x0eclassification\x18\x04 \x01(\tR\x0eclassification\x12\x1e\n" +
 	"\n" +
 	"conference\x18\x05 \x01(\tR\n" +
 	"conference\x12\x1a\n" +
-	"\bdivision\x18\x06 \x01(\tR\bdivision\x12A\n" +
-	"\rexpected_wins\x18\a \x01(\v2\x1c.google.protobuf.DoubleValueR\fexpectedWins\x12)\n" +
+	"\bdivision\x18\x06 \x01(\tR\bdivision\x12(\n" +
+	"\rexpected_wins\x18\a \x01(\x01H\x01R\fexpectedWins\x88\x01\x01\x12)\n" +
 	"\x05total\x18\b \x01(\v2\x13.cfbd.v1.TeamRecordR\x05total\x12>\n" +
 	"\x10conference_games\x18\t \x01(\v2\x13.cfbd.v1.TeamRecordR\x0fconferenceGames\x122\n" +
 	"\n" +
@@ -12654,7 +12948,10 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x0eregular_season\x18\r \x01(\v2\x13.cfbd.v1.TeamRecordR\rregularSeason\x123\n" +
 	"\n" +
 	"postseason\x18\x0e \x01(\v2\x13.cfbd.v1.TeamRecordR\n" +
-	"postseason\"\xdf\x02\n" +
+	"postseasonB\n" +
+	"\n" +
+	"\b_team_idB\x10\n" +
+	"\x0e_expected_wins\"\xdf\x02\n" +
 	"\fCalendarWeek\x12\x16\n" +
 	"\x06season\x18\x01 \x01(\x05R\x06season\x12\x12\n" +
 	"\x04week\x18\x02 \x01(\x05R\x04week\x12\x1f\n" +
@@ -12664,38 +12961,39 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"start_date\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tstartDate\x125\n" +
 	"\bend_date\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\aendDate\x12H\n" +
 	"\x10first_game_start\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampB\x02\x18\x01R\x0efirstGameStart\x12F\n" +
-	"\x0flast_game_start\x18\a \x01(\v2\x1a.google.protobuf.TimestampB\x02\x18\x01R\rlastGameStart\"\xae\x06\n" +
+	"\x0flast_game_start\x18\a \x01(\v2\x1a.google.protobuf.TimestampB\x02\x18\x01R\rlastGameStart\"\x8b\x05\n" +
 	"\n" +
 	"Scoreboard\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x129\n" +
 	"\n" +
 	"start_date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\tstartDate\x12$\n" +
-	"\x0estart_time_TBD\x18\x03 \x01(\bR\fstartTimeTBD\x12,\n" +
-	"\x02tv\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\x02tv\x12!\n" +
+	"\x0estart_time_TBD\x18\x03 \x01(\bR\fstartTimeTBD\x12\x0e\n" +
+	"\x02tv\x18\x04 \x01(\tR\x02tv\x12!\n" +
 	"\fneutral_site\x18\x05 \x01(\bR\vneutralSite\x12'\n" +
 	"\x0fconference_game\x18\x06 \x01(\bR\x0econferenceGame\x12\x16\n" +
-	"\x06status\x18\a \x01(\tR\x06status\x123\n" +
-	"\x06period\x18\b \x01(\v2\x1b.google.protobuf.Int32ValueR\x06period\x122\n" +
-	"\x05clock\x18\t \x01(\v2\x1c.google.protobuf.StringValueR\x05clock\x12:\n" +
+	"\x06status\x18\a \x01(\tR\x06status\x12\x1b\n" +
+	"\x06period\x18\b \x01(\x05H\x00R\x06period\x88\x01\x01\x12\x14\n" +
+	"\x05clock\x18\t \x01(\tR\x05clock\x12\x1c\n" +
 	"\tsituation\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.StringValueR\tsituation\x12<\n" +
+	" \x01(\tR\tsituation\x12\x1e\n" +
 	"\n" +
-	"possession\x18\v \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"possession\x129\n" +
-	"\tlast_play\x18\f \x01(\v2\x1c.google.protobuf.StringValueR\blastPlay\x12-\n" +
+	"possession\x18\v \x01(\tR\n" +
+	"possession\x12\x1b\n" +
+	"\tlast_play\x18\f \x01(\tR\blastPlay\x12-\n" +
 	"\x05venue\x18\r \x01(\v2\x17.google.protobuf.StructR\x05venue\x124\n" +
 	"\thome_team\x18\x0e \x01(\v2\x17.google.protobuf.StructR\bhomeTeam\x124\n" +
 	"\taway_team\x18\x0f \x01(\v2\x17.google.protobuf.StructR\bawayTeam\x121\n" +
 	"\aweather\x18\x10 \x01(\v2\x17.google.protobuf.StructR\aweather\x121\n" +
-	"\abetting\x18\x11 \x01(\v2\x17.google.protobuf.StructR\abetting\"\x80\b\n" +
+	"\abetting\x18\x11 \x01(\v2\x17.google.protobuf.StructR\abettingB\t\n" +
+	"\a_period\"\xbd\a\n" +
 	"\x05Drive\x12\x18\n" +
-	"\aoffense\x18\x01 \x01(\tR\aoffense\x12K\n" +
-	"\x12offense_conference\x18\x02 \x01(\v2\x1c.google.protobuf.StringValueR\x11offenseConference\x12\x18\n" +
-	"\adefense\x18\x03 \x01(\tR\adefense\x12K\n" +
-	"\x12defense_conference\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\x11defenseConference\x12\x17\n" +
+	"\aoffense\x18\x01 \x01(\tR\aoffense\x12-\n" +
+	"\x12offense_conference\x18\x02 \x01(\tR\x11offenseConference\x12\x18\n" +
+	"\adefense\x18\x03 \x01(\tR\adefense\x12-\n" +
+	"\x12defense_conference\x18\x04 \x01(\tR\x11defenseConference\x12\x17\n" +
 	"\agame_id\x18\x05 \x01(\x05R\x06gameId\x12\x0e\n" +
-	"\x02id\x18\x06 \x01(\tR\x02id\x12>\n" +
-	"\fdrive_number\x18\a \x01(\v2\x1b.google.protobuf.Int32ValueR\vdriveNumber\x12\x18\n" +
+	"\x02id\x18\x06 \x01(\tR\x02id\x12&\n" +
+	"\fdrive_number\x18\a \x01(\x05H\x00R\vdriveNumber\x88\x01\x01\x12\x18\n" +
 	"\ascoring\x18\b \x01(\bR\ascoring\x12!\n" +
 	"\fstart_period\x18\t \x01(\x05R\vstartPeriod\x12%\n" +
 	"\x0estart_yardline\x18\n" +
@@ -12716,30 +13014,31 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x13start_offense_score\x18\x16 \x01(\x05R\x11startOffenseScore\x12.\n" +
 	"\x13start_defense_score\x18\x17 \x01(\x05R\x11startDefenseScore\x12*\n" +
 	"\x11end_offense_score\x18\x18 \x01(\x05R\x0fendOffenseScore\x12*\n" +
-	"\x11end_defense_score\x18\x19 \x01(\x05R\x0fendDefenseScore\"\xd4\x01\n" +
+	"\x11end_defense_score\x18\x19 \x01(\x05R\x0fendDefenseScoreB\x0f\n" +
+	"\r_drive_number\"z\n" +
 	"\tDraftTeam\x12\x1a\n" +
-	"\blocation\x18\x01 \x01(\tR\blocation\x128\n" +
-	"\bnickname\x18\x02 \x01(\v2\x1c.google.protobuf.StringValueR\bnickname\x12?\n" +
-	"\fdisplay_name\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\vdisplayName\x120\n" +
-	"\x04logo\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\x04logo\"G\n" +
+	"\blocation\x18\x01 \x01(\tR\blocation\x12\x1a\n" +
+	"\bnickname\x18\x02 \x01(\tR\bnickname\x12!\n" +
+	"\fdisplay_name\x18\x03 \x01(\tR\vdisplayName\x12\x12\n" +
+	"\x04logo\x18\x04 \x01(\tR\x04logo\"G\n" +
 	"\rDraftPosition\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\"\n" +
-	"\fabbreviation\x18\x02 \x01(\tR\fabbreviation\"\xea\x02\n" +
-	"\x15DraftPickHometownInfo\x12=\n" +
-	"\vcounty_fips\x18\x01 \x01(\v2\x1c.google.protobuf.StringValueR\n" +
-	"countyFips\x12:\n" +
-	"\tlongitude\x18\x02 \x01(\v2\x1c.google.protobuf.StringValueR\tlongitude\x128\n" +
-	"\blatitude\x18\x03 \x01(\v2\x1c.google.protobuf.StringValueR\blatitude\x126\n" +
-	"\acountry\x18\x04 \x01(\v2\x1c.google.protobuf.StringValueR\acountry\x122\n" +
-	"\x05state\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueR\x05state\x120\n" +
-	"\x04city\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\x04city\"\x83\a\n" +
-	"\tDraftPick\x12I\n" +
-	"\x12college_athlete_id\x18\x01 \x01(\v2\x1b.google.protobuf.Int32ValueR\x10collegeAthleteId\x12A\n" +
-	"\x0enfl_athlete_id\x18\x02 \x01(\v2\x1b.google.protobuf.Int32ValueR\fnflAthleteId\x12\x1d\n" +
+	"\fabbreviation\x18\x02 \x01(\tR\fabbreviation\"\xb6\x01\n" +
+	"\x15DraftPickHometownInfo\x12\x1f\n" +
+	"\vcounty_fips\x18\x01 \x01(\tR\n" +
+	"countyFips\x12\x1c\n" +
+	"\tlongitude\x18\x02 \x01(\tR\tlongitude\x12\x1a\n" +
+	"\blatitude\x18\x03 \x01(\tR\blatitude\x12\x18\n" +
+	"\acountry\x18\x04 \x01(\tR\acountry\x12\x14\n" +
+	"\x05state\x18\x05 \x01(\tR\x05state\x12\x12\n" +
+	"\x04city\x18\x06 \x01(\tR\x04city\"\xc5\x06\n" +
+	"\tDraftPick\x121\n" +
+	"\x12college_athlete_id\x18\x01 \x01(\x05H\x00R\x10collegeAthleteId\x88\x01\x01\x12)\n" +
+	"\x0enfl_athlete_id\x18\x02 \x01(\x05H\x01R\fnflAthleteId\x88\x01\x01\x12\x1d\n" +
 	"\n" +
 	"college_id\x18\x03 \x01(\x05R\tcollegeId\x12!\n" +
-	"\fcollege_team\x18\x04 \x01(\tR\vcollegeTeam\x12K\n" +
-	"\x12college_conference\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueR\x11collegeConference\x12\x1e\n" +
+	"\fcollege_team\x18\x04 \x01(\tR\vcollegeTeam\x12-\n" +
+	"\x12college_conference\x18\x05 \x01(\tR\x11collegeConference\x12\x1e\n" +
 	"\vnfl_team_id\x18\x06 \x01(\x05R\tnflTeamId\x12\x19\n" +
 	"\bnfl_team\x18\a \x01(\tR\anflTeam\x12\x12\n" +
 	"\x04year\x18\b \x01(\x05R\x04year\x12\x18\n" +
@@ -12748,42 +13047,59 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	" \x01(\x05R\x05round\x12\x12\n" +
 	"\x04pick\x18\v \x01(\x05R\x04pick\x12\x12\n" +
 	"\x04name\x18\f \x01(\tR\x04name\x12\x1a\n" +
-	"\bposition\x18\r \x01(\tR\bposition\x124\n" +
-	"\x06height\x18\x0e \x01(\v2\x1c.google.protobuf.DoubleValueR\x06height\x123\n" +
-	"\x06weight\x18\x0f \x01(\v2\x1b.google.protobuf.Int32ValueR\x06weight\x12G\n" +
-	"\x11pre_draft_ranking\x18\x10 \x01(\v2\x1b.google.protobuf.Int32ValueR\x0fpreDraftRanking\x12X\n" +
-	"\x1apre_draft_position_ranking\x18\x11 \x01(\v2\x1b.google.protobuf.Int32ValueR\x17preDraftPositionRanking\x12C\n" +
-	"\x0fpre_draft_grade\x18\x12 \x01(\v2\x1b.google.protobuf.Int32ValueR\rpreDraftGrade\x12C\n" +
-	"\rhometown_info\x18\x13 \x01(\v2\x1e.cfbd.v1.DraftPickHometownInfoR\fhometownInfo\"\x80\x04\n" +
+	"\bposition\x18\r \x01(\tR\bposition\x12\x1b\n" +
+	"\x06height\x18\x0e \x01(\x01H\x02R\x06height\x88\x01\x01\x12\x1b\n" +
+	"\x06weight\x18\x0f \x01(\x05H\x03R\x06weight\x88\x01\x01\x12/\n" +
+	"\x11pre_draft_ranking\x18\x10 \x01(\x05H\x04R\x0fpreDraftRanking\x88\x01\x01\x12@\n" +
+	"\x1apre_draft_position_ranking\x18\x11 \x01(\x05H\x05R\x17preDraftPositionRanking\x88\x01\x01\x12+\n" +
+	"\x0fpre_draft_grade\x18\x12 \x01(\x05H\x06R\rpreDraftGrade\x88\x01\x01\x12C\n" +
+	"\rhometown_info\x18\x13 \x01(\v2\x1e.cfbd.v1.DraftPickHometownInfoR\fhometownInfoB\x15\n" +
+	"\x13_college_athlete_idB\x11\n" +
+	"\x0f_nfl_athlete_idB\t\n" +
+	"\a_heightB\t\n" +
+	"\a_weightB\x14\n" +
+	"\x12_pre_draft_rankingB\x1d\n" +
+	"\x1b_pre_draft_position_rankingB\x12\n" +
+	"\x10_pre_draft_grade\"\xc8\x03\n" +
 	"\vCoachSeason\x12\x16\n" +
 	"\x06school\x18\x01 \x01(\tR\x06school\x12\x12\n" +
 	"\x04year\x18\x02 \x01(\x05R\x04year\x12\x14\n" +
 	"\x05games\x18\x03 \x01(\x05R\x05games\x12\x12\n" +
 	"\x04wins\x18\x04 \x01(\x05R\x04wins\x12\x16\n" +
 	"\x06losses\x18\x05 \x01(\x05R\x06losses\x12\x12\n" +
-	"\x04ties\x18\x06 \x01(\x05R\x04ties\x12B\n" +
-	"\x0epreseason_rank\x18\a \x01(\v2\x1b.google.protobuf.Int32ValueR\rpreseasonRank\x12D\n" +
-	"\x0fpostseason_rank\x18\b \x01(\v2\x1b.google.protobuf.Int32ValueR\x0epostseasonRank\x12.\n" +
-	"\x03srs\x18\t \x01(\v2\x1c.google.protobuf.DoubleValueR\x03srs\x12;\n" +
+	"\x04ties\x18\x06 \x01(\x05R\x04ties\x12*\n" +
+	"\x0epreseason_rank\x18\a \x01(\x05H\x00R\rpreseasonRank\x88\x01\x01\x12,\n" +
+	"\x0fpostseason_rank\x18\b \x01(\x05H\x01R\x0epostseasonRank\x88\x01\x01\x12\x15\n" +
+	"\x03srs\x18\t \x01(\x01H\x02R\x03srs\x88\x01\x01\x12\"\n" +
 	"\n" +
 	"sp_overall\x18\n" +
-	" \x01(\v2\x1c.google.protobuf.DoubleValueR\tspOverall\x12;\n" +
+	" \x01(\x01H\x03R\tspOverall\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"sp_offense\x18\v \x01(\v2\x1c.google.protobuf.DoubleValueR\tspOffense\x12;\n" +
+	"sp_offense\x18\v \x01(\x01H\x04R\tspOffense\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"sp_defense\x18\f \x01(\v2\x1c.google.protobuf.DoubleValueR\tspDefense\"\xac\x01\n" +
+	"sp_defense\x18\f \x01(\x01H\x05R\tspDefense\x88\x01\x01B\x11\n" +
+	"\x0f_preseason_rankB\x12\n" +
+	"\x10_postseason_rankB\x06\n" +
+	"\x04_srsB\r\n" +
+	"\v_sp_overallB\r\n" +
+	"\v_sp_offenseB\r\n" +
+	"\v_sp_defense\"\xac\x01\n" +
 	"\x05Coach\x12\x1d\n" +
 	"\n" +
 	"first_name\x18\x01 \x01(\tR\tfirstName\x12\x1b\n" +
 	"\tlast_name\x18\x02 \x01(\tR\blastName\x127\n" +
 	"\thire_date\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\bhireDate\x12.\n" +
-	"\aseasons\x18\x04 \x03(\v2\x14.cfbd.v1.CoachSeasonR\aseasons\"\x8e\x02\n" +
+	"\aseasons\x18\x04 \x03(\v2\x14.cfbd.v1.CoachSeasonR\aseasons\"\xde\x01\n" +
 	"\x0eStatsByQuarter\x12\x14\n" +
-	"\x05total\x18\x01 \x01(\x01R\x05total\x128\n" +
-	"\bquarter1\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter1\x128\n" +
-	"\bquarter2\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter2\x128\n" +
-	"\bquarter3\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter3\x128\n" +
-	"\bquarter4\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter4\"\xcc\x01\n" +
+	"\x05total\x18\x01 \x01(\x01R\x05total\x12\x1f\n" +
+	"\bquarter1\x18\x02 \x01(\x01H\x00R\bquarter1\x88\x01\x01\x12\x1f\n" +
+	"\bquarter2\x18\x03 \x01(\x01H\x01R\bquarter2\x88\x01\x01\x12\x1f\n" +
+	"\bquarter3\x18\x04 \x01(\x01H\x02R\bquarter3\x88\x01\x01\x12\x1f\n" +
+	"\bquarter4\x18\x05 \x01(\x01H\x03R\bquarter4\x88\x01\x01B\v\n" +
+	"\t_quarter1B\v\n" +
+	"\t_quarter2B\v\n" +
+	"\t_quarter3B\v\n" +
+	"\t_quarter4\"\xcc\x01\n" +
 	"\aTeamPPA\x12\x12\n" +
 	"\x04team\x18\x01 \x01(\tR\x04team\x12\x14\n" +
 	"\x05plays\x18\x02 \x01(\x05R\x05plays\x121\n" +
@@ -12824,27 +13140,35 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x11TeamFieldPosition\x12\x12\n" +
 	"\x04team\x18\x01 \x01(\tR\x04team\x12#\n" +
 	"\raverage_start\x18\x02 \x01(\x01R\faverageStart\x12I\n" +
-	"!average_starting_predicted_points\x18\x03 \x01(\x01R\x1eaverageStartingPredictedPoints\"\x8b\x03\n" +
+	"!average_starting_predicted_points\x18\x03 \x01(\x01R\x1eaverageStartingPredictedPoints\"\xdb\x02\n" +
 	"\x0fPlayerGameUsage\x12\x14\n" +
-	"\x05total\x18\x01 \x01(\x01R\x05total\x128\n" +
-	"\bquarter1\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter1\x128\n" +
-	"\bquarter2\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter2\x128\n" +
-	"\bquarter3\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter3\x128\n" +
-	"\bquarter4\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter4\x12\x18\n" +
+	"\x05total\x18\x01 \x01(\x01R\x05total\x12\x1f\n" +
+	"\bquarter1\x18\x02 \x01(\x01H\x00R\bquarter1\x88\x01\x01\x12\x1f\n" +
+	"\bquarter2\x18\x03 \x01(\x01H\x01R\bquarter2\x88\x01\x01\x12\x1f\n" +
+	"\bquarter3\x18\x04 \x01(\x01H\x02R\bquarter3\x88\x01\x01\x12\x1f\n" +
+	"\bquarter4\x18\x05 \x01(\x01H\x03R\bquarter4\x88\x01\x01\x12\x18\n" +
 	"\arushing\x18\x06 \x01(\x01R\arushing\x12\x18\n" +
 	"\apassing\x18\a \x01(\x01R\apassing\x12\x16\n" +
 	"\x06player\x18\b \x01(\tR\x06player\x12\x12\n" +
 	"\x04team\x18\t \x01(\tR\x04team\x12\x1a\n" +
 	"\bposition\x18\n" +
-	" \x01(\tR\bposition\"\xc8\x02\n" +
+	" \x01(\tR\bpositionB\v\n" +
+	"\t_quarter1B\v\n" +
+	"\t_quarter2B\v\n" +
+	"\t_quarter3B\v\n" +
+	"\t_quarter4\"\x98\x02\n" +
 	"\x14PlayerStatsByQuarter\x12\x14\n" +
-	"\x05total\x18\x01 \x01(\x01R\x05total\x128\n" +
-	"\bquarter1\x18\x02 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter1\x128\n" +
-	"\bquarter2\x18\x03 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter2\x128\n" +
-	"\bquarter3\x18\x04 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter3\x128\n" +
-	"\bquarter4\x18\x05 \x01(\v2\x1c.google.protobuf.DoubleValueR\bquarter4\x12\x18\n" +
+	"\x05total\x18\x01 \x01(\x01R\x05total\x12\x1f\n" +
+	"\bquarter1\x18\x02 \x01(\x01H\x00R\bquarter1\x88\x01\x01\x12\x1f\n" +
+	"\bquarter2\x18\x03 \x01(\x01H\x01R\bquarter2\x88\x01\x01\x12\x1f\n" +
+	"\bquarter3\x18\x04 \x01(\x01H\x02R\bquarter3\x88\x01\x01\x12\x1f\n" +
+	"\bquarter4\x18\x05 \x01(\x01H\x03R\bquarter4\x88\x01\x01\x12\x18\n" +
 	"\arushing\x18\x06 \x01(\x01R\arushing\x12\x18\n" +
-	"\apassing\x18\a \x01(\x01R\apassing\"\xcb\x01\n" +
+	"\apassing\x18\a \x01(\x01R\apassingB\v\n" +
+	"\t_quarter1B\v\n" +
+	"\t_quarter2B\v\n" +
+	"\t_quarter3B\v\n" +
+	"\t_quarter4\"\xcb\x01\n" +
 	"\tPlayerPPA\x12\x16\n" +
 	"\x06player\x18\x01 \x01(\tR\x06player\x12\x12\n" +
 	"\x04team\x18\x02 \x01(\tR\x04team\x12\x1a\n" +
@@ -12897,7 +13221,7 @@ func file_cfbd_internal_proto_cfbd_proto_rawDescGZIP() []byte {
 	return file_cfbd_internal_proto_cfbd_proto_rawDescData
 }
 
-var file_cfbd_internal_proto_cfbd_proto_msgTypes = make([]protoimpl.MessageInfo, 116)
+var file_cfbd_internal_proto_cfbd_proto_msgTypes = make([]protoimpl.MessageInfo, 117)
 var file_cfbd_internal_proto_cfbd_proto_goTypes = []any{
 	(*EpaSplit)(nil),                           // 0: cfbd.v1.EpaSplit
 	(*SuccessRateSplit)(nil),                   // 1: cfbd.v1.SuccessRateSplit
@@ -12978,501 +13302,165 @@ var file_cfbd_internal_proto_cfbd_proto_goTypes = []any{
 	(*GameLine)(nil),                           // 76: cfbd.v1.GameLine
 	(*BettingGame)(nil),                        // 77: cfbd.v1.BettingGame
 	(*UserInfo)(nil),                           // 78: cfbd.v1.UserInfo
-	(*Game)(nil),                               // 79: cfbd.v1.Game
-	(*GameTeamStatsTeamStat)(nil),              // 80: cfbd.v1.GameTeamStatsTeamStat
-	(*GameTeamStatsTeam)(nil),                  // 81: cfbd.v1.GameTeamStatsTeam
-	(*GameTeamStats)(nil),                      // 82: cfbd.v1.GameTeamStats
-	(*GamePlayerStatPlayer)(nil),               // 83: cfbd.v1.GamePlayerStatPlayer
-	(*GamePlayerStatTypes)(nil),                // 84: cfbd.v1.GamePlayerStatTypes
-	(*GamePlayerStatCategories)(nil),           // 85: cfbd.v1.GamePlayerStatCategories
-	(*GamePlayerStatsTeam)(nil),                // 86: cfbd.v1.GamePlayerStatsTeam
-	(*GamePlayerStats)(nil),                    // 87: cfbd.v1.GamePlayerStats
-	(*GameMedia)(nil),                          // 88: cfbd.v1.GameMedia
-	(*GameWeather)(nil),                        // 89: cfbd.v1.GameWeather
-	(*TeamRecord)(nil),                         // 90: cfbd.v1.TeamRecord
-	(*TeamRecords)(nil),                        // 91: cfbd.v1.TeamRecords
-	(*CalendarWeek)(nil),                       // 92: cfbd.v1.CalendarWeek
-	(*Scoreboard)(nil),                         // 93: cfbd.v1.Scoreboard
-	(*Drive)(nil),                              // 94: cfbd.v1.Drive
-	(*DraftTeam)(nil),                          // 95: cfbd.v1.DraftTeam
-	(*DraftPosition)(nil),                      // 96: cfbd.v1.DraftPosition
-	(*DraftPickHometownInfo)(nil),              // 97: cfbd.v1.DraftPickHometownInfo
-	(*DraftPick)(nil),                          // 98: cfbd.v1.DraftPick
-	(*CoachSeason)(nil),                        // 99: cfbd.v1.CoachSeason
-	(*Coach)(nil),                              // 100: cfbd.v1.Coach
-	(*StatsByQuarter)(nil),                     // 101: cfbd.v1.StatsByQuarter
-	(*TeamPPA)(nil),                            // 102: cfbd.v1.TeamPPA
-	(*TeamSuccessRates)(nil),                   // 103: cfbd.v1.TeamSuccessRates
-	(*TeamExplosiveness)(nil),                  // 104: cfbd.v1.TeamExplosiveness
-	(*TeamRushingStats)(nil),                   // 105: cfbd.v1.TeamRushingStats
-	(*TeamHavoc)(nil),                          // 106: cfbd.v1.TeamHavoc
-	(*TeamScoringOpportunities)(nil),           // 107: cfbd.v1.TeamScoringOpportunities
-	(*TeamFieldPosition)(nil),                  // 108: cfbd.v1.TeamFieldPosition
-	(*PlayerGameUsage)(nil),                    // 109: cfbd.v1.PlayerGameUsage
-	(*PlayerStatsByQuarter)(nil),               // 110: cfbd.v1.PlayerStatsByQuarter
-	(*PlayerPPA)(nil),                          // 111: cfbd.v1.PlayerPPA
-	(*AdvancedBoxScoreGameInfo)(nil),           // 112: cfbd.v1.AdvancedBoxScoreGameInfo
-	(*AdvancedBoxScoreTeams)(nil),              // 113: cfbd.v1.AdvancedBoxScoreTeams
-	(*AdvancedBoxScorePlayers)(nil),            // 114: cfbd.v1.AdvancedBoxScorePlayers
-	(*AdvancedBoxScore)(nil),                   // 115: cfbd.v1.AdvancedBoxScore
-	(*wrapperspb.Int32Value)(nil),              // 116: google.protobuf.Int32Value
-	(*wrapperspb.DoubleValue)(nil),             // 117: google.protobuf.DoubleValue
-	(*structpb.Value)(nil),                     // 118: google.protobuf.Value
-	(*wrapperspb.StringValue)(nil),             // 119: google.protobuf.StringValue
-	(*wrapperspb.BoolValue)(nil),               // 120: google.protobuf.BoolValue
-	(*structpb.ListValue)(nil),                 // 121: google.protobuf.ListValue
-	(*timestamppb.Timestamp)(nil),              // 122: google.protobuf.Timestamp
-	(*structpb.Struct)(nil),                    // 123: google.protobuf.Struct
+	(*Int32List)(nil),                          // 79: cfbd.v1.Int32List
+	(*Game)(nil),                               // 80: cfbd.v1.Game
+	(*GameTeamStatsTeamStat)(nil),              // 81: cfbd.v1.GameTeamStatsTeamStat
+	(*GameTeamStatsTeam)(nil),                  // 82: cfbd.v1.GameTeamStatsTeam
+	(*GameTeamStats)(nil),                      // 83: cfbd.v1.GameTeamStats
+	(*GamePlayerStatPlayer)(nil),               // 84: cfbd.v1.GamePlayerStatPlayer
+	(*GamePlayerStatTypes)(nil),                // 85: cfbd.v1.GamePlayerStatTypes
+	(*GamePlayerStatCategories)(nil),           // 86: cfbd.v1.GamePlayerStatCategories
+	(*GamePlayerStatsTeam)(nil),                // 87: cfbd.v1.GamePlayerStatsTeam
+	(*GamePlayerStats)(nil),                    // 88: cfbd.v1.GamePlayerStats
+	(*GameMedia)(nil),                          // 89: cfbd.v1.GameMedia
+	(*GameWeather)(nil),                        // 90: cfbd.v1.GameWeather
+	(*TeamRecord)(nil),                         // 91: cfbd.v1.TeamRecord
+	(*TeamRecords)(nil),                        // 92: cfbd.v1.TeamRecords
+	(*CalendarWeek)(nil),                       // 93: cfbd.v1.CalendarWeek
+	(*Scoreboard)(nil),                         // 94: cfbd.v1.Scoreboard
+	(*Drive)(nil),                              // 95: cfbd.v1.Drive
+	(*DraftTeam)(nil),                          // 96: cfbd.v1.DraftTeam
+	(*DraftPosition)(nil),                      // 97: cfbd.v1.DraftPosition
+	(*DraftPickHometownInfo)(nil),              // 98: cfbd.v1.DraftPickHometownInfo
+	(*DraftPick)(nil),                          // 99: cfbd.v1.DraftPick
+	(*CoachSeason)(nil),                        // 100: cfbd.v1.CoachSeason
+	(*Coach)(nil),                              // 101: cfbd.v1.Coach
+	(*StatsByQuarter)(nil),                     // 102: cfbd.v1.StatsByQuarter
+	(*TeamPPA)(nil),                            // 103: cfbd.v1.TeamPPA
+	(*TeamSuccessRates)(nil),                   // 104: cfbd.v1.TeamSuccessRates
+	(*TeamExplosiveness)(nil),                  // 105: cfbd.v1.TeamExplosiveness
+	(*TeamRushingStats)(nil),                   // 106: cfbd.v1.TeamRushingStats
+	(*TeamHavoc)(nil),                          // 107: cfbd.v1.TeamHavoc
+	(*TeamScoringOpportunities)(nil),           // 108: cfbd.v1.TeamScoringOpportunities
+	(*TeamFieldPosition)(nil),                  // 109: cfbd.v1.TeamFieldPosition
+	(*PlayerGameUsage)(nil),                    // 110: cfbd.v1.PlayerGameUsage
+	(*PlayerStatsByQuarter)(nil),               // 111: cfbd.v1.PlayerStatsByQuarter
+	(*PlayerPPA)(nil),                          // 112: cfbd.v1.PlayerPPA
+	(*AdvancedBoxScoreGameInfo)(nil),           // 113: cfbd.v1.AdvancedBoxScoreGameInfo
+	(*AdvancedBoxScoreTeams)(nil),              // 114: cfbd.v1.AdvancedBoxScoreTeams
+	(*AdvancedBoxScorePlayers)(nil),            // 115: cfbd.v1.AdvancedBoxScorePlayers
+	(*AdvancedBoxScore)(nil),                   // 116: cfbd.v1.AdvancedBoxScore
+	(*structpb.Value)(nil),                     // 117: google.protobuf.Value
+	(*timestamppb.Timestamp)(nil),              // 118: google.protobuf.Timestamp
+	(*structpb.Struct)(nil),                    // 119: google.protobuf.Struct
 }
 var file_cfbd_internal_proto_cfbd_proto_depIdxs = []int32{
-	116, // 0: cfbd.v1.ClockInt32.seconds:type_name -> google.protobuf.Int32Value
-	116, // 1: cfbd.v1.ClockInt32.minutes:type_name -> google.protobuf.Int32Value
-	117, // 2: cfbd.v1.ClockDouble.seconds:type_name -> google.protobuf.DoubleValue
-	117, // 3: cfbd.v1.ClockDouble.minutes:type_name -> google.protobuf.DoubleValue
-	118, // 4: cfbd.v1.StatValue.value:type_name -> google.protobuf.Value
-	0,   // 5: cfbd.v1.AdjustedTeamMetrics.epa:type_name -> cfbd.v1.EpaSplit
-	0,   // 6: cfbd.v1.AdjustedTeamMetrics.epa_allowed:type_name -> cfbd.v1.EpaSplit
-	1,   // 7: cfbd.v1.AdjustedTeamMetrics.success_rate:type_name -> cfbd.v1.SuccessRateSplit
-	1,   // 8: cfbd.v1.AdjustedTeamMetrics.success_rate_allowed:type_name -> cfbd.v1.SuccessRateSplit
-	2,   // 9: cfbd.v1.AdjustedTeamMetrics.rushing:type_name -> cfbd.v1.RushingYardsSplit
-	2,   // 10: cfbd.v1.AdjustedTeamMetrics.rushing_allowed:type_name -> cfbd.v1.RushingYardsSplit
-	116, // 11: cfbd.v1.Venue.id:type_name -> google.protobuf.Int32Value
-	119, // 12: cfbd.v1.Venue.name:type_name -> google.protobuf.StringValue
-	119, // 13: cfbd.v1.Venue.city:type_name -> google.protobuf.StringValue
-	119, // 14: cfbd.v1.Venue.state:type_name -> google.protobuf.StringValue
-	119, // 15: cfbd.v1.Venue.zip:type_name -> google.protobuf.StringValue
-	119, // 16: cfbd.v1.Venue.country_code:type_name -> google.protobuf.StringValue
-	119, // 17: cfbd.v1.Venue.timezone:type_name -> google.protobuf.StringValue
-	117, // 18: cfbd.v1.Venue.latitude:type_name -> google.protobuf.DoubleValue
-	117, // 19: cfbd.v1.Venue.longitude:type_name -> google.protobuf.DoubleValue
-	119, // 20: cfbd.v1.Venue.elevation:type_name -> google.protobuf.StringValue
-	116, // 21: cfbd.v1.Venue.capacity:type_name -> google.protobuf.Int32Value
-	116, // 22: cfbd.v1.Venue.construction_year:type_name -> google.protobuf.Int32Value
-	120, // 23: cfbd.v1.Venue.grass:type_name -> google.protobuf.BoolValue
-	120, // 24: cfbd.v1.Venue.dome:type_name -> google.protobuf.BoolValue
-	119, // 25: cfbd.v1.Team.mascot:type_name -> google.protobuf.StringValue
-	119, // 26: cfbd.v1.Team.abbreviation:type_name -> google.protobuf.StringValue
-	121, // 27: cfbd.v1.Team.alternate_names:type_name -> google.protobuf.ListValue
-	119, // 28: cfbd.v1.Team.conference:type_name -> google.protobuf.StringValue
-	119, // 29: cfbd.v1.Team.division:type_name -> google.protobuf.StringValue
-	119, // 30: cfbd.v1.Team.classification:type_name -> google.protobuf.StringValue
-	119, // 31: cfbd.v1.Team.color:type_name -> google.protobuf.StringValue
-	119, // 32: cfbd.v1.Team.alternate_color:type_name -> google.protobuf.StringValue
-	121, // 33: cfbd.v1.Team.logos:type_name -> google.protobuf.ListValue
-	9,   // 34: cfbd.v1.Team.location:type_name -> cfbd.v1.Venue
-	119, // 35: cfbd.v1.MatchupGame.venue:type_name -> google.protobuf.StringValue
-	116, // 36: cfbd.v1.MatchupGame.home_score:type_name -> google.protobuf.Int32Value
-	116, // 37: cfbd.v1.MatchupGame.away_score:type_name -> google.protobuf.Int32Value
-	119, // 38: cfbd.v1.MatchupGame.winner:type_name -> google.protobuf.StringValue
-	116, // 39: cfbd.v1.Matchup.start_year:type_name -> google.protobuf.Int32Value
-	116, // 40: cfbd.v1.Matchup.end_year:type_name -> google.protobuf.Int32Value
-	11,  // 41: cfbd.v1.Matchup.games:type_name -> cfbd.v1.MatchupGame
-	119, // 42: cfbd.v1.TeamATS.conference:type_name -> google.protobuf.StringValue
-	116, // 43: cfbd.v1.TeamATS.games:type_name -> google.protobuf.Int32Value
-	117, // 44: cfbd.v1.TeamATS.avg_cover_margin:type_name -> google.protobuf.DoubleValue
-	117, // 45: cfbd.v1.RosterPlayer.height:type_name -> google.protobuf.DoubleValue
-	116, // 46: cfbd.v1.RosterPlayer.weight:type_name -> google.protobuf.Int32Value
-	116, // 47: cfbd.v1.RosterPlayer.jersey:type_name -> google.protobuf.Int32Value
-	116, // 48: cfbd.v1.RosterPlayer.year:type_name -> google.protobuf.Int32Value
-	119, // 49: cfbd.v1.RosterPlayer.position:type_name -> google.protobuf.StringValue
-	119, // 50: cfbd.v1.RosterPlayer.home_city:type_name -> google.protobuf.StringValue
-	119, // 51: cfbd.v1.RosterPlayer.home_state:type_name -> google.protobuf.StringValue
-	119, // 52: cfbd.v1.RosterPlayer.home_country:type_name -> google.protobuf.StringValue
-	117, // 53: cfbd.v1.RosterPlayer.home_latitude:type_name -> google.protobuf.DoubleValue
-	117, // 54: cfbd.v1.RosterPlayer.home_longitude:type_name -> google.protobuf.DoubleValue
-	119, // 55: cfbd.v1.RosterPlayer.home_county_FIPS:type_name -> google.protobuf.StringValue
-	121, // 56: cfbd.v1.RosterPlayer.recruit_ids:type_name -> google.protobuf.ListValue
-	119, // 57: cfbd.v1.Conference.short_name:type_name -> google.protobuf.StringValue
-	119, // 58: cfbd.v1.Conference.abbreviation:type_name -> google.protobuf.StringValue
-	119, // 59: cfbd.v1.Conference.classification:type_name -> google.protobuf.StringValue
-	118, // 60: cfbd.v1.TeamStat.stat_value:type_name -> google.protobuf.Value
-	117, // 61: cfbd.v1.AdvancedRateMetrics.explosiveness:type_name -> google.protobuf.DoubleValue
-	117, // 62: cfbd.v1.AdvancedRateMetrics.success_rate:type_name -> google.protobuf.DoubleValue
-	117, // 63: cfbd.v1.AdvancedRateMetrics.total_PPA:type_name -> google.protobuf.DoubleValue
-	117, // 64: cfbd.v1.AdvancedRateMetrics.ppa:type_name -> google.protobuf.DoubleValue
-	117, // 65: cfbd.v1.AdvancedRateMetrics.rate:type_name -> google.protobuf.DoubleValue
-	117, // 66: cfbd.v1.AdvancedHavoc.db:type_name -> google.protobuf.DoubleValue
-	117, // 67: cfbd.v1.AdvancedHavoc.front_seven:type_name -> google.protobuf.DoubleValue
-	117, // 68: cfbd.v1.AdvancedHavoc.total:type_name -> google.protobuf.DoubleValue
-	117, // 69: cfbd.v1.AdvancedFieldPosition.average_predicted_points:type_name -> google.protobuf.DoubleValue
-	117, // 70: cfbd.v1.AdvancedFieldPosition.average_start:type_name -> google.protobuf.DoubleValue
-	19,  // 71: cfbd.v1.AdvancedSeasonStatSide.passing_plays:type_name -> cfbd.v1.AdvancedRateMetrics
-	19,  // 72: cfbd.v1.AdvancedSeasonStatSide.rushing_plays:type_name -> cfbd.v1.AdvancedRateMetrics
-	19,  // 73: cfbd.v1.AdvancedSeasonStatSide.passing_downs:type_name -> cfbd.v1.AdvancedRateMetrics
-	19,  // 74: cfbd.v1.AdvancedSeasonStatSide.standard_downs:type_name -> cfbd.v1.AdvancedRateMetrics
-	20,  // 75: cfbd.v1.AdvancedSeasonStatSide.havoc:type_name -> cfbd.v1.AdvancedHavoc
-	21,  // 76: cfbd.v1.AdvancedSeasonStatSide.field_position:type_name -> cfbd.v1.AdvancedFieldPosition
-	117, // 77: cfbd.v1.AdvancedSeasonStatSide.points_per_opportunity:type_name -> google.protobuf.DoubleValue
-	116, // 78: cfbd.v1.AdvancedSeasonStatSide.total_opportunies:type_name -> google.protobuf.Int32Value
-	116, // 79: cfbd.v1.AdvancedSeasonStatSide.open_field_yards_total:type_name -> google.protobuf.Int32Value
-	117, // 80: cfbd.v1.AdvancedSeasonStatSide.open_field_yards:type_name -> google.protobuf.DoubleValue
-	116, // 81: cfbd.v1.AdvancedSeasonStatSide.second_level_yards_total:type_name -> google.protobuf.Int32Value
-	117, // 82: cfbd.v1.AdvancedSeasonStatSide.second_level_yards:type_name -> google.protobuf.DoubleValue
-	116, // 83: cfbd.v1.AdvancedSeasonStatSide.line_yards_total:type_name -> google.protobuf.Int32Value
-	117, // 84: cfbd.v1.AdvancedSeasonStatSide.line_yards:type_name -> google.protobuf.DoubleValue
-	117, // 85: cfbd.v1.AdvancedSeasonStatSide.stuff_rate:type_name -> google.protobuf.DoubleValue
-	117, // 86: cfbd.v1.AdvancedSeasonStatSide.power_success:type_name -> google.protobuf.DoubleValue
-	117, // 87: cfbd.v1.AdvancedSeasonStatSide.explosiveness:type_name -> google.protobuf.DoubleValue
-	117, // 88: cfbd.v1.AdvancedSeasonStatSide.success_rate:type_name -> google.protobuf.DoubleValue
-	117, // 89: cfbd.v1.AdvancedSeasonStatSide.total_PPA:type_name -> google.protobuf.DoubleValue
-	117, // 90: cfbd.v1.AdvancedSeasonStatSide.ppa:type_name -> google.protobuf.DoubleValue
-	116, // 91: cfbd.v1.AdvancedSeasonStatSide.drives:type_name -> google.protobuf.Int32Value
-	116, // 92: cfbd.v1.AdvancedSeasonStatSide.plays:type_name -> google.protobuf.Int32Value
-	22,  // 93: cfbd.v1.AdvancedSeasonStat.offense:type_name -> cfbd.v1.AdvancedSeasonStatSide
-	22,  // 94: cfbd.v1.AdvancedSeasonStat.defense:type_name -> cfbd.v1.AdvancedSeasonStatSide
-	117, // 95: cfbd.v1.AdvancedGameStatSidePlayMetrics.explosiveness:type_name -> google.protobuf.DoubleValue
-	117, // 96: cfbd.v1.AdvancedGameStatSidePlayMetrics.success_rate:type_name -> google.protobuf.DoubleValue
-	117, // 97: cfbd.v1.AdvancedGameStatSidePlayMetrics.total_PPA:type_name -> google.protobuf.DoubleValue
-	117, // 98: cfbd.v1.AdvancedGameStatSidePlayMetrics.ppa:type_name -> google.protobuf.DoubleValue
-	117, // 99: cfbd.v1.AdvancedGameStatSideDownMetrics.explosiveness:type_name -> google.protobuf.DoubleValue
-	117, // 100: cfbd.v1.AdvancedGameStatSideDownMetrics.success_rate:type_name -> google.protobuf.DoubleValue
-	117, // 101: cfbd.v1.AdvancedGameStatSideDownMetrics.ppa:type_name -> google.protobuf.DoubleValue
-	24,  // 102: cfbd.v1.AdvancedGameStatSide.passing_plays:type_name -> cfbd.v1.AdvancedGameStatSidePlayMetrics
-	24,  // 103: cfbd.v1.AdvancedGameStatSide.rushing_plays:type_name -> cfbd.v1.AdvancedGameStatSidePlayMetrics
-	25,  // 104: cfbd.v1.AdvancedGameStatSide.passing_downs:type_name -> cfbd.v1.AdvancedGameStatSideDownMetrics
-	25,  // 105: cfbd.v1.AdvancedGameStatSide.standard_downs:type_name -> cfbd.v1.AdvancedGameStatSideDownMetrics
-	116, // 106: cfbd.v1.AdvancedGameStatSide.open_field_yards_total:type_name -> google.protobuf.Int32Value
-	117, // 107: cfbd.v1.AdvancedGameStatSide.open_field_yards:type_name -> google.protobuf.DoubleValue
-	116, // 108: cfbd.v1.AdvancedGameStatSide.second_level_yards_total:type_name -> google.protobuf.Int32Value
-	117, // 109: cfbd.v1.AdvancedGameStatSide.second_level_yards:type_name -> google.protobuf.DoubleValue
-	116, // 110: cfbd.v1.AdvancedGameStatSide.line_yards_total:type_name -> google.protobuf.Int32Value
-	117, // 111: cfbd.v1.AdvancedGameStatSide.line_yards:type_name -> google.protobuf.DoubleValue
-	117, // 112: cfbd.v1.AdvancedGameStatSide.stuff_rate:type_name -> google.protobuf.DoubleValue
-	117, // 113: cfbd.v1.AdvancedGameStatSide.power_success:type_name -> google.protobuf.DoubleValue
-	117, // 114: cfbd.v1.AdvancedGameStatSide.explosiveness:type_name -> google.protobuf.DoubleValue
-	117, // 115: cfbd.v1.AdvancedGameStatSide.success_rate:type_name -> google.protobuf.DoubleValue
-	117, // 116: cfbd.v1.AdvancedGameStatSide.total_PPA:type_name -> google.protobuf.DoubleValue
-	117, // 117: cfbd.v1.AdvancedGameStatSide.ppa:type_name -> google.protobuf.DoubleValue
-	116, // 118: cfbd.v1.AdvancedGameStatSide.drives:type_name -> google.protobuf.Int32Value
-	116, // 119: cfbd.v1.AdvancedGameStatSide.plays:type_name -> google.protobuf.Int32Value
-	26,  // 120: cfbd.v1.AdvancedGameStat.offense:type_name -> cfbd.v1.AdvancedGameStatSide
-	26,  // 121: cfbd.v1.AdvancedGameStat.defense:type_name -> cfbd.v1.AdvancedGameStatSide
-	119, // 122: cfbd.v1.GameHavocStats.conference:type_name -> google.protobuf.StringValue
-	119, // 123: cfbd.v1.GameHavocStats.opponent_conference:type_name -> google.protobuf.StringValue
-	28,  // 124: cfbd.v1.GameHavocStats.offense:type_name -> cfbd.v1.GameHavocStatSide
-	28,  // 125: cfbd.v1.GameHavocStats.defense:type_name -> cfbd.v1.GameHavocStatSide
-	119, // 126: cfbd.v1.RecruitHometownInfo.fips_code:type_name -> google.protobuf.StringValue
-	117, // 127: cfbd.v1.RecruitHometownInfo.longitude:type_name -> google.protobuf.DoubleValue
-	117, // 128: cfbd.v1.RecruitHometownInfo.latitude:type_name -> google.protobuf.DoubleValue
-	119, // 129: cfbd.v1.Recruit.athlete_id:type_name -> google.protobuf.StringValue
-	116, // 130: cfbd.v1.Recruit.ranking:type_name -> google.protobuf.Int32Value
-	119, // 131: cfbd.v1.Recruit.school:type_name -> google.protobuf.StringValue
-	119, // 132: cfbd.v1.Recruit.committed_to:type_name -> google.protobuf.StringValue
-	119, // 133: cfbd.v1.Recruit.position:type_name -> google.protobuf.StringValue
-	117, // 134: cfbd.v1.Recruit.height:type_name -> google.protobuf.DoubleValue
-	116, // 135: cfbd.v1.Recruit.weight:type_name -> google.protobuf.Int32Value
-	119, // 136: cfbd.v1.Recruit.city:type_name -> google.protobuf.StringValue
-	119, // 137: cfbd.v1.Recruit.state_province:type_name -> google.protobuf.StringValue
-	119, // 138: cfbd.v1.Recruit.country:type_name -> google.protobuf.StringValue
-	30,  // 139: cfbd.v1.Recruit.hometown_info:type_name -> cfbd.v1.RecruitHometownInfo
-	119, // 140: cfbd.v1.AggregatedTeamRecruiting.position_group:type_name -> google.protobuf.StringValue
-	117, // 141: cfbd.v1.SpTeamOffense.pace:type_name -> google.protobuf.DoubleValue
-	117, // 142: cfbd.v1.SpTeamOffense.run_rate:type_name -> google.protobuf.DoubleValue
-	117, // 143: cfbd.v1.SpTeamOffense.passing_downs:type_name -> google.protobuf.DoubleValue
-	117, // 144: cfbd.v1.SpTeamOffense.standard_downs:type_name -> google.protobuf.DoubleValue
-	117, // 145: cfbd.v1.SpTeamOffense.passing:type_name -> google.protobuf.DoubleValue
-	117, // 146: cfbd.v1.SpTeamOffense.rushing:type_name -> google.protobuf.DoubleValue
-	117, // 147: cfbd.v1.SpTeamOffense.explosiveness:type_name -> google.protobuf.DoubleValue
-	117, // 148: cfbd.v1.SpTeamOffense.success:type_name -> google.protobuf.DoubleValue
-	117, // 149: cfbd.v1.SpTeamOffense.rating:type_name -> google.protobuf.DoubleValue
-	116, // 150: cfbd.v1.SpTeamOffense.ranking:type_name -> google.protobuf.Int32Value
-	20,  // 151: cfbd.v1.SpTeamDefense.havoc:type_name -> cfbd.v1.AdvancedHavoc
-	117, // 152: cfbd.v1.SpTeamDefense.passing_downs:type_name -> google.protobuf.DoubleValue
-	117, // 153: cfbd.v1.SpTeamDefense.standard_downs:type_name -> google.protobuf.DoubleValue
-	117, // 154: cfbd.v1.SpTeamDefense.passing:type_name -> google.protobuf.DoubleValue
-	117, // 155: cfbd.v1.SpTeamDefense.rushing:type_name -> google.protobuf.DoubleValue
-	117, // 156: cfbd.v1.SpTeamDefense.explosiveness:type_name -> google.protobuf.DoubleValue
-	117, // 157: cfbd.v1.SpTeamDefense.success:type_name -> google.protobuf.DoubleValue
-	117, // 158: cfbd.v1.SpTeamDefense.rating:type_name -> google.protobuf.DoubleValue
-	116, // 159: cfbd.v1.SpTeamDefense.ranking:type_name -> google.protobuf.Int32Value
-	117, // 160: cfbd.v1.SpSpecialTeams.rating:type_name -> google.protobuf.DoubleValue
-	119, // 161: cfbd.v1.TeamSP.conference:type_name -> google.protobuf.StringValue
-	117, // 162: cfbd.v1.TeamSP.rating:type_name -> google.protobuf.DoubleValue
-	116, // 163: cfbd.v1.TeamSP.ranking:type_name -> google.protobuf.Int32Value
-	117, // 164: cfbd.v1.TeamSP.second_order_wins:type_name -> google.protobuf.DoubleValue
-	117, // 165: cfbd.v1.TeamSP.sos:type_name -> google.protobuf.DoubleValue
-	34,  // 166: cfbd.v1.TeamSP.offense:type_name -> cfbd.v1.SpTeamOffense
-	35,  // 167: cfbd.v1.TeamSP.defense:type_name -> cfbd.v1.SpTeamDefense
-	36,  // 168: cfbd.v1.TeamSP.special_teams:type_name -> cfbd.v1.SpSpecialTeams
-	117, // 169: cfbd.v1.ConferenceSpOffense.pace:type_name -> google.protobuf.DoubleValue
-	117, // 170: cfbd.v1.ConferenceSpOffense.run_rate:type_name -> google.protobuf.DoubleValue
-	117, // 171: cfbd.v1.ConferenceSpOffense.passing_downs:type_name -> google.protobuf.DoubleValue
-	117, // 172: cfbd.v1.ConferenceSpOffense.standard_downs:type_name -> google.protobuf.DoubleValue
-	117, // 173: cfbd.v1.ConferenceSpOffense.passing:type_name -> google.protobuf.DoubleValue
-	117, // 174: cfbd.v1.ConferenceSpOffense.rushing:type_name -> google.protobuf.DoubleValue
-	117, // 175: cfbd.v1.ConferenceSpOffense.explosiveness:type_name -> google.protobuf.DoubleValue
-	117, // 176: cfbd.v1.ConferenceSpOffense.success:type_name -> google.protobuf.DoubleValue
-	117, // 177: cfbd.v1.ConferenceSpOffense.rating:type_name -> google.protobuf.DoubleValue
-	20,  // 178: cfbd.v1.ConferenceSpDefense.havoc:type_name -> cfbd.v1.AdvancedHavoc
-	117, // 179: cfbd.v1.ConferenceSpDefense.passing_downs:type_name -> google.protobuf.DoubleValue
-	117, // 180: cfbd.v1.ConferenceSpDefense.standard_downs:type_name -> google.protobuf.DoubleValue
-	117, // 181: cfbd.v1.ConferenceSpDefense.passing:type_name -> google.protobuf.DoubleValue
-	117, // 182: cfbd.v1.ConferenceSpDefense.rushing:type_name -> google.protobuf.DoubleValue
-	117, // 183: cfbd.v1.ConferenceSpDefense.explosiveness:type_name -> google.protobuf.DoubleValue
-	117, // 184: cfbd.v1.ConferenceSpDefense.success:type_name -> google.protobuf.DoubleValue
-	117, // 185: cfbd.v1.ConferenceSpDefense.rating:type_name -> google.protobuf.DoubleValue
-	117, // 186: cfbd.v1.ConferenceSP.sos:type_name -> google.protobuf.DoubleValue
-	38,  // 187: cfbd.v1.ConferenceSP.offense:type_name -> cfbd.v1.ConferenceSpOffense
-	39,  // 188: cfbd.v1.ConferenceSP.defense:type_name -> cfbd.v1.ConferenceSpDefense
-	36,  // 189: cfbd.v1.ConferenceSP.special_teams:type_name -> cfbd.v1.SpSpecialTeams
-	119, // 190: cfbd.v1.TeamSRS.conference:type_name -> google.protobuf.StringValue
-	119, // 191: cfbd.v1.TeamSRS.division:type_name -> google.protobuf.StringValue
-	116, // 192: cfbd.v1.TeamSRS.ranking:type_name -> google.protobuf.Int32Value
-	119, // 193: cfbd.v1.TeamElo.conference:type_name -> google.protobuf.StringValue
-	116, // 194: cfbd.v1.TeamElo.elo:type_name -> google.protobuf.Int32Value
-	116, // 195: cfbd.v1.FpiResumeRanks.game_control:type_name -> google.protobuf.Int32Value
-	116, // 196: cfbd.v1.FpiResumeRanks.remaining_strength_of_schedule:type_name -> google.protobuf.Int32Value
-	116, // 197: cfbd.v1.FpiResumeRanks.strength_of_schedule:type_name -> google.protobuf.Int32Value
-	116, // 198: cfbd.v1.FpiResumeRanks.average_win_probability:type_name -> google.protobuf.Int32Value
-	116, // 199: cfbd.v1.FpiResumeRanks.fpi:type_name -> google.protobuf.Int32Value
-	116, // 200: cfbd.v1.FpiResumeRanks.strength_of_record:type_name -> google.protobuf.Int32Value
-	117, // 201: cfbd.v1.FpiEfficiencies.special_teams:type_name -> google.protobuf.DoubleValue
-	117, // 202: cfbd.v1.FpiEfficiencies.defense:type_name -> google.protobuf.DoubleValue
-	117, // 203: cfbd.v1.FpiEfficiencies.offense:type_name -> google.protobuf.DoubleValue
-	117, // 204: cfbd.v1.FpiEfficiencies.overall:type_name -> google.protobuf.DoubleValue
-	119, // 205: cfbd.v1.TeamFPI.conference:type_name -> google.protobuf.StringValue
-	117, // 206: cfbd.v1.TeamFPI.fpi:type_name -> google.protobuf.DoubleValue
-	43,  // 207: cfbd.v1.TeamFPI.resume_ranks:type_name -> cfbd.v1.FpiResumeRanks
-	44,  // 208: cfbd.v1.TeamFPI.efficiencies:type_name -> cfbd.v1.FpiEfficiencies
-	116, // 209: cfbd.v1.PollRank.rank:type_name -> google.protobuf.Int32Value
-	116, // 210: cfbd.v1.PollRank.team_id:type_name -> google.protobuf.Int32Value
-	119, // 211: cfbd.v1.PollRank.conference:type_name -> google.protobuf.StringValue
-	116, // 212: cfbd.v1.PollRank.first_place_votes:type_name -> google.protobuf.Int32Value
-	116, // 213: cfbd.v1.PollRank.points:type_name -> google.protobuf.Int32Value
-	46,  // 214: cfbd.v1.Poll.ranks:type_name -> cfbd.v1.PollRank
-	47,  // 215: cfbd.v1.PollWeek.polls:type_name -> cfbd.v1.Poll
-	116, // 216: cfbd.v1.Play.drive_number:type_name -> google.protobuf.Int32Value
-	116, // 217: cfbd.v1.Play.play_number:type_name -> google.protobuf.Int32Value
-	119, // 218: cfbd.v1.Play.offense_conference:type_name -> google.protobuf.StringValue
-	119, // 219: cfbd.v1.Play.defense_conference:type_name -> google.protobuf.StringValue
-	3,   // 220: cfbd.v1.Play.clock:type_name -> cfbd.v1.ClockInt32
-	116, // 221: cfbd.v1.Play.offense_timeouts:type_name -> google.protobuf.Int32Value
-	116, // 222: cfbd.v1.Play.defense_timeouts:type_name -> google.protobuf.Int32Value
-	119, // 223: cfbd.v1.Play.play_text:type_name -> google.protobuf.StringValue
-	117, // 224: cfbd.v1.Play.ppa:type_name -> google.protobuf.DoubleValue
-	119, // 225: cfbd.v1.Play.wallclock:type_name -> google.protobuf.StringValue
-	119, // 226: cfbd.v1.PlayType.abbreviation:type_name -> google.protobuf.StringValue
-	4,   // 227: cfbd.v1.PlayStat.clock:type_name -> cfbd.v1.ClockDouble
-	119, // 228: cfbd.v1.PlayerSearchResult.first_name:type_name -> google.protobuf.StringValue
-	119, // 229: cfbd.v1.PlayerSearchResult.last_name:type_name -> google.protobuf.StringValue
-	116, // 230: cfbd.v1.PlayerSearchResult.weight:type_name -> google.protobuf.Int32Value
-	117, // 231: cfbd.v1.PlayerSearchResult.height:type_name -> google.protobuf.DoubleValue
-	116, // 232: cfbd.v1.PlayerSearchResult.jersey:type_name -> google.protobuf.Int32Value
-	117, // 233: cfbd.v1.PlayerUsageSplits.passing_downs:type_name -> google.protobuf.DoubleValue
-	117, // 234: cfbd.v1.PlayerUsageSplits.standard_downs:type_name -> google.protobuf.DoubleValue
-	117, // 235: cfbd.v1.PlayerUsageSplits.third_down:type_name -> google.protobuf.DoubleValue
-	117, // 236: cfbd.v1.PlayerUsageSplits.second_down:type_name -> google.protobuf.DoubleValue
-	117, // 237: cfbd.v1.PlayerUsageSplits.first_down:type_name -> google.protobuf.DoubleValue
-	117, // 238: cfbd.v1.PlayerUsageSplits.rush:type_name -> google.protobuf.DoubleValue
-	117, // 239: cfbd.v1.PlayerUsageSplits.pass:type_name -> google.protobuf.DoubleValue
-	117, // 240: cfbd.v1.PlayerUsageSplits.overall:type_name -> google.protobuf.DoubleValue
-	55,  // 241: cfbd.v1.PlayerUsage.usage:type_name -> cfbd.v1.PlayerUsageSplits
-	119, // 242: cfbd.v1.PlayerTransfer.destination:type_name -> google.protobuf.StringValue
-	122, // 243: cfbd.v1.PlayerTransfer.transfer_date:type_name -> google.protobuf.Timestamp
-	117, // 244: cfbd.v1.PlayerTransfer.rating:type_name -> google.protobuf.DoubleValue
-	116, // 245: cfbd.v1.PlayerTransfer.stars:type_name -> google.protobuf.Int32Value
-	119, // 246: cfbd.v1.PlayerTransfer.eligibility:type_name -> google.protobuf.StringValue
-	60,  // 247: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.cumulative:type_name -> cfbd.v1.PredictedPointsAddedTotals
-	117, // 248: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.third_down:type_name -> google.protobuf.DoubleValue
-	117, // 249: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.second_down:type_name -> google.protobuf.DoubleValue
-	117, // 250: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.first_down:type_name -> google.protobuf.DoubleValue
-	117, // 251: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.rushing:type_name -> google.protobuf.DoubleValue
-	117, // 252: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.passing:type_name -> google.protobuf.DoubleValue
-	117, // 253: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.overall:type_name -> google.protobuf.DoubleValue
-	62,  // 254: cfbd.v1.TeamSeasonPredictedPointsAdded.offense:type_name -> cfbd.v1.TeamSeasonPredictedPointsAddedUnit
-	62,  // 255: cfbd.v1.TeamSeasonPredictedPointsAdded.defense:type_name -> cfbd.v1.TeamSeasonPredictedPointsAddedUnit
-	61,  // 256: cfbd.v1.TeamGamePredictedPointsAdded.offense:type_name -> cfbd.v1.PredictedPointsAddedTotalsForGames
-	61,  // 257: cfbd.v1.TeamGamePredictedPointsAdded.defense:type_name -> cfbd.v1.PredictedPointsAddedTotalsForGames
-	65,  // 258: cfbd.v1.PlayerGamePredictedPointsAdded.average_PPA:type_name -> cfbd.v1.AveragePpa
-	117, // 259: cfbd.v1.PlayerSeasonPpaSplits.passing_downs:type_name -> google.protobuf.DoubleValue
-	117, // 260: cfbd.v1.PlayerSeasonPpaSplits.standard_downs:type_name -> google.protobuf.DoubleValue
-	117, // 261: cfbd.v1.PlayerSeasonPpaSplits.third_down:type_name -> google.protobuf.DoubleValue
-	117, // 262: cfbd.v1.PlayerSeasonPpaSplits.second_down:type_name -> google.protobuf.DoubleValue
-	117, // 263: cfbd.v1.PlayerSeasonPpaSplits.first_down:type_name -> google.protobuf.DoubleValue
-	117, // 264: cfbd.v1.PlayerSeasonPpaSplits.rush:type_name -> google.protobuf.DoubleValue
-	117, // 265: cfbd.v1.PlayerSeasonPpaSplits.pass:type_name -> google.protobuf.DoubleValue
-	117, // 266: cfbd.v1.PlayerSeasonPpaSplits.all:type_name -> google.protobuf.DoubleValue
-	67,  // 267: cfbd.v1.PlayerSeasonPredictedPointsAdded.average_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
-	67,  // 268: cfbd.v1.PlayerSeasonPredictedPointsAdded.total_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
-	117, // 269: cfbd.v1.LiveGameTeam.average_start_yard_line:type_name -> google.protobuf.DoubleValue
-	117, // 270: cfbd.v1.LiveGameTeam.deserve_to_win:type_name -> google.protobuf.DoubleValue
-	122, // 271: cfbd.v1.LiveGamePlay.wall_clock:type_name -> google.protobuf.Timestamp
-	117, // 272: cfbd.v1.LiveGamePlay.epa:type_name -> google.protobuf.DoubleValue
-	119, // 273: cfbd.v1.LiveGameDrive.start_clock:type_name -> google.protobuf.StringValue
-	116, // 274: cfbd.v1.LiveGameDrive.end_period:type_name -> google.protobuf.Int32Value
-	119, // 275: cfbd.v1.LiveGameDrive.end_clock:type_name -> google.protobuf.StringValue
-	116, // 276: cfbd.v1.LiveGameDrive.end_yards_to_goal:type_name -> google.protobuf.Int32Value
-	119, // 277: cfbd.v1.LiveGameDrive.duration:type_name -> google.protobuf.StringValue
-	73,  // 278: cfbd.v1.LiveGameDrive.plays:type_name -> cfbd.v1.LiveGamePlay
-	116, // 279: cfbd.v1.LiveGame.period:type_name -> google.protobuf.Int32Value
-	116, // 280: cfbd.v1.LiveGame.down:type_name -> google.protobuf.Int32Value
-	116, // 281: cfbd.v1.LiveGame.distance:type_name -> google.protobuf.Int32Value
-	116, // 282: cfbd.v1.LiveGame.yards_to_goal:type_name -> google.protobuf.Int32Value
-	72,  // 283: cfbd.v1.LiveGame.teams:type_name -> cfbd.v1.LiveGameTeam
-	74,  // 284: cfbd.v1.LiveGame.drives:type_name -> cfbd.v1.LiveGameDrive
-	117, // 285: cfbd.v1.GameLine.spread:type_name -> google.protobuf.DoubleValue
-	119, // 286: cfbd.v1.GameLine.formatted_spread:type_name -> google.protobuf.StringValue
-	117, // 287: cfbd.v1.GameLine.spread_open:type_name -> google.protobuf.DoubleValue
-	117, // 288: cfbd.v1.GameLine.over_under:type_name -> google.protobuf.DoubleValue
-	117, // 289: cfbd.v1.GameLine.over_under_open:type_name -> google.protobuf.DoubleValue
-	117, // 290: cfbd.v1.GameLine.home_moneyline:type_name -> google.protobuf.DoubleValue
-	117, // 291: cfbd.v1.GameLine.away_moneyline:type_name -> google.protobuf.DoubleValue
-	122, // 292: cfbd.v1.BettingGame.start_date:type_name -> google.protobuf.Timestamp
-	119, // 293: cfbd.v1.BettingGame.home_conference:type_name -> google.protobuf.StringValue
-	119, // 294: cfbd.v1.BettingGame.home_classification:type_name -> google.protobuf.StringValue
-	116, // 295: cfbd.v1.BettingGame.home_score:type_name -> google.protobuf.Int32Value
-	119, // 296: cfbd.v1.BettingGame.away_conference:type_name -> google.protobuf.StringValue
-	119, // 297: cfbd.v1.BettingGame.away_classification:type_name -> google.protobuf.StringValue
-	116, // 298: cfbd.v1.BettingGame.away_score:type_name -> google.protobuf.Int32Value
-	76,  // 299: cfbd.v1.BettingGame.lines:type_name -> cfbd.v1.GameLine
-	122, // 300: cfbd.v1.Game.start_date:type_name -> google.protobuf.Timestamp
-	116, // 301: cfbd.v1.Game.attendance:type_name -> google.protobuf.Int32Value
-	116, // 302: cfbd.v1.Game.venue_id:type_name -> google.protobuf.Int32Value
-	119, // 303: cfbd.v1.Game.venue:type_name -> google.protobuf.StringValue
-	116, // 304: cfbd.v1.Game.home_id:type_name -> google.protobuf.Int32Value
-	119, // 305: cfbd.v1.Game.home_conference:type_name -> google.protobuf.StringValue
-	119, // 306: cfbd.v1.Game.home_classification:type_name -> google.protobuf.StringValue
-	116, // 307: cfbd.v1.Game.home_points:type_name -> google.protobuf.Int32Value
-	121, // 308: cfbd.v1.Game.home_line_scores:type_name -> google.protobuf.ListValue
-	117, // 309: cfbd.v1.Game.home_postgame_win_probability:type_name -> google.protobuf.DoubleValue
-	116, // 310: cfbd.v1.Game.home_pregame_elo:type_name -> google.protobuf.Int32Value
-	116, // 311: cfbd.v1.Game.home_postgame_elo:type_name -> google.protobuf.Int32Value
-	116, // 312: cfbd.v1.Game.away_id:type_name -> google.protobuf.Int32Value
-	119, // 313: cfbd.v1.Game.away_conference:type_name -> google.protobuf.StringValue
-	119, // 314: cfbd.v1.Game.away_classification:type_name -> google.protobuf.StringValue
-	116, // 315: cfbd.v1.Game.away_points:type_name -> google.protobuf.Int32Value
-	121, // 316: cfbd.v1.Game.away_line_scores:type_name -> google.protobuf.ListValue
-	117, // 317: cfbd.v1.Game.away_postgame_win_probability:type_name -> google.protobuf.DoubleValue
-	116, // 318: cfbd.v1.Game.away_pregame_elo:type_name -> google.protobuf.Int32Value
-	116, // 319: cfbd.v1.Game.away_postgame_elo:type_name -> google.protobuf.Int32Value
-	117, // 320: cfbd.v1.Game.excitement_index:type_name -> google.protobuf.DoubleValue
-	119, // 321: cfbd.v1.Game.highlights:type_name -> google.protobuf.StringValue
-	119, // 322: cfbd.v1.Game.notes:type_name -> google.protobuf.StringValue
-	119, // 323: cfbd.v1.GameTeamStatsTeam.conference:type_name -> google.protobuf.StringValue
-	116, // 324: cfbd.v1.GameTeamStatsTeam.points:type_name -> google.protobuf.Int32Value
-	80,  // 325: cfbd.v1.GameTeamStatsTeam.stats:type_name -> cfbd.v1.GameTeamStatsTeamStat
-	81,  // 326: cfbd.v1.GameTeamStats.teams:type_name -> cfbd.v1.GameTeamStatsTeam
-	83,  // 327: cfbd.v1.GamePlayerStatTypes.athletes:type_name -> cfbd.v1.GamePlayerStatPlayer
-	84,  // 328: cfbd.v1.GamePlayerStatCategories.types:type_name -> cfbd.v1.GamePlayerStatTypes
-	119, // 329: cfbd.v1.GamePlayerStatsTeam.conference:type_name -> google.protobuf.StringValue
-	116, // 330: cfbd.v1.GamePlayerStatsTeam.points:type_name -> google.protobuf.Int32Value
-	85,  // 331: cfbd.v1.GamePlayerStatsTeam.categories:type_name -> cfbd.v1.GamePlayerStatCategories
-	86,  // 332: cfbd.v1.GamePlayerStats.teams:type_name -> cfbd.v1.GamePlayerStatsTeam
-	122, // 333: cfbd.v1.GameMedia.start_time:type_name -> google.protobuf.Timestamp
-	119, // 334: cfbd.v1.GameMedia.home_conference:type_name -> google.protobuf.StringValue
-	119, // 335: cfbd.v1.GameMedia.away_conference:type_name -> google.protobuf.StringValue
-	122, // 336: cfbd.v1.GameWeather.start_time:type_name -> google.protobuf.Timestamp
-	119, // 337: cfbd.v1.GameWeather.home_conference:type_name -> google.protobuf.StringValue
-	119, // 338: cfbd.v1.GameWeather.away_conference:type_name -> google.protobuf.StringValue
-	116, // 339: cfbd.v1.GameWeather.venue_id:type_name -> google.protobuf.Int32Value
-	119, // 340: cfbd.v1.GameWeather.venue:type_name -> google.protobuf.StringValue
-	117, // 341: cfbd.v1.GameWeather.temperature:type_name -> google.protobuf.DoubleValue
-	117, // 342: cfbd.v1.GameWeather.dew_point:type_name -> google.protobuf.DoubleValue
-	117, // 343: cfbd.v1.GameWeather.humidity:type_name -> google.protobuf.DoubleValue
-	117, // 344: cfbd.v1.GameWeather.precipitation:type_name -> google.protobuf.DoubleValue
-	117, // 345: cfbd.v1.GameWeather.snowfall:type_name -> google.protobuf.DoubleValue
-	117, // 346: cfbd.v1.GameWeather.wind_direction:type_name -> google.protobuf.DoubleValue
-	117, // 347: cfbd.v1.GameWeather.wind_speed:type_name -> google.protobuf.DoubleValue
-	117, // 348: cfbd.v1.GameWeather.pressure:type_name -> google.protobuf.DoubleValue
-	117, // 349: cfbd.v1.GameWeather.weather_condition_code:type_name -> google.protobuf.DoubleValue
-	119, // 350: cfbd.v1.GameWeather.weather_condition:type_name -> google.protobuf.StringValue
-	116, // 351: cfbd.v1.TeamRecords.team_id:type_name -> google.protobuf.Int32Value
-	119, // 352: cfbd.v1.TeamRecords.classification:type_name -> google.protobuf.StringValue
-	117, // 353: cfbd.v1.TeamRecords.expected_wins:type_name -> google.protobuf.DoubleValue
-	90,  // 354: cfbd.v1.TeamRecords.total:type_name -> cfbd.v1.TeamRecord
-	90,  // 355: cfbd.v1.TeamRecords.conference_games:type_name -> cfbd.v1.TeamRecord
-	90,  // 356: cfbd.v1.TeamRecords.home_games:type_name -> cfbd.v1.TeamRecord
-	90,  // 357: cfbd.v1.TeamRecords.away_games:type_name -> cfbd.v1.TeamRecord
-	90,  // 358: cfbd.v1.TeamRecords.neutral_site_games:type_name -> cfbd.v1.TeamRecord
-	90,  // 359: cfbd.v1.TeamRecords.regular_season:type_name -> cfbd.v1.TeamRecord
-	90,  // 360: cfbd.v1.TeamRecords.postseason:type_name -> cfbd.v1.TeamRecord
-	122, // 361: cfbd.v1.CalendarWeek.start_date:type_name -> google.protobuf.Timestamp
-	122, // 362: cfbd.v1.CalendarWeek.end_date:type_name -> google.protobuf.Timestamp
-	122, // 363: cfbd.v1.CalendarWeek.first_game_start:type_name -> google.protobuf.Timestamp
-	122, // 364: cfbd.v1.CalendarWeek.last_game_start:type_name -> google.protobuf.Timestamp
-	122, // 365: cfbd.v1.Scoreboard.start_date:type_name -> google.protobuf.Timestamp
-	119, // 366: cfbd.v1.Scoreboard.tv:type_name -> google.protobuf.StringValue
-	116, // 367: cfbd.v1.Scoreboard.period:type_name -> google.protobuf.Int32Value
-	119, // 368: cfbd.v1.Scoreboard.clock:type_name -> google.protobuf.StringValue
-	119, // 369: cfbd.v1.Scoreboard.situation:type_name -> google.protobuf.StringValue
-	119, // 370: cfbd.v1.Scoreboard.possession:type_name -> google.protobuf.StringValue
-	119, // 371: cfbd.v1.Scoreboard.last_play:type_name -> google.protobuf.StringValue
-	123, // 372: cfbd.v1.Scoreboard.venue:type_name -> google.protobuf.Struct
-	123, // 373: cfbd.v1.Scoreboard.home_team:type_name -> google.protobuf.Struct
-	123, // 374: cfbd.v1.Scoreboard.away_team:type_name -> google.protobuf.Struct
-	123, // 375: cfbd.v1.Scoreboard.weather:type_name -> google.protobuf.Struct
-	123, // 376: cfbd.v1.Scoreboard.betting:type_name -> google.protobuf.Struct
-	119, // 377: cfbd.v1.Drive.offense_conference:type_name -> google.protobuf.StringValue
-	119, // 378: cfbd.v1.Drive.defense_conference:type_name -> google.protobuf.StringValue
-	116, // 379: cfbd.v1.Drive.drive_number:type_name -> google.protobuf.Int32Value
-	3,   // 380: cfbd.v1.Drive.start_time:type_name -> cfbd.v1.ClockInt32
-	3,   // 381: cfbd.v1.Drive.end_time:type_name -> cfbd.v1.ClockInt32
-	3,   // 382: cfbd.v1.Drive.elapsed:type_name -> cfbd.v1.ClockInt32
-	119, // 383: cfbd.v1.DraftTeam.nickname:type_name -> google.protobuf.StringValue
-	119, // 384: cfbd.v1.DraftTeam.display_name:type_name -> google.protobuf.StringValue
-	119, // 385: cfbd.v1.DraftTeam.logo:type_name -> google.protobuf.StringValue
-	119, // 386: cfbd.v1.DraftPickHometownInfo.county_fips:type_name -> google.protobuf.StringValue
-	119, // 387: cfbd.v1.DraftPickHometownInfo.longitude:type_name -> google.protobuf.StringValue
-	119, // 388: cfbd.v1.DraftPickHometownInfo.latitude:type_name -> google.protobuf.StringValue
-	119, // 389: cfbd.v1.DraftPickHometownInfo.country:type_name -> google.protobuf.StringValue
-	119, // 390: cfbd.v1.DraftPickHometownInfo.state:type_name -> google.protobuf.StringValue
-	119, // 391: cfbd.v1.DraftPickHometownInfo.city:type_name -> google.protobuf.StringValue
-	116, // 392: cfbd.v1.DraftPick.college_athlete_id:type_name -> google.protobuf.Int32Value
-	116, // 393: cfbd.v1.DraftPick.nfl_athlete_id:type_name -> google.protobuf.Int32Value
-	119, // 394: cfbd.v1.DraftPick.college_conference:type_name -> google.protobuf.StringValue
-	117, // 395: cfbd.v1.DraftPick.height:type_name -> google.protobuf.DoubleValue
-	116, // 396: cfbd.v1.DraftPick.weight:type_name -> google.protobuf.Int32Value
-	116, // 397: cfbd.v1.DraftPick.pre_draft_ranking:type_name -> google.protobuf.Int32Value
-	116, // 398: cfbd.v1.DraftPick.pre_draft_position_ranking:type_name -> google.protobuf.Int32Value
-	116, // 399: cfbd.v1.DraftPick.pre_draft_grade:type_name -> google.protobuf.Int32Value
-	97,  // 400: cfbd.v1.DraftPick.hometown_info:type_name -> cfbd.v1.DraftPickHometownInfo
-	116, // 401: cfbd.v1.CoachSeason.preseason_rank:type_name -> google.protobuf.Int32Value
-	116, // 402: cfbd.v1.CoachSeason.postseason_rank:type_name -> google.protobuf.Int32Value
-	117, // 403: cfbd.v1.CoachSeason.srs:type_name -> google.protobuf.DoubleValue
-	117, // 404: cfbd.v1.CoachSeason.sp_overall:type_name -> google.protobuf.DoubleValue
-	117, // 405: cfbd.v1.CoachSeason.sp_offense:type_name -> google.protobuf.DoubleValue
-	117, // 406: cfbd.v1.CoachSeason.sp_defense:type_name -> google.protobuf.DoubleValue
-	122, // 407: cfbd.v1.Coach.hire_date:type_name -> google.protobuf.Timestamp
-	99,  // 408: cfbd.v1.Coach.seasons:type_name -> cfbd.v1.CoachSeason
-	117, // 409: cfbd.v1.StatsByQuarter.quarter1:type_name -> google.protobuf.DoubleValue
-	117, // 410: cfbd.v1.StatsByQuarter.quarter2:type_name -> google.protobuf.DoubleValue
-	117, // 411: cfbd.v1.StatsByQuarter.quarter3:type_name -> google.protobuf.DoubleValue
-	117, // 412: cfbd.v1.StatsByQuarter.quarter4:type_name -> google.protobuf.DoubleValue
-	101, // 413: cfbd.v1.TeamPPA.overall:type_name -> cfbd.v1.StatsByQuarter
-	101, // 414: cfbd.v1.TeamPPA.passing:type_name -> cfbd.v1.StatsByQuarter
-	101, // 415: cfbd.v1.TeamPPA.rushing:type_name -> cfbd.v1.StatsByQuarter
-	101, // 416: cfbd.v1.TeamSuccessRates.overall:type_name -> cfbd.v1.StatsByQuarter
-	101, // 417: cfbd.v1.TeamSuccessRates.standard_downs:type_name -> cfbd.v1.StatsByQuarter
-	101, // 418: cfbd.v1.TeamSuccessRates.passing_downs:type_name -> cfbd.v1.StatsByQuarter
-	101, // 419: cfbd.v1.TeamExplosiveness.overall:type_name -> cfbd.v1.StatsByQuarter
-	117, // 420: cfbd.v1.PlayerGameUsage.quarter1:type_name -> google.protobuf.DoubleValue
-	117, // 421: cfbd.v1.PlayerGameUsage.quarter2:type_name -> google.protobuf.DoubleValue
-	117, // 422: cfbd.v1.PlayerGameUsage.quarter3:type_name -> google.protobuf.DoubleValue
-	117, // 423: cfbd.v1.PlayerGameUsage.quarter4:type_name -> google.protobuf.DoubleValue
-	117, // 424: cfbd.v1.PlayerStatsByQuarter.quarter1:type_name -> google.protobuf.DoubleValue
-	117, // 425: cfbd.v1.PlayerStatsByQuarter.quarter2:type_name -> google.protobuf.DoubleValue
-	117, // 426: cfbd.v1.PlayerStatsByQuarter.quarter3:type_name -> google.protobuf.DoubleValue
-	117, // 427: cfbd.v1.PlayerStatsByQuarter.quarter4:type_name -> google.protobuf.DoubleValue
-	110, // 428: cfbd.v1.PlayerPPA.average:type_name -> cfbd.v1.PlayerStatsByQuarter
-	110, // 429: cfbd.v1.PlayerPPA.cumulative:type_name -> cfbd.v1.PlayerStatsByQuarter
-	108, // 430: cfbd.v1.AdvancedBoxScoreTeams.field_position:type_name -> cfbd.v1.TeamFieldPosition
-	107, // 431: cfbd.v1.AdvancedBoxScoreTeams.scoring_opportunities:type_name -> cfbd.v1.TeamScoringOpportunities
-	106, // 432: cfbd.v1.AdvancedBoxScoreTeams.havoc:type_name -> cfbd.v1.TeamHavoc
-	105, // 433: cfbd.v1.AdvancedBoxScoreTeams.rushing:type_name -> cfbd.v1.TeamRushingStats
-	104, // 434: cfbd.v1.AdvancedBoxScoreTeams.explosiveness:type_name -> cfbd.v1.TeamExplosiveness
-	103, // 435: cfbd.v1.AdvancedBoxScoreTeams.success_rates:type_name -> cfbd.v1.TeamSuccessRates
-	102, // 436: cfbd.v1.AdvancedBoxScoreTeams.cumulative_ppa:type_name -> cfbd.v1.TeamPPA
-	102, // 437: cfbd.v1.AdvancedBoxScoreTeams.ppa:type_name -> cfbd.v1.TeamPPA
-	111, // 438: cfbd.v1.AdvancedBoxScorePlayers.ppa:type_name -> cfbd.v1.PlayerPPA
-	109, // 439: cfbd.v1.AdvancedBoxScorePlayers.usage:type_name -> cfbd.v1.PlayerGameUsage
-	112, // 440: cfbd.v1.AdvancedBoxScore.game_info:type_name -> cfbd.v1.AdvancedBoxScoreGameInfo
-	113, // 441: cfbd.v1.AdvancedBoxScore.teams:type_name -> cfbd.v1.AdvancedBoxScoreTeams
-	114, // 442: cfbd.v1.AdvancedBoxScore.players:type_name -> cfbd.v1.AdvancedBoxScorePlayers
-	443, // [443:443] is the sub-list for method output_type
-	443, // [443:443] is the sub-list for method input_type
-	443, // [443:443] is the sub-list for extension type_name
-	443, // [443:443] is the sub-list for extension extendee
-	0,   // [0:443] is the sub-list for field type_name
+	117, // 0: cfbd.v1.StatValue.value:type_name -> google.protobuf.Value
+	0,   // 1: cfbd.v1.AdjustedTeamMetrics.epa:type_name -> cfbd.v1.EpaSplit
+	0,   // 2: cfbd.v1.AdjustedTeamMetrics.epa_allowed:type_name -> cfbd.v1.EpaSplit
+	1,   // 3: cfbd.v1.AdjustedTeamMetrics.success_rate:type_name -> cfbd.v1.SuccessRateSplit
+	1,   // 4: cfbd.v1.AdjustedTeamMetrics.success_rate_allowed:type_name -> cfbd.v1.SuccessRateSplit
+	2,   // 5: cfbd.v1.AdjustedTeamMetrics.rushing:type_name -> cfbd.v1.RushingYardsSplit
+	2,   // 6: cfbd.v1.AdjustedTeamMetrics.rushing_allowed:type_name -> cfbd.v1.RushingYardsSplit
+	9,   // 7: cfbd.v1.Team.location:type_name -> cfbd.v1.Venue
+	11,  // 8: cfbd.v1.Matchup.games:type_name -> cfbd.v1.MatchupGame
+	117, // 9: cfbd.v1.TeamStat.stat_value:type_name -> google.protobuf.Value
+	19,  // 10: cfbd.v1.AdvancedSeasonStatSide.passing_plays:type_name -> cfbd.v1.AdvancedRateMetrics
+	19,  // 11: cfbd.v1.AdvancedSeasonStatSide.rushing_plays:type_name -> cfbd.v1.AdvancedRateMetrics
+	19,  // 12: cfbd.v1.AdvancedSeasonStatSide.passing_downs:type_name -> cfbd.v1.AdvancedRateMetrics
+	19,  // 13: cfbd.v1.AdvancedSeasonStatSide.standard_downs:type_name -> cfbd.v1.AdvancedRateMetrics
+	20,  // 14: cfbd.v1.AdvancedSeasonStatSide.havoc:type_name -> cfbd.v1.AdvancedHavoc
+	21,  // 15: cfbd.v1.AdvancedSeasonStatSide.field_position:type_name -> cfbd.v1.AdvancedFieldPosition
+	22,  // 16: cfbd.v1.AdvancedSeasonStat.offense:type_name -> cfbd.v1.AdvancedSeasonStatSide
+	22,  // 17: cfbd.v1.AdvancedSeasonStat.defense:type_name -> cfbd.v1.AdvancedSeasonStatSide
+	24,  // 18: cfbd.v1.AdvancedGameStatSide.passing_plays:type_name -> cfbd.v1.AdvancedGameStatSidePlayMetrics
+	24,  // 19: cfbd.v1.AdvancedGameStatSide.rushing_plays:type_name -> cfbd.v1.AdvancedGameStatSidePlayMetrics
+	25,  // 20: cfbd.v1.AdvancedGameStatSide.passing_downs:type_name -> cfbd.v1.AdvancedGameStatSideDownMetrics
+	25,  // 21: cfbd.v1.AdvancedGameStatSide.standard_downs:type_name -> cfbd.v1.AdvancedGameStatSideDownMetrics
+	26,  // 22: cfbd.v1.AdvancedGameStat.offense:type_name -> cfbd.v1.AdvancedGameStatSide
+	26,  // 23: cfbd.v1.AdvancedGameStat.defense:type_name -> cfbd.v1.AdvancedGameStatSide
+	28,  // 24: cfbd.v1.GameHavocStats.offense:type_name -> cfbd.v1.GameHavocStatSide
+	28,  // 25: cfbd.v1.GameHavocStats.defense:type_name -> cfbd.v1.GameHavocStatSide
+	30,  // 26: cfbd.v1.Recruit.hometown_info:type_name -> cfbd.v1.RecruitHometownInfo
+	20,  // 27: cfbd.v1.SpTeamDefense.havoc:type_name -> cfbd.v1.AdvancedHavoc
+	34,  // 28: cfbd.v1.TeamSP.offense:type_name -> cfbd.v1.SpTeamOffense
+	35,  // 29: cfbd.v1.TeamSP.defense:type_name -> cfbd.v1.SpTeamDefense
+	36,  // 30: cfbd.v1.TeamSP.special_teams:type_name -> cfbd.v1.SpSpecialTeams
+	20,  // 31: cfbd.v1.ConferenceSpDefense.havoc:type_name -> cfbd.v1.AdvancedHavoc
+	38,  // 32: cfbd.v1.ConferenceSP.offense:type_name -> cfbd.v1.ConferenceSpOffense
+	39,  // 33: cfbd.v1.ConferenceSP.defense:type_name -> cfbd.v1.ConferenceSpDefense
+	36,  // 34: cfbd.v1.ConferenceSP.special_teams:type_name -> cfbd.v1.SpSpecialTeams
+	43,  // 35: cfbd.v1.TeamFPI.resume_ranks:type_name -> cfbd.v1.FpiResumeRanks
+	44,  // 36: cfbd.v1.TeamFPI.efficiencies:type_name -> cfbd.v1.FpiEfficiencies
+	46,  // 37: cfbd.v1.Poll.ranks:type_name -> cfbd.v1.PollRank
+	47,  // 38: cfbd.v1.PollWeek.polls:type_name -> cfbd.v1.Poll
+	3,   // 39: cfbd.v1.Play.clock:type_name -> cfbd.v1.ClockInt32
+	4,   // 40: cfbd.v1.PlayStat.clock:type_name -> cfbd.v1.ClockDouble
+	55,  // 41: cfbd.v1.PlayerUsage.usage:type_name -> cfbd.v1.PlayerUsageSplits
+	118, // 42: cfbd.v1.PlayerTransfer.transfer_date:type_name -> google.protobuf.Timestamp
+	60,  // 43: cfbd.v1.TeamSeasonPredictedPointsAddedUnit.cumulative:type_name -> cfbd.v1.PredictedPointsAddedTotals
+	62,  // 44: cfbd.v1.TeamSeasonPredictedPointsAdded.offense:type_name -> cfbd.v1.TeamSeasonPredictedPointsAddedUnit
+	62,  // 45: cfbd.v1.TeamSeasonPredictedPointsAdded.defense:type_name -> cfbd.v1.TeamSeasonPredictedPointsAddedUnit
+	61,  // 46: cfbd.v1.TeamGamePredictedPointsAdded.offense:type_name -> cfbd.v1.PredictedPointsAddedTotalsForGames
+	61,  // 47: cfbd.v1.TeamGamePredictedPointsAdded.defense:type_name -> cfbd.v1.PredictedPointsAddedTotalsForGames
+	65,  // 48: cfbd.v1.PlayerGamePredictedPointsAdded.average_PPA:type_name -> cfbd.v1.AveragePpa
+	67,  // 49: cfbd.v1.PlayerSeasonPredictedPointsAdded.average_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
+	67,  // 50: cfbd.v1.PlayerSeasonPredictedPointsAdded.total_PPA:type_name -> cfbd.v1.PlayerSeasonPpaSplits
+	118, // 51: cfbd.v1.LiveGamePlay.wall_clock:type_name -> google.protobuf.Timestamp
+	73,  // 52: cfbd.v1.LiveGameDrive.plays:type_name -> cfbd.v1.LiveGamePlay
+	72,  // 53: cfbd.v1.LiveGame.teams:type_name -> cfbd.v1.LiveGameTeam
+	74,  // 54: cfbd.v1.LiveGame.drives:type_name -> cfbd.v1.LiveGameDrive
+	118, // 55: cfbd.v1.BettingGame.start_date:type_name -> google.protobuf.Timestamp
+	76,  // 56: cfbd.v1.BettingGame.lines:type_name -> cfbd.v1.GameLine
+	118, // 57: cfbd.v1.Game.start_date:type_name -> google.protobuf.Timestamp
+	81,  // 58: cfbd.v1.GameTeamStatsTeam.stats:type_name -> cfbd.v1.GameTeamStatsTeamStat
+	82,  // 59: cfbd.v1.GameTeamStats.teams:type_name -> cfbd.v1.GameTeamStatsTeam
+	84,  // 60: cfbd.v1.GamePlayerStatTypes.athletes:type_name -> cfbd.v1.GamePlayerStatPlayer
+	85,  // 61: cfbd.v1.GamePlayerStatCategories.types:type_name -> cfbd.v1.GamePlayerStatTypes
+	86,  // 62: cfbd.v1.GamePlayerStatsTeam.categories:type_name -> cfbd.v1.GamePlayerStatCategories
+	87,  // 63: cfbd.v1.GamePlayerStats.teams:type_name -> cfbd.v1.GamePlayerStatsTeam
+	118, // 64: cfbd.v1.GameMedia.start_time:type_name -> google.protobuf.Timestamp
+	118, // 65: cfbd.v1.GameWeather.start_time:type_name -> google.protobuf.Timestamp
+	91,  // 66: cfbd.v1.TeamRecords.total:type_name -> cfbd.v1.TeamRecord
+	91,  // 67: cfbd.v1.TeamRecords.conference_games:type_name -> cfbd.v1.TeamRecord
+	91,  // 68: cfbd.v1.TeamRecords.home_games:type_name -> cfbd.v1.TeamRecord
+	91,  // 69: cfbd.v1.TeamRecords.away_games:type_name -> cfbd.v1.TeamRecord
+	91,  // 70: cfbd.v1.TeamRecords.neutral_site_games:type_name -> cfbd.v1.TeamRecord
+	91,  // 71: cfbd.v1.TeamRecords.regular_season:type_name -> cfbd.v1.TeamRecord
+	91,  // 72: cfbd.v1.TeamRecords.postseason:type_name -> cfbd.v1.TeamRecord
+	118, // 73: cfbd.v1.CalendarWeek.start_date:type_name -> google.protobuf.Timestamp
+	118, // 74: cfbd.v1.CalendarWeek.end_date:type_name -> google.protobuf.Timestamp
+	118, // 75: cfbd.v1.CalendarWeek.first_game_start:type_name -> google.protobuf.Timestamp
+	118, // 76: cfbd.v1.CalendarWeek.last_game_start:type_name -> google.protobuf.Timestamp
+	118, // 77: cfbd.v1.Scoreboard.start_date:type_name -> google.protobuf.Timestamp
+	119, // 78: cfbd.v1.Scoreboard.venue:type_name -> google.protobuf.Struct
+	119, // 79: cfbd.v1.Scoreboard.home_team:type_name -> google.protobuf.Struct
+	119, // 80: cfbd.v1.Scoreboard.away_team:type_name -> google.protobuf.Struct
+	119, // 81: cfbd.v1.Scoreboard.weather:type_name -> google.protobuf.Struct
+	119, // 82: cfbd.v1.Scoreboard.betting:type_name -> google.protobuf.Struct
+	3,   // 83: cfbd.v1.Drive.start_time:type_name -> cfbd.v1.ClockInt32
+	3,   // 84: cfbd.v1.Drive.end_time:type_name -> cfbd.v1.ClockInt32
+	3,   // 85: cfbd.v1.Drive.elapsed:type_name -> cfbd.v1.ClockInt32
+	98,  // 86: cfbd.v1.DraftPick.hometown_info:type_name -> cfbd.v1.DraftPickHometownInfo
+	118, // 87: cfbd.v1.Coach.hire_date:type_name -> google.protobuf.Timestamp
+	100, // 88: cfbd.v1.Coach.seasons:type_name -> cfbd.v1.CoachSeason
+	102, // 89: cfbd.v1.TeamPPA.overall:type_name -> cfbd.v1.StatsByQuarter
+	102, // 90: cfbd.v1.TeamPPA.passing:type_name -> cfbd.v1.StatsByQuarter
+	102, // 91: cfbd.v1.TeamPPA.rushing:type_name -> cfbd.v1.StatsByQuarter
+	102, // 92: cfbd.v1.TeamSuccessRates.overall:type_name -> cfbd.v1.StatsByQuarter
+	102, // 93: cfbd.v1.TeamSuccessRates.standard_downs:type_name -> cfbd.v1.StatsByQuarter
+	102, // 94: cfbd.v1.TeamSuccessRates.passing_downs:type_name -> cfbd.v1.StatsByQuarter
+	102, // 95: cfbd.v1.TeamExplosiveness.overall:type_name -> cfbd.v1.StatsByQuarter
+	111, // 96: cfbd.v1.PlayerPPA.average:type_name -> cfbd.v1.PlayerStatsByQuarter
+	111, // 97: cfbd.v1.PlayerPPA.cumulative:type_name -> cfbd.v1.PlayerStatsByQuarter
+	109, // 98: cfbd.v1.AdvancedBoxScoreTeams.field_position:type_name -> cfbd.v1.TeamFieldPosition
+	108, // 99: cfbd.v1.AdvancedBoxScoreTeams.scoring_opportunities:type_name -> cfbd.v1.TeamScoringOpportunities
+	107, // 100: cfbd.v1.AdvancedBoxScoreTeams.havoc:type_name -> cfbd.v1.TeamHavoc
+	106, // 101: cfbd.v1.AdvancedBoxScoreTeams.rushing:type_name -> cfbd.v1.TeamRushingStats
+	105, // 102: cfbd.v1.AdvancedBoxScoreTeams.explosiveness:type_name -> cfbd.v1.TeamExplosiveness
+	104, // 103: cfbd.v1.AdvancedBoxScoreTeams.success_rates:type_name -> cfbd.v1.TeamSuccessRates
+	103, // 104: cfbd.v1.AdvancedBoxScoreTeams.cumulative_ppa:type_name -> cfbd.v1.TeamPPA
+	103, // 105: cfbd.v1.AdvancedBoxScoreTeams.ppa:type_name -> cfbd.v1.TeamPPA
+	112, // 106: cfbd.v1.AdvancedBoxScorePlayers.ppa:type_name -> cfbd.v1.PlayerPPA
+	110, // 107: cfbd.v1.AdvancedBoxScorePlayers.usage:type_name -> cfbd.v1.PlayerGameUsage
+	113, // 108: cfbd.v1.AdvancedBoxScore.game_info:type_name -> cfbd.v1.AdvancedBoxScoreGameInfo
+	114, // 109: cfbd.v1.AdvancedBoxScore.teams:type_name -> cfbd.v1.AdvancedBoxScoreTeams
+	115, // 110: cfbd.v1.AdvancedBoxScore.players:type_name -> cfbd.v1.AdvancedBoxScorePlayers
+	111, // [111:111] is the sub-list for method output_type
+	111, // [111:111] is the sub-list for method input_type
+	111, // [111:111] is the sub-list for extension type_name
+	111, // [111:111] is the sub-list for extension extendee
+	0,   // [0:111] is the sub-list for field type_name
 }
 
 func init() { file_cfbd_internal_proto_cfbd_proto_init() }
@@ -13480,13 +13468,67 @@ func file_cfbd_internal_proto_cfbd_proto_init() {
 	if File_cfbd_internal_proto_cfbd_proto != nil {
 		return
 	}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[3].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[4].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[9].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[11].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[12].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[13].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[14].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[19].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[20].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[21].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[22].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[24].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[25].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[26].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[30].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[31].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[33].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[34].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[35].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[36].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[37].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[38].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[39].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[40].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[41].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[42].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[43].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[44].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[45].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[46].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[49].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[53].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[55].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[58].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[62].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[67].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[72].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[73].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[74].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[75].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[76].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[77].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[80].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[82].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[87].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[90].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[92].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[94].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[95].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[99].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[100].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[102].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[110].OneofWrappers = []any{}
+	file_cfbd_internal_proto_cfbd_proto_msgTypes[111].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_cfbd_internal_proto_cfbd_proto_rawDesc), len(file_cfbd_internal_proto_cfbd_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   116,
+			NumMessages:   117,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
