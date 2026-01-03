@@ -1951,7 +1951,7 @@ func TestGetTeamPositionGroupRecruitingRankings_ValidRequest_ShouldSucceed(t *te
 
 	findGroup := func(positionGroup string) *AggregatedTeamRecruiting {
 		for _, group := range response {
-			if group.PositionGroup != nil && *group.PositionGroup == positionGroup {
+			if group.PositionGroup != "" && group.PositionGroup == positionGroup {
 				return group
 			}
 		}
@@ -1964,7 +1964,7 @@ func TestGetTeamPositionGroupRecruitingRankings_ValidRequest_ShouldSucceed(t *te
 	assert.Equal(t, defensiveLine.Team, "Texas")
 	assert.Equal(t, defensiveLine.Conference, "SEC")
 	require.NotNil(t, defensiveLine.PositionGroup)
-	assert.Equal(t, *defensiveLine.PositionGroup, "Defensive Line")
+	assert.Equal(t, defensiveLine.PositionGroup, "Defensive Line")
 	assert.Equal(t, defensiveLine.AverageRating, 0.8632249981164932)
 	assert.Equal(t, defensiveLine.TotalRating, 3.4529)
 	assert.Equal(t, defensiveLine.Commits, int32(4))
@@ -1976,7 +1976,7 @@ func TestGetTeamPositionGroupRecruitingRankings_ValidRequest_ShouldSucceed(t *te
 	assert.Equal(t, linebacker.Team, "Texas")
 	assert.Equal(t, linebacker.Conference, "SEC")
 	require.NotNil(t, linebacker.PositionGroup)
-	assert.Equal(t, *linebacker.PositionGroup, "Linebacker")
+	assert.Equal(t, linebacker.PositionGroup, "Linebacker")
 	assert.Equal(t, linebacker.AverageRating, 0.8768333395322164)
 	assert.Equal(t, linebacker.TotalRating, 2.6305)
 	assert.Equal(t, linebacker.Commits, int32(3))
@@ -1988,7 +1988,7 @@ func TestGetTeamPositionGroupRecruitingRankings_ValidRequest_ShouldSucceed(t *te
 	assert.Equal(t, offensiveLine.Team, "Texas")
 	assert.Equal(t, offensiveLine.Conference, "SEC")
 	require.NotNil(t, offensiveLine.PositionGroup)
-	assert.Equal(t, *offensiveLine.PositionGroup, "Offensive Line")
+	assert.Equal(t, offensiveLine.PositionGroup, "Offensive Line")
 	assert.Equal(t, offensiveLine.AverageRating, 0.8646166721979777)
 	assert.Equal(t, offensiveLine.TotalRating, 5.1877003)
 	assert.Equal(t, offensiveLine.Commits, int32(6))

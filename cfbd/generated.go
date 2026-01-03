@@ -3186,7 +3186,7 @@ type AggregatedTeamRecruiting struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Team          string                 `protobuf:"bytes,1,opt,name=team,proto3" json:"team,omitempty"`
 	Conference    string                 `protobuf:"bytes,2,opt,name=conference,proto3" json:"conference,omitempty"`
-	PositionGroup *string                `protobuf:"bytes,3,opt,name=position_group,json=positionGroup,proto3,oneof" json:"position_group,omitempty"`
+	PositionGroup string                 `protobuf:"bytes,3,opt,name=position_group,json=positionGroup,proto3" json:"position_group,omitempty"`
 	AverageRating float64                `protobuf:"fixed64,4,opt,name=average_rating,json=averageRating,proto3" json:"average_rating,omitempty"`
 	TotalRating   float64                `protobuf:"fixed64,5,opt,name=total_rating,json=totalRating,proto3" json:"total_rating,omitempty"`
 	Commits       int32                  `protobuf:"varint,6,opt,name=commits,proto3" json:"commits,omitempty"`
@@ -3240,8 +3240,8 @@ func (x *AggregatedTeamRecruiting) GetConference() string {
 }
 
 func (x *AggregatedTeamRecruiting) GetPositionGroup() string {
-	if x != nil && x.PositionGroup != nil {
-		return *x.PositionGroup
+	if x != nil {
+		return x.PositionGroup
 	}
 	return ""
 }
@@ -12091,18 +12091,17 @@ const file_cfbd_internal_proto_cfbd_proto_rawDesc = "" +
 	"\x04year\x18\x01 \x01(\x05R\x04year\x12\x12\n" +
 	"\x04rank\x18\x02 \x01(\x05R\x04rank\x12\x12\n" +
 	"\x04team\x18\x03 \x01(\tR\x04team\x12\x16\n" +
-	"\x06points\x18\x04 \x01(\x01R\x06points\"\x96\x02\n" +
+	"\x06points\x18\x04 \x01(\x01R\x06points\"\xfe\x01\n" +
 	"\x18AggregatedTeamRecruiting\x12\x12\n" +
 	"\x04team\x18\x01 \x01(\tR\x04team\x12\x1e\n" +
 	"\n" +
 	"conference\x18\x02 \x01(\tR\n" +
-	"conference\x12*\n" +
-	"\x0eposition_group\x18\x03 \x01(\tH\x00R\rpositionGroup\x88\x01\x01\x12%\n" +
+	"conference\x12%\n" +
+	"\x0eposition_group\x18\x03 \x01(\tR\rpositionGroup\x12%\n" +
 	"\x0eaverage_rating\x18\x04 \x01(\x01R\raverageRating\x12!\n" +
 	"\ftotal_rating\x18\x05 \x01(\x01R\vtotalRating\x12\x18\n" +
 	"\acommits\x18\x06 \x01(\x05R\acommits\x12#\n" +
-	"\raverage_stars\x18\a \x01(\x01R\faverageStarsB\x11\n" +
-	"\x0f_position_group\"\xea\x03\n" +
+	"\raverage_stars\x18\a \x01(\x01R\faverageStars\"\xea\x03\n" +
 	"\rSpTeamOffense\x12\x17\n" +
 	"\x04pace\x18\x01 \x01(\x01H\x00R\x04pace\x88\x01\x01\x12\x1e\n" +
 	"\brun_rate\x18\x02 \x01(\x01H\x01R\arunRate\x88\x01\x01\x12(\n" +
@@ -13484,7 +13483,6 @@ func file_cfbd_internal_proto_cfbd_proto_init() {
 	file_cfbd_internal_proto_cfbd_proto_msgTypes[26].OneofWrappers = []any{}
 	file_cfbd_internal_proto_cfbd_proto_msgTypes[30].OneofWrappers = []any{}
 	file_cfbd_internal_proto_cfbd_proto_msgTypes[31].OneofWrappers = []any{}
-	file_cfbd_internal_proto_cfbd_proto_msgTypes[33].OneofWrappers = []any{}
 	file_cfbd_internal_proto_cfbd_proto_msgTypes[34].OneofWrappers = []any{}
 	file_cfbd_internal_proto_cfbd_proto_msgTypes[35].OneofWrappers = []any{}
 	file_cfbd_internal_proto_cfbd_proto_msgTypes[36].OneofWrappers = []any{}
