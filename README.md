@@ -1,5 +1,10 @@
 # cfbd-go
 
+[![Build Status](https://github.com/clintrovert/cfbd-go/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/clintrovert/cfbd-go/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/clintrovert/cfbd-go.svg)](https://pkg.go.dev/github.com/clintrovert/cfbd-go)
+[![Go Version](https://img.shields.io/badge/go-1.24+-00ADD8?style=flat&logo=go)](https://go.dev/)
+[![GitHub release](https://img.shields.io/github/v/release/clintrovert/cfbd-go?include_prereleases&sort=semver)](https://github.com/clintrovert/cfbd-go/releases)
+
 A lightweight Golang client for the [College Football Data API](https://collegefootballdata.com/).
 
 ## Table of Contents
