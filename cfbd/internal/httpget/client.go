@@ -46,6 +46,25 @@ type Client struct {
 	APIKey     string
 }
 
+// buildQueryString constructs a query string from url.Values, manually
+// encoding keys while preserving already-encoded values to avoid double
+// encoding.
+func buildQueryString(params url.Values) string {
+	// Preallocate slice with estimated capacity
+	totalValues := 0
+	for _, values := range params {
+		totalValues += len(values)
+	}
+	queryParts := make([]string, 0, totalValues)
+	for key, values := range params {
+		encodedKey := url.QueryEscape(key)
+		for _, value := range values {
+			queryParts = append(queryParts, encodedKey+"="+value)
+		}
+	}
+	return strings.Join(queryParts, "&")
+}
+
 // Execute performs an HTTP GET request with the given path and query
 // parameters.
 func (c *Client) Execute(
@@ -58,18 +77,7 @@ func (c *Client) Execute(
 	}
 
 	u := c.BaseURL.ResolveReference(&url.URL{Path: path})
-	// Build query string manually since values are already URL encoded
-	// by setString() in client.go to avoid double encoding from Encode().
-	var queryParts []string
-	for key, values := range params {
-		// Encode the key (though keys are typically constants, encode for safety)
-		encodedKey := url.QueryEscape(key)
-		for _, value := range values {
-			// Value is already encoded by setString(), so use it as-is
-			queryParts = append(queryParts, encodedKey+"="+value)
-		}
-	}
-	u.RawQuery = strings.Join(queryParts, "&")
+	u.RawQuery = buildQueryString(params)
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
 	if err != nil {
@@ -81,8 +89,6 @@ func (c *Client) Execute(
 		req.Header.Set("User-Agent", c.UserAgent)
 	}
 
-	// Set Authorization header with Bearer token.
-	// The API key is validated in NewClient, so it should always be present.
 	req.Header.Set("Authorization", "Bearer "+c.APIKey)
 
 	resp, err := c.HTTPClient.Do(req)
@@ -102,7 +108,11 @@ func (c *Client) Execute(
 	}
 
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return nil, &apiError{StatusCode: resp.StatusCode, Body: body}
+		return nil, &apiError{
+			StatusCode: resp.StatusCode,
+			Body:       body,
+			Endpoint:   u.Path,
+		}
 	}
 
 	return body, nil
